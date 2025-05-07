@@ -32,9 +32,9 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/ui-kit.es.js",
-      "require": "./dist/ui-kit.cjs.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/ui-kit.cjs.js"
     },
     "./style.css": "./dist/styles.css"
   },
