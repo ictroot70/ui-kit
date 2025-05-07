@@ -1,0 +1,116 @@
+scripts:
+  # ▶️ START AND DEVELOPMENT
+  start:
+    script: 'vite'
+    description: '🚀 Launch of the Vite DEV server'
+
+  dev:
+    script: 'storybook dev -p 6006'
+    description: '📘 Storybook launch on port 6006'
+
+  preview:
+    script: 'vite preview'
+    description: '👀 View the collected project'
+
+  buildStorybook:
+    script: 'storybook build'
+    description: '📘 Assembly Storybook'
+
+  # 🧹 Formatting and linting
+  format:
+    script: 'prettier --write .'
+    description: '🎨 Formatting of the project using Prettier'
+
+  lint:
+    script: 'eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0'
+    description: '🔍 Project Linting'
+
+  lintFix:
+    script: 'eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix'
+    description: '🧹 Lint with auto-fix'
+
+  # 🧪 TESTING
+  test:
+    script: 'vitest run'
+    description: '🧪 Starting tests via Vitest'
+
+  # ⚙️ Assembly and preparation
+  prebuild:
+    script: 'rm -rf dist'
+    description: '🧨 Dist cleaning before assembly'
+
+  generateIndex:
+    script: 'node scripts/generate-index.js'
+    description: '📄 Generation of a common index file for components'
+
+  build:
+    script: 'nps generateIndex && vite build && tsc'
+    description: '📦 Full assembly of the project: Index, Vite and Typescript'
+
+  # 🧭 VERSIFICATION PROCESS
+  preversion:
+    script: |
+      echo "📦 Preparation in front of the BUMP version..." && \
+      nps format && \
+      nps lintFix && \
+      nps generateIndex
+    description: '⚙️ Preparatory tasks before the BUMP version'
+
+  # 📝 Commits and changes
+  addChangeset:
+    script: 'git add . && read -p "Enter a comment on Commit: " msg && git commit -m "$msg"'
+    description: '📦 Adding changes with manual commentary'
+
+  gitCommit:
+    script: 'node scripts/git-commit-message.cjs'
+    description: '📮 Interface for creating a commune'
+
+  # 🔖 VERSIONS AND RELEASES
+  version:
+    patch:
+      script: |
+        node scripts/git-commit-message.cjs && \
+        pnpm version patch && \
+        git push origin && \
+        git push origin --tags
+      description: '🔖 Improving PATCH version'
+
+    minor:
+      script: |
+        node scripts/git-commit-message.cjs && \
+        pnpm version minor && \
+        git push origin && \
+        git push origin --tags
+      description: '🆙 Improving minor version'
+
+    major:
+      script: |
+        node scripts/git-commit-message.cjs && \
+        pnpm version major && \
+        git push origin && \
+        git push origin --tags
+      description: '🚀 Improving the Major version'
+
+    beta:
+      script: |
+        node scripts/git-commit-message.cjs && \
+        pnpm version prerelease --preid=beta && \
+        git push origin && \
+        git push origin --tags
+      description: '🧪 Issue beta version'
+
+    alpha:
+      script: |
+        node scripts/git-commit-message.cjs && \
+        pnpm version prerelease --preid=alpha && \
+        git push origin && \
+        git push origin --tags
+      description: '🧬 Issue Alpha version'
+
+    rc:
+      script: |
+        node scripts/git-commit-message.cjs && \
+        pnpm version prerelease --preid=rc && \
+        git push origin && \
+        git push origin --tags
+      description: '🧪 Issue RC version'
