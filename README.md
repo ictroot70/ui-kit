@@ -40,11 +40,11 @@ export function MyComponent() {
 
 ### Components are supported at all levels of Atomic Design
 
-### - Atoms: `Button`, `Input`, `Checkbox`,
+### - Atoms: `Button`, `Input`, `Checkbox`
 
-### - Molecules: `InputGroup`, `CardHeader`,
+### - Molecules: `InputGroup`, `CardHeader`
 
-### - Organisms: `Modal`, `FormSection`,
+### - Organisms: `Modal`, `FormSection`
 
 ### A full list of components is in Storybook
 
@@ -73,7 +73,7 @@ Storybook: [🔗 Open Storybook on Vercel](https://ictroot-ui-kit.vercel.app/)
 
 ## 🙋‍♂️ Contributors
 
-### - [Smbat Antonyan](https://github.com/SmbatAntonyan)
+### - [Smbat Antonyan](https://github.com/Smbat1505)
 
 ### - [Dmitry Muzalev](https://github.com/DmitryMuzalev)
 
