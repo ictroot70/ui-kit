@@ -20,6 +20,41 @@
 
 ---
 
+## ✅ To install a package into dependencies (default for runtime):
+
+- for example: `@radix-ui/react-dialog`
+
+```bash
+pnpm add @radix-ui/react-dialog
+```
+
+## ❌ To avoid (what you don’t want):
+
+- for example: `@radix-ui/react-dialog`
+
+```bash 
+pnpm add @radix-ui/react-dialog --save-dev  # ❌ Adds to devDependencies
+pnpm add @radix-ui/react-dialog --save-peer # ❌ Adds to peerDependencies
+```
+
+## ✅ Summary for Radix in your library:
+
+- Use:
+
+```bash
+pnpm add @radix-ui/react-dialog
+```
+
+- It will be added to:
+
+```bash
+{
+    "dependencies": {
+        "@radix-ui/react-dialog": "..."
+    }
+}
+```
+
 ## 📁 Project structure
 
 <pre>
@@ -38,7 +73,7 @@ lib/
 ## 📚 Usage
 
 | Script                     | Command              | Description                                              |
-| -------------------------- | -------------------- | -------------------------------------------------------- |
+|----------------------------|----------------------|----------------------------------------------------------|
 | **START AND DEVELOPMENT**  |                      |                                                          |
 | Start                      | `nps start`          | 🚀 Start Vite dev server                                 |
 | Storybook Dev              | `nps dev`            | 📘 Launch Storybook on port 6006                         |
