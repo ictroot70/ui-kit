@@ -1,0 +1,17 @@
+@use '@/styles/mixins' as mixins;
+
+@use '@/styles/function' as function;
+
+.root {
+  margin: 0 auto;
+  padding: function.px-to-unit(23) function.px-to-unit(24) function.px-to-unit(24);
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+
+  background-color: var(--color-dark-700);
+  box-shadow:
+    1px 1px 2px rgb(0 0 0 / 10%),
+    -1px -1px 2px rgb(0 0 0 / 10%);
+
+  @include mixins.screen-size($width: function.px-to-unit(378), $height: auto);
+}
