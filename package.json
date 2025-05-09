@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": false,
   "type": "module",
-  "main": "dist/ui-kit.es.js",
+  "main": "dist/ui-kit.cjs.js",
   "module": "dist/ui-kit.es.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -18,7 +18,8 @@
     "./style.css": "./dist/ui-kit.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "dist/*.css"
   ],
   "sideEffects": [
     "./dist/ui-kit.css"
@@ -86,12 +87,13 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-storybook": "^0.12.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "rollup-plugin-analyzer": "^4.0.0",
     "nps": "^5.10.0",
     "nps-utils": "1.7.0",
     "playwright": "^1.52.0",
     "prettier": "^3.5.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "sass": "^1.87.0",
     "storybook": "^8.6.12",
     "stylelint": "^16.19.1",
