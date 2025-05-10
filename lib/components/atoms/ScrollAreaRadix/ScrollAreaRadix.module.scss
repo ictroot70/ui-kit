@@ -1,0 +1,55 @@
+.ScrollAreaRoot {
+  overflow: hidden;
+  width: 100%;
+  height: 200px;
+}
+
+.ScrollAreaViewport {
+  overflow: auto hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.ScrollAreaScrollbar {
+  touch-action: none;
+  user-select: none;
+
+  display: flex;
+
+  padding: 2px;
+
+  background: transparent;
+  border-radius: 3px;
+
+  transition: background 300ms ease-out;
+}
+
+.ScrollAreaScrollbar[data-orientation='vertical'] {
+  width: 10px;
+}
+
+.ScrollAreaScrollbar[data-orientation='horizontal'] {
+  height: 10px;
+}
+
+.ScrollAreaThumb {
+  position: relative;
+
+  flex: 1;
+
+  width: 4px;
+  height: 10px;
+
+  background: var(--color-dark-300);
+  border-radius: 3px;
+
+  transition: background 0.2s ease-in-out;
+}
+
+.ScrollAreaThumb:hover {
+  background: var(--color-light-900);
+}
+
+.ScrollAreaCorner {
+  background: transparent;
+}
