@@ -71,6 +71,7 @@
     "@it-incubator/stylelint-config": "^2.0.0",
     "@storybook/addon-a11y": "^8.6.12",
     "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/addon-interactions": "^8.6.12",
     "@storybook/addon-onboarding": "^8.6.12",
     "@storybook/addon-storysource": "^8.6.12",
     "@storybook/blocks": "^8.6.12",
