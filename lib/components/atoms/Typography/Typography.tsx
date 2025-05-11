@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import { ComponentProps } from 'react'
+import React, { ComponentProps, forwardRef } from 'react'
 import { Slot } from '@radix-ui/react-slot'
 
 import s from './Typography.module.scss'
@@ -26,14 +26,28 @@ type Props = {
   variant?: TypographyVariant
 } & ComponentProps<'p'>
 
-export const Typography = ({
-  asChild = false,
-  className,
-  variant = 'regular_14',
-  ...props
-}: Props) => {
-  const classNames = clsx(s[variant], className)
-  const Component = asChild ? Slot : 'p'
+export const Typography = forwardRef<HTMLParagraphElement, Props>(
+  ({ asChild = false, className, variant = 'regular_14', children, ...props }, ref) => {
+    if (asChild) {
+      if (React.Children.count(children) !== 1 || !React.isValidElement(children)) {
+        console.error('Typography with `asChild` expects a single React element as a child.')
+        return (
+          <p {...props} ref={ref} className={clsx(s[variant], className)}>
+            {children}
+          </p>
+        )
+      }
+      return (
+        <Slot {...props} ref={ref} className={clsx(s[variant], className)}>
+          {children}
+        </Slot>
+      )
+    }
 
-  return <Component {...props} className={classNames} />
-}
+    return (
+      <p {...props} ref={ref} className={clsx(s[variant], className)}>
+        {children}
+      </p>
+    )
+  }
+)
