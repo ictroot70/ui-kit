@@ -1,0 +1,129 @@
+@use '@/styles/mixins' as mixins;
+@use '@/styles/function' as function;
+
+.paginationContainer {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  background-color: black;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  padding: 16px;
+  box-sizing: border-box;
+
+  &.insideComponent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 24px;
+}
+
+.navButton,
+.pageButton {
+  padding: 8px 12px;
+  border: none;
+  background: rgb(8, 5, 5);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: white;
+
+  &:hover:not(.disabled) {
+    background: #171717;
+    color: white;
+  }
+
+  &:focus {
+    border: 1px solid #2f68cc;
+    outline: none;
+  }
+}
+
+.pageButton {
+  min-width: 36px;
+
+  &.active {
+    background: white;
+    color: black;
+    font-weight: bold;
+  }
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ellipsis {
+  padding: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.pageInput {
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  input {
+    width: 50px;
+    padding: 8px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    appearance: none;
+
+    &:focus {
+      border-color: #2f68cc;
+      outline: none;
+    }
+  }
+}
+
+.itemsPerPage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+
+  select {
+    padding: 4px 8px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+
+    &:focus {
+      border-color: #2f68cc;
+      outline: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .paginationContainer {
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px;
+  }
+
+  .itemsPerPage {
+    margin-top: 8px;
+  }
+}
