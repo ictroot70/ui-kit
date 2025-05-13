@@ -106,12 +106,7 @@ export const Pagination = ({
                 onBlur={handlePageInputBlur}
                 onKeyDown={handleKeyDown}
                 className={styles.pageInput}
-                style={{
-                  appearance: 'none',
-                  width: '40px',
-                  backgroundColor: 'black',
-                  color: 'white',
-                }}
+
               />
             ) : (
               <span
