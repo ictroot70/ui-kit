@@ -1,7 +1,12 @@
+@use '@/styles/mixins' as mixins;
+@use '@/styles/function' as function;
+
 .itemWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include mixins.display-flex(
+          $align: center,
+          $justify: space-between,
+          $gap: 12px
+  );
   border-radius: 3px;
   max-width: 170px;
   width: 100%;
@@ -10,7 +15,6 @@
   padding: 0 35px 0 25px;
   position: relative;
   user-select: none;
-  gap: 12px;
 
   &[data-disabled] {
     color: red;

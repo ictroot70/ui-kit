@@ -1,0 +1,97 @@
+@use '@/styles/mixins' as mixins;
+@use '@/styles/function' as function;
+
+.select-box {
+    .selectWrapper {
+        @include mixins.display-flex($direction: column);
+        width: function.px-to-unit(200);
+        position: relative;
+    }
+
+    .iconDown {
+        margin-left: auto;
+    }
+
+    .trigger {
+        all: unset;
+        @include mixins.display-flex($align: center, $justify: space-between, $gap: 5px);
+        @include mixins.box-sizing(border-box);
+        width: 100%;
+        min-height: function.px-to-unit(40);
+        padding: 0 function.px-to-unit(15);
+        background-color: var(--color-dark-500);
+        border-radius: var(--border-radius-s);
+        border: 1px solid var(--color-dark-100);
+        outline: 1px solid transparent;
+        cursor: pointer;
+        color: var(--color-light-900);
+
+        &[data-state='open'] .iconDown {
+            transform: rotate(180deg);
+        }
+
+        &[data-placeholder] {
+            background-color: var(--color-dark-500);
+        }
+
+        &:active {
+            outline-color: var(--color-dark-100);
+            background-color: var(--color-dark-500);
+        }
+
+        &:focus {
+            background-color: var(--color-dark-900);
+            outline: var(--outline-focus);
+        }
+
+        &:disabled {
+            color: var(--color-dark-100);
+            border-color: var(--color-dark-100);
+        }
+
+        &:hover {
+            background-color: var(--color-dark-100);
+        }
+    }
+
+    .Content {
+        @include mixins.display-flex($direction: column, $align: center, $justify: center);
+        background-color: var(--color-dark-500);
+        border-radius: var(--border-radius-s);
+        border: 1px solid var(--color-dark-100);
+        color: var(--color-light-100);
+        cursor: pointer;
+        margin-top: function.px-to-unit(20);
+        position: absolute;
+        top: -20px;
+        z-index: 101;
+    }
+
+    .Viewport {
+        padding: function.px-to-unit(5);
+    }
+
+    .selectItems {
+        @include mixins.display-flex($align: center, $justify: center, $gap: function.px-to-unit(20));
+        margin-right: function.px-to-unit(25);
+        padding: function.px-to-unit(5) function.px-to-unit(20);
+        border: 2px solid var(--color-danger-500);
+    }
+
+    .Separator {
+        @include mixins.display-flex($direction: column, $align: center, $justify: center);
+        height: 1px;
+        background-color: var(--color-danger-500);
+        margin: function.px-to-unit(5);
+    }
+
+    .ScrollButton {
+        @include mixins.display-flex($align: center, $justify: center);
+        min-height: function.px-to-unit(25);
+        height: 100%;
+        border: 1px solid var(--color-dark-100);
+        background-color: var(--color-dark-500);
+        color: var(--color-light-100);
+        cursor: pointer;
+    }
+}

@@ -1,6 +1,6 @@
 import { CheckIcon } from "@radix-ui/react-icons";
 import * as RadixSelect from "@radix-ui/react-select";
-import stl from "./selectItems.module.css";
+import stl from "./SelectItems.module.scss";
 import { clsx } from "clsx";
 
 import {type ComponentPropsWithoutRef, type ComponentRef, forwardRef, type ReactNode} from "react";

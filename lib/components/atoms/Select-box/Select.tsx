@@ -1,4 +1,4 @@
-import s from "./select.module.css";
+import s from "./Select.module.scss";
 import * as RadixSelect from "@radix-ui/react-select";
 import { clsx } from "clsx";
 import { type ComponentRef, forwardRef, ReactNode, useId } from 'react';
