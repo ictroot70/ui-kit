@@ -17,5 +17,3 @@ export const Card = forwardRef<ElementRef<'div'>, CardProps>(
 interface CardProps extends ComponentPropsWithoutRef<'div'> {
   children?: ReactNode
 }
-
-Card.displayName = 'Card'
