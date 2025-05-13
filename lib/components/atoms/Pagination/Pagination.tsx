@@ -1,4 +1,3 @@
-// Pagination.tsx
 import { useState, ChangeEvent, useEffect, useMemo, useCallback } from 'react';
 import clsx from 'clsx';
 import styles from './Pagination.module.scss';
@@ -12,7 +11,7 @@ interface PaginationProps {
   className?: string;
 }
 
-type PageItem = number | 'ellipsis';
+type PageItem = number | { type: 'ellipsis'; position: 'left' | 'right' };
 
 export const Pagination = ({
   currentPage = 1,
@@ -24,10 +23,11 @@ export const Pagination = ({
 }: PaginationProps) => {
   const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
   const [inputPage, setInputPage] = useState(currentPage.toString());
-  const [isInputVisible, setIsInputVisible] = useState(false);
+  const [activeEllipsis, setActiveEllipsis] = useState<'left' | 'right' | null>(null);
 
   useEffect(() => {
     setInputPage(currentPage.toString());
+    setActiveEllipsis(null);
   }, [currentPage]);
 
   const handlePageInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +41,7 @@ export const Pagination = ({
     const page = Math.max(1, Math.min(parseInt(inputPage) || currentPage, totalPages));
     onPageChange(page);
     setInputPage(page.toString());
-    setIsInputVisible(false);
+    setActiveEllipsis(null);
   }, [inputPage, currentPage, totalPages, onPageChange]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -54,8 +54,8 @@ export const Pagination = ({
     onPageChange(1);
   }, [onItemsPerPageChange, onPageChange]);
 
-  const toggleInputVisibility = useCallback(() => {
-    setIsInputVisible(prev => !prev);
+  const handleEllipsisClick = useCallback((position: 'left' | 'right') => {
+    setActiveEllipsis(position);
   }, []);
 
   const visiblePages = useMemo<PageItem[]>(() => {
@@ -71,9 +71,9 @@ export const Pagination = ({
       const startPage = Math.max(2, currentPage - boundaryPages);
       const endPage = Math.min(totalPages - 1, currentPage + boundaryPages);
 
-      if (startPage > 2) pages.push('ellipsis');
+      if (startPage > 2) pages.push({ type: 'ellipsis', position: 'left' });
       for (let i = startPage; i <= endPage; i++) pages.push(i);
-      if (endPage < totalPages - 1) pages.push('ellipsis');
+      if (endPage < totalPages - 1) pages.push({ type: 'ellipsis', position: 'right' });
 
       pages.push(totalPages);
     }
@@ -95,31 +95,34 @@ export const Pagination = ({
           &lt;
         </button>
 
-        {visiblePages.map((page, index) => (
-          page === 'ellipsis' ? (
-            isInputVisible ? (
+        {visiblePages.map((page) => {
+          if (typeof page !== 'number') {
+            const { position } = page;
+            return activeEllipsis === position ? (
               <input
-                key={`input-${index}`}
+                key={`input-${position}`}
                 type="text"
                 value={inputPage}
                 onChange={handlePageInputChange}
                 onBlur={handlePageInputBlur}
                 onKeyDown={handleKeyDown}
                 className={styles.pageInput}
-
+                autoFocus
               />
             ) : (
               <span
-                key={`ellipsis-${index}`}
-                onClick={toggleInputVisibility}
+                key={`ellipsis-${position}`}
+                onClick={() => handleEllipsisClick(position)}
                 className={styles.ellipsis}
                 role="button"
-                aria-label="Jump to page"
+                aria-label={`Jump to page near ${position}`}
               >
                 ...
               </span>
-            )
-          ) : (
+            );
+          }
+
+          return (
             <button
               key={page}
               className={clsx(styles.pageButton, {
@@ -131,8 +134,8 @@ export const Pagination = ({
             >
               {page}
             </button>
-          )
-        ))}
+          );
+        })}
 
         <button
           className={clsx(styles.navButton, { [styles.disabled]: currentPage === totalPages })}
@@ -148,12 +151,13 @@ export const Pagination = ({
         <div className={styles.itemsPerPage}>
           <span>Show</span>
           <select
+
             value={itemsPerPage}
             onChange={handleItemsPerPageChange}
             aria-label="Items per page"
           >
             {pageSizeOptions.map(count => (
-              <option key={count} value={count}>
+              <option className={styles.option} key={count} value={count}>
                 {count}
               </option>
             ))}
