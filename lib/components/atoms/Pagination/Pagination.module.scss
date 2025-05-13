@@ -4,15 +4,13 @@
 .paginationContainer {
   display: flex;
   align-items: center;
-  padding: 16px 0;
-  background-color: black;
+  padding: function.px-to-unit(16);
+  background-color: var(--color-dark-900);
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-
-  padding: 16px;
   box-sizing: border-box;
 
   &.insideComponent {
@@ -26,38 +24,43 @@
 .pagination {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-right: 24px;
+  gap: function.px-to-unit(8);
+  margin-right: function.px-to-unit(24);
 }
 
 .navButton,
 .pageButton {
-  padding: 8px 12px;
+  padding: function.px-to-unit(8) function.px-to-unit(12);
   border: none;
-  background: rgb(8, 5, 5);
-  border-radius: 4px;
+  background: var(--color-dark-700);
+  border-radius: function.px-to-unit(4);
   cursor: pointer;
   transition: all 0.2s;
-  color: white;
+  color: var(--color-light-100);
+  @include mixins.typography-without-color(
+    var(--font-size-s),
+    var(--font-weight-regular),
+    var(--line-height-m)
+  );
 
   &:hover:not(.disabled) {
-    background: #171717;
-    color: white;
+    background: var(--color-dark-500);
+    color: var(--color-light-100);
   }
 
   &:focus {
-    border: 1px solid #2f68cc;
+    border: 1px solid var(--color-info-700);
     outline: none;
   }
 }
 
 .pageButton {
-  min-width: 36px;
+  min-width: function.px-to-unit(36);
 
   &.active {
-    background: white;
-    color: black;
-    font-weight: bold;
+    background: var(--color-light-100);
+    color: var(--color-dark-900);
+    font-weight: var(--font-weight-bold);
   }
 }
 
@@ -67,29 +70,40 @@
 }
 
 .ellipsis {
-  padding: 8px;
-  color: white;
+  padding: function.px-to-unit(8);
+  color: var(--color-light-100);
   cursor: pointer;
+  @include mixins.typography-without-color(
+    var(--font-size-s),
+    var(--font-weight-regular),
+    var(--line-height-m)
+  );
 }
 
 .pageInput {
-  margin-left: 16px;
+  margin-left: function.px-to-unit(16);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: function.px-to-unit(8);
+  color: var(--color-dark-900);
 
   input {
-    width: 50px;
-    padding: 8px;
-    border: 1px solid #333;
-    border-radius: 4px;
+    width: function.px-to-unit(50);
+    padding: function.px-to-unit(8);
+    border: 1px solid var(--color-dark-300);
+    border-radius: function.px-to-unit(4);
     text-align: center;
-    background-color: black;
-    color: white;
+    background-color: var(--color-dark-900);
+    color: var(--color-light-100);
     appearance: none;
+    @include mixins.typography-without-color(
+      var(--font-size-s),
+      var(--font-weight-regular),
+      var(--line-height-m)
+    );
 
     &:focus {
-      border-color: #2f68cc;
+      border-color: var(--color-info-700);
       outline: none;
     }
   }
@@ -98,32 +112,48 @@
 .itemsPerPage {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: white;
+  gap: function.px-to-unit(8);
+  color: var(--color-light-100);
 
   select {
-    padding: 4px 8px;
-    border: 1px solid #333;
-    border-radius: 4px;
-    background-color: black;
-    color: white;
+    padding: function.px-to-unit(4) function.px-to-unit(8);
+    border: 1px solid var(--color-dark-300);
+    border-radius: function.px-to-unit(4);
+    background-color: var(--color-dark-900);
+    color: var(--color-light-100);
     cursor: pointer;
+    @include mixins.typography-without-color(
+      var(--font-size-s),
+      var(--font-weight-regular),
+      var(--line-height-m)
+    );
 
     &:focus {
-      border-color: #2f68cc;
+      border-color: var(--color-dark-100);
       outline: none;
     }
+  }
+}
+
+.option {
+  padding: function.px-to-unit(8);
+  background-color: var(--color-dark-700);
+  color: var(--color-light-100);
+
+  &:hover {
+    background-color: var(--color-danger-500);
+    color: var(--color-light-100);
   }
 }
 
 @media (max-width: 768px) {
   .paginationContainer {
     flex-direction: column;
-    gap: 16px;
-    padding: 12px;
+    gap: function.px-to-unit(16);
+    padding: function.px-to-unit(12);
   }
 
   .itemsPerPage {
-    margin-top: 8px;
+    margin-top: function.px-to-unit(8);
   }
 }
