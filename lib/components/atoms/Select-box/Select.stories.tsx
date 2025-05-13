@@ -14,7 +14,6 @@ const meta: Meta<typeof Select> = {
   },
   args: {
     defaultValue: "React",
-    groupLabel: "Skills",
   },
   parameters: {
     layout: "centered",
@@ -26,7 +25,7 @@ type Story = StoryObj<typeof Select>;
 
 export const SelectLanguages: Story = {
   args: {
-    label: "select skills",
+    label: "Select-box",
     items: [
       { value: "HTML", label: "HTML" },
       { value: "CSS", label: "CSS" },
