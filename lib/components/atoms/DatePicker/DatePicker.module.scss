@@ -1,0 +1,143 @@
+@use '@/styles/mixins' as mixins;
+
+
+.datePickerWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  @include mixins.typography-with-color(var(--font-size-m), var(--font-weight-regular), var(--line-height-m), var(--color-light-900));
+  margin-bottom: 4px;
+}
+
+.requiredIndicator {
+  color: var(--color-danger-500);
+  margin-left: 4px;
+}
+
+.datePicker {
+  width: 262px;
+  min-height: 36px;
+  padding: 16px 24px;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--color-dark-300);
+  border-radius: var(--border-radius-s);
+  background-color: var(--color-dark-500);
+  color: var(--color-light-100);
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-m);
+  cursor: pointer;
+
+  &:focus {
+    border: 2px solid var(--color-primary-700);
+  }
+
+}
+
+.wrapperCalendar {
+  position: absolute;
+  left: -131px;
+  top: -3px;
+  width: 350px;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-dark-500);
+  border: 1px solid var(--color-dark-300);
+  overflow: hidden;
+  border-radius: 8px;
+  color: var(--color-light-100);
+}
+
+.popoverContent {
+  z-index: 50;
+  background-color: var(--color-dark-500);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 100vw;
+  overflow: auto;
+}
+
+.rdpDay_today {
+  color: var(--color-primary-500);
+  font-weight: var(--font-weight-semibold);
+}
+
+.rdpDay_selected {
+  background-color: var(--color-primary-500);
+  color: var(--color-light-100);
+  font-weight: var(--font-weight-bold);
+  border-radius: 50%;
+}
+
+.rdpDayDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.rdpCaptionLabel {
+  @include mixins.typography-with-color(var(--font-size-m), var(--font-weight-semibold), var(--line-height-m), var(--color-light-100));
+  text-align: center;
+  margin-left: 32px;
+}
+
+.weekendDay {
+  color: var(--color-danger-500);
+}
+
+.error {
+  border: 1px solid var(--color-danger-500);
+}
+
+.focused {
+  outline: var(--outline-focus);
+}
+
+.errorMessage {
+  color: var(--color-danger-500);
+  font-size: var(--font-size-xs);
+  margin-top: 4px;
+}
+
+.rdpNav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+}
+
+.rdpButton_next,
+.rdpButton_previous {
+  background-color: var(--color-dark-400);
+  color: var(--color-light-100);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color var(--transition-duration-basic);
+
+  &:hover {
+    background-color: var(--color-dark-300);
+  }
+}
+
+.rdpDay_inRange {
+  background-color: var(--color-success-500) !important;
+  color: var(--color-light-100) !important;
+}
+
+.rdpDay_first,
+.rdpDay_last {
+  background-color: var(--color-primary-500) !important;
+  color: var(--color-light-100) !important;
+}
