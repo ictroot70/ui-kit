@@ -18,7 +18,7 @@
 }
 
 .datePicker {
-  width: 262px;
+  width: 300px;
   min-height: 36px;
   padding: 16px 24px;
   display: inline-flex;
@@ -132,7 +132,7 @@
 }
 
 .rdpDay_inRange {
-  background-color: var(--color-success-500) !important;
+  background-color: var(--color-primary-500) !important;
   color: var(--color-light-100) !important;
 }
 
@@ -141,3 +141,9 @@
   background-color: var(--color-primary-500) !important;
   color: var(--color-light-100) !important;
 }
+
+.rdpButton_next svg,
+.rdpButton_previous svg {
+  fill: white !important;
+}
+
