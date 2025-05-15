@@ -1,11 +1,13 @@
+import { forwardRef } from 'react'
 import type { IconProps } from '../IconWrapper'
 import { IconWrapper } from '../IconWrapper'
 
-const BlockFull = (allProps: IconProps) => {
+const BlockFull = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (
     <IconWrapper
+      ref={ref}
       icon={
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -32,6 +34,6 @@ const BlockFull = (allProps: IconProps) => {
       {...restProps}
     />
   )
-}
+})
 
 export default BlockFull

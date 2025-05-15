@@ -1,11 +1,13 @@
+import { forwardRef } from 'react'
 import type { IconProps } from '../IconWrapper'
 import { IconWrapper } from '../IconWrapper'
 
-const Mic = (allProps: IconProps) => {
+const Mic = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (
     <IconWrapper
+      ref={ref}
       icon={
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -29,6 +31,6 @@ const Mic = (allProps: IconProps) => {
       {...restProps}
     />
   )
-}
+})
 
 export default Mic

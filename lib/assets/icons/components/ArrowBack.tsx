@@ -1,10 +1,12 @@
 import { IconProps, IconWrapper } from '../IconWrapper'
+import { forwardRef } from 'react'
 
-const ArrowBack = (allProps: IconProps) => {
+const ArrowBack = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (
     <IconWrapper
+      ref={ref}
       icon={
         <svg
           fill="none"
@@ -23,6 +25,6 @@ const ArrowBack = (allProps: IconProps) => {
       {...restProps}
     />
   )
-}
+})
 
 export default ArrowBack

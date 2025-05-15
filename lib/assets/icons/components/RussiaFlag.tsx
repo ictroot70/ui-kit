@@ -1,11 +1,13 @@
+import { forwardRef } from 'react'
 import type { IconProps } from '../IconWrapper'
 import { IconWrapper } from '../IconWrapper'
 
-const RussiaFlag = (allProps: IconProps) => {
+const RussiaFlag = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (
     <IconWrapper
+      ref={ref}
       icon={
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -39,6 +41,6 @@ const RussiaFlag = (allProps: IconProps) => {
       {...restProps}
     />
   )
-}
+})
 
 export default RussiaFlag

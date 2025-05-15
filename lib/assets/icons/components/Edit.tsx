@@ -1,11 +1,13 @@
+import { forwardRef } from 'react'
 import type { IconProps } from '../IconWrapper'
 import { IconWrapper } from '../IconWrapper'
 
-const Edit = (allProps: IconProps) => {
+const Edit = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (
     <IconWrapper
+      ref={ref}
       icon={
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -28,6 +30,6 @@ const Edit = (allProps: IconProps) => {
       {...restProps}
     />
   )
-}
+})
 
 export default Edit

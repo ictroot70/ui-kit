@@ -1,11 +1,13 @@
+import { forwardRef } from 'react'
 import type { IconProps } from '../IconWrapper'
 import { IconWrapper } from '../IconWrapper'
 
-const RadioButtonChecked = (allProps: IconProps) => {
+const RadioButtonChecked = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (
     <IconWrapper
+      ref={ref}
       icon={
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -31,6 +33,6 @@ const RadioButtonChecked = (allProps: IconProps) => {
       {...restProps}
     />
   )
-}
+})
 
 export default RadioButtonChecked

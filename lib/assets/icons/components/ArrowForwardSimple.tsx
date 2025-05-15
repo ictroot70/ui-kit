@@ -1,12 +1,14 @@
+import { forwardRef } from 'react'
 import type { IconProps } from '../IconWrapper'
 import { IconWrapper } from '../IconWrapper'
 
-const ArrowIosForward = (allProps: IconProps) => {
+const ArrowIosForward = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (
     <IconWrapper
-      icon={
+    ref={ref}
+    icon={
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="100%"
@@ -31,6 +33,6 @@ const ArrowIosForward = (allProps: IconProps) => {
       {...restProps}
     />
   )
-}
+})
 
 export default ArrowIosForward
