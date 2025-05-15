@@ -1,6 +1,6 @@
 import { IconProps, IconWrapper } from '../IconWrapper'
 
-const ArrowBackOutline = (allProps: IconProps) => {
+const ArrowBack = (allProps: IconProps) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (
@@ -25,4 +25,4 @@ const ArrowBackOutline = (allProps: IconProps) => {
   )
 }
 
-export default ArrowBackOutline
+export default ArrowBack
