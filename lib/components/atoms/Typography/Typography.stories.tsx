@@ -20,6 +20,8 @@ const meta: Meta<typeof Typography> = {
         'semibold_small_text',
         'regular_link',
         'small_link',
+        'danger',
+        'danger_small',
       ],
     },
   },
@@ -136,5 +138,19 @@ export const Small_link: Story = {
     asChild: true,
     children: <a>Regular 12px link</a>,
     variant: 'small_link',
+  },
+}
+
+export const Danger_text: Story = {
+  args: {
+    children: 'Error message',
+    variant: 'danger',
+  },
+}
+
+export const Small_danger_text: Story = {
+  args: {
+    children: 'Small error message',
+    variant: 'danger_small',
   },
 }
