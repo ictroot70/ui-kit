@@ -1,6 +1,9 @@
-import { useState, ChangeEvent, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import clsx from 'clsx';
 import styles from './Pagination.module.scss';
+import { PaginationButton } from './PaginationButton/PaginationButton';
+import { PaginationEllipsis } from './PaginationEllipsis/PaginationEllipsis';
+import { PaginationItemsPerPage } from './PaginationItemsPerPage/PaginationItemsPerPage';
 
 interface PaginationProps {
   currentPage?: number;
@@ -10,13 +13,12 @@ interface PaginationProps {
   onItemsPerPageChange?: (count: number) => void;
   className?: string;
 }
-
 type PageItem = number | { type: 'ellipsis'; position: 'left' | 'right' };
 
 export const Pagination = ({
   currentPage = 1,
   totalItems = 120,
-  itemsPerPage = 20,
+  itemsPerPage = 10,
   onPageChange,
   onItemsPerPageChange,
   className,
@@ -30,8 +32,7 @@ export const Pagination = ({
     setActiveEllipsis(null);
   }, [currentPage]);
 
-  const handlePageInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handlePageInputChange = useCallback((value: string) => {
     if (/^\d*$/.test(value)) {
       setInputPage(value);
     }
@@ -48,9 +49,8 @@ export const Pagination = ({
     if (e.key === 'Enter') handlePageInputBlur();
   }, [handlePageInputBlur]);
 
-  const handleItemsPerPageChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    const value = parseInt(e.target.value);
-    onItemsPerPageChange?.(value);
+  const handleItemsPerPageChange = useCallback((selectedValue: number) => {
+    onItemsPerPageChange?.(selectedValue);
     onPageChange(1);
   }, [onItemsPerPageChange, onPageChange]);
 
@@ -84,87 +84,69 @@ export const Pagination = ({
   const pageSizeOptions = useMemo(() => [10, 20, 30, 50, 100], []);
 
   return (
-    <div className={clsx(styles.paginationContainer, className)}>
-      <div className={styles.pagination}>
-        <button
-          className={clsx(styles.navButton, { [styles.disabled]: currentPage === 1 })}
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          aria-label="Previous page"
-        >
-          &lt;
-        </button>
-
-        {visiblePages.map((page) => {
-          if (typeof page !== 'number') {
-            const { position } = page;
-            return activeEllipsis === position ? (
-              <input
-                key={`input-${position}`}
-                type="text"
-                value={inputPage}
-                onChange={handlePageInputChange}
-                onBlur={handlePageInputBlur}
-                onKeyDown={handleKeyDown}
-                className={styles.pageInput}
-                autoFocus
-              />
-            ) : (
-              <span
-                key={`ellipsis-${position}`}
-                onClick={() => handleEllipsisClick(position)}
-                className={styles.ellipsis}
-                role="button"
-                aria-label={`Jump to page near ${position}`}
-              >
-                ...
-              </span>
-            );
-          }
-
-          return (
-            <button
-              key={page}
-              className={clsx(styles.pageButton, {
-                [styles.active]: page === currentPage,
-              })}
-              onClick={() => onPageChange(page)}
-              disabled={page === currentPage}
-              aria-label={`Go to page ${page}`}
-            >
-              {page}
-            </button>
-          );
-        })}
-
-        <button
-          className={clsx(styles.navButton, { [styles.disabled]: currentPage === totalPages })}
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          aria-label="Next page"
-        >
-          &gt;
-        </button>
-      </div>
-
-      {onItemsPerPageChange && (
-        <div className={styles.itemsPerPage}>
-          <span>Show</span>
-          <select
-
-            value={itemsPerPage}
-            onChange={handleItemsPerPageChange}
-            aria-label="Items per page"
+    <div className={clsx(styles.paginationRoot, className)}>
+      <nav className={styles.paginationNav} aria-label="Pagination">
+        <div className={styles.paginationControls}>
+          <PaginationButton
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={styles.navButton}
+            ariaLabel="Previous page"
           >
-            {pageSizeOptions.map(count => (
-              <option className={styles.option} key={count} value={count}>
-                {count}
-              </option>
-            ))}
-          </select>
-          <span>on page</span>
+            &lt;
+          </PaginationButton>
+
+          <div className={styles.paginationPages}>
+            {visiblePages.map((page) => {
+              if (typeof page !== 'number') {
+                return (
+                  <PaginationEllipsis
+                    key={`ellipsis-${page.position}`}
+                    position={page.position}
+                    onClick={() => handleEllipsisClick(page.position)}
+                    showInput={activeEllipsis === page.position}
+                    inputValue={inputPage}
+                    onInputChange={handlePageInputChange}
+                    onInputBlur={handlePageInputBlur}
+                    onKeyDown={handleKeyDown}
+                  />
+                );
+              }
+              return (
+                <PaginationButton
+                  key={page}
+                  onClick={() => onPageChange(page)}
+                  active={page === currentPage}
+                  disabled={page === currentPage}
+                  ariaLabel={`Go to page ${page}`}
+                  className={styles.pageButton}
+                >
+                  {page}
+                </PaginationButton>
+              );
+            })}
+          </div>
+
+          <PaginationButton
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={styles.navButton}
+            ariaLabel="Next page"
+          >
+            &gt;
+          </PaginationButton>
         </div>
-      )}
+
+        {onItemsPerPageChange && (
+          <div className={styles.itemsPerPageWrapper}>
+            <PaginationItemsPerPage
+              itemsPerPage={itemsPerPage}
+              options={pageSizeOptions}
+              onChange={handleItemsPerPageChange}
+            />
+          </div>
+        )}
+      </nav>
     </div>
   );
 };
