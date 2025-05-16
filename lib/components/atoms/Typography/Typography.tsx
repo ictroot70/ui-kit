@@ -19,6 +19,8 @@ type TypographyVariant =
   | 'semibold_small_text'
   | 'regular_link'
   | 'small_link'
+  | 'danger'
+  | 'danger_small'
 
 type Props = {
   asChild?: boolean
