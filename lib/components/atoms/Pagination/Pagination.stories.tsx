@@ -29,7 +29,7 @@ const PaginationWithState = (args: PaginationProps) => {
       padding: '20px',
       position: 'relative',
       height: '100px',
-      backgroundColor: '#f5f5f5'
+      backgroundColor: 'black'
     }}>
       <Pagination
         {...args}
