@@ -1,159 +1,213 @@
 @use '@/styles/mixins' as mixins;
 @use '@/styles/function' as function;
 
-.paginationContainer {
+.paginationRoot {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  padding: function.px-to-unit(16);
-  background-color: var(--color-dark-900);
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  justify-content: space-between;
+  gap: function.px-to-unit(16);
   width: 100%;
-  z-index: 1000;
-  box-sizing: border-box;
-
-  &.insideComponent {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-  }
+  background: transparent;
+  height: function.px-to-unit(40);
 }
 
-.pagination {
+.paginationNav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: function.px-to-unit(24);
+  width: 100%;
+}
+
+.paginationControls {
   display: flex;
   align-items: center;
-  gap: function.px-to-unit(8);
-  margin-right: function.px-to-unit(24);
+  gap: function.px-to-unit(12);
 }
 
-.navButton,
-.pageButton {
-  padding: function.px-to-unit(8) function.px-to-unit(12);
+.paginationPages {
+  display: flex;
+  align-items: center;
+  gap: function.px-to-unit(12);
+}
+
+.textStyle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: function.px-to-unit(14);
+  line-height: function.px-to-unit(24);
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+.buttonBase {
+  @extend .textStyle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   border: none;
-  background: var(--color-dark-700);
   border-radius: function.px-to-unit(4);
   cursor: pointer;
   transition: all 0.2s;
+  background: var(--color-dark-700);
   color: var(--color-light-100);
-  @include mixins.typography-without-color(
-    var(--font-size-s),
-    var(--font-weight-regular),
-    var(--line-height-m)
-  );
+  width: function.px-to-unit(24);
+  height: function.px-to-unit(24);
+  min-width: auto;
 
-  &:hover:not(.disabled) {
+  &:hover:not(.buttonDisabled) {
     background: var(--color-dark-500);
-    color: var(--color-light-100);
   }
 
   &:focus {
-    border: 1px solid var(--color-info-700);
-    outline: none;
+    outline: 1px solid var(--color-info-700);
   }
 }
 
-.pageButton {
-  min-width: function.px-to-unit(36);
-
-  &.active {
-    background: var(--color-light-100);
-    color: var(--color-dark-900);
-    font-weight: var(--font-weight-bold);
-  }
+.buttonActive {
+  background: var(--color-light-100) !important;
+  color: var(--color-dark-900) !important;
 }
 
-.disabled {
+.buttonDisabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.ellipsis {
-  padding: function.px-to-unit(8);
+.ellipsisButton {
+  @extend .buttonBase;
+  background: var(--color-dark-700);
+
+  &:hover {
+    background: var(--color-dark-500);
+  }
+}
+
+.ellipsisText {
+  @extend .textStyle;
   color: var(--color-light-100);
-  cursor: pointer;
-  @include mixins.typography-without-color(
-    var(--font-size-s),
-    var(--font-weight-regular),
-    var(--line-height-m)
-  );
 }
 
 .pageInput {
-  margin-left: function.px-to-unit(16);
-  display: flex;
-  align-items: center;
-  gap: function.px-to-unit(8);
+  @extend .textStyle;
+  width: function.px-to-unit(24);
+  height: function.px-to-unit(24);
+  padding: 0;
+  border: 1px solid var(--color-dark-300);
+  border-radius: function.px-to-unit(4);
+  text-align: center;
+  background-color: var(--color-light-100);
   color: var(--color-dark-900);
 
-  input {
-    width: function.px-to-unit(50);
-    padding: function.px-to-unit(8);
-    border: 1px solid var(--color-dark-300);
-    border-radius: function.px-to-unit(4);
-    text-align: center;
-    background-color: var(--color-dark-900);
-    color: var(--color-light-100);
-    appearance: none;
-    @include mixins.typography-without-color(
-      var(--font-size-s),
-      var(--font-weight-regular),
-      var(--line-height-m)
-    );
-
-    &:focus {
-      border-color: var(--color-info-700);
-      outline: none;
-    }
+  &:focus {
+    border-color: var(--color-info-700);
+    outline: none;
   }
 }
-
-.itemsPerPage {
+.itemsPerPageContainer {
   display: flex;
   align-items: center;
   gap: function.px-to-unit(8);
+}
+
+.selectTrigger {
+  @extend .textStyle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: function.px-to-unit(50);
+  height: function.px-to-unit(24);
+  padding: 0 function.px-to-unit(8);
+  border: 1px solid var(--color-dark-300);
+  border-radius: function.px-to-unit(4);
+  background-color: var(--color-dark-900);
   color: var(--color-light-100);
+  cursor: pointer;
+  transition: border-color 0.2s;
 
-  select {
-    padding: function.px-to-unit(4) function.px-to-unit(8);
-    border: 1px solid var(--color-dark-300);
-    border-radius: function.px-to-unit(4);
-    background-color: var(--color-dark-900);
-    color: var(--color-light-100);
-    cursor: pointer;
-    @include mixins.typography-without-color(
-      var(--font-size-s),
-      var(--font-weight-regular),
-      var(--line-height-m)
-    );
+  &:focus {
+    outline: 1px solid var(--color-info-700);
+  }
 
-    &:focus {
-      border-color: var(--color-dark-100);
-      outline: none;
+  &[data-state='open'] {
+    .chevronIcon[data-state='open'] {
+      display: block;
+    }
+    .chevronIcon[data-state='closed'] {
+      display: none;
+    }
+  }
+
+  &[data-state='closed'] {
+    .chevronIcon[data-state='open'] {
+      display: none;
+    }
+    .chevronIcon[data-state='closed'] {
+      display: block;
     }
   }
 }
 
-.option {
-  padding: function.px-to-unit(8);
-  background-color: var(--color-dark-700);
+.selectIcon {
+  margin-left: function.px-to-unit(4);
+  display: flex;
+  position: relative;
+  width: function.px-to-unit(16);
+  height: function.px-to-unit(16);
+}
+
+.chevronIcon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: var(--color-light-100);
+}
+
+.selectContent {
+  background-color: var(--color-dark-900);
+  border-radius: function.px-to-unit(4);
+  border: 1px solid var(--color-dark-300);
+  box-shadow: 0 function.px-to-unit(2) function.px-to-unit(10) rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  min-width: function.px-to-unit(50);
+}
+
+.selectViewport {
+  padding: function.px-to-unit(4);
+}
+
+.selectItem {
+  @extend .textStyle;
+  padding: function.px-to-unit(6) function.px-to-unit(12);
+  border-radius: function.px-to-unit(2);
+  cursor: pointer;
+  outline: none;
   color: var(--color-light-100);
 
-  &:hover {
-    background-color: var(--color-danger-500);
-    color: var(--color-light-100);
+  &[data-highlighted] {
+    background-color: var(--color-dark-500);
+  }
+
+  &[data-state='checked'] {
+    background-color: var(--color-dark-700);
+    font-weight: 500;
   }
 }
 
 @media (max-width: 768px) {
-  .paginationContainer {
-    flex-direction: column;
-    gap: function.px-to-unit(16);
-    padding: function.px-to-unit(12);
+  .itemsPerPageContainer {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
   }
 
-  .itemsPerPage {
-    margin-top: function.px-to-unit(8);
+  .selectTrigger {
+    width: 100%;
+  }
+
+  .selectContent {
+    width: var(--radix-select-trigger-width);
   }
 }
