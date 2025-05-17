@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Input } from './Input'
-// import { SearchIcon } from '@radix-ui/react-icons'
 
 const meta: Meta<typeof Input> = {
   title: 'Components/Input',
@@ -32,10 +31,17 @@ export const WithLabel: Story = {
   },
 }
 
-export const WithIcons: Story = {
+export const Search: Story = {
   args: {
-    // leftIcon: <SearchIcon />,
     placeholder: 'Search...',
+    inputType: 'search',
+  },
+}
+
+export const Hidden: Story = {
+  args: {
+    placeholder: 'Enter password',
+    inputType: 'hidden',
   },
 }
 
@@ -52,19 +58,5 @@ export const Disabled: Story = {
     label: 'Disabled Input',
     placeholder: 'You cannot type here',
     disabled: true,
-  },
-}
-
-// For hover, focus, and active states, we can use pseudo-states
-export const Interactive: Story = {
-  parameters: {
-    pseudo: {
-      hover: true, // Shows hover state
-      focus: true, // Shows focus state
-      active: true, // Shows active state
-    },
-  },
-  args: {
-    placeholder: 'Interactive states example',
   },
 }
