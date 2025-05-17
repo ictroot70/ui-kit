@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { ScrollAreaRadix } from 'components/atoms/ScrollAreaRadix/ScrollAreaRadix'
 
-import styles from './ScrollAreaRadix.module.scss' // убедись, что путь корректный
+import styles from './ScrollAreaRadix.module.scss'
 
 const meta: Meta<typeof ScrollAreaRadix> = {
   title: 'Components/ScrollAreaRadix',
