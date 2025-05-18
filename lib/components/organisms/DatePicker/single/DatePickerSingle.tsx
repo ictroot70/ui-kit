@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import "react-day-picker/style.css";
-import s from "./../DatePicker.module.scss";
+import s from "../DatePicker.module.scss";
 import { Calendar } from "lucide-react";
 import { DayPicker, type DayPickerProps } from "react-day-picker";
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
