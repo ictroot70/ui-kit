@@ -1,4 +1,4 @@
-import { useToastContext } from 'app/providers/ToastProvider/ToastProvider'
+import { useToastContext } from './ToastContext'
 import { Toast } from 'providers/ToastProvider/types'
 /**
  * Custom React hook that provides a `toast` function for displaying toast notifications.
@@ -28,7 +28,7 @@ import { Toast } from 'providers/ToastProvider/types'
  * Type of options passed when triggering a toast.
  * Based on `Toast`, but omits system-managed fields.
  */
-export type ToastInput = Omit<Toast, 'id' | 'pauseStart' | 'remaining' | 'createdAt' | 'timeoutId'>
+export type ToastInput = Omit<Toast, 'id' | 'pauseStart' | 'remaining' | 'timeoutId'>
 export type UseToastResult = {
   toast: (options: ToastInput) => void
 }

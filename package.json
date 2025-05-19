@@ -65,7 +65,8 @@
     "@fontsource/inter": "5.2.5",
     "@radix-ui/react-slot": "1.2.2",
     "clsx": "2.1.1",
-    "framer-motion": "12.12.1"
+    "framer-motion": "12.12.1",
+    "uuid": "11.1.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.6",
