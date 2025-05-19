@@ -97,19 +97,22 @@ export const DatePickerSingle = ({
                   animate={true}
                   showOutsideDays
                   weekStartsOn={1}
-                  disabled={{ before: today }}
+                  // disabled={{ before: today }}
                   mode="single"
                   selected={selectedDate}
                   onSelect={handleSelect}
                   modifiers={{
                     today: today,
-                    weekend: (date) => date.getDay() === 0 || date.getDay() === 6,
+                    weekend: (date) => date.getDay() === 5 || date.getDay() === 6,
+                    hover: () => true,
+                    outside: date => date.getMonth() !== today.getMonth(), // Дни другого месяца
                   }}
                   modifiersClassNames={{
                     today: s.rdpDay_today,
                     selected: s.rdpDay_selected,
                     weekend: s.weekendDay,
-                    disabled: s.rdpDayDisabled,
+                    hover: s.rdpDay_hover,
+                    outside: s.rdpDay_outside,
                   }}
                   classNames={{
                     caption_label: s.rdpCaptionLabel,

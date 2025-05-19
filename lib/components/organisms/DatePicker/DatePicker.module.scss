@@ -1,14 +1,14 @@
-@use '@/styles/mixins' as mixins;
-
+@use '@/styles/mixins' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/typography' as *;
+@use '@/styles/function' as *;
 
 .datePickerWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  @include display-flex(flex, null, null, column, 4px);
 }
 
 .label {
-  @include mixins.typography-with-color(var(--font-size-m), var(--font-weight-regular), var(--line-height-m), var(--color-light-900));
+  @include typography-with-color(14px, var(--font-weight-regular), var(--line-height-m), var(--color-light-900));
   margin-bottom: 4px;
 }
 
@@ -18,37 +18,37 @@
 }
 
 .datePicker {
-  width: 300px;
-  min-height: 36px;
+  @include screen-size(300px, 36px);
   padding: 16px 24px;
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid var(--color-dark-300);
-  border-radius: var(--border-radius-s);
-  background-color: var(--color-dark-500);
+  @include display-flex(inline-flex, center, space-between);
+  border: 1px solid silver;
+  border-radius: 2px;
+  background-color: var(--color-dark-300);
   color: var(--color-light-100);
-  font-size: var(--font-size-m);
   line-height: var(--line-height-m);
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  position: relative;
   cursor: pointer;
 
   &:focus {
     border: 2px solid var(--color-primary-700);
   }
-
 }
 
 .wrapperCalendar {
   position: absolute;
-  left: -131px;
+  left: -133px;
   top: -3px;
-  width: 350px;
+  width: 300px;
   padding: 16px 24px;
-  display: flex;
-  justify-content: center;
+  @include display-flex(flex, center, space-between);
   background-color: var(--color-dark-500);
   border: 1px solid var(--color-dark-300);
   overflow: hidden;
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m);
   border-radius: 8px;
   color: var(--color-light-100);
 }
@@ -63,16 +63,21 @@
   overflow: auto;
 }
 
-.rdpDay_today {
-  color: var(--color-primary-500);
+.rdpDay_selected {
+  background-color: var(--color-primary-900);
+  color: var(--color-light-100);
   font-weight: var(--font-weight-semibold);
+  border-radius: 50%;
 }
 
-.rdpDay_selected {
-  background-color: var(--color-primary-500);
-  color: var(--color-light-100);
+.weekendDay.rdpDay_selected {
+  color: var(--color-danger-500) !important;
   font-weight: var(--font-weight-bold);
-  border-radius: 50%;
+}
+
+.rdpDay_today.rdpDay_selected {
+  color: var(--color-light-100) !important;
+  font-weight: var(--font-weight-bold);
 }
 
 .rdpDayDisabled {
@@ -81,48 +86,54 @@
 }
 
 .rdpCaptionLabel {
-  @include mixins.typography-with-color(var(--font-size-m), var(--font-weight-semibold), var(--line-height-m), var(--color-light-100));
+  @include typography-with-color(16px, var(--font-weight-bold), var(--line-height-m), var(--color-light-100));
   text-align: center;
   margin-left: 32px;
 }
 
-.weekendDay {
-  color: var(--color-danger-500);
+.disabled {
+  color: var(--color-light-900);
 }
+
+.hint {
+  @include typography-with-color(12px, var(--font-weight-regular), null, var(--color-light-900));
+}
+
+
 
 .error {
-  border: 1px solid var(--color-danger-500);
-}
-
-.focused {
-  outline: var(--outline-focus);
+  border: 1px solid red;
+  color: var(--color-danger-500);
 }
 
 .errorMessage {
   color: var(--color-danger-500);
-  font-size: var(--font-size-xs);
+  @include typography-with-color(12px, var(--font-weight-regular), null);
   margin-top: 4px;
 }
 
 .rdpNav {
   position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
+  inset-block-start: 0;
+  inset-inline-end: 50px;
+  @include display-flex(flex, center);
+}
+
+.rdpButton_next svg,
+.rdpButton_previous svg {
+  fill: var(--color-light-100) !important;
 }
 
 .rdpButton_next,
 .rdpButton_previous {
-  background-color: var(--color-dark-400);
+  background-color: var(--color-dark-100);
   color: var(--color-light-100);
+  border: none;
   border-radius: 50%;
   width: 36px;
   height: 36px;
   padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include display-flex(flex, center, center);
   cursor: pointer;
   transition: background-color var(--transition-duration-basic);
 
@@ -132,18 +143,52 @@
 }
 
 .rdpDay_inRange {
-  background-color: var(--color-primary-500) !important;
+  background-color: var(--color-primary-700) !important;
   color: var(--color-light-100) !important;
+  border-radius: 0;
 }
 
-.rdpDay_first,
+.rdpDay_first {
+  background-color: var(--color-primary-700) !important;
+  color: var(--color-light-100) !important;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
 .rdpDay_last {
-  background-color: var(--color-primary-500) !important;
+  background-color: var(--color-primary-700) !important;
   color: var(--color-light-100) !important;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
-.rdpButton_next svg,
-.rdpButton_previous svg {
-  fill: white !important;
+.rdpDay_hover:hover {
+  width: 45px;
+  height: 45px;
+  @include display-flex(flex, center, center);
+  border: 2px solid var(--color-primary-700);
+  border-radius: 50%;
+  color: var(--color-light-100);
+  cursor: pointer;
 }
 
+.rdpDay_today {
+  color: var(--color-primary-700);
+  font-weight: var(--font-weight-bold);
+  font-size: 16px;
+  line-height: var(--line-height-m);
+}
+
+.weekendDay {
+  color: var(--color-danger-500);
+
+  &:hover {
+    color: var(--color-danger-500); // цвет при наведении
+  }
+}
+
+.rdpDay_outside {
+  color: var(--color-light-700); // серый цвет для дней другого месяца
+  opacity: 0.5; // приглушенный вид
+  cursor: not-allowed;
+}
