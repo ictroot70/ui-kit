@@ -1,10 +1,11 @@
-.tabs {
-  width: 100%;
+.root {
+  display: flex;
+  flex-direction: column;
 }
 
 .list {
   display: flex;
-  width: 100%;
+  flex-shrink: 0;
 }
 
 .content {
@@ -14,12 +15,15 @@
 .trigger {
   all: unset;
   cursor: pointer;
-  width: 100%;
   padding: 6px 24px;
   font-weight: var(--font-weight-semibold);
   color: var(--color-dark-100);
   border-bottom: 2px solid var(--color-dark-100);
   text-align: center;
+
+  &.fullWidth {
+    flex-grow: 1;
+  }
 
   &[data-disabled] {
     cursor: not-allowed;
@@ -30,10 +34,7 @@
   &[data-state='active'] {
     color: var(--color-primary-500);
     border-bottom: 2px solid var(--color-primary-500);
-
-    //! Temporary solution
-    background-color: color-mix(in srgb, var(--color-primary-100) 15%, transparent);
-
+    background-color: rgba(var(--color-primary-rgb-100), 0.15);
     &[data-disabled] {
       border-bottom-color: var(--color-primary-900);
       color: var(--color-primary-900);
@@ -42,8 +43,7 @@
 
   &:not([data-disabled]) {
     &:hover {
-      //! Temporary solution
-      background-color: color-mix(in srgb, var(--color-primary-900) 15%, transparent);
+      background-color: rgba(var(--color-primary-rgb-900), 0.15);
     }
   }
 
