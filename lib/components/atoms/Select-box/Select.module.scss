@@ -1,108 +1,105 @@
 @use '@/styles/mixins' as mixins;
 @use '@/styles/function' as function;
 
+.selectWrapper {
+    @include mixins.display-flex($direction: column);
+    width: 100%;
+    position: relative;
+}
 
-    .selectWrapper {
-        @include mixins.display-flex($direction: column);
-        width: 100%;
-        position: relative;
-    }
-    .label {
-        color: var(--color-light-900);
-    }
+.label {
+    color: var(--color-light-100); // Используем токен из системы
+}
 
-    .iconDown {
-        margin-left: auto;
-    }
+.iconDown {
+    margin-left: auto;
+}
 
-    .trigger {
-        all: unset;
-        @include mixins.display-flex($align: center, $justify: space-between, $gap: 5px);
-        @include mixins.box-sizing(border-box);
-        width: 210px;
-        min-height: function.px-to-unit(40);
-        height: 36px;
-        padding: 0 function.px-to-unit(15);
-        background-color: var(--color-dark-500);
-        border-radius: function.px-to-unit(2);
-        border: 1px solid var(--color-light-100);
-        outline: 1px solid transparent;
-        cursor: pointer;
+.trigger {
+    all: unset;
+    @include mixins.display-flex($align: center, $justify: space-between, $gap: 5px);
+    @include mixins.box-sizing(border-box);
+    width: 210px;
+    min-height: function.px-to-unit(40);
+    height: 36px;
+    padding: 0 function.px-to-unit(15);
+    background-color: var(--color-dark-500); // Заменен пользовательский токен
+    border-radius: function.px-to-unit(2);
+    border: 1px solid var(--color-light-100);
+    outline: 1px solid transparent;
+    cursor: pointer;
 
-        &[data-state="open"] .iconDown {
-            transform: rotate(180deg);
-        }
-
-        &[data-placeholder] {
-            background-color: var(--dark-500);
-        }
-
-        &:active {
-            outline-color: var(--dark-100);
-            background-color: var(--color-500);
-        }
-
-        &:focus {
-            background-color: var(--dark-900);
-            outline: 2px solid var(--color-primary-500);
-        }
-
-        &:disabled {
-            color: var(--color-light-900);
-            border: 1px solid var(--color-light-900);
-        }
-
-        &:hover {
-            color: var(--color-light-900);
-            border: 1px solid var(--color-light-900);
-        }
+    &[data-state="open"] .iconDown {
+        transform: rotate(180deg);
     }
 
-    .Content {
-        @include mixins.display-flex($direction: column, $align: center, $justify: center);
-        background-color: var(--dark-500);
-        border-radius: function.px-to-unit(2);
-        border: 1px solid var(--dark-100);
-        color: var(--light-100);
-        cursor: pointer;
-        margin-top: function.px-to-unit(20);
-        position: absolute;
-        top: -20px;
-        z-index: 101;
+    &[data-placeholder] {
+        background-color: var(--color-dark-500); // Заменен пользовательский токен
     }
 
-    .Viewport {
-        padding: function.px-to-unit(5);
-        border: 1px solid var(--color-light-100);
-        width: 210px;
+    &:active {
+        outline-color: var(--color-light-700); // Заменен пользовательский токен
+        background-color: var(--color-primary-500); // Заменен пользовательский токен
     }
 
-    .selectItems {
-        @include mixins.display-flex($align: center, $justify: center, $gap: function.px-to-unit(20));
-        margin-right: function.px-to-unit(2);
+    &:focus {
+        background-color: var(--color-dark-900); // Заменен пользовательский токен
+        outline: 2px solid var(--color-primary-500); // Заменен пользовательский токен
+    }
+
+    &:disabled {
+        color: var(--color-light-700);
+        border: 1px solid var(--color-light-700);
+    }
+
+    &:hover {
         color: var(--color-light-100);
-
-
-        &:hover {
-            color: var(--color-primary-500);
-        }
-
+        border: 1px solid var(--color-light-100);
     }
+}
 
-    .Separator {
-        @include mixins.display-flex($direction: column, $align: center, $justify: center);
-        height: 1px;
-        background-color: var(--dark-100);
-        margin: function.px-to-unit(5);
+.Content {
+    @include mixins.display-flex($direction: column, $align: center, $justify: center);
+    background-color: var(--color-dark-500); // Заменен пользовательский токен
+    border-radius: function.px-to-unit(2);
+    border: 1px solid var(--color-light-100); // Заменен пользовательский токен
+    color: var(--color-light-100);
+    cursor: pointer;
+    margin-top: function.px-to-unit(20);
+    position: absolute;
+    top: -20px;
+    z-index: 101;
+}
+
+.Viewport {
+    padding: function.px-to-unit(5);
+    border: 1px solid var(--color-light-100);
+    width: 210px;
+}
+
+.selectItems {
+    @include mixins.display-flex($align: center, $justify: center, $gap: function.px-to-unit(20));
+    margin-right: function.px-to-unit(2);
+    color: var(--color-light-100);
+
+    &:hover {
+        color: var(--color-primary-500); // Заменен пользовательский токен
     }
+}
 
-    .ScrollButton {
-        @include mixins.display-flex($align: center, $justify: center);
-        min-height: function.px-to-unit(25);
-        height: 100%;
-        border: 1px solid var(--dark-100);
-        background-color: var(--dark-500);
-        color: var(--light-100);
-        cursor: pointer;
-    }
+.Separator {
+    @include mixins.display-flex($direction: column, $align: center, $justify: center);
+    height: 1px;
+    background-color: var(--color-light-100); // Заменен пользовательский токен
+    margin: function.px-to-unit(5);
+}
 
+.ScrollButton {
+    @include mixins.display-flex($align: center, $justify: center);
+    min-height: function.px-to-unit(25);
+    height: 100%;
+    border: 1px solid var(--color-light-100); // Заменен пользовательский токен
+    background-color: var(--color-dark-500); // Заменен пользовательский токен
+    color: var(--color-light-100);
+    cursor: pointer;
+}
