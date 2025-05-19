@@ -1,34 +1,66 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react'
 import * as TabsPrimitive from '@radix-ui/react-tabs'
 import clsx from 'clsx'
-import styles from './tabs.module.scss'
+import s from './tabs.module.scss'
 
-const Tabs = forwardRef<
-  ElementRef<typeof TabsPrimitive.Root>,
-  ComponentPropsWithoutRef<typeof TabsPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Root className={clsx(styles.tabs, className)} ref={ref} {...props} />
-))
+export type TriggerType = {
+  title: string
+  disabled?: boolean
+  /** A unique value that associates the trigger with a content. */
+  value: string
+}
 
-const TabsList = forwardRef<
-  ElementRef<typeof TabsPrimitive.List>,
-  ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.List className={clsx(styles.list, className)} ref={ref} {...props} />
-))
+type TabsProps = {
+  /** Use TabsContent components as children. */
+  children?: ReactNode
+  /** An array of objects with the value and title of the trigger.
+   *  {value: string, title: string}
+   * */
+  triggers: TriggerType[]
+  fullWidth?: boolean
+} & ComponentPropsWithoutRef<typeof TabsPrimitive.Root>
 
-const TabsTrigger = forwardRef<
-  ElementRef<typeof TabsPrimitive.Trigger>,
-  ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Trigger className={clsx(styles.trigger, className)} ref={ref} {...props} />
-))
+const Tabs = forwardRef<HTMLDivElement, TabsProps>(
+  ({ children, className, fullWidth, triggers, ...rest }, ref) => {
+    const classNames = {
+      root: clsx(s.root, className),
+      trigger: clsx(s.trigger, fullWidth && s.fullWidth),
+    }
 
-const TabsContent = forwardRef<
-  ElementRef<typeof TabsPrimitive.Content>,
-  ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Content className={clsx(styles.content, className)} ref={ref} {...props} />
-))
+    return (
+      <TabsPrimitive.Root ref={ref} className={classNames.root} {...rest}>
+        <TabsPrimitive.List className={s.list}>
+          {triggers.map(trigger => (
+            <TabsPrimitive.Trigger
+              className={classNames.trigger}
+              disabled={trigger.disabled}
+              key={trigger.value}
+              value={trigger.value}
+            >
+              {trigger.title}
+            </TabsPrimitive.Trigger>
+          ))}
+        </TabsPrimitive.List>
+        {children}
+      </TabsPrimitive.Root>
+    )
+  }
+)
 
-export { Tabs, TabsList, TabsTrigger, TabsContent }
+export type TabsContentProps = {
+  children: ReactNode
+  /** A unique value that associates the trigger with a content. */
+  value: string
+}
+
+const TabsContent = forwardRef<HTMLDivElement, TabsContentProps>(
+  ({ children, value, ...rest }, ref) => {
+    return (
+      <TabsPrimitive.Content ref={ref} className={s.content} value={value} {...rest}>
+        {children}
+      </TabsPrimitive.Content>
+    )
+  }
+)
+
+export { Tabs, TabsContent }
