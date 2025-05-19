@@ -1,0 +1,46 @@
+@use '../../../styles/mixins' as mixins;
+@use '../../../styles/function' as function;
+
+.alert {
+  position: relative;
+
+  overflow: hidden;
+
+  @include mixins.display-flex(flex, center, space-between, null, function.px-to-unit(16));
+
+  margin-bottom: function.px-to-unit(8);
+  padding: function.px-to-unit(16);
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  font-size: 1rem;
+  color: currentcolor;
+}
+
+.content {
+  @include mixins.display-flex(flex, $direction: column);
+  @include mixins.screen-size(100%, $max-width: function.px-to-unit(455));
+
+  box-sizing: border-box;
+  white-space: pre-wrap;
+}
+
+.success {
+  border-color: var(--color-success-500);
+  background-color: var(--color-success-900);
+}
+
+.error {
+  border-color: var(--color-danger-500);
+  background-color: var(--color-danger-900);
+}
+
+.warning {
+  border-color: var(--color-warning-100);
+  background-color: var(--color-warning-700);
+}
+
+.info {
+  border-color: var(--color-primary-100);
+  background-color: var(--color-primary-900);
+}

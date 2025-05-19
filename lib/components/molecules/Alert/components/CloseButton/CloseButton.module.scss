@@ -1,0 +1,12 @@
+@use '../../../../../styles/mixins' as mixins;
+@use '../../../../../styles/function' as function;
+
+.button {
+  cursor: pointer;
+
+  @include mixins.display-flex(flex, center, center);
+
+  padding: 4px;
+  border: none;
+  background: transparent;
+}

@@ -1,0 +1,11 @@
+@use '../../../../../styles/mixins' as mixins;
+@use '../../../../../styles/function' as function;
+
+.root {
+  @include mixins.display-flex(flex, $gap: function.px-to-unit(10));
+}
+
+.title,
+.message {
+  margin: 0;
+}
