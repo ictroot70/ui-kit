@@ -28,7 +28,7 @@ import { Toast } from 'providers/ToastProvider/types'
  * Type of options passed when triggering a toast.
  * Based on `Toast`, but omits system-managed fields.
  */
-export type ToastInput = Omit<Toast, 'id' | 'pauseStart' | 'remaining' | 'timeoutId'>
+export type ToastInput = Omit<Toast, 'id' | 'pauseStart' | 'createdAt' | 'remaining' | 'timeoutId'>
 export type UseToastResult = {
   toast: (options: ToastInput) => void
 }

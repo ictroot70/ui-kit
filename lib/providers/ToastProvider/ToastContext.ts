@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react'
-import type { Toast } from 'providers/ToastProvider/types'
+import { ToastInput } from 'providers/ToastProvider/useToast'
 
 export type ToastContextType = {
-  showToast: (toast: Omit<Toast, 'id'>) => void
+  showToast: (toast: ToastInput) => void
 }
 /**
  * ToastContext provides access to the `showToast` function used to trigger toast notifications.

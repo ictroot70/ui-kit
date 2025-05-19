@@ -3,6 +3,7 @@ import { ToastContext } from 'providers/ToastProvider/ToastContext'
 import type { Toast } from 'providers/ToastProvider/types'
 import { ToastContainer, ToastPosition } from 'components/molecules/Toast/ToastContainer'
 import { v4 as uuidv4 } from 'uuid'
+import { ToastInput } from 'providers/ToastProvider/useToast'
 
 export type ToastProviderProps = {
   children: React.ReactNode
@@ -66,9 +67,18 @@ export const ToastProvider = (props: ToastProviderProps): React.ReactElement => 
   }
 
   const showToast = useCallback(
-    (toast: Omit<Toast, 'id'>) => {
+    (toast: ToastInput) => {
       const id = uuidv4()
-      const newToast = { ...toast, id }
+      const createdAt = Date.now()
+      const newToast: Toast = {
+        ...toast,
+        id,
+        createdAt,
+        pauseStart: undefined,
+        remaining: toast.duration ?? 4000,
+        timeoutId: undefined,
+      }
+
       setToasts(prev => {
         const newToasts = [...prev, newToast]
         if (newToasts.length > maxToasts) {
