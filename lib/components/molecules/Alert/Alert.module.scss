@@ -6,15 +6,16 @@
 
   overflow: hidden;
 
-  @include mixins.display-flex(flex, center, space-between, null, function.px-to-unit(16));
-
+  box-sizing: border-box;
   margin-bottom: function.px-to-unit(8);
-  padding: function.px-to-unit(16);
+  padding: function.px-to-unit(12) function.px-to-unit(24);
   border: 1px solid transparent;
   border-radius: 3px;
 
   font-size: 1rem;
   color: currentcolor;
+
+  @include mixins.display-flex(flex, center, space-between, null, function.px-to-unit(16));
 }
 
 .content {
