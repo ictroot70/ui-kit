@@ -49,6 +49,7 @@
     &:focus {
         background-color: var(--color-dark-900);
         outline: 2px solid var(--color-primary-500);
+        border: none;
     }
 
     &:disabled {
