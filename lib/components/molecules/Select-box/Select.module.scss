@@ -8,7 +8,7 @@
 }
 
 .label {
-    color: var(--color-light-100); // Используем токен из системы
+    color: var(--color-light-100);
 }
 
 .iconDown {
@@ -23,7 +23,7 @@
     min-height: function.px-to-unit(40);
     height: 36px;
     padding: 0 function.px-to-unit(15);
-    background-color: var(--color-dark-500); // Заменен пользовательский токен
+    background-color: var(--color-dark-500);
     border-radius: function.px-to-unit(2);
     border: 1px solid var(--color-light-100);
     outline: 1px solid transparent;
@@ -34,35 +34,38 @@
     }
 
     &[data-placeholder] {
-        background-color: var(--color-dark-500); // Заменен пользовательский токен
+        background-color: var(--color-dark-500);
     }
 
     &:active {
-        outline-color: var(--color-light-700); // Заменен пользовательский токен
-        background-color: var(--color-primary-500); // Заменен пользовательский токен
-    }
-
-    &:focus {
-        background-color: var(--color-dark-900); // Заменен пользовательский токен
-        outline: 2px solid var(--color-primary-500); // Заменен пользовательский токен
-    }
-
-    &:disabled {
-        color: var(--color-light-700);
-        border: 1px solid var(--color-light-700);
+        outline-color: var(--color-light-700);
+        background-color: var(--color-primary-500);
     }
 
     &:hover {
         color: var(--color-light-100);
-        border: 1px solid var(--color-light-100);
+        cursor: pointer;
+    }
+    &:focus {
+        background-color: var(--color-dark-900);
+        outline: 2px solid var(--color-primary-500);
+    }
+
+    &:disabled {
+        color: var(--color-light-900);
+        border: 1px solid var(--color-light-900);
+        background-color: var(--color-dark-900);
+        cursor: default;
     }
 }
 
+
+
 .Content {
     @include mixins.display-flex($direction: column, $align: center, $justify: center);
-    background-color: var(--color-dark-500); // Заменен пользовательский токен
+    background-color: var(--color-dark-500);
     border-radius: function.px-to-unit(2);
-    border: 1px solid var(--color-light-100); // Заменен пользовательский токен
+    border: 1px solid var(--color-light-100);
     color: var(--color-light-100);
     cursor: pointer;
     margin-top: function.px-to-unit(20);
@@ -78,19 +81,20 @@
 }
 
 .selectItems {
-    @include mixins.display-flex($align: center, $justify: center, $gap: function.px-to-unit(20));
+    @include mixins.display-flex($align: center, $justify: start, $gap: function.px-to-unit(20));
     margin-right: function.px-to-unit(2);
     color: var(--color-light-100);
+    width: 100%;
 
     &:hover {
-        color: var(--color-primary-500); // Заменен пользовательский токен
+        color: var(--color-primary-500);
     }
 }
 
 .Separator {
     @include mixins.display-flex($direction: column, $align: center, $justify: center);
     height: 1px;
-    background-color: var(--color-light-100); // Заменен пользовательский токен
+    background-color: var(--color-light-100);
     margin: function.px-to-unit(5);
 }
 
@@ -98,8 +102,8 @@
     @include mixins.display-flex($align: center, $justify: center);
     min-height: function.px-to-unit(25);
     height: 100%;
-    border: 1px solid var(--color-light-100); // Заменен пользовательский токен
-    background-color: var(--color-dark-500); // Заменен пользовательский токен
+    border: 1px solid var(--color-light-100);
+    background-color: var(--color-dark-500);
     color: var(--color-light-100);
     cursor: pointer;
 }

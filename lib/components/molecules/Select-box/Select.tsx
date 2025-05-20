@@ -3,7 +3,7 @@ import * as RadixSelect from "@radix-ui/react-select";
 import { clsx } from "clsx";
 import { type ComponentRef, forwardRef, ReactNode, useId } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
-import { Typography } from "../../atoms/Typography";
+import { Typography } from '../../atoms';
 import { SelectItem } from "./SelectItem/SelectItems";
 
 type SelectItemsProps = {

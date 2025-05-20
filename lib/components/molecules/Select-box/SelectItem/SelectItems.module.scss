@@ -7,32 +7,26 @@
           $justify: space-between,
           $gap: 12px
   );
-  border-radius: 3px;
-  max-width: 170px;
   width: 100%;
-  min-height: 25px;
   height: 100%;
-  padding: 0 35px 0 25px;
+  padding-left: 12px;
   position: relative;
   user-select: none;
 
-  &[data-disabled] {
-    color: red;
-    pointer-events: none;
-  }
+  &[data-disabled]  {
+     color: var(--color-light-900);
+     pointer-events: none;
+   }
 
   &[data-highlighted] {
     outline: none;
-    background-color: var(--dark-300);
-    color: var(--primary-500);
+    background-color: var(--color-dark-300);
+    color: var(--color-primary-500);
   }
 }
 
-.ItemIndicator {
+.icon {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  max-width: 25px;
+  margin-right: 8px;
 }
