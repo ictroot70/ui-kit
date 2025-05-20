@@ -1,9 +1,10 @@
 import { ReactElement, ReactNode } from 'react'
 import { motion } from 'framer-motion'
-import type { Toast } from 'providers/ToastProvider/types'
 import { Alert } from 'components/molecules'
+import { getToastProgress } from 'components/molecules/Toast/helpers/getToastProgress'
+import { Toast } from 'components/molecules/Toast/Toast.types'
 
-type Props = {
+export interface ToastItemProps {
   toast: Toast
   onClose: () => void
   enableCloseButton?: boolean
@@ -12,9 +13,15 @@ type Props = {
   onMouseEnter: () => void
   onMouseLeave: () => void
 }
+
 /**
- * `ToastItem` is a single toast notification component that can render either a default alert or a custom toast via `renderToast`.
- * It uses Framer Motion for enter/exit animations and supports optional auto-dismiss behavior with a progress bar.
+ * `ToastItem` renders a single toast notification with optional animations, progress bar,
+ * and support for custom content rendering.
+ *
+ * It uses Framer Motion to animate enter/exit transitions and can render either a default
+ * `Alert` component or a custom toast via the `renderToast` prop.
+ *
+ * Supports pause-on-hover functionality and an optional close button.
  *
  * @component
  *
@@ -30,19 +37,19 @@ type Props = {
  * />
  * ```
  *
- * @param props - Component props.
- * @param props.toast - The toast data including type, message, duration, etc.
- * @param props.onClose - Callback triggered when the toast is dismissed.
- * @param props.renderToast - Optional custom renderer for the toast content.
- * @param props.enableCloseButton - Fallback close button visibility if `toast.closeable` is undefined.
- * @param props.enableProgressBar - Whether to show a progress bar based on toast duration.
- * @param props.onMouseEnter - Handler called when mouse enters the toast area (e.g., to pause countdown).
- * @param props.onMouseLeave - Handler called when mouse leaves the toast area (e.g., to resume countdown).
+ * @param props - Props for the ToastItem component.
+ * @param props.toast - The toast object containing details like type, title, message, duration, etc.
+ * @param props.onClose - Callback fired when the toast is dismissed.
+ * @param props.renderToast - Optional custom render function for the toast.
+ * @param props.enableCloseButton - Fallback close button visibility if `toast.closeable` is not defined.
+ * @param props.enableProgressBar - Whether to show a progress bar indicating remaining time.
+ * @param props.onMouseEnter - Called when the mouse enters the toast (typically to pause the timer).
+ * @param props.onMouseLeave - Called when the mouse leaves the toast (typically to resume the timer).
  *
- * @returns ReactElement - Animated toast component.
+ * @returns A `ReactElement` representing the animated toast component.
  */
 
-export const ToastItem = (props: Props): ReactElement => {
+export const ToastItem = (props: ToastItemProps): ReactElement => {
   const {
     toast,
     onClose,
@@ -52,8 +59,8 @@ export const ToastItem = (props: Props): ReactElement => {
     onMouseEnter,
     onMouseLeave,
   } = props
-  const elapsed = Date.now() - toast.createdAt
-  const progress = 1 - elapsed / (toast.duration ?? 5000)
+
+  const progress = getToastProgress(toast.createdAt, toast.duration)
   const isCloseable = toast.closeable ?? enableCloseButton
   return (
     <motion.div
