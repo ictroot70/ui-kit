@@ -1,14 +1,15 @@
 import { createContext, useContext } from 'react'
-import { ToastInput } from 'providers/ToastProvider/useToast'
+import { ToastInput } from 'providers/ToastProvider/hooks/useToast'
 
 export type ToastContextType = {
   showToast: (toast: ToastInput) => void
 }
 /**
- * ToastContext provides access to the `showToast` function used to trigger toast notifications.
+ * ToastContext provides access to the `showToast` function,
+ * which is used to trigger toast notifications.
  *
- * This context must be used within a `ToastProvider`. Attempting to use `useToastContext` outside
- * of a provider will result in an error.
+ * This context must be used within a `ToastProvider`.
+ * Using `useToastContext` outside of a `ToastProvider` will throw an error.
  *
  * @example
  * ```tsx
@@ -22,20 +23,18 @@ export type ToastContextType = {
  * });
  * ```
  *
- *     Displays a toast notification.
+ * @param toast - Toast configuration object (all properties except `id`, which is generated internally).
  *
- *     @param toast - Toast configuration (all properties except `id`, which will be generated internally).
- *
- *     Custom hook to access the toast context.
- *
- *   @throws Will throw an error if used outside of a `ToastProvider`.
- *   @returns The toast context with access to `showToast`.
+ * @throws Will throw an error if used outside of a `ToastProvider`.
+ * @returns The toast context, providing access to `showToast`.
  */
 
 export const ToastContext = createContext<ToastContextType | undefined>(undefined)
 
 export const useToastContext = (): ToastContextType => {
   const context = useContext(ToastContext)
-  if (!context) throw new Error('useToastContext must be used within a ToastProvider')
+  if (!context) {
+    throw new Error('useToastContext must be used within a ToastProvider')
+  }
   return context
 }
