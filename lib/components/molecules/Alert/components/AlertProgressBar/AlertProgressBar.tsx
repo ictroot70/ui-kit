@@ -1,6 +1,6 @@
 import styles from 'components/molecules/Alert/components/AlertProgressBar/AlertProgressBar.module.scss'
 
-interface AlertProgressBarProps {
+export interface AlertProgressBarProps {
   progress: number
 }
 

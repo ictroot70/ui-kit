@@ -1,26 +1,14 @@
+'use client'
+
 import styles from './Alert.module.scss'
 import clsx from 'clsx'
-import { TypographyVariant } from 'components/atoms'
-import { useProgressBar } from 'components/molecules/Alert/useAlertProgress'
+import { useProgressBar } from 'components/molecules/Alert/hooks/useAlertProgress'
 import { AlertProgressBar } from 'components/molecules/Alert/components/AlertProgressBar/AlertProgressBar'
 import { CloseButton } from 'components/molecules/Alert/components/CloseButton/CloseButton'
 import { AlertContent } from 'components/molecules/Alert/components/AlertContent/AlertContent'
 import { ReactElement } from 'react'
+import { AlertProps } from 'components/molecules/Alert/Alert.types'
 
-export type AlertType = 'success' | 'error' | 'warning' | 'info'
-type variantType = Extract<TypographyVariant, 'regular_16' | 'bold_16' | 'regular_14'>
-type AlertProps = {
-  typographyVariant: variantType
-  type: AlertType
-  title?: string
-  message: string
-  onClose?: () => void
-  closeable?: boolean
-  className?: string
-  duration?: number
-  progressBar?: boolean
-  progress?: number
-}
 /**
  * Renders a customizable alert component with optional title, message, close button, and progress bar.
  *

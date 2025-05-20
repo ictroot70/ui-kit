@@ -2,7 +2,7 @@ import { Close } from 'assets/icons'
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import styles from 'components/molecules/Alert/components/CloseButton/CloseButton.module.scss'
 
-interface CloseButtonType extends ComponentPropsWithoutRef<'button'> {
+export interface CloseButtonType extends ComponentPropsWithoutRef<'button'> {
   size?: number
 }
 
