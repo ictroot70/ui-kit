@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Alert } from './Alert'
+import { Alert } from 'components/molecules/Alert/Alert'
 
 const meta: Meta<typeof Alert> = {
   title: 'components/Alert',
