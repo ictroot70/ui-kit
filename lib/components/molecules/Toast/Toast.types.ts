@@ -1,4 +1,4 @@
-import type { AlertType } from 'components/molecules'
+import { AlertType } from 'components/molecules/Alert/Alert.types'
 
 export type Toast = {
   id: string
