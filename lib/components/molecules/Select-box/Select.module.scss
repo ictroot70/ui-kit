@@ -3,8 +3,9 @@
 
 .selectWrapper {
     @include mixins.display-flex($direction: column);
-    width: 100%;
+
     position: relative;
+    width: 100%;
 }
 
 .label {
@@ -17,19 +18,23 @@
 
 .trigger {
     all: unset;
-    @include mixins.display-flex($align: center, $justify: space-between, $gap: 5px);
-    @include mixins.box-sizing(border-box);
-    width: 210px;
-    min-height: function.px-to-unit(40);
-    height: 36px;
-    padding: 0 function.px-to-unit(15);
-    background-color: var(--color-dark-500);
-    border-radius: function.px-to-unit(2);
-    border: 1px solid var(--color-light-100);
-    outline: 1px solid transparent;
+
     cursor: pointer;
 
-    &[data-state="open"] .iconDown {
+    width: 210px;
+    height: 36px;
+    min-height: function.px-to-unit(40);
+    padding: function.px-to-unit(6) function.px-to-unit(12);
+    border: 1px solid var(--color-light-100);
+    border-radius: function.px-to-unit(2);
+
+    background-color: var(--color-dark-500);
+    outline: 1px solid transparent;
+
+    @include mixins.display-flex($align: center, $justify: space-between, $gap: 5px);
+    @include mixins.box-sizing(border-box);
+
+    &[data-state='open'] .iconDown {
         transform: rotate(180deg);
     }
 
@@ -38,73 +43,76 @@
     }
 
     &:active {
-        outline-color: var(--color-light-700);
         background-color: var(--color-primary-500);
+        outline-color: var(--color-light-700);
     }
 
     &:hover {
-        color: var(--color-light-100);
         cursor: pointer;
+        color: var(--color-light-100);
     }
+
     &:focus {
+        border: 1px solid var(--color-primary-500);
         background-color: var(--color-dark-900);
-        outline: 2px solid var(--color-primary-500);
-        border: none;
+        outline: 1px solid var(--color-primary-500);
     }
 
     &:disabled {
-        color: var(--color-light-900);
-        border: 1px solid var(--color-light-900);
-        background-color: var(--color-dark-900);
         cursor: default;
+        border: 1px solid var(--color-light-900);
+        color: var(--color-light-900);
+        background-color: var(--color-dark-900);
     }
 }
 
-
-
 .Content {
     @include mixins.display-flex($direction: column, $align: center, $justify: center);
-    background-color: var(--color-dark-500);
-    border-radius: function.px-to-unit(2);
-    border: 1px solid var(--color-light-100);
-    color: var(--color-light-100);
+
     cursor: pointer;
-    margin-top: function.px-to-unit(20);
+
     position: absolute;
-    top: -20px;
     z-index: 101;
+
+    border-radius: function.px-to-unit(2);
+
+    color: var(--color-light-100);
+
+    background-color: var(--color-dark-500);
 }
 
 .Viewport {
-    padding: function.px-to-unit(5);
-    border: 1px solid var(--color-light-100);
     width: 210px;
+    border: 1px solid var(--color-light-100);
 }
 
 .selectItems {
     @include mixins.display-flex($align: center, $justify: start, $gap: function.px-to-unit(20));
-    margin-right: function.px-to-unit(2);
-    color: var(--color-light-100);
-    width: 100%;
 
-    &:hover {
-        color: var(--color-primary-500);
-    }
+    width: 100%;
+    margin-right: function.px-to-unit(2);
+    padding: function.px-to-unit(6) 0;
+    color: var(--color-light-100);
 }
 
 .Separator {
     @include mixins.display-flex($direction: column, $align: center, $justify: center);
+
     height: 1px;
-    background-color: var(--color-light-100);
     margin: function.px-to-unit(5);
+    background-color: var(--color-light-100);
 }
 
 .ScrollButton {
     @include mixins.display-flex($align: center, $justify: center);
-    min-height: function.px-to-unit(25);
-    height: 100%;
-    border: 1px solid var(--color-light-100);
-    background-color: var(--color-dark-500);
-    color: var(--color-light-100);
+
     cursor: pointer;
+
+    height: 100%;
+    min-height: function.px-to-unit(25);
+    border: 1px solid var(--color-light-100);
+
+    color: var(--color-light-100);
+
+    background-color: var(--color-dark-500);
 }
