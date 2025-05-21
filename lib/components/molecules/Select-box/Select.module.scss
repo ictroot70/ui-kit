@@ -31,7 +31,7 @@
     background-color: var(--color-dark-500);
     outline: 1px solid transparent;
 
-    @include mixins.display-flex($align: center, $justify: space-between, $gap: 5px);
+    @include mixins.display-flex($align: center, $justify: space-between);
     @include mixins.box-sizing(border-box);
 
     &[data-state='open'] .iconDown {
