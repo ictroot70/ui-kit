@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import './Card.module.scss'
-import { CSSProperties } from 'react'
+
+import styles from './Card.module.scss'
 
 import { Card } from './Card'
 
@@ -13,20 +13,20 @@ const meta: Meta<typeof Card> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const contentStyles: CSSProperties = {
-  fontSize: '24px',
-  textAlign: 'center',
-  display: 'flex',
-  flexDirection: 'column',
-}
-
 export const Default: Story = {
   args: {
     children: (
-      <div style={contentStyles}>
+      <>
         <h1>Card</h1>
-        <p>Card content</p>
-      </div>
+        <h4>Card content</h4>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequatur dolorem ducimus
+          et eum eveniet explicabo fugit in inventore ipsum itaque laborum laudantium magnam
+          molestiae nobis quasi quibusdam quisquam recusandae reprehenderit saepe similique suscipit
+          temporibus tenetur vel voluptas, voluptatem voluptatibus?
+        </p>
+      </>
     ),
+    className: styles.classNameForStorybook,
   },
 }
