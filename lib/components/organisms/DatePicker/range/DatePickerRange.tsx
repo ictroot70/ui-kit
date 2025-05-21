@@ -1,10 +1,11 @@
 import clsx from 'clsx'
 import 'react-day-picker/style.css'
 import s from '../DatePicker.module.scss'
-import { Calendar } from 'lucide-react'
 import { DayPicker, type DateRange, type DayPickerProps } from 'react-day-picker'
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
 import { useId, useMemo, useState } from 'react'
+import { LabelRadix } from '../../../molecules/LabelRadix'
+import { Calendar, CalendarOutline } from '../../../../assets/icons'
 
 export type DatePickerRangeProps = {
   value?: DateRange
@@ -42,7 +43,8 @@ export const DatePickerRange = ({
   )
   const selectedDates = isControlled ? value : internalDates
   const today = useMemo(() => new Date(), [])
-  const [isFocused, setIsFocused] = useState(false)
+  const [isFocused, setIsFocused] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const inputId = useId()
 
   const handleSelect = (range: DateRange | undefined) => {
@@ -61,13 +63,17 @@ export const DatePickerRange = ({
     <div className={clsx(s.container, className)} {...restProps}>
       <div className={s.datePickerWrapper}>
         {label && (
-          <label htmlFor={inputId} className={s.label}>
+          <LabelRadix
+            htmlFor={inputId}
+            required={required}
+            className={s.label}
+            disabled={disabled}
+          >
             {label}
-            {required && <span className={s.requiredIndicator}>*</span>}
-          </label>
+          </LabelRadix>
         )}
 
-        <Popover>
+        <Popover open={isOpen} onOpenChange={setIsOpen}>
           <PopoverTrigger asChild>
             <div
               id={inputId}
@@ -97,7 +103,7 @@ export const DatePickerRange = ({
                     })}`
                   : placeholder}
               </div>
-              <Calendar className={s.calendarIcon} width={24} height={24} />
+              {isOpen ? <Calendar /> : <CalendarOutline />}
             </div>
           </PopoverTrigger>
 
