@@ -74,7 +74,6 @@ export const LabelRadix = (props: LabelRadixProps): ReactElement => {
   )
   return (
     <Label
-      aria-required={required}
       id={id}
       aria-disabled={disabled}
       className={clsx(styles.label, className)}
