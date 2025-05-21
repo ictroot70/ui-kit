@@ -105,108 +105,112 @@
     outline: none;
   }
 }
-.itemsPerPageContainer {
+
+.itemsPerPageWrapper {
   display: flex;
   align-items: center;
   gap: function.px-to-unit(8);
 }
 
-.selectTrigger {
-  @extend .textStyle;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  width: function.px-to-unit(50);
-  height: function.px-to-unit(24);
-  padding: 0 function.px-to-unit(8);
-  border: 1px solid var(--color-dark-300);
-  border-radius: function.px-to-unit(4);
-  background-color: var(--color-dark-900);
+.itemsPerPageLabel {
   color: var(--color-light-100);
-  cursor: pointer;
-  transition: border-color 0.2s;
+  white-space: nowrap;
+}
 
-  &:focus {
-    outline: 1px solid var(--color-info-700);
+/* Стили для селекта */
+.paginationSelect {
+  &Trigger {
+    @extend .textStyle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: function.px-to-unit(80);
+    height: function.px-to-unit(24);
+    padding: 0 function.px-to-unit(8);
+    border: 1px solid var(--color-dark-300);
+    border-radius: function.px-to-unit(4);
+    background-color: var(--color-dark-900);
+    color: var(--color-light-100);
+    cursor: pointer;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: 1px solid var(--color-info-700);
+    }
   }
 
-  &[data-state='open'] {
-    .chevronIcon[data-state='open'] {
-      display: block;
+  &Content {
+    width: function.px-to-unit(80);
+    background-color: var(--color-dark-900);
+    border-radius: function.px-to-unit(4);
+    border: 1px solid var(--color-dark-300);
+    box-shadow: 0 function.px-to-unit(2) function.px-to-unit(10) rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: hidden;
+  }
+
+  &Viewport {
+    padding: function.px-to-unit(4) 0;
+    width: 100%;
+  }
+
+  &Item {
+    @extend .textStyle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: function.px-to-unit(6) function.px-to-unit(12);
+    cursor: pointer;
+    outline: none;
+    color: var(--color-light-100);
+    text-align: center;
+
+    &[data-highlighted] {
+      background-color: var(--color-dark-500);
     }
-    .chevronIcon[data-state='closed'] {
-      display: none;
+
+    &[data-state='checked'] {
+      background-color: var(--color-dark-700);
+      font-weight: 500;
+      position: relative;
+      
+      &::after {
+        content: '✓';
+        margin-left: function.px-to-unit(4);
+      }
     }
   }
 
-  &[data-state='closed'] {
-    .chevronIcon[data-state='open'] {
-      display: none;
-    }
-    .chevronIcon[data-state='closed'] {
-      display: block;
-    }
-  }
-}
-
-.selectIcon {
-  margin-left: function.px-to-unit(4);
-  display: flex;
-  position: relative;
-  width: function.px-to-unit(16);
-  height: function.px-to-unit(16);
-}
-
-.chevronIcon {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  color: var(--color-light-100);
-}
-
-.selectContent {
-  background-color: var(--color-dark-900);
-  border-radius: function.px-to-unit(4);
-  border: 1px solid var(--color-dark-300);
-  box-shadow: 0 function.px-to-unit(2) function.px-to-unit(10) rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  min-width: function.px-to-unit(50);
-}
-
-.selectViewport {
-  padding: function.px-to-unit(4);
-}
-
-.selectItem {
-  @extend .textStyle;
-  padding: function.px-to-unit(6) function.px-to-unit(12);
-  border-radius: function.px-to-unit(2);
-  cursor: pointer;
-  outline: none;
-  color: var(--color-light-100);
-
-  &[data-highlighted] {
-    background-color: var(--color-dark-500);
-  }
-
-  &[data-state='checked'] {
-    background-color: var(--color-dark-700);
-    font-weight: 500;
+  &ScrollButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: function.px-to-unit(25);
+    background-color: var(--color-dark-900);
+    color: var(--color-light-100);
+    cursor: default;
   }
 }
 
 @media (max-width: 768px) {
-  .itemsPerPageContainer {
-    margin-left: 0;
+  .paginationNav {
+    flex-direction: column;
+    gap: function.px-to-unit(12);
+  }
+
+  .itemsPerPageWrapper {
     width: 100%;
     justify-content: center;
   }
 
-  .selectTrigger {
-    width: 100%;
-  }
+  .paginationSelect {
+    &Trigger {
+      width: 100%;
+    }
 
-  .selectContent {
-    width: var(--radix-select-trigger-width);
+    &Content {
+      width: 100%;
+    }
   }
 }
