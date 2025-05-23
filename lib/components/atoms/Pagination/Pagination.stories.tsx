@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Pagination } from './Pagination';
-import { PaginationProps } from './Pagination.types';
-
+ 
 const meta: Meta<typeof Pagination> = {
   title: 'Components/Pagination',
   component: Pagination,
@@ -19,7 +18,7 @@ const meta: Meta<typeof Pagination> = {
 export default meta;
 type Story = StoryObj<typeof Pagination>;
 
-const PaginationWithState = (args: PaginationProps) => {
+const PaginationWithState = (args: any) => {
   const [page, setPage] = useState(args.currentPage || 1);
   const [itemsPerPage, setItemsPerPage] = useState(args.itemsPerPage || 10);
 
@@ -49,7 +48,7 @@ const Template: Story = {
     totalItems: 120,
     currentPage: 1,
     itemsPerPage: 10,
-  } as PaginationProps,
+  } as any,
 };
 
 export const Default: Story = {
