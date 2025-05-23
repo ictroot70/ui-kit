@@ -28,6 +28,7 @@ export const WithLabel: Story = {
   args: {
     label: 'Email',
     placeholder: 'Enter your email',
+    id: 'email',
   },
 }
 
@@ -38,10 +39,13 @@ export const Search: Story = {
   },
 }
 
-export const Hidden: Story = {
+export const Hideable: Story = {
   args: {
     placeholder: 'Enter password',
-    inputType: 'hidden',
+    inputType: 'hide-able',
+    label: 'Password',
+    id: 'password',
+    required: true
   },
 }
 
