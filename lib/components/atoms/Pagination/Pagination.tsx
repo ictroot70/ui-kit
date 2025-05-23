@@ -3,7 +3,9 @@ import clsx from 'clsx';
 import styles from './Pagination.module.scss';
 import { PaginationButton } from './PaginationButton/PaginationButton';
 import { PaginationEllipsis } from './PaginationEllipsis/PaginationEllipsis';
-import { PaginationItemsPerPage } from './PaginationItemsPerPage/PaginationItemsPerPage';
+// import { PaginationItemsPerPage } from './PaginationItemsPerPage/PaginationItemsPerPage';
+import { LabelRadix } from 'components/molecules/LabelRadix';
+import { Select } from 'components/molecules/Select-box/Select';
 
 interface PaginationProps {
   currentPage?: number;
@@ -49,10 +51,13 @@ export const Pagination = ({
     if (e.key === 'Enter') handlePageInputBlur();
   }, [handlePageInputBlur]);
 
-  const handleItemsPerPageChange = useCallback((selectedValue: number) => {
+const handleItemsPerPageChange = useCallback((selectedValue: number) => {
+  if (selectedValue) {  
+    console.log('Changing items per page to:', selectedValue);
     onItemsPerPageChange?.(selectedValue);
     onPageChange(1);
-  }, [onItemsPerPageChange, onPageChange]);
+  }
+}, [onItemsPerPageChange, onPageChange]);
 
   const handleEllipsisClick = useCallback((position: 'left' | 'right') => {
     setActiveEllipsis(position);
@@ -83,6 +88,7 @@ export const Pagination = ({
 
   const pageSizeOptions = useMemo(() => [10, 20, 30, 50, 100], []);
 
+ 
   return (
     <div className={clsx(styles.paginationRoot, className)}>
       <nav className={styles.paginationNav} aria-label="Pagination">
@@ -136,16 +142,35 @@ export const Pagination = ({
             &gt;
           </PaginationButton>
         </div>
-
-        {onItemsPerPageChange && (
-          <div className={styles.itemsPerPageWrapper}>
-            <PaginationItemsPerPage
-              itemsPerPage={itemsPerPage}
-              options={pageSizeOptions}
-              onChange={handleItemsPerPageChange}
-            />
-          </div>
-        )}
+       {onItemsPerPageChange && (
+        <div className={styles.itemsPerPageWrapper}>
+          <LabelRadix
+            typographyVariant="regular_14"
+            className={styles.itemsPerPageLabel}
+            label="Show on page"
+          />
+          
+        <Select
+          items={pageSizeOptions.map(option => ({
+            value: option.toString(),
+            label: option.toString()
+          }))}
+          value={itemsPerPage.toString()}  
+          onValueChange={(value) => {
+            console.log('Selected value:', value);
+            if (value) {
+              handleItemsPerPageChange(Number(value));
+            }
+          }}
+          className={styles.paginationSelectTrigger}
+          style={{ width: '80px' }}
+          placeholder={itemsPerPage.toString()}
+          withSeparator={false}
+          groupLabel={undefined}
+        />
+ 
+        </div>
+      )}
       </nav>
     </div>
   );
