@@ -6,7 +6,7 @@ const meta = {
   tags: ['autodocs'],
   title: 'Components/ErrorMessage',
   argTypes: {
-    errorMessage: {
+    message: {
       control: 'text',
     },
   },
