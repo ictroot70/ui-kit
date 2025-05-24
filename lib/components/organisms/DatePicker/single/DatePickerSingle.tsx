@@ -56,6 +56,16 @@ export const DatePickerSingle = ({
       setInternalDate(date); // Update internal state if uncontrolled
     }
     onDateChange?.(date); // Notify parent component about change
+  }
+    // Added keyboard event handler
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+      if (disabled) return
+
+      // Open the calendar by pressing the spacebar or Enter
+      if (event.key === ' ' || event.key === 'Enter') {
+        event.preventDefault() // Предотвращаем прокрутку страницы при нажатии пробела
+        setIsOpen(prev => !prev)
+      }
   };
 
   return (
@@ -82,6 +92,7 @@ export const DatePickerSingle = ({
               tabIndex={disabled ? -1 : 0}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
+              onKeyDown={handleKeyDown}
               className={clsx(
                 s.datePicker,
                 disabled && s.disabled,
@@ -91,6 +102,8 @@ export const DatePickerSingle = ({
               )}
               aria-disabled={disabled}
               role="button"
+              aria-haspopup="dialog"
+              aria-expanded={isOpen}
             >
               {/* Display selected date or placeholder */}
               <div className={s.dateText}>

@@ -32,6 +32,7 @@
   cursor: pointer;
 
   &:focus {
+    outline: none;
     border: 2px solid var(--color-primary-700);
   }
 }
@@ -40,7 +41,6 @@
   position: absolute;
   left: 0px;
   top: -3px;
-  //width: 100%;
   box-sizing: border-box;
   padding: 16px 16px;
   @include display-flex(flex, center, space-between);
@@ -50,8 +50,9 @@
   font-size: 16px;
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-m);
-  border-radius: 8px;
   color: var(--color-light-100);
+  margin-top: 5px;
+  border-radius: 2px;
 }
 
 .popoverContent {
@@ -71,6 +72,7 @@
   color: var(--color-danger-500) !important;
   font-weight: var(--font-weight-bold);
 }
+
 
 .rdpDay_today.rdpDay_selected {
   color: var(--color-light-100) !important;
@@ -120,7 +122,7 @@
 
 .rdpButton_next svg,
 .rdpButton_previous svg {
-  fill: var(--color-light-100) !important;
+  fill: var(--color-light-100);
 }
 
 .rdpButton_next,
@@ -139,12 +141,30 @@
   &:hover {
     background-color: var(--color-dark-300);
   }
+  &:focus {
+    outline: none;
+    border:  2px solid var(--color-primary-700);
+  }
 }
 
 .rdpDay_outside {
   color: var(--color-light-700);
   opacity: 0.5;
   cursor: not-allowed;
+
+
+  &:active {
+    color: var(--color-light-900);
+    opacity: 1;
+    background-color: var(--color-primary-700);
+  }
+
+
+  &.rdpDay_selected {
+    color: var(--color-light-900) !important;
+    opacity: 1;
+    background-color: var(--color-primary-900);
+  }
 }
 
 .rdpDay_inRange {
@@ -169,8 +189,6 @@
 }
 
 .rdpDay_hover:hover {
-  @include display-flex(flex, center, center);
-  outline: 2px solid var(--color-primary-700);
   border-radius: 50%;
   color: var(--color-light-100);
   cursor: pointer;
@@ -180,7 +198,7 @@
   color: var(--color-danger-500);
 
   &:hover {
-    color: var(--color-danger-500); // цвет при наведении
+    color: var(--color-danger-500);
   }
 }
 

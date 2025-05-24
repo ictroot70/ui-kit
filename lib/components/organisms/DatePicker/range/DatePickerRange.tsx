@@ -70,6 +70,17 @@ export const DatePickerRange = ({
     }
   }
 
+    // Added keyboard event handler
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+      if (disabled) return
+
+      // Open the calendar by pressing the spacebar or Enter
+      if (event.key === ' ' || event.key === 'Enter') {
+        event.preventDefault() // Предотвращаем прокрутку страницы при нажатии пробела
+        setIsOpen(prev => !prev)
+      }
+  }
+
   return (
     <div className={clsx(s.container, className)} {...restProps}>
       <div className={s.datePickerWrapper}>
@@ -86,11 +97,12 @@ export const DatePickerRange = ({
         {/* The popover contains the calendar and the trigger input */}
         <Popover open={isOpen} onOpenChange={setIsOpen}>
           <PopoverTrigger asChild>
-            <div
+            <button
               id={inputId}
               tabIndex={disabled ? -1 : 0}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
+              onKeyDown={handleKeyDown}
               className={clsx(
                 s.datePicker,
                 disabled && s.disabled,
@@ -100,6 +112,8 @@ export const DatePickerRange = ({
               )}
               aria-disabled={disabled}
               role="button"
+              aria-haspopup="dialog"
+              aria-expanded={isOpen}
             >
               {/* Show the selected date range or placeholder */}
               <div className={s.dateText}>
@@ -117,7 +131,7 @@ export const DatePickerRange = ({
               </div>
               {/* Show calendar icon depending on popover state */}
               {isOpen ? <Calendar /> : <CalendarOutline />}
-            </div>
+            </button>
           </PopoverTrigger>
           {/* Only render calendar if not disabled */}
           {!disabled && (
