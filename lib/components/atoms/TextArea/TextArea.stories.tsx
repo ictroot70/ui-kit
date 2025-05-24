@@ -24,27 +24,8 @@ export const Error: Story = {
   args: {
     placeholder: 'Type something...',
     error: 'Error text',
-    label: 'Error'
-  }
-}
-
-export const Hover: Story = {
-  args: {
-    placeholder: 'Type something...',
-    value: 'Hover over me'
-  },
-  parameters: {
-    pseudo: { hover: true }
-  }
-}
-
-export const Focus: Story = {
-  args: {
-    placeholder: 'Type something...',
-    value: 'Focused textarea'
-  },
-  parameters: {
-    pseudo: { focus: true }
+    label: 'Error',
+    id: 'error'
   }
 }
 
