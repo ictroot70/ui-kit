@@ -41,11 +41,11 @@ export interface UseToastManagerReturn {
  * } = useToastManager({ maxToasts: 3 })
  *
  * showToast({ type: 'success', title: 'Saved!', duration: 3000 })
- * @param props
+ * @param options
  */
 
-export const useToastManager = (props: UseToastManagerOptions): UseToastManagerReturn => {
-  const { maxToasts = 5 } = props
+export const useToastManager = (options: UseToastManagerOptions): UseToastManagerReturn => {
+  const { maxToasts = 5 } = options
   const [toasts, setToasts] = useState<Toast[]>([])
   const timeouts = useRef<Record<string, NodeJS.Timeout>>({})
   /**
@@ -91,8 +91,7 @@ export const useToastManager = (props: UseToastManagerOptions): UseToastManagerR
       })
 
       if (toast.duration !== 0) {
-        const timeout = setTimeout(() => removeToast(id), toast.duration ?? 4000)
-        timeouts.current[id] = timeout
+        timeouts.current[id] = = setTimeout(() => removeToast(id), toast.duration ?? 4000)
       }
     },
     [maxToasts]
