@@ -91,7 +91,7 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
       })
 
       if (toast.duration !== 0) {
-        timeouts.current[id] = = setTimeout(() => removeToast(id), toast.duration ?? 4000)
+        timeouts.current[id] = setTimeout(() => removeToast(id), toast.duration ?? 4000)
       }
     },
     [maxToasts]
