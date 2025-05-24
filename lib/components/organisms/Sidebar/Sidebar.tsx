@@ -1,23 +1,54 @@
 import clsx from 'clsx'
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactNode } from 'react'
-import styles from './Sidebar.module.scss'
+import s from './Sidebar.module.scss'
+import { ScrollAreaRadix } from 'components/atoms'
 
 type SidebarProps = {
-  /** Дополнительный класс для кастомизации */
   className?: string
-  /** Элементы сайдбара */
   children: ReactNode
-  /** Ширина сайдбара */
   width?: number | string
 } & ComponentPropsWithoutRef<'nav'>
 
+/**
+ * `Sidebar` is a customizable navigation component that provides a vertical menu with scrollable content.
+ * It supports custom width, grouping of navigation items, and accessible links with icons.
+ *
+ * ## Features:
+ * - Customizable width (number or string)
+ * - Scrollable content area
+ * - Semantic HTML navigation element
+ * - Supports grouping of related links
+ * - Accessible with proper ARIA attributes
+ *
+ * ## Examples:
+ * ```tsx
+ * <Sidebar width={250}>
+ *   <SidebarGroup>
+ *     <SidebarLink href="/dashboard" icon={<DashboardIcon />} active>
+ *       Dashboard
+ *     </SidebarLink>
+ *     <SidebarLink href="/projects" icon={<ProjectsIcon />}>
+ *       Projects
+ *     </SidebarLink>
+ *   </SidebarGroup>
+ * </Sidebar>
+ * ```
+ *
+ * ### Props
+ * - `className` - Additional class for customization
+ * - `children` - Sidebar content (typically SidebarGroup components)
+ * - `width` - Width of the sidebar (default: 220)
+ *
+ * ### Returns
+ * - A styled navigation sidebar with scrollable content area
+ */
 export const Sidebar = forwardRef<ElementRef<'nav'>, SidebarProps>(
   ({ children, className, width = 220, style, ...rest }, ref) => {
     const classNames = {
-      root: clsx(styles.root, className),
+      root: clsx(s.root, className),
     }
 
-    const inlineStyles = {
+    const inlines = {
       ...style,
       width: typeof width === 'number' ? `${width}px` : width,
       maxWidth: typeof width === 'number' ? `${width}px` : width,
@@ -26,67 +57,15 @@ export const Sidebar = forwardRef<ElementRef<'nav'>, SidebarProps>(
     return (
       <nav
         className={classNames.root}
-        style={inlineStyles}
+        style={inlines}
         ref={ref}
         aria-label="Main navigation"
         {...rest}
       >
-        {children}
+        <ScrollAreaRadix>{children}</ScrollAreaRadix>
       </nav>
     )
   }
 )
 
-type SidebarItemProps = {
-  /** Иконка элемента */
-  icon?: ReactNode
-  /** Иконка элемента в активном состоянии */
-  activeIcon?: ReactNode
-  /** Активное состояние */
-  active?: boolean
-  /** Отключенное состояние */
-  disabled?: boolean
-  /** URL для ссылки (если используется как ссылка) */
-  href?: string
-  /** Компонент для навигации (например, Next.js Link) */
-  as?: React.ElementType
-} & ComponentPropsWithoutRef<'div'>
-
-export const SidebarItem = forwardRef<ElementRef<'div'>, SidebarItemProps>(
-  (
-    {
-      children,
-      className,
-      icon,
-      activeIcon,
-      active,
-      disabled,
-      href,
-      as: Component = 'div',
-      ...rest
-    },
-    ref
-  ) => {
-    const classNames = {
-      item: clsx(styles.item, active && styles.active, disabled && styles.disabled, className),
-    }
-
-    const currentIcon = active && activeIcon ? activeIcon : icon
-    const role = Component === 'div' ? 'menuitem' : undefined
-
-    return (
-      <Component
-        className={classNames.item}
-        ref={ref}
-        role={role}
-        aria-disabled={disabled}
-        aria-current={active ? 'page' : undefined}
-        href={href}
-        {...rest}
-      >
-        {currentIcon}
-        <span className={styles.label}>{children}</span>
-      </Component>
-    )
-  }
-)
+Sidebar.displayName = 'Sidebar'
