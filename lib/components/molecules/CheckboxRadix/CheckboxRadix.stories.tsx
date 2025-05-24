@@ -25,7 +25,7 @@ const linkStyle = {
 export const Controlled: Story = {
   args: {
     id: 'eeewww',
-    errorMessage: 'required field',
+    message: 'required field',
     disabled: false,
     label: (
       <>

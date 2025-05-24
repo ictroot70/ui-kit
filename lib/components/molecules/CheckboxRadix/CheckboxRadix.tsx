@@ -121,7 +121,7 @@ export const CheckboxRadix = forwardRef<ElementRef<typeof Checkbox.Root>, Checkb
         </LabelRadix>
         {errorMessage && (
           <ErrorMessage
-            errorMessage={errorMessage}
+            message={errorMessage}
             className={s.errorMessage}
             variant={'danger_small'}
           />
