@@ -3,16 +3,69 @@ import { ToastInput } from 'providers/ToastProvider/hooks/useToast'
 import { v4 as uuidv4 } from 'uuid'
 import { Toast } from 'components/molecules/Toast/Toast.types'
 
-export const useToastManager = ({ maxToasts = 5 }: { maxToasts?: number }) => {
+export interface UseToastManagerOptions {
+  maxToasts?: number
+}
+
+export interface UseToastManagerReturn {
+  toasts: Toast[]
+  showToast: (toast: ToastInput) => void
+  removeToast: (id: string) => void
+  pauseToast: (toast: Toast) => void
+  resumeToast: (toast: Toast) => void
+}
+
+/**
+ * A custom React hook for managing toast notifications.
+ *
+ * This hook allows you to display, remove, pause, and resume toast messages.
+ * It supports a configurable maximum number of toasts, and automatically removes
+ * toasts after a specified duration.
+ *
+ * @param {number} [options.maxToasts=5] - Maximum number of toasts to display at once.
+ * @returns {{
+ *   toasts: Toast[],
+ *   showToast: (toast: ToastInput) => void,
+ *   removeToast: (id: string) => void,
+ *   pauseToast: (toast: Toast) => void,
+ *   resumeToast: (toast: Toast) => void
+ * }} An object containing the list of toasts and toast management functions.
+ *
+ * @example
+ * const {
+ *   toasts,
+ *   showToast,
+ *   removeToast,
+ *   pauseToast,
+ *   resumeToast,
+ * } = useToastManager({ maxToasts: 3 })
+ *
+ * showToast({ type: 'success', title: 'Saved!', duration: 3000 })
+ * @param props
+ */
+
+export const useToastManager = (props: UseToastManagerOptions): UseToastManagerReturn => {
+  const { maxToasts = 5 } = props
   const [toasts, setToasts] = useState<Toast[]>([])
   const timeouts = useRef<Record<string, NodeJS.Timeout>>({})
-
+  /**
+   * Removes a toast by its ID and clears its timeout.
+   *
+   * @param {string} id - The ID of the toast to remove.
+   */
   const removeToast = (id: string) => {
     clearTimeout(timeouts.current[id])
     delete timeouts.current[id]
     setToasts(prev => prev.filter(t => t.id !== id))
   }
-
+  /**
+   * Displays a new toast message.
+   *
+   * If the number of toasts exceeds `maxToasts`, the oldest one is removed.
+   * If a duration is specified and not 0, the toast will auto-dismiss.
+   *
+   * @param {ToastInput} toast - The toast configuration.
+   */
   const showToast = useCallback(
     (toast: ToastInput) => {
       const id = uuidv4()
@@ -44,7 +97,11 @@ export const useToastManager = ({ maxToasts = 5 }: { maxToasts?: number }) => {
     },
     [maxToasts]
   )
-
+  /**
+   * Pauses the timeout for a given toast (used on hover).
+   *
+   * @param {Toast} toast - The toast to pause.
+   */
   const pauseToast = (toast: Toast) => {
     setToasts(prev =>
       prev.map(t => {
@@ -63,7 +120,11 @@ export const useToastManager = ({ maxToasts = 5 }: { maxToasts?: number }) => {
       })
     )
   }
-
+  /**
+   * Resumes the timeout for a previously paused toast.
+   *
+   * @param {Toast} toast - The toast to resume.
+   */
   const resumeToast = (toast: Toast) => {
     setToasts(prev =>
       prev.map(t => {
