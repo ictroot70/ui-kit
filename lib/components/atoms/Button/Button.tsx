@@ -1,22 +1,34 @@
-import { ComponentPropsWithoutRef } from 'react';
-import s from './Button.module.css';
-import clsx from 'clsx';
+import { ComponentPropsWithoutRef, ElementType } from 'react'
+import { Slot } from '@radix-ui/react-slot'
+import clsx from 'clsx'
+import s from './Button.module.css'
+
+type Variant = 'primary' | 'outlined' | 'secondary'
 
 type Props = {
-  variant?: 'primary' | 'outlined' | 'secondary';
-  className?: string;
-  children: React.ReactNode;
-} & ComponentPropsWithoutRef<'button'>;
+  variant?: Variant
+  fullWidth?: boolean
+  asChild?: boolean
+} & ComponentPropsWithoutRef<'button'>
 
 export const Button = ({
   variant = 'primary',
   className,
-  children,
+  fullWidth = false,
+  asChild = false,
   ...rest
 }: Props) => {
+  const Comp: ElementType = asChild ? Slot : 'button'
+
   return (
-    <button className={clsx(s.button, s[variant], className)} {...rest}>
-      {children}
-    </button>
-  );
-};
+    <Comp
+      className={clsx(
+        s.button,
+        s[variant],
+        fullWidth && s.fullWidth,
+        className
+      )}
+      {...rest}
+    />
+  )
+}

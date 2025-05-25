@@ -2,23 +2,47 @@
   all: unset;
   cursor: pointer;
   box-sizing: border-box;
-  color: var(--light-100);
   font-family: inherit;
   padding: 5px;
   min-width: 100px;
   text-align: center;
-}
+  transition: background-color 0.2s ease, opacity 0.2s ease;
 
-.primary {
-  background-color: var(--accent-500);
-}
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
 
-.secondary {
-  background-color: var(--dark-300);
-}
+  &:active:not(:disabled) {
+    opacity: 0.8;
+  }
 
-.outlined {
-  color: var(--accent-500);
-  border: 1px solid var(--accent-500);
-  background-color: transparent;
+  &:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.primary {
+    background-color: #2563eb;
+    color: white;
+  }
+
+  &.secondary {
+    background-color: #e5e7eb;
+    color: #111827;
+  }
+
+  &.outlined {
+    border: 1px solid #2563eb;
+    color: #2563eb;
+    background-color: transparent;
+  }
+
+  &.fullWidth {
+    width: 100%;
+  }
 }
