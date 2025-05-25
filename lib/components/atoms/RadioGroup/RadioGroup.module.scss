@@ -1,0 +1,44 @@
+.root {
+  display: flex;
+  gap: 12px;
+}
+
+.item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  background-color: white;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #666;
+  }
+
+  &:focus {
+    outline: 2px solid blue;
+  }
+
+  &[data-disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.selected {
+  border-color: blue;
+  background-color: #eef3ff;
+}
+
+.circle {
+  width: 12px;
+  height: 12px;
+  margin-right: 6px;
+  border: 2px solid blue;
+  border-radius: 50%;
+  background-color: white;
+}
