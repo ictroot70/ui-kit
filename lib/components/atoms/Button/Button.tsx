@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType } from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import clsx from 'clsx'
-import s from './Button.module.css'
+import s from './Button.module.scss'
 
 type Variant = 'primary' | 'outlined' | 'secondary'
 
