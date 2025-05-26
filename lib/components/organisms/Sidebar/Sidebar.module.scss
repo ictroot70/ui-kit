@@ -16,6 +16,7 @@
   flex-direction: column;
   gap: 24px;
   padding-left: 5px;
+  padding-right: 15px;
   margin-bottom: 60px;
 
   &:first-child {
@@ -35,11 +36,14 @@
   align-items: center;
   text-decoration: none;
   color: inherit;
-  width: max-content;
   padding: 0 7px 0 0;
   border: none;
   background: transparent;
   transition: color 0.2s ease;
+
+  span[role='img'] {
+    flex-shrink: 0;
+  }
 
   &:hover:not(.disabled) {
     color: var(--color-primary-100);

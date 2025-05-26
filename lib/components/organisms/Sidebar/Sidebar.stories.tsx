@@ -136,9 +136,6 @@ export const WithScroll: Story = {
     width: 220,
     children: <InteractiveSidebar />,
   },
-  parameters: {
-    viewport: {},
-  },
   decorators: [
     Story => (
       <div style={{ height: '400px', border: '1px solid var(--color-primary-500)' }}>
