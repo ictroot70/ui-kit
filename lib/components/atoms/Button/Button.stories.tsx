@@ -59,3 +59,10 @@ export const AsLink: Story = {
     </Button>
   ),
 }
+
+export const Text: StoryObj<typeof Button> = {
+  args: {
+    children: 'Text Button',
+    variant: 'text',
+  },
+}

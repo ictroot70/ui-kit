@@ -3,7 +3,7 @@ import { Slot } from '@radix-ui/react-slot'
 import clsx from 'clsx'
 import s from './Button.module.scss'
 
-type Variant = 'primary' | 'outlined' | 'secondary'
+type Variant = 'primary' | 'outlined' | 'secondary' | 'text'
 
 type Props = {
   variant?: Variant
