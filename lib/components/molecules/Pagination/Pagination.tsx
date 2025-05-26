@@ -3,9 +3,9 @@ import clsx from 'clsx';
 import styles from './Pagination.module.scss';
 import { PaginationButton } from './PaginationButton/PaginationButton';
 import { PaginationEllipsis } from './PaginationEllipsis/PaginationEllipsis';
-// import { PaginationItemsPerPage } from './PaginationItemsPerPage/PaginationItemsPerPage';
 import { LabelRadix } from 'components/molecules/LabelRadix';
 import { Select } from 'components/molecules/Select-box/Select';
+import { ArrowBackSimple, ArrowForwardSimple } from 'assets/icons';
 
 interface PaginationProps {
   currentPage?: number;
@@ -99,7 +99,7 @@ const handleItemsPerPageChange = useCallback((selectedValue: number) => {
             className={styles.navButton}
             ariaLabel="Previous page"
           >
-            &lt;
+           <ArrowBackSimple/>
           </PaginationButton>
 
           <div className={styles.paginationPages}>
@@ -139,7 +139,7 @@ const handleItemsPerPageChange = useCallback((selectedValue: number) => {
             className={styles.navButton}
             ariaLabel="Next page"
           >
-            &gt;
+            <ArrowForwardSimple/>
           </PaginationButton>
         </div>
        {onItemsPerPageChange && (

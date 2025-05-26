@@ -1,14 +1,14 @@
-import clsx from 'clsx';
-import styles from '../Pagination.module.scss';
-import { Typography } from 'components/atoms/Typography';
+import clsx from 'clsx'
+import styles from '../Pagination.module.scss'
+import { Typography } from 'components/atoms/Typography'
 
 interface PaginationButtonProps {
-  children: React.ReactNode;
-  onClick: () => void;
-  disabled?: boolean;
-  active?: boolean;
-  className?: string;
-  ariaLabel: string;
+  children: React.ReactNode
+  onClick: () => void
+  disabled?: boolean
+  active?: boolean
+  className?: string
+  ariaLabel: string
 }
 
 export const PaginationButton = ({
@@ -42,5 +42,5 @@ export const PaginationButton = ({
         {children}
       </Typography>
     </button>
-  );
-};
+  )
+}

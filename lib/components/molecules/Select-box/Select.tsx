@@ -4,8 +4,8 @@ import { clsx } from 'clsx'
 import { type ComponentRef, forwardRef, ReactNode, useId } from 'react'
 import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import { Typography } from '../../atoms'
-import { SelectItem } from './SelectItem/SelectItems'
 import { LabelRadix } from '../LabelRadix'
+import { SelectItem } from './SelectItem/SelectItems'
 
 // Type definition for individual select items
 type SelectItemsProps = {
@@ -47,6 +47,8 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
     const contentStyle = widthStyle ? { width: widthStyle } : undefined
     // Similarly, create an object with width for the viewport container if width is specified; otherwise undefined
     const viewportStyle = widthStyle ? { width: widthStyle } : undefined
+
+    console.log(value,items)
 
     return (
       <div className={s.selectWrapper}>

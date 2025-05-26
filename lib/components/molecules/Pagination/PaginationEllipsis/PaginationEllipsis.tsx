@@ -1,4 +1,4 @@
-import { Typography } from 'components/atoms/Typography';
+import { Typography } from 'components/atoms';
 import styles from '../Pagination.module.scss';
 
 interface PaginationEllipsisProps {
