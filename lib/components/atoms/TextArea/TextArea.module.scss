@@ -1,0 +1,87 @@
+@use '@/styles/mixins' as mixins;
+@use '@/styles/function' as function;
+
+// Variables
+$textarea-padding: function.px-to-unit(6) function.px-to-unit(12);
+$textarea-min-height: function.px-to-unit(36);
+$textarea-border-radius: function.px-to-unit(2);
+$transition-duration: 0.2s;
+
+// Mixins
+@mixin textarea-base {
+  width: 100%;
+  min-height: $textarea-min-height;
+  padding: $textarea-padding;
+  color: var(--color-light-100);
+  background-color: var(--color-dark-500);
+  border: 1px solid var(--color-dark-100);
+  border-radius: $textarea-border-radius;
+  outline: none;
+  resize: none;
+  transition: all $transition-duration ease-in-out;
+
+  @include mixins.typography-without-color(
+    var(--font-size-m),
+    var(--font-weight-regular),
+    var(--line-height-m)
+  );
+}
+
+@mixin textarea-states {
+  &:not(:disabled) {
+    &:focus {
+      border-color: var(--color-primary-700);
+    }
+
+    &:active {
+      border-color: var(--color-light-100);
+    }
+
+    &:hover {
+      background-color: var(--color-dark-500);
+    }
+  }
+}
+
+@mixin textarea-disabled {
+  &:disabled {
+    color: var(--color-dark-100);
+    cursor: not-allowed;
+  }
+}
+
+// Component styles
+.textAreaWrapper {
+  @include mixins.display-flex(flex, $direction: column);
+  width: 100%;
+}
+
+.disabled {
+  .label {
+    color: var(--color-dark-100);
+  }
+}
+
+.textArea {
+  @include textarea-base;
+
+  &::placeholder {
+    color: var(--color-dark-100);
+  }
+
+  @include textarea-states;
+  @include textarea-disabled;
+
+  &.error {
+    border-color: var(--color-danger-500);
+    color: var(--color-light-100);
+
+    &:focus {
+      outline-color: var(--color-danger-500);
+    }
+  }
+}
+
+.errorText {
+  color: var(--color-danger-500);
+}
