@@ -1,0 +1,139 @@
+.button {
+  all: unset;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-family: inherit;
+  padding: 0.5rem 1rem;
+  min-width: 100px;
+  text-align: center;
+  border-radius: 2px;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:focus-visible {
+    outline: none;
+    border: 2px solid var(--color-primary-300);
+  }
+
+  &:active {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.primary {
+  background-color: var(--color-primary-500);
+  color: var(--color-light-100);
+
+  &:hover {
+    background-color: var(--color-primary-100);
+  }
+
+  &:active {
+    background-color: var(--color-primary-700);
+  }
+
+  &:focus {
+    border: 2px solid var(--color-primary-700);
+  }
+
+  &:disabled {
+    background-color: var(--color-primary-900);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.secondary {
+  background-color: var(--color-dark-300);
+  color: var(--color-light-100);
+
+  &:hover {
+    color: var(--color-light-100);
+  }
+
+  &:active {
+    color: var(--color-light-100);
+  }
+
+  &:focus {
+    border: 1px solid var(--color-primary-300);
+  }
+
+  &:disabled {
+    color: var(--color-light-100);
+    opacity: 0.6;
+  }
+}
+
+.outlined {
+  color: var(--color-primary-500);
+  border:2px solid var(--color-primary-500);
+  background-color: transparent;
+
+  &:hover {
+    border:2px solid var(--color-primary-100);
+    color: var(--color-primary-100)
+  }
+
+  &:active {
+    order: 2px solid var(--color-primary-700);
+    color: var(--color-primary-700)
+  }
+
+  &:focus {
+    border: 2px solid var(--color-primary-700);
+    color: var(--color-primary-700)
+  }
+
+  &:disabled {
+    order: 2px solid var(--color-primary-900);
+    color: var(--color-primary-900)
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.text {
+  background: none;
+  border: none;
+  color: var(--color-primary-500);
+  padding: 0 16px;
+  height: 36px;
+  min-width: 100px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: var(--color-primary-100);
+  }
+
+  &:active {
+    color: var(--color-primary-700);
+  }
+
+  &:focus {
+  border: 2px solid var(--color-primary-500);
+
+  }
+
+  &:disabled {
+    color: var(--color-primary-900);
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
