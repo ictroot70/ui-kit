@@ -1,12 +1,14 @@
+'use client'
+
 import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 import s from './Input.module.scss'
 import clsx from 'clsx'
-import { Typography } from '../Typography'
+import { Typography } from '../../atoms/Typography'
 import Search from '../../../assets/icons/components/Search'
 import Eye from '../../../assets/icons/components/Eye'
 import EyeOff from '../../../assets/icons/components/EyeOff'
-import { LabelRadix } from 'components/molecules/LabelRadix/LabelRadix'
-import { ErrorMessage } from 'components/atoms/ErrorMessage/ErrorMessage'
+import { LabelRadix } from '../LabelRadix/LabelRadix'
+import { ErrorMessage } from '../../atoms/ErrorMessage/ErrorMessage'
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
   label?: string
@@ -44,7 +46,7 @@ interface InputProps extends ComponentPropsWithoutRef<'input'> {
  * - @param props.disabled - Whether the input field is disabled
  * - @param props.required - Whether the input field is required
  * - @param props.className - Optional additional class names
- * 
+ *
  * InputType:
  * - text: Renders a text input field
  * - hide-able: Renders a password input field that can be toggled to show/hide the password
@@ -59,26 +61,34 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const [type, setType] = useState(inputType === 'hide-able' ? 'password' : 'text')
 
     const handleToggle = () => {
-      if (type === 'password') {
-        setType('text')
-      } else {
-        setType('password')
+      if (!disabled) {
+        if (type === 'password') {
+          setType('text')
+        } else {
+          setType('password')
+        }
       }
     }
 
     return (
       <div className={clsx(s.inputWrapper, disabled && s.disabled)}>
-        {label && <LabelRadix
-          label={label}
-          htmlFor={id}
-          typographyVariant={'regular_14'}
-          required={required}
-          disabled={disabled} 
-          className={clsx(s.label, disabled && s.disabled)}
-          />}
+        {label && (
+          <LabelRadix
+            label={label}
+            htmlFor={id}
+            typographyVariant={'regular_14'}
+            required={required}
+            disabled={disabled}
+            className={clsx(s.label, disabled && s.disabled)}
+          />
+        )}
         <Typography variant={'regular_16'} asChild>
           <div className={s.inputContainer}>
-            {inputType === 'search' && <span className={s.searchIcon}><Search /></span>}
+            {inputType === 'search' && (
+              <span className={s.searchIcon}>
+                <Search />
+              </span>
+            )}
             <input
               value={value}
               type={type}
@@ -91,29 +101,20 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               aria-required={required}
               aria-invalid={!!error}
               aria-describedby={error ? `${id}-error` : undefined}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={e => setValue(e.target.value)}
               {...props}
             />
-            {inputType === 'hide-able' &&
-              (
-                <button
-                  className={s.eyeButton}
-                  onClick={handleToggle}
-                >
-                  {type === 'password' ? (
-                    <EyeOff />
-                  ) : (
-                    <Eye />
-                  )}
-                </button>
-              )
-            }
+            {inputType === 'hide-able' && (
+              <button className={s.eyeButton} onClick={handleToggle}>
+                {type === 'password' ? <EyeOff /> : <Eye />}
+              </button>
+            )}
           </div>
         </Typography>
         {error && <ErrorMessage errorMessage={error} variant="danger" />}
       </div>
     )
-  },
+  }
 )
 
 Input.displayName = 'Input'
