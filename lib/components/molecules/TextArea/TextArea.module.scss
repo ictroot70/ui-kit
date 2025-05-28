@@ -18,7 +18,7 @@ $transition-duration: 0.2s;
   border-radius: $textarea-border-radius;
   outline: none;
   resize: none;
-  transition: all $transition-duration ease-in-out;
+  transition: border-color $transition-duration ease-in-out;
 
   @include mixins.typography-without-color(
     var(--font-size-m),
@@ -31,10 +31,11 @@ $transition-duration: 0.2s;
   &:not(:disabled) {
     &:focus {
       border-color: var(--color-primary-700);
+      outline: 1px solid var(--color-primary-700);
     }
 
     &:active {
-      border-color: var(--color-light-100);
+      border-color: var(--color-primary-700);
     }
 
     &:hover {
@@ -56,8 +57,12 @@ $transition-duration: 0.2s;
   width: 100%;
 }
 
+.label p {
+  color: var(--color-light-900);
+}
+
 .disabled {
-  .label {
+  .label p {
     color: var(--color-dark-100);
   }
 }
@@ -77,6 +82,7 @@ $transition-duration: 0.2s;
     color: var(--color-light-100);
 
     &:focus {
+      border-color: var(--color-danger-500);
       outline-color: var(--color-danger-500);
     }
   }
