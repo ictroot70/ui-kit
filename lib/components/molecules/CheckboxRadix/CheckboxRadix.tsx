@@ -1,19 +1,12 @@
-import {
-  ComponentPropsWithoutRef,
-  ElementRef,
-  forwardRef,
-  ReactElement,
-  ReactNode,
-  useRef,
-} from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactElement, ReactNode } from 'react'
 import * as Checkbox from '@radix-ui/react-checkbox'
-import { clsx } from 'clsx'
 
 import s from './CheckboxRadix.module.scss'
 import { CheckboxIndicator } from 'components/molecules/CheckboxRadix/CheckboxIndicator'
 import { LabelRadix } from 'components/molecules/LabelRadix'
-import { mergeRefs } from 'components/molecules/CheckboxRadix/mergeRefs'
 import { ErrorMessage } from 'components/atoms'
+import { useCheckboxRef } from 'components/molecules/CheckboxRadix/hook/useCheckboxRef'
+import { getCheckboxClassNames } from 'components/molecules/CheckboxRadix/helpers/helpers'
 
 export interface CheckboxProps extends ComponentPropsWithoutRef<typeof Checkbox.Root> {
   className?: string
@@ -78,20 +71,16 @@ export const CheckboxRadix = forwardRef<ElementRef<typeof Checkbox.Root>, Checkb
       ...rest
     } = props
 
-    const classNames = {
-      container: clsx(s.container, className, disabled && s.disabled),
-      btnWrapper: clsx(s.btnWrapper, disabled && s.disabled),
-      indicator: s.indicator,
-      label: clsx(s.label, disabled && s.disabled),
-    }
+    const classNames = getCheckboxClassNames(disabled, className)
 
     const handleCheckedChange = (checked: boolean | 'indeterminate') => {
-      onCheckedChange?.(checked)
       if (typeof checked === 'boolean') {
         onCheckedChange?.(checked)
       }
     }
-    const buttonRef = useRef<HTMLButtonElement | null>(null)
+
+    const { mergedRef } = useCheckboxRef<HTMLButtonElement>(ref)
+
     return (
       <div className={classNames.container}>
         <LabelRadix
@@ -112,7 +101,7 @@ export const CheckboxRadix = forwardRef<ElementRef<typeof Checkbox.Root>, Checkb
               onCheckedChange={handleCheckedChange}
               disabled={disabled}
               required={required}
-              ref={mergeRefs(ref, buttonRef)}
+              ref={mergedRef}
               {...rest}
             >
               {checked && <CheckboxIndicator className={s.indicator} />}
