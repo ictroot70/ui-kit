@@ -7,8 +7,9 @@ import { useId, useMemo, useState } from 'react'
 import { LabelRadix } from '../../../molecules/LabelRadix'
 import { Calendar, CalendarOutline } from '../../../../assets/icons'
 
-
-// Type definition for the date range picker props
+/**
+ * Props for the DatePickerRange component.
+ */
 export type DatePickerRangeProps = {
   value?: DateRange
   defaultDate?: DateRange
@@ -24,61 +25,50 @@ export type DatePickerRangeProps = {
   calendarProps?: Omit<DayPickerProps, 'mode' | 'selected' | 'onSelect'>
 } & Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>
 
-
-// Date range picker component
+/**
+ * Date range picker component with popover calendar and optional error/hint display.
+ */
 export const DatePickerRange = ({
-  value,
-  defaultDate,
-  onDateChange,
-  label = 'Select Date Range',
-  placeholder = 'Select date range',
-  disabled = false,
-  required = false,
-  className,
-  inputClassName,
-  error,
-  hint,
-  calendarProps,
-  ...restProps
-}: DatePickerRangeProps) => {
-  // If value is provided, the component is controlled
+                                  value,
+                                  defaultDate,
+                                  onDateChange,
+                                  label = 'Select Date Range',
+                                  placeholder = 'Select date range',
+                                  disabled = false,
+                                  required = false,
+                                  className,
+                                  inputClassName,
+                                  error,
+                                  hint,
+                                  calendarProps,
+                                  ...restProps
+                                }: DatePickerRangeProps) => {
   const isControlled = value !== undefined
-  // Internal state for uncontrolled mode
   const [internalDates, setInternalDates] = useState<DateRange>(
     defaultDate || { from: undefined, to: undefined }
   )
-  // Determine which dates are selected
   const selectedDates = isControlled ? value : internalDates
-  // Store today's date for highlighting
   const today = useMemo(() => new Date(), [])
-  // UI state for focus and popover open status
-  const [isFocused, setIsFocused] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  // Generate a unique id for accessibility
+  const [isFocused, setIsFocused] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const inputId = useId()
 
-  // Handler for date selection
   const handleSelect = (range: DateRange | undefined) => {
-    // If range is defined, update state and notify parent
     if (range) {
       setInternalDates(range)
       onDateChange?.(range)
     } else {
-      // If only one date is selected, reset the range
       setInternalDates({ from: undefined, to: undefined })
       onDateChange?.({ from: undefined, to: undefined })
     }
   }
 
-    // Added keyboard event handler
-    const handleKeyDown = (event: React.KeyboardEvent) => {
-      if (disabled) return
-
-      // Open the calendar by pressing the spacebar or Enter
-      if (event.key === ' ' || event.key === 'Enter') {
-        event.preventDefault() // Предотвращаем прокрутку страницы при нажатии пробела
-        setIsOpen(prev => !prev)
-      }
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (disabled) return
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault()
+      setIsOpen(prev => !prev)
+    }
   }
 
   return (
@@ -94,7 +84,6 @@ export const DatePickerRange = ({
             {label}
           </LabelRadix>
         )}
-        {/* The popover contains the calendar and the trigger input */}
         <Popover open={isOpen} onOpenChange={setIsOpen}>
           <PopoverTrigger asChild>
             <button
@@ -115,25 +104,22 @@ export const DatePickerRange = ({
               aria-haspopup="dialog"
               aria-expanded={isOpen}
             >
-              {/* Show the selected date range or placeholder */}
               <div className={s.dateText}>
                 {selectedDates.from && selectedDates.to
                   ? `${selectedDates.from.toLocaleDateString('en-GB', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                    })} - ${selectedDates.to.toLocaleDateString('en-GB', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                    })}`
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                  })} - ${selectedDates.to.toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                  })}`
                   : placeholder}
               </div>
-              {/* Show calendar icon depending on popover state */}
               {isOpen ? <Calendar /> : <CalendarOutline />}
             </button>
           </PopoverTrigger>
-          {/* Only render calendar if not disabled */}
           {!disabled && (
             <PopoverContent
               className={s.popoverContent}
@@ -157,9 +143,8 @@ export const DatePickerRange = ({
                       return !!(from && to && date >= from && date <= to)
                     },
                     hover: () => true,
-                    outside: date => date.getMonth() !== today.getMonth(), // Дни другого месяца
+                    outside: date => date.getMonth() !== today.getMonth(),
                   }}
-                  // Apply custom classes for day states
                   modifiersClassNames={{
                     today: s.rdpDay_today,
                     selected: s.rdpDay_selected,
@@ -171,7 +156,6 @@ export const DatePickerRange = ({
                     hover: s.rdpDay_hover,
                     outside: s.rdpDay_outside,
                   }}
-                  // Custom class names for calendar elements
                   classNames={{
                     caption_label: s.rdpCaptionLabel,
                     button_next: s.rdpButton_next,
@@ -188,7 +172,6 @@ export const DatePickerRange = ({
           )}
         </Popover>
       </div>
-      {/* Show hint or error message below the input */}
       {hint && !error && <div className={s.hint}>{hint}</div>}
       {error && <div className={s.errorMessage}>{error}</div>}
     </div>
