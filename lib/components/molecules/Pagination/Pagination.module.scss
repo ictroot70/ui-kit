@@ -118,7 +118,6 @@
 .itemsPerPageWrapper {
   display: flex;
   align-items: center;
-  gap: function.px-to-unit(8);
 }
 
 .itemsPerPageLabel {
@@ -126,18 +125,17 @@
   white-space: nowrap;
 }
 
-/* Стили для селекта */
 .paginationSelect {
   &Trigger {
     @extend .textStyle;
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
-    width: function.px-to-unit(80);
-    height: function.px-to-unit(24);
+
     padding: 0 function.px-to-unit(8);
+    margin-left: function.px-to-unit(4);
+    margin-right: function.px-to-unit(9);
     border: 1px solid var(--color-dark-300);
-    border-radius: function.px-to-unit(4);
     background-color: var(--color-dark-900);
     color: var(--color-light-100);
     cursor: pointer;
@@ -149,7 +147,7 @@
   }
 
   &Content {
-    width: function.px-to-unit(80);
+    width: function.px-to-unit(50);
     background-color: var(--color-dark-900);
     border-radius: function.px-to-unit(4);
     border: 1px solid var(--color-dark-300);
@@ -183,7 +181,7 @@
       background-color: var(--color-dark-700);
       font-weight: 500;
       position: relative;
-      
+
       &::after {
         content: '✓';
         margin-left: function.px-to-unit(4);

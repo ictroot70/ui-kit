@@ -145,7 +145,7 @@ export const Pagination = ({
         {onItemsPerPageChange && (
           <div className={styles.itemsPerPageWrapper}>
             <Typography variant="regular_14" className={styles.itemsPerPageLabel}>
-              Show on page
+              Show
             </Typography>
 
             <Select
@@ -155,25 +155,29 @@ export const Pagination = ({
               }))}
               value={itemsPerPage.toString()}
               onValueChange={(value) => {
-                console.log('Selected value:', value);
-                if (value) {
-                  handleItemsPerPageChange(Number(value));
-                }
+                if (value) handleItemsPerPageChange(Number(value));
               }}
               className={styles.paginationSelectTrigger}
-              style={{ width: '80px' }}
+              style={{
+                width: '50px',
+                height: '24px',
+                marginLeft: '4px',
+                marginRight: '9px'
+              }}
               placeholder={itemsPerPage.toString()}
               withSeparator={false}
               groupLabel={undefined}
             />
 
+            <Typography variant="regular_14" className={styles.itemsPerPageLabel}>
+              on page
+            </Typography>
           </div>
         )}
       </nav>
     </div>
   );
 };
-
 
 
 
