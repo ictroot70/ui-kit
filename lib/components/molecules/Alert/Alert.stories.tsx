@@ -15,14 +15,15 @@ const meta: Meta<typeof Alert> = {
 export default meta
 type Story = StoryObj<typeof Alert>
 
-export const Success: Story = {
+export const Success_regular_14: Story = {
   args: {
     type: 'success',
+    typographyVariant: 'regular_14',
     message: 'The operation was successful!',
   },
 }
 
-export const ErrorWithTitle: Story = {
+export const ErrorWithTitle_regular_16: Story = {
   args: {
     type: 'error',
     title: 'Error! ',
