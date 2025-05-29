@@ -1,6 +1,6 @@
 'use client'
 
-import styles from './Alert.module.scss'
+import styles from 'components/molecules/Alert/Alert.module.scss'
 import clsx from 'clsx'
 import { useProgressBar } from 'components/molecules/Alert/hooks/useAlertProgress'
 import { AlertProgressBar } from 'components/molecules/Alert/components/AlertProgressBar/AlertProgressBar'
