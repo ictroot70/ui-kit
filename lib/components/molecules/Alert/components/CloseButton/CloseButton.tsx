@@ -7,9 +7,9 @@ export interface CloseButtonType extends ComponentPropsWithoutRef<'button'> {
 }
 
 export const CloseButton = forwardRef<ElementRef<'button'>, CloseButtonType>((props, ref) => {
-  const { onClick, size = 18, className, ...rest } = props
+  const { onClick, size = 24, className, ...rest } = props
   return (
-    <button ref={ref} className={styles.button} onClick={onClick} {...rest}>
+    <button aria-label={'Close'} ref={ref} className={styles.button} onClick={onClick} {...rest}>
       <Close size={size} />
     </button>
   )
