@@ -52,7 +52,7 @@ export const FullWidth: Story = {
 
 export const AsLink: Story = {
   render: () => (
-    <Button asChild variant="primary">
+    <Button as="a" variant="primary">
       <a href="https://example.com" target="_blank" rel="noopener noreferrer">
         Button as Link
       </a>
