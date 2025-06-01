@@ -1,1 +1,5 @@
 export * from './ScrollAreaRadix'
+export * from './Card'
+export * from './Typography'
+export * from './Tabs'
+export * from './ErrorMessage'
