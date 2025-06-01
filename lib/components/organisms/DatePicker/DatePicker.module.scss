@@ -3,119 +3,165 @@
 @use '@/styles/typography' as *;
 @use '@/styles/function' as *;
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
 .datePickerWrapper {
   @include display-flex(flex, null, null, column, 4px);
 }
 
 .label {
-  @include typography-with-color(14px, var(--font-weight-regular), var(--line-height-m), var(--color-light-900));
+  @include typography-with-color(
+    14px,
+    var(--font-weight-regular),
+    var(--line-height-m),
+    var(--color-light-900)
+  );
+
   margin-bottom: 4px;
+
+  &[aria-disabled='true'] {
+    cursor: unset;
+    color: var(--color-light-900);
+  }
 }
 
 .requiredIndicator {
-  color: var(--color-danger-500);
   margin-left: 4px;
+  color: var(--color-danger-500);
 }
 
 .datePicker {
-  @include screen-size(300px, 36px);
-  padding: 16px 24px;
-  @include display-flex(inline-flex, center, space-between);
-  border: 1px solid silver;
-  border-radius: 2px;
-  background-color: var(--color-dark-300);
-  color: var(--color-light-100);
-  line-height: var(--line-height-m);
-  font-size: 16px;
-  font-weight: var(--font-weight-regular);
-  position: relative;
+  @include screen-size(fit-content, 36px);
+
   cursor: pointer;
 
-  &:focus {
-    outline: none;
-    border: 2px solid var(--color-primary-700);
+  position: relative;
+
+  box-sizing: border-box;
+  padding: 6px 12px;
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m);
+  color: var(--color-light-100);
+
+  background-color: transparent;
+
+  @include display-flex(inline-flex, center, space-between, $gap: 23px);
+
+  &:hover {
+    border-color: var(--color-dark-100);
+    background-color: var(--color-dark-500);
   }
+
+  &:focus,
+  &:focus-visible {
+    border-color: transparent;
+    background-color: var(--color-dark-500);
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-primary-700);
+  }
+}
+
+.datePickerWrapper.open .errorMessage,
+.datePickerWrapper.open .hint {
+  position: relative;
+  top: 345px;
+  left: 0;
 }
 
 .wrapperCalendar {
   position: absolute;
-  left: 0px;
-  top: -3px;
-  box-sizing: border-box;
-  padding: 16px 16px;
-  @include display-flex(flex, center, space-between);
-  background-color: var(--color-dark-500);
-  border: 1px solid var(--color-dark-300);
+  top: 0;
+  left: 0;
+
   overflow: hidden;
+
+  box-sizing: border-box;
+  padding: 16px 24px;
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+
   font-size: 16px;
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-m);
   color: var(--color-light-100);
-  margin-top: 5px;
-  border-radius: 2px;
+
+  background-color: var(--color-dark-500);
+
+  @include display-flex(flex, center, space-between);
 }
 
 .popoverContent {
+  box-sizing: border-box;
   min-width: 300px;
   max-width: 350px;
-  box-sizing: border-box;
   padding: 0;
 }
+
 .rdpDay_selected {
-  background-color: var(--color-primary-900);
-  color: var(--color-light-100);
-  font-weight: var(--font-weight-semibold);
   border-radius: 50%;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-light-100);
+  background-color: var(--color-primary-900);
 }
 
 .weekendDay.rdpDay_selected {
-  color: var(--color-danger-500) !important;
   font-weight: var(--font-weight-bold);
+  color: var(--color-danger-500);
 }
 
-
 .rdpDay_today.rdpDay_selected {
-  color: var(--color-light-100) !important;
   font-weight: var(--font-weight-bold);
+  color: var(--color-light-100);
 }
 
 .rdpDayDisabled {
-  opacity: 0.5;
   cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .rdpCaptionLabel {
-  @include typography-with-color(16px, var(--font-weight-bold), var(--line-height-m), var(--color-light-100));
-  text-align: center;
+  @include typography-with-color(
+    16px,
+    var(--font-weight-bold),
+    var(--line-height-m),
+    var(--color-light-100)
+  );
+
   margin-left: 32px;
+  text-align: center;
 }
 
 .disabled {
+  border-color: var(--color-dark-300);
   color: var(--color-light-900);
+  background-color: var(--color-dark-500);
 }
 
 .hint {
   @include typography-with-color(12px, var(--font-weight-regular), null, var(--color-light-900));
 }
 
-
-
 .error {
   border: 1px solid red;
   color: var(--color-danger-500);
-}
-
-.errorMessage {
-  color: var(--color-danger-500) !important;
-  @include typography-with-color(12px, var(--font-weight-regular), null);
-  margin-top: 4px;
+  background-color: var(--color-dark-500);
 }
 
 .rdpNav {
   position: absolute;
-  right: 0;
   top: 13px;
+  right: 0;
   transform: translateY(-50%);
+
   display: flex;
   align-items: center;
 }
@@ -127,31 +173,36 @@
 
 .rdpButton_next,
 .rdpButton_previous {
-  background-color: var(--color-dark-100);
-  color: var(--color-light-100);
-  border: none;
-  border-radius: 50%;
+  cursor: pointer;
+
   width: 36px;
   height: 36px;
   padding: 8px;
-  @include display-flex(flex, center, center);
-  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+
+  color: var(--color-light-100);
+
+  background-color: var(--color-dark-100);
+
   transition: background-color var(--transition-duration-basic);
+
+  @include display-flex(flex, center, center);
 
   &:hover {
     background-color: var(--color-dark-300);
   }
+
   &:focus {
+    border: 2px solid var(--color-primary-700);
     outline: none;
-    border:  2px solid var(--color-primary-700);
   }
 }
 
 .rdpDay_outside {
+  cursor: not-allowed;
   color: var(--color-light-700);
   opacity: 0.5;
-  cursor: not-allowed;
-
 
   &:active {
     color: var(--color-light-900);
@@ -159,41 +210,42 @@
     background-color: var(--color-primary-700);
   }
 
-
   &.rdpDay_selected {
-    color: var(--color-light-900) !important;
+    color: var(--color-light-900);
     opacity: 1;
-    background-color: var(--color-primary-900);
+
+    // background-color: var(--color-primary-900);
   }
 }
 
 .rdpDay_inRange {
-  background-color: var(--color-primary-700) !important;
-  color: var(--color-light-100) !important;
   border-radius: 0;
+  color: var(--color-light-100);
   opacity: 1;
+  background-color: var(--color-primary-700);
 }
 
 .rdpDay_first {
-  background-color: var(--color-primary-700) !important;
-  color: var(--color-light-100) !important;
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
+  color: var(--color-light-100);
+  background-color: var(--color-primary-700);
 }
 
 .rdpDay_last {
-  background-color: var(--color-primary-700) !important;
-  color: var(--color-light-100) !important;
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
+  color: var(--color-light-100);
+  background-color: var(--color-primary-700);
 }
 
 .rdpDay_hover:hover {
+  cursor: pointer;
   border-radius: 50%;
   color: var(--color-light-100);
-  cursor: pointer;
   background-color: var(--color-primary-700);
 }
+
 .weekendDay {
   color: var(--color-danger-500);
 
@@ -203,23 +255,25 @@
 }
 
 .rdpDay_today {
-  color: var(--color-primary-700);
-  font-weight: var(--font-weight-bold);
   font-size: 16px;
+  font-weight: var(--font-weight-bold);
   line-height: var(--line-height-m);
+  color: var(--color-primary-700);
 }
 
 .datePicker.disabled,
-.datePicker[aria-disabled="true"] {
-  border: 1px solid silver !important;
-  box-shadow: none !important;
-  outline: none !important;
-  cursor: not-allowed;
-  background: var(--color-dark-300);
-  color: var(--color-light-900);
+.datePicker[aria-disabled='true'] {
   pointer-events: none;
-}
+  cursor: not-allowed;
 
+  border: 1px solid var(--color-dark-300);
+
+  color: var(--color-light-900);
+
+  background: var(--color-dark-500);
+  outline: none;
+  box-shadow: none;
+}
 
 :global(.rdp-root) {
   --rdp-day-height: 36px;
@@ -228,10 +282,8 @@
   --rdp-day_button-width: 36px;
 }
 
-
-
 :global(.rdp-day_button:focus) {
-  outline: 2px solid var(--color-primary-700);
-  border-radius: 50%;
   z-index: 2;
+  border-radius: 50%;
+  outline: 2px solid var(--color-primary-700);
 }
