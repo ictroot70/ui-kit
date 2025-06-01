@@ -5,13 +5,12 @@ import { Slot } from '@radix-ui/react-slot'
 
 import s from './Typography.module.scss'
 
-type TypographyVariant =
+export type TypographyVariant =
   | 'large'
   | 'h1'
   | 'h2'
   | 'h3'
   | 'regular_16'
-  | 'bold_16'
   | 'regular_14'
   | 'medium_14'
   | 'bold_14'
