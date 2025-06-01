@@ -32,9 +32,13 @@ button {
   box-sizing: border-box;
 
   @include mixins.screen-size($btn-size, $btn-size);
-  @include mixins.display-flex($align: center, $justify: center);
+  @include mixins.display-flex($align: center, $justify: center, $flex-shrink: 0);
 
   border-radius: 50px;
+
+  &:focus-visible:not(.disabled) {
+    outline: none;
+  }
 }
 
 .label {
@@ -42,10 +46,8 @@ button {
     background: var(--color-dark-300);
   }
 
-  &:focus-visible:not(.disabled) .btnWrapper,
   &:focus-within:not(.disabled) .btnWrapper {
     background: var(--color-dark-500);
-    outline: 0.5px solid var(--color-primary-700);
   }
 
   &:focus:not(.disabled) .btnWrapper,
