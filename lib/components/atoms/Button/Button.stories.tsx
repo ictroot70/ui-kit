@@ -4,9 +4,10 @@ import { Person } from 'assets/icons'
 import './Button.module.scss'
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Atoms/Button',
+  title: 'Components/Button',
   component: Button,
   tags: ['autodocs'],
+
   argTypes: {
     onClick: { action: 'clicked' },
     disabled: { control: 'boolean' },

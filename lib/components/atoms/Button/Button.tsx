@@ -21,14 +21,14 @@ export type ButtonProps<T extends ElementType = 'button'> = {
  *
  * @typeParam T - The type of element to render as (defaults to `'button'`).
  *
- * @param props - Props for configuring the button's behavior and appearance.
- * @param props.as - Custom element type to render (e.g. `'a'` for link).
- * @param props.children - Content inside the button.
- * @param props.className - Additional custom class names.
- * @param props.fullWidth - If `true`, makes the button take the full container width.
- * @param props.iconPosition - Optional icon position: `'left'` or `'right'`. Adds special padding and direction.
- * @param props.variant - Visual style of the button: `'primary'`, `'outlined'`, `'secondary'`, or `'text'`.
- * @param rest - Additional props forwarded to the rendered component.
+ * - @param props - Props for configuring the button's behavior and appearance.
+ * - @param props.as - Custom element type to render (e.g. `'a'` for link).
+ * - @param props.children - Content inside the button.
+ * - @param props.className - Additional custom class names.
+ * - @param props.fullWidth - If `true`, makes the button take the full container width.
+ * - @param props.iconPosition - Optional icon position: `'left'` or `'right'`. Adds special padding and direction.
+ * - @param props.variant - Visual style of the button: `'primary'`, `'outlined'`, `'secondary'`, or `'text'`.
+ * - @param rest - Additional props forwarded to the rendered component.
  *
  * @returns A customizable button component with style and layout control.
  */
