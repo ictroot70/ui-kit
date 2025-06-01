@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import type { IconProps } from '../IconWrapper'
 import { IconWrapper } from '../IconWrapper'
 
-const Recaptcha = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
+const RecaptchaIcon = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
   const { svgProps: props, ...restProps } = allProps
 
   return (
@@ -40,4 +40,4 @@ const Recaptcha = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
   )
 })
 
-export default Recaptcha
+export default RecaptchaIcon
