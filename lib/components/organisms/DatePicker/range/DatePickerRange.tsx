@@ -1,15 +1,20 @@
 import clsx from 'clsx'
 import 'react-day-picker/style.css'
-import s from '../DatePicker.module.scss'
-import { DayPicker, type DateRange, type DayPickerProps } from 'react-day-picker'
+import s from 'components/organisms/DatePicker/DatePicker.module.scss'
+import { type DateRange, DayPicker, type DayPickerProps } from 'react-day-picker'
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
-import { useId, useMemo, useState } from 'react'
-import { LabelRadix } from '../../../molecules/LabelRadix'
-import { Calendar, CalendarOutline } from '../../../../assets/icons'
+import { HTMLAttributes, useState } from 'react'
+import { LabelRadix } from 'components/molecules/LabelRadix'
+import { Calendar, CalendarOutline } from 'assets/icons'
+import { useFormattedRange } from 'components/organisms/DatePicker/range/hooks/useFormattedRange'
+import { ErrorMessage } from 'components/atoms/ErrorMessage/ErrorMessage'
+import { useDatePickerModifiers } from 'components/organisms/DatePicker/range/hooks/useDatePickerModifiers'
+import {
+  dayPickerClassNames,
+  modifiersClassNames,
+} from 'components/organisms/DatePicker/range/helpers/DatePickerModifiers'
+import { useStableId } from 'components/organisms/DatePicker/range/hooks/useStableId'
 
-/**
- * Props for the DatePickerRange component.
- */
 export type DatePickerRangeProps = {
   value?: DateRange
   defaultDate?: DateRange
@@ -23,36 +28,34 @@ export type DatePickerRangeProps = {
   error?: string
   hint?: string
   calendarProps?: Omit<DayPickerProps, 'mode' | 'selected' | 'onSelect'>
-} & Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>
+} & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>
 
-/**
- * Date range picker component with popover calendar and optional error/hint display.
- */
 export const DatePickerRange = ({
-                                  value,
-                                  defaultDate,
-                                  onDateChange,
-                                  label = 'Select Date Range',
-                                  placeholder = 'Select date range',
-                                  disabled = false,
-                                  required = false,
-                                  className,
-                                  inputClassName,
-                                  error,
-                                  hint,
-                                  calendarProps,
-                                  ...restProps
-                                }: DatePickerRangeProps) => {
+  value,
+  defaultDate,
+  onDateChange,
+  label = 'Select Date Range',
+  placeholder = 'Select date range',
+  disabled = false,
+  required = false,
+  className,
+  inputClassName,
+  error,
+  hint,
+  calendarProps,
+  ...restProps
+}: DatePickerRangeProps) => {
   const isControlled = value !== undefined
   const [internalDates, setInternalDates] = useState<DateRange>(
     defaultDate || { from: undefined, to: undefined }
   )
   const selectedDates = isControlled ? value : internalDates
-  const today = useMemo(() => new Date(), [])
   const [isFocused, setIsFocused] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const inputId = useId()
-
+  const buttonId = useStableId('date-picker-trigger')
+  const popoverContentId = useStableId('date-picker-popover')
+  const displayText = useFormattedRange(selectedDates, placeholder)
+  const modifiers = useDatePickerModifiers(selectedDates)
   const handleSelect = (range: DateRange | undefined) => {
     if (range) {
       setInternalDates(range)
@@ -73,10 +76,10 @@ export const DatePickerRange = ({
 
   return (
     <div className={clsx(s.container, className)} {...restProps}>
-      <div className={s.datePickerWrapper}>
+      <div className={clsx(s.datePickerWrapper, { [s.open]: isOpen })}>
         {label && (
           <LabelRadix
-            htmlFor={inputId}
+            htmlFor={buttonId}
             required={required}
             className={s.label}
             disabled={disabled}
@@ -87,7 +90,7 @@ export const DatePickerRange = ({
         <Popover open={isOpen} onOpenChange={setIsOpen}>
           <PopoverTrigger asChild>
             <button
-              id={inputId}
+              id={buttonId}
               tabIndex={disabled ? -1 : 0}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
@@ -103,20 +106,10 @@ export const DatePickerRange = ({
               role="button"
               aria-haspopup="dialog"
               aria-expanded={isOpen}
+              aria-controls={popoverContentId}
+              aria-label={label}
             >
-              <div className={s.dateText}>
-                {selectedDates.from && selectedDates.to
-                  ? `${selectedDates.from.toLocaleDateString('en-GB', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                  })} - ${selectedDates.to.toLocaleDateString('en-GB', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                  })}`
-                  : placeholder}
-              </div>
+              <div className={s.dateText}>{displayText}</div>
               {isOpen ? <Calendar /> : <CalendarOutline />}
             </button>
           </PopoverTrigger>
@@ -124,8 +117,9 @@ export const DatePickerRange = ({
             <PopoverContent
               className={s.popoverContent}
               side="bottom"
-              align="center"
+              align="start"
               avoidCollisions={true}
+              id={popoverContentId}
             >
               <div className={s.wrapperCalendar}>
                 <DayPicker
@@ -135,45 +129,20 @@ export const DatePickerRange = ({
                   mode="range"
                   selected={selectedDates}
                   onSelect={handleSelect}
-                  modifiers={{
-                    today: today,
-                    weekend: date => date.getDay() === 0 || date.getDay() === 6,
-                    inRange: date => {
-                      const { from, to } = selectedDates
-                      return !!(from && to && date >= from && date <= to)
-                    },
-                    hover: () => true,
-                    outside: date => date.getMonth() !== today.getMonth(),
-                  }}
-                  modifiersClassNames={{
-                    today: s.rdpDay_today,
-                    selected: s.rdpDay_selected,
-                    weekend: s.weekendDay,
-                    disabled: s.rdpDayDisabled,
-                    inRange: s.rdpDay_inRange,
-                    range_start: s.rdpDay_first,
-                    range_end: s.rdpDay_last,
-                    hover: s.rdpDay_hover,
-                    outside: s.rdpDay_outside,
-                  }}
-                  classNames={{
-                    caption_label: s.rdpCaptionLabel,
-                    button_next: s.rdpButton_next,
-                    button_previous: s.rdpButton_previous,
-                    nav: s.rdpNav,
-                    day_range_start: 'rdpDay_first',
-                    day_range_end: 'rdpDay_last',
-                    day_range_middle: 'rdpDay_inRange',
-                  }}
+                  modifiers={modifiers}
+                  modifiersClassNames={modifiersClassNames}
+                  classNames={dayPickerClassNames}
                   {...calendarProps}
                 />
               </div>
             </PopoverContent>
           )}
         </Popover>
+        {hint && !error && <div className={s.hint}>{hint}</div>}
+        {error && (
+          <ErrorMessage message={error} className={s.errorMessage} variant={'danger_small'} />
+        )}
       </div>
-      {hint && !error && <div className={s.hint}>{hint}</div>}
-      {error && <div className={s.errorMessage}>{error}</div>}
     </div>
   )
 }

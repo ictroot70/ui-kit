@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>
 
 export const Small: Story = {
   args: {
-    errorMessage: 'This is an error message',
+    message: 'This is an error message',
   },
 }
 
