@@ -1,23 +1,44 @@
+@use '@/styles/function' as function;
+@use '@/styles/mixins' as mixins;
+
 .button {
   all: unset;
+
   cursor: pointer;
+
   box-sizing: border-box;
-  font-family: inherit;
-  padding: 0.5rem 1rem;
+  width: fit-content;
   min-width: 100px;
+  height: function.px-to-unit(36);
+  padding: function.px-to-unit(6) function.px-to-unit(24);
+  border-radius: function.px-to-unit(2);
+
+  font-family: inherit;
   text-align: center;
-  border-radius: 2px;
+
   transition:
     background-color 0.2s ease,
-    outline-color 0.2s ease,
+    color 0.2s ease,
     box-shadow 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+
+  @include mixins.display-flex(flex, center, center, $gap: function.px-to-unit(10));
+
+  &:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+}
+
+.primary {
+  color: var(--color-light-100);
+  background-color: var(--color-primary-500);
+
+  &:hover {
+    background-color: var(--color-primary-100);
+  }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary-300);
-    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--color-primary-700);
   }
 
   &:active {
@@ -25,82 +46,69 @@
   }
 
   &:disabled {
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-}
-
-.primary {
-  background-color: var(--color-primary-500);
-  color: var(--color-light-100);
-
-  &:hover {
-    background-color: var(--color-primary-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-primary-300);
-  }
-
-  &:disabled {
-    background-color: var(--color-primary-900);
     color: var(--color-light-900);
+    background-color: var(--color-primary-900);
   }
 }
 
 .secondary {
-  background-color: var(--color-dark-300);
   color: var(--color-light-100);
+  background-color: var(--color-dark-300);
 
   &:hover {
     background-color: var(--color-dark-100);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary-300);
+    box-shadow: 0 0 0 2px var(--color-primary-300);
+  }
+
+  &:active {
+    background-color: var(--color-dark-400);
   }
 
   &:disabled {
-    background-color: var(--color-dark-500);
     color: var(--color-light-900);
+    background-color: var(--color-dark-500);
   }
 }
 
 .outlined {
-  background-color: transparent;
+  border: 1px solid var(--color-primary-500);
   color: var(--color-primary-500);
-  border: 2px solid var(--color-primary-500);
+  background-color: transparent;
 
   &:hover {
-    color: var(--color-primary-100);
     border-color: var(--color-primary-100);
+    color: var(--color-primary-100);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary-300);
+    box-shadow: 0 0 0 2px var(--color-primary-700);
   }
 
   &:active {
-    color: var(--color-primary-700);
     border-color: var(--color-primary-700);
+    color: var(--color-primary-700);
   }
 
   &:disabled {
-    color: var(--color-primary-900);
     border-color: var(--color-primary-900);
+    color: var(--color-primary-900);
   }
 }
 
 .text {
-  background: none;
-  border: none;
-  color: var(--color-primary-500);
-  padding: 0 16px;
-  height: 36px;
-  min-width: 100px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  min-width: 100px;
+  border: none;
+
+  color: var(--color-primary-500);
+
+  background: none;
 
   &:hover {
     color: var(--color-primary-100);
@@ -111,7 +119,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary-500);
+    box-shadow: 0 0 0 2px var(--color-primary-700);
   }
 
   &:disabled {
@@ -121,4 +129,16 @@
 
 .fullWidth {
   width: 100%;
+}
+
+.left {
+  flex-direction: row;
+}
+
+.right {
+  flex-direction: row-reverse;
+}
+
+.hasIconPadding {
+  padding-inline: function.px-to-unit(12);
 }

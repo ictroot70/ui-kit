@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Button } from './Button'
+import { Person } from 'assets/icons'
+import './Button.module.scss'
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Atoms/Button',
@@ -7,13 +9,40 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   argTypes: {
     onClick: { action: 'clicked' },
+    disabled: { control: 'boolean' },
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary', 'outlined', 'text'],
+      defaultValue: 'primary',
+    },
+    fullWidth: { control: 'boolean' },
+    iconPosition: {
+      control: 'select',
+      options: ['left', 'right'],
+      defaultValue: 'left',
+    },
+    as: {
+      control: 'select',
+      options: ['button', 'a', 'div', 'span'],
+      defaultValue: 'button',
+    },
   },
-}
+} satisfies Meta<typeof Button>
 
 export default meta
 
 type Story = StoryObj<typeof Button>
 
+export const WithIcon: Story = {
+  args: {
+    children: (
+      <>
+        <Person /> Button with Icon
+      </>
+    ),
+    iconPosition: 'left',
+  },
+}
 export const Primary: Story = {
   args: {
     children: 'Primary Button',
@@ -51,13 +80,13 @@ export const FullWidth: Story = {
 }
 
 export const AsLink: Story = {
-  render: () => (
-    <Button as="a" variant="primary">
-      <a href="https://example.com" target="_blank" rel="noopener noreferrer">
-        Button as Link
-      </a>
-    </Button>
-  ),
+  args: {
+    as: 'a',
+    href: '#',
+    target: '_blank',
+    children: 'Link Button',
+    variant: 'primary',
+  },
 }
 
 export const Text: StoryObj<typeof Button> = {
