@@ -1,3 +1,5 @@
+export * from 'components/molecules/Recaptcha'
 export * from './CheckboxRadix'
 export * from './LabelRadix'
 export * from './TextArea'
+
