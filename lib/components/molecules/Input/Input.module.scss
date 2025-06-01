@@ -45,7 +45,6 @@ $input-padding-with-icon: 44px;
 .inputWrapper {
   display: flex;
   flex-direction: column;
-  gap: 5px;
   width: 100%;
 }
 
@@ -59,11 +58,7 @@ $input-padding-with-icon: 44px;
 }
 
 .disabled {
-  .label p {
-    color: var(--color-dark-100);
-  }
-
-  .eyeButton {
+  .eyeButton, .searchIcon, .label p {
     color: var(--color-dark-100);
     cursor: not-allowed;
   }
@@ -97,6 +92,11 @@ $input-padding-with-icon: 44px;
   width: $icon-size;
   height: $icon-size;
   left: $icon-spacing;
+  color: var(--color-light-900);
+
+  &.error {
+    color: var(--color-light-100);
+  }
 
   & + input {
     padding-left: $input-padding-with-icon;
@@ -108,8 +108,13 @@ $input-padding-with-icon: 44px;
   color: var(--color-light-100);
   right: $icon-spacing;
   background: none;
-  border: none;
+  border: 1px solid transparent;
+  border-radius: $input-border-radius;
   cursor: pointer;
+
+  &:focus-visible {
+    border-color: var(--color-primary-500);
+  }
 
   & + input {
     padding-right: $input-padding-with-icon;

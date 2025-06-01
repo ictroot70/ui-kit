@@ -79,13 +79,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             typographyVariant={'regular_14'}
             required={required}
             disabled={disabled}
-            className={clsx(s.label, disabled && s.disabled)}
+            className={clsx(s.label)}
           />
         )}
         <Typography variant={'regular_16'} asChild>
           <div className={s.inputContainer}>
             {inputType === 'search' && (
-              <span className={s.searchIcon}>
+              <span className={clsx(s.searchIcon, error && s.error)}>
                 <Search />
               </span>
             )}
