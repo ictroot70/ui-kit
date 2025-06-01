@@ -114,6 +114,9 @@ importers:
       storybook:
         specifier: ^8.6.12
         version: 8.6.12(prettier@3.5.3)
+      storybook-addon-pseudo-states:
+        specifier: ^9.0.3
+        version: 9.0.3(storybook@8.6.12(prettier@3.5.3))
       stylelint:
         specifier: ^16.19.1
         version: 16.19.1(typescript@5.8.3)
@@ -3674,6 +3677,11 @@ packages:
 
   std-env@3.9.0:
     resolution: {integrity: sha512-UGvjygr6F6tpH7o2qyqR6QYpwraIjKSdtzyBdyytFOHmPZY917kwdwLG0RbOjWOnKmnm3PeHjaoLLMie7kPLQw==}
+
+  storybook-addon-pseudo-states@9.0.3:
+    resolution: {integrity: sha512-aVjaP6FfxjgXdcGiqbavBBSrh1YiQbNwWTsrsNajivxwN9d8SnrknEjWZLdVyxIFo7LbySPDVT0FP9kR5N/6rQ==}
+    peerDependencies:
+      storybook: ^9.0.3
 
   storybook@8.6.12:
     resolution: {integrity: sha512-Z/nWYEHBTLK1ZBtAWdhxC0l5zf7ioJ7G4+zYqtTdYeb67gTnxNj80gehf8o8QY9L2zA2+eyMRGLC2V5fI7Z3Tw==}
@@ -7993,6 +8001,10 @@ snapshots:
   starts-with@1.0.2: {}
 
   std-env@3.9.0: {}
+
+  storybook-addon-pseudo-states@9.0.3(storybook@8.6.12(prettier@3.5.3)):
+    dependencies:
+      storybook: 8.6.12(prettier@3.5.3)
 
   storybook@8.6.12(prettier@3.5.3):
     dependencies:
