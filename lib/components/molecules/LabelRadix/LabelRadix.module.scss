@@ -1,0 +1,19 @@
+@use '../../../styles/mixins' as mixins;
+
+.required {
+  margin-left: 2px;
+
+  font-size: inherit;
+  line-height: 1;
+  color: currentcolor;
+  vertical-align: middle;
+}
+
+.label {
+  cursor: pointer;
+  width: fit-content;
+  margin-bottom: 4px;
+  color: currentcolor;
+
+  @include mixins.display-flex(flex, center, $gap: 8px);
+}

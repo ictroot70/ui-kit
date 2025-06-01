@@ -1,0 +1,122 @@
+// Variables
+$input-padding: 6px 12px;
+$input-font-size: 16px;
+$input-line-height: 24px;
+$input-border-radius: 2px;
+$icon-size: 20px;
+$icon-spacing: 12px;
+$input-padding-with-icon: 44px;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin input-states {
+  &:hover:not(:disabled):not(:focus) {
+    border-color: var(--color-light-900);
+  }
+
+  &:focus {
+    border-color: var(--color-primary-500);
+    outline: 1px solid var(--color-primary-500);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--color-dark-100);
+    border-color: var(--color-dark-100);
+
+    &::placeholder {
+      color: var(--color-dark-100);
+    }
+  }
+}
+
+@mixin icon-base {
+  position: absolute;
+  @include flex-center;
+  color: var(--color-dark-100);
+}
+
+// Component styles
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.inputContainer {
+  position: relative;
+  @include flex-center;
+}
+
+.label p {
+    color: var(--color-light-900);
+}
+
+.disabled {
+  .eyeButton, .searchIcon, .label p {
+    color: var(--color-dark-100);
+    cursor: not-allowed;
+  }
+}
+
+.input {
+  width: 100%;
+  padding: $input-padding;
+  font-size: $input-font-size;
+  line-height: $input-line-height;
+  color: var(--color-light-100);
+  background: transparent;
+  border: 1px solid var(--color-dark-100);
+  border-radius: $input-border-radius;
+
+  &::placeholder {
+    color: var(--color-light-900);
+  }
+
+  @include input-states;
+
+  &.error:not(:disabled) {
+    border-color: var(--color-danger-500);
+    outline-color: var(--color-danger-500);
+    color: var(--color-light-100);
+  }
+}
+
+.searchIcon {
+  @include icon-base;
+  width: $icon-size;
+  height: $icon-size;
+  left: $icon-spacing;
+  color: var(--color-light-900);
+
+  &.error {
+    color: var(--color-light-100);
+  }
+
+  & + input {
+    padding-left: $input-padding-with-icon;
+  }
+}
+
+.eyeButton {
+  @include icon-base;
+  color: var(--color-light-100);
+  right: $icon-spacing;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: $input-border-radius;
+  cursor: pointer;
+
+  &:focus-visible {
+    border-color: var(--color-primary-500);
+  }
+
+  & + input {
+    padding-right: $input-padding-with-icon;
+  }
+}

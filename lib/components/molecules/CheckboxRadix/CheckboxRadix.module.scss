@@ -1,0 +1,113 @@
+@use '../../../styles/mixins' as mixins;
+@use '../../../styles/function' as function;
+
+$checkbox-size: function.px-to-unit(18);
+$checkbox-size-unchecked: function.px-to-unit(14);
+$indicator-size: function.px-to-unit(19);
+$btn-size: 36px;
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+.disabled,
+:disabled {
+  cursor: default;
+}
+
+.container {
+  @include mixins.display-flex(flex, $direction: column);
+
+  .errorMessage {
+    padding-left: function.px-to-unit(45);
+  }
+
+  &.disabled .errorMessage {
+    opacity: 0.6;
+  }
+}
+
+.btnWrapper {
+  box-sizing: border-box;
+
+  @include mixins.screen-size($btn-size, $btn-size);
+  @include mixins.display-flex($align: center, $justify: center, $flex-shrink: 0);
+
+  border-radius: 50px;
+
+  &:focus-visible:not(.disabled) {
+    outline: none;
+  }
+}
+
+.label {
+  &:hover:not(.disabled) > .btnWrapper {
+    background: var(--color-dark-300);
+  }
+
+  &:focus-within:not(.disabled) .btnWrapper {
+    background: var(--color-dark-500);
+  }
+
+  &:focus:not(.disabled) .btnWrapper,
+  &:active:not(.disabled) .btnWrapper {
+    background: var(--color-dark-100);
+  }
+
+  &.disabled,
+  &:disabled,
+  &.disabled button,
+  &:disabled button {
+    cursor: default;
+    border-color: var(--color-light-900);
+    color: var(--color-light-900);
+  }
+}
+
+.root {
+  all: unset;
+  cursor: pointer;
+
+  @include mixins.screen-size($checkbox-size, $checkbox-size);
+
+  border-radius: 2px;
+
+  &[data-state='checked'] {
+    color: var(--color-dark-900);
+    background: var(--color-light-100);
+  }
+
+  &[data-state='unchecked'] {
+    @include mixins.screen-size($checkbox-size-unchecked, $checkbox-size-unchecked);
+
+    border: 2px solid var(--color-light-500);
+  }
+
+  &[data-state='checked']:disabled,
+  &[data-state='checked'].disabled {
+    border: 2px solid var(--color-dark-100);
+    background: var(--color-dark-100);
+
+    .indicator path {
+      fill: var(--color-light-700);
+    }
+  }
+
+  &:active:not(.disabled) .btnWrapper {
+    background: var(--color-dark-100);
+
+    @include mixins.checkbox-shadow(var(--color-dark-100));
+  }
+
+  &:focus:not(.disabled) .btnWrapper,
+  &:focus-within:not(.disabled) .btnWrapper {
+    background: var(--color-dark-500);
+
+    @include mixins.checkbox-shadow(var(--color-dark-500));
+  }
+}
+
+.indicator {
+  @include mixins.screen-size($indicator-size);
+}

@@ -1,0 +1,18 @@
+.recaptchaWrapper {
+  position: relative;
+
+  display: inline-block;
+
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+
+  &.error {
+    border-color: var(--color-danger-400);
+  }
+
+  .recaptchaMessage {
+    margin-top: 8px;
+    color: var(--color-danger-400);
+  }
+}
