@@ -114,7 +114,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             )}
           </div>
         </Typography>
-        {error && <ErrorMessage errorMessage={error} variant={'danger'} />}
+        {error && <ErrorMessage message={error} variant={'danger'} />}
       </div>
     )
   }
