@@ -34,26 +34,26 @@ export interface TextAreaProps extends DefaultTextAreaPropsType {
  * ## Examples:
  * ```tsx
  * // Basic usage
- * <TextArea 
- *   label="Description" 
- *   placeholder="Enter your description" 
- *   id="description" 
+ * <TextArea
+ *   label="Description"
+ *   placeholder="Enter your description"
+ *   id="description"
  * />
- * 
+ *
  * // With required state
- * <TextArea 
- *   label="Required Description" 
- *   placeholder="This field is required" 
- *   required 
- *   id="required" 
+ * <TextArea
+ *   label="Required Description"
+ *   placeholder="This field is required"
+ *   required
+ *   id="required"
  * />
- * 
+ *
  * // With error state
- * <TextArea 
- *   label="Description" 
- *   placeholder="Enter your description" 
- *   error="This field is required" 
- *   id="error" 
+ * <TextArea
+ *   label="Description"
+ *   placeholder="Enter your description"
+ *   error="This field is required"
+ *   id="error"
  * />
  * ```
  *
@@ -67,7 +67,7 @@ export interface TextAreaProps extends DefaultTextAreaPropsType {
  * - @param props.className - Optional additional class names
  * - @param props.value - The value of the textarea
  * - @param props.onChange - Callback fired when the value changes
- * 
+ *
  * You should use the `id` prop to identify the textarea field for accessibility purposes (especially when using the 'label' and `error` props).
  *
  * @returns A `ReactElement` displaying a styled textarea field with a label and error message
@@ -100,18 +100,13 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           aria-invalid={!!error}
           aria-describedby={error ? `${id}-error` : undefined}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={e => setValue(e.target.value)}
           {...restProps}
         />
-        {error && (
-          <ErrorMessage
-            errorMessage={error}
-            variant="danger"
-          />
-        )}
+        {error && <ErrorMessage errorMessage={error} variant="danger" />}
       </div>
     )
-  },
+  }
 )
 
 TextArea.displayName = 'TextArea'

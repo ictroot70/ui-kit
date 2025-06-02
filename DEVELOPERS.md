@@ -32,7 +32,7 @@ pnpm add @radix-ui/react-dialog
 
 - for example: `@radix-ui/react-dialog`
 
-```bash 
+```bash
 pnpm add @radix-ui/react-dialog --save-dev  # ❌ Adds to devDependencies
 pnpm add @radix-ui/react-dialog --save-peer # ❌ Adds to peerDependencies
 ```
@@ -73,7 +73,7 @@ lib/
 ## 📚 Usage
 
 | Script                     | Command              | Description                                              |
-|----------------------------|----------------------|----------------------------------------------------------|
+| -------------------------- | -------------------- | -------------------------------------------------------- |
 | **START AND DEVELOPMENT**  |                      |                                                          |
 | Start                      | `nps start`          | 🚀 Start Vite dev server                                 |
 | Storybook Dev              | `nps dev`            | 📘 Launch Storybook on port 6006                         |

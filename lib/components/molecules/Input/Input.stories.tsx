@@ -45,7 +45,7 @@ export const Hideable: Story = {
     inputType: 'hide-able',
     label: 'Password',
     id: 'password',
-    required: true
+    required: true,
   },
 }
 

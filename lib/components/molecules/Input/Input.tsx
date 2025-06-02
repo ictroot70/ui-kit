@@ -1,14 +1,14 @@
 'use client'
 
-import {ComponentPropsWithoutRef, forwardRef, useState} from 'react'
+import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 import s from './Input.module.scss'
 import clsx from 'clsx'
-import {Typography} from '../../atoms'
+import { Typography } from '../../atoms'
 import Search from '../../../assets/icons/components/Search'
 import Eye from '../../../assets/icons/components/Eye'
 import EyeOff from '../../../assets/icons/components/EyeOff'
-import {LabelRadix} from '../LabelRadix'
-import {ErrorMessage} from '../../atoms'
+import { LabelRadix } from '../LabelRadix'
+import { ErrorMessage } from '../../atoms'
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
   label?: string

@@ -54,11 +54,13 @@ $input-padding-with-icon: 44px;
 }
 
 .label p {
-    color: var(--color-light-900);
+  color: var(--color-light-900);
 }
 
 .disabled {
-  .eyeButton, .searchIcon, .label p {
+  .eyeButton,
+  .searchIcon,
+  .label p {
     color: var(--color-dark-100);
     cursor: not-allowed;
   }
