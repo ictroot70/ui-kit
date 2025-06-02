@@ -12,7 +12,14 @@ export const CloseButton = forwardRef<ElementRef<'button'>, CloseButtonType>((pr
   const { onClick, size = 24, className, ...rest } = props
 
   return (
-    <button aria-label={'Close'} ref={ref} className={styles.button} onClick={onClick} {...rest}>
+    <button
+      type={'button'}
+      aria-label={'Close'}
+      ref={ref}
+      className={styles.button}
+      onClick={onClick}
+      {...rest}
+    >
       <Close size={size} />
     </button>
   )

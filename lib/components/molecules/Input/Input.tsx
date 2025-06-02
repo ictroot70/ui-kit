@@ -108,7 +108,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               {...props}
             />
             {inputType === 'hide-able' && (
-              <button className={s.eyeButton} onClick={handleToggle}>
+              <button type={'button'} className={s.eyeButton} onClick={handleToggle}>
                 {type === 'password' ? <EyeOff /> : <Eye />}
               </button>
             )}

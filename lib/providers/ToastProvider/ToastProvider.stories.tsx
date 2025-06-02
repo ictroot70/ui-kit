@@ -64,6 +64,7 @@ const DemoComponent = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <button
+        type={'button'}
         style={buttonStyle}
         onClick={() =>
           toast({
@@ -79,6 +80,7 @@ const DemoComponent = () => {
       </button>
 
       <button
+        type={'button'}
         style={buttonStyle}
         onClick={() =>
           toast({
@@ -94,6 +96,7 @@ const DemoComponent = () => {
       </button>
 
       <button
+        type={'button'}
         style={buttonStyle}
         onClick={() =>
           toast({
@@ -108,6 +111,7 @@ const DemoComponent = () => {
       </button>
 
       <button
+        type={'button'}
         style={buttonStyle}
         onClick={() =>
           toast({

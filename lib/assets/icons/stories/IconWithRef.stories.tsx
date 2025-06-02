@@ -48,6 +48,7 @@ const IconsWithRefExample = () => {
       <BookmarkOutline ref={bookmarkRef} size={32} />
 
       <button
+        type={'button'}
         onClick={handleClick}
         style={{ padding: '8px 16px', cursor: 'pointer', background: 'var(--color-primary-500)' }}
       >
