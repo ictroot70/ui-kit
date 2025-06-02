@@ -1,15 +1,15 @@
 'use client'
 
-import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import clsx from 'clsx'
 
-import s from './Input.module.scss'
+import s from 'components/molecules/Input/Input.module.scss'
 
 import Eye from 'assets/icons/components/Eye'
 import EyeOff from 'assets/icons/components/EyeOff'
 import Search from 'assets/icons/components/Search'
-import { Typography, ErrorMessage } from 'components/atoms'
+import { ErrorMessage, Typography } from 'components/atoms'
 import { LabelRadix } from 'components/molecules'
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
@@ -41,6 +41,8 @@ interface InputProps extends ComponentPropsWithoutRef<'input'> {
  *
  * - @param props - Props for the `Input` component
  * - @param props.id - The id for the input field
+ * - @param props.value - The value of the input field
+ * - @param props.onChange - The change event handler for the input field
  * - @param props.placeholder - The placeholder text for the input field
  * - @param props.label - The label for the input field
  * - @param props.error - The error message to display
@@ -58,8 +60,22 @@ interface InputProps extends ComponentPropsWithoutRef<'input'> {
  */
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, inputType, className, placeholder, disabled, required, id, ...props }, ref) => {
-    const [value, setValue] = useState('')
+  (
+    {
+      label,
+      value,
+      onChange,
+      error,
+      inputType,
+      className,
+      placeholder,
+      disabled,
+      required,
+      id,
+      ...props
+    },
+    ref
+  ) => {
     const [type, setType] = useState(inputType === 'hide-able' ? 'password' : 'text')
 
     const handleToggle = () => {
@@ -70,6 +86,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           setType('password')
         }
       }
+    }
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      onChange?.(e)
     }
 
     return (
@@ -103,11 +122,17 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               aria-required={required}
               aria-invalid={!!error}
               aria-describedby={error ? `${id}-error` : undefined}
-              onChange={e => setValue(e.target.value)}
+              onChange={handleChange}
               {...props}
             />
             {inputType === 'hide-able' && (
-              <button type={'button'} className={s.eyeButton} onClick={handleToggle}>
+              <button
+                aria-label={type === 'password' ? 'Show password' : 'Hide password'}
+                aria-pressed={type !== 'password'}
+                type={'button'}
+                className={s.eyeButton}
+                onClick={handleToggle}
+              >
                 {type === 'password' ? <EyeOff /> : <Eye />}
               </button>
             )}
