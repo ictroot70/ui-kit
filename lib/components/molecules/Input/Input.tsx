@@ -6,12 +6,11 @@ import clsx from 'clsx'
 
 import s from './Input.module.scss'
 
-import Eye from '../../../assets/icons/components/Eye'
-import EyeOff from '../../../assets/icons/components/EyeOff'
-import Search from '../../../assets/icons/components/Search'
-import { Typography } from '../../atoms'
-import { ErrorMessage } from '../../atoms'
-import { LabelRadix } from '../LabelRadix'
+import Eye from 'assets/icons/components/Eye'
+import EyeOff from 'assets/icons/components/EyeOff'
+import Search from 'assets/icons/components/Search'
+import { Typography, ErrorMessage } from 'components/atoms'
+import { LabelRadix } from 'components/molecules'
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
   label?: string
