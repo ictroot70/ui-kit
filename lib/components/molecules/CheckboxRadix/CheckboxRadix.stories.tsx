@@ -102,11 +102,15 @@ export const MasterWithChildren: Story = {
 
     const allChecked = checkedItems.every(Boolean)
     const someChecked = checkedItems.some(Boolean)
-    const masterChecked: boolean | 'indeterminate' = allChecked
-      ? true
-      : someChecked
-        ? 'indeterminate'
-        : false
+    let masterChecked: boolean | 'indeterminate'
+
+    if (allChecked) {
+      masterChecked = true
+    } else if (someChecked) {
+      masterChecked = 'indeterminate'
+    } else {
+      masterChecked = false
+    }
 
     const toggleAll = (value: boolean) => {
       setCheckedItems(checkedItems.map(() => value))
