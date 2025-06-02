@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, TextareaHTMLAttributes, forwardRef, useState } from 'react'
+import { DetailedHTMLProps, forwardRef, TextareaHTMLAttributes } from 'react'
 
 import { clsx } from 'clsx'
 import { ErrorMessage } from 'components/atoms/ErrorMessage/ErrorMessage'
@@ -76,9 +76,10 @@ export interface TextAreaProps extends DefaultTextAreaPropsType {
  */
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ className, error, label, disabled, placeholder, required, id, ...restProps }, ref) => {
-    const [value, setValue] = useState('')
-
+  (
+    { className, error, label, disabled, placeholder, required, value, onChange, id, ...restProps },
+    ref
+  ) => {
     return (
       <div className={clsx(s.textAreaWrapper, disabled && s.disabled)}>
         {label && (
@@ -102,7 +103,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           aria-invalid={!!error}
           aria-describedby={error ? `${id}-error` : undefined}
           value={value}
-          onChange={e => setValue(e.target.value)}
+          onChange={onChange}
           {...restProps}
         />
         {error && <ErrorMessage message={error} variant={'danger'} />}

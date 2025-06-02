@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import clsx from 'clsx'
 
@@ -87,9 +87,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         }
       }
     }
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-      onChange?.(e)
-    }
 
     return (
       <div className={clsx(s.inputWrapper, disabled && s.disabled)}>
@@ -122,7 +119,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               aria-required={required}
               aria-invalid={!!error}
               aria-describedby={error ? `${id}-error` : undefined}
-              onChange={handleChange}
+              onChange={onChange}
               {...props}
             />
             {inputType === 'hide-able' && (
