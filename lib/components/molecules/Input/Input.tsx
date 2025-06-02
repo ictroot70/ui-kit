@@ -1,14 +1,17 @@
 'use client'
 
 import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
-import s from './Input.module.scss'
+
 import clsx from 'clsx'
-import { Typography } from '../../atoms'
-import Search from '../../../assets/icons/components/Search'
+
+import s from './Input.module.scss'
+
 import Eye from '../../../assets/icons/components/Eye'
 import EyeOff from '../../../assets/icons/components/EyeOff'
-import { LabelRadix } from '../LabelRadix'
+import Search from '../../../assets/icons/components/Search'
+import { Typography } from '../../atoms'
 import { ErrorMessage } from '../../atoms'
+import { LabelRadix } from '../LabelRadix'
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
   label?: string
@@ -111,7 +114,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             )}
           </div>
         </Typography>
-        {error && <ErrorMessage errorMessage={error} variant="danger" />}
+        {error && <ErrorMessage errorMessage={error} variant={'danger'} />}
       </div>
     )
   }

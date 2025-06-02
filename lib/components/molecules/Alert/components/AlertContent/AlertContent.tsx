@@ -1,8 +1,9 @@
-import { Typography, TypographyVariant } from 'components/atoms'
-import styles from 'components/molecules/Alert/components/AlertContent/AlertContent.module.scss'
-
 import { ReactElement } from 'react'
+
 import clsx from 'clsx'
+import { Typography, TypographyVariant } from 'components/atoms'
+
+import styles from 'components/molecules/Alert/components/AlertContent/AlertContent.module.scss'
 
 export type AlertContentProps = {
   title?: string
@@ -40,7 +41,7 @@ export const AlertContent = (props: AlertContentProps): ReactElement => {
   return (
     <div className={clsx(styles.root, variantPaddingMap[variant])}>
       {title && (
-        <Typography className={styles.title} variant="bold_16">
+        <Typography className={styles.title} variant={'bold_16'}>
           {title}
         </Typography>
       )}

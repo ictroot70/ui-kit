@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react'
+
 import { ToastPosition } from 'components/molecules/Toast/ToastContainer'
 
 export const getPositionStyle = (position: ToastPosition): CSSProperties => {
@@ -11,5 +12,6 @@ export const getPositionStyle = (position: ToastPosition): CSSProperties => {
     'top-center': { ...base, top: 20, left: '50%', transform: 'translateX(-50%)' },
     'bottom-center': { ...base, bottom: 20, left: '50%', transform: 'translateX(-50%)' },
   }
+
   return styles[position] || base
 }

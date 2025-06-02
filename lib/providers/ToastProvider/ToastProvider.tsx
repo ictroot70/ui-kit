@@ -1,11 +1,11 @@
 'use client'
 
 import React from 'react'
-import { ToastContext } from 'providers/ToastProvider/ToastContext'
 
-import { ToastContainer, ToastPosition } from 'components/molecules/Toast/ToastContainer'
-import { useToastManager } from 'providers/ToastProvider/hooks/useToastManager'
 import { Toast } from 'components/molecules/Toast/Toast.types'
+import { ToastContainer, ToastPosition } from 'components/molecules/Toast/ToastContainer'
+import { ToastContext } from 'providers/ToastProvider/ToastContext'
+import { useToastManager } from 'providers/ToastProvider/hooks/useToastManager'
 
 export type ToastProviderProps = {
   children: React.ReactNode

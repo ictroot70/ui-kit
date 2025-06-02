@@ -1,7 +1,9 @@
+import { DetailedHTMLProps, TextareaHTMLAttributes, forwardRef, useState } from 'react'
+
 import { clsx } from 'clsx'
 import { ErrorMessage } from 'components/atoms/ErrorMessage/ErrorMessage'
 import { LabelRadix } from 'components/molecules/LabelRadix/LabelRadix'
-import { DetailedHTMLProps, TextareaHTMLAttributes, forwardRef, useState } from 'react'
+
 import s from './TextArea.module.scss'
 
 type DefaultTextAreaPropsType = DetailedHTMLProps<
@@ -103,7 +105,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           onChange={e => setValue(e.target.value)}
           {...restProps}
         />
-        {error && <ErrorMessage errorMessage={error} variant="danger" />}
+        {error && <ErrorMessage errorMessage={error} variant={'danger'} />}
       </div>
     )
   }

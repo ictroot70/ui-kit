@@ -1,10 +1,10 @@
 import React from 'react'
-import { AnimatePresence } from 'framer-motion'
 import { createPortal } from 'react-dom'
-import { getPositionStyle } from 'components/molecules/Toast/helpers/getPositionStyle'
 
-import { ToastItem } from 'components/molecules/Toast/ToastItem'
 import { Toast } from 'components/molecules/Toast/Toast.types'
+import { ToastItem } from 'components/molecules/Toast/ToastItem'
+import { getPositionStyle } from 'components/molecules/Toast/helpers/getPositionStyle'
+import { AnimatePresence } from 'framer-motion'
 
 export type ToastPosition =
   | 'top-right'
@@ -64,7 +64,11 @@ export interface ToastContainerProps {
 export const ToastContainer = (props: ToastContainerProps): React.ReactPortal | null => {
   const { toasts, position, renderToast, onRemove, onPause, onResume, enableProgressBar, ...rest } =
     props
-  if (typeof document === 'undefined') return null
+
+  if (typeof document === 'undefined') {
+    return null
+  }
+
   return createPortal(
     <div style={getPositionStyle(position)}>
       <AnimatePresence>

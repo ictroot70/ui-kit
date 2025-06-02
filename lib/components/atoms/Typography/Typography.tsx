@@ -1,7 +1,7 @@
-import clsx from 'clsx'
-
 import React, { ComponentProps, forwardRef } from 'react'
+
 import { Slot } from '@radix-ui/react-slot'
+import clsx from 'clsx'
 
 import s from './Typography.module.scss'
 
@@ -33,12 +33,14 @@ export const Typography = forwardRef<HTMLParagraphElement, Props>(
     if (asChild) {
       if (React.Children.count(children) !== 1 || !React.isValidElement(children)) {
         console.error('Typography with `asChild` expects a single React element as a child.')
+
         return (
           <p {...props} ref={ref} className={clsx(s[variant], className)}>
             {children}
           </p>
         )
       }
+
       return (
         <Slot {...props} ref={ref} className={clsx(s[variant], className)}>
           {children}

@@ -25,15 +25,21 @@ export const useHorizontalWheelScroll = () => {
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+
+    if (!el) {
+      return
+    }
 
     const onWheel = (e: WheelEvent) => {
-      if (e.deltaY === 0 || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return
+      if (e.deltaY === 0 || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        return
+      }
 
       el.scrollLeft += Number(e.deltaY)
     }
 
     el.addEventListener('wheel', onWheel, { passive: true })
+
     return () => el.removeEventListener('wheel', onWheel)
   }, [])
 

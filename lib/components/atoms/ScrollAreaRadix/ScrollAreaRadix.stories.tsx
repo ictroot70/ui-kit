@@ -22,6 +22,7 @@ const largeContentStyle = {
   justifyContent: 'center',
   width: '800px',
 }
+
 export const Vertical: Story = {
   args: {
     className: styles.scrollAreaVertical_storybook,

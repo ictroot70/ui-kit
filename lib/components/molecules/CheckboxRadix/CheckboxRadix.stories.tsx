@@ -24,6 +24,7 @@ type Story = StoryObj<typeof meta>
 const linkStyle = {
   color: '#66b2ff',
 }
+
 export const Controlled: Story = {
   args: {
     id: 'eeewww',
@@ -32,11 +33,21 @@ export const Controlled: Story = {
     label: (
       <>
         I agree to the{' '}
-        <a style={linkStyle} href="" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
+        <a
+          style={linkStyle}
+          href={''}
+          rel={'noopener noreferrer'}
+          onClick={e => e.stopPropagation()}
+        >
           Terms of Service
         </a>{' '}
         and{' '}
-        <a style={linkStyle} href="" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
+        <a
+          style={linkStyle}
+          href={''}
+          rel={'noopener noreferrer'}
+          onClick={e => e.stopPropagation()}
+        >
           Privacy Policy
         </a>
       </>
@@ -103,6 +114,7 @@ export const MasterWithChildren: Story = {
 
     const toggleOne = (index: number, value: boolean) => {
       const updated = [...checkedItems]
+
       updated[index] = value
       setCheckedItems(updated)
     }
@@ -110,10 +122,12 @@ export const MasterWithChildren: Story = {
     return (
       <div style={{ padding: 16 }}>
         <CheckboxRadix
-          label="Select all fruits"
+          label={'Select all fruits'}
           checked={masterChecked}
           onCheckedChange={val => {
-            if (typeof val === 'boolean') toggleAll(val)
+            if (typeof val === 'boolean') {
+              toggleAll(val)
+            }
           }}
         />
 

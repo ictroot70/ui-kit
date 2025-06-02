@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+
 import s from 'components/molecules/CheckboxRadix/CheckboxRadix.module.scss'
 
 export const getCheckboxClassNames = (disabled?: boolean, className?: string) => ({

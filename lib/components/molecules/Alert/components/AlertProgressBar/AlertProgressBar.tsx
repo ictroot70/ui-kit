@@ -6,5 +6,6 @@ export interface AlertProgressBarProps {
 
 export const AlertProgressBar = (props: AlertProgressBarProps) => {
   const { progress } = props
+
   return <div className={styles.progress} style={{ width: `${progress}%` }} />
 }
