@@ -48,7 +48,7 @@ export interface UseToastManagerReturn {
 export const useToastManager = (options: UseToastManagerOptions): UseToastManagerReturn => {
   const { maxToasts = 5 } = options
   const [toasts, setToasts] = useState<Toast[]>([])
-  const timeouts = useRef<Record<string, NodeJS.Timeout>>({})
+  const timeouts = useRef<Record<string, number>>({})
   /**
    * Removes a toast by its ID and clears its timeout.
    *
@@ -95,7 +95,7 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
       })
 
       if (toast.duration !== 0) {
-        timeouts.current[id] = setTimeout(() => removeToast(id), toast.duration ?? 4000)
+        timeouts.current[id] = window.setTimeout(() => removeToast(id), toast.duration ?? 4000)
       }
     },
     [maxToasts]
