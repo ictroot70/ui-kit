@@ -15,10 +15,6 @@ $input-padding-with-icon: 44px;
 }
 
 @mixin input-states {
-  &:hover:not(:disabled):not(:focus) {
-    border-color: var(--color-light-900);
-  }
-
   &:focus {
     border-color: var(--color-primary-500);
     outline: 1px solid var(--color-primary-500);
@@ -26,18 +22,24 @@ $input-padding-with-icon: 44px;
 
   &:disabled {
     cursor: not-allowed;
-    color: var(--color-dark-100);
     border-color: var(--color-dark-100);
+    color: var(--color-dark-100);
 
     &::placeholder {
       color: var(--color-dark-100);
     }
   }
+
+  &:not(:disabled, :focus):hover {
+    border-color: var(--color-light-900);
+  }
 }
 
 @mixin icon-base {
   position: absolute;
+
   @include flex-center;
+
   color: var(--color-dark-100);
 }
 
@@ -50,29 +52,25 @@ $input-padding-with-icon: 44px;
 
 .inputContainer {
   position: relative;
+
   @include flex-center;
 }
 
 .label p {
-    color: var(--color-light-900);
-}
-
-.disabled {
-  .eyeButton, .searchIcon, .label p {
-    color: var(--color-dark-100);
-    cursor: not-allowed;
-  }
+  color: var(--color-light-900);
 }
 
 .input {
   width: 100%;
   padding: $input-padding;
+  border: 1px solid var(--color-dark-100);
+  border-radius: $input-border-radius;
+
   font-size: $input-font-size;
   line-height: $input-line-height;
   color: var(--color-light-100);
+
   background: transparent;
-  border: 1px solid var(--color-dark-100);
-  border-radius: $input-border-radius;
 
   &::placeholder {
     color: var(--color-light-900);
@@ -82,16 +80,17 @@ $input-padding-with-icon: 44px;
 
   &.error:not(:disabled) {
     border-color: var(--color-danger-500);
-    outline-color: var(--color-danger-500);
     color: var(--color-light-100);
+    outline-color: var(--color-danger-500);
   }
 }
 
 .searchIcon {
   @include icon-base;
+
+  left: $icon-spacing;
   width: $icon-size;
   height: $icon-size;
-  left: $icon-spacing;
   color: var(--color-light-900);
 
   &.error {
@@ -105,12 +104,17 @@ $input-padding-with-icon: 44px;
 
 .eyeButton {
   @include icon-base;
-  color: var(--color-light-100);
+
+  cursor: pointer;
+
   right: $icon-spacing;
-  background: none;
+
   border: 1px solid transparent;
   border-radius: $input-border-radius;
-  cursor: pointer;
+
+  color: var(--color-light-100);
+
+  background: none;
 
   &:focus-visible {
     border-color: var(--color-primary-500);
@@ -118,5 +122,14 @@ $input-padding-with-icon: 44px;
 
   & + input {
     padding-right: $input-padding-with-icon;
+  }
+}
+
+.disabled {
+  .eyeButton,
+  .searchIcon,
+  .label p {
+    cursor: not-allowed;
+    color: var(--color-dark-100);
   }
 }

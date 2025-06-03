@@ -1,9 +1,11 @@
 'use client'
 
-import { Corner, Root, Scrollbar, Thumb, Viewport } from '@radix-ui/react-scroll-area'
 import { ReactElement, ReactNode } from 'react'
-import styles from './ScrollAreaRadix.module.scss'
+
+import { Corner, Root, Scrollbar, Thumb, Viewport } from '@radix-ui/react-scroll-area'
 import { useHorizontalWheelScroll } from 'components/atoms/ScrollAreaRadix/useHorizontalWheelScroll'
+
+import styles from './ScrollAreaRadix.module.scss'
 
 interface CustomScrollAreaProps {
   children: ReactNode
@@ -52,10 +54,10 @@ export const ScrollAreaRadix = (props: CustomScrollAreaProps): ReactElement => {
       >
         {children}
       </Viewport>
-      <Scrollbar className={`${styles.ScrollAreaScrollbar}`} orientation="vertical">
+      <Scrollbar className={`${styles.ScrollAreaScrollbar}`} orientation={'vertical'}>
         <Thumb className={`${styles.ScrollAreaThumb}`} />
       </Scrollbar>
-      <Scrollbar className={`${styles.ScrollAreaScrollbar}`} orientation="horizontal">
+      <Scrollbar className={`${styles.ScrollAreaScrollbar}`} orientation={'horizontal'}>
         <Thumb className={`${styles.ScrollAreaThumb}`} />
       </Scrollbar>
       <Corner className={`${styles.ScrollAreaCorner}`} />

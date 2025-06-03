@@ -1,5 +1,5 @@
-import { useToastContext } from 'providers/ToastProvider/ToastContext'
 import { Toast } from 'components/molecules/Toast/Toast.types'
+import { useToastContext } from 'providers/ToastProvider/ToastContext'
 
 /**
  * Custom React hook that provides a `toast` function for displaying toast notifications.

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import './Recaptcha.module.scss'
+
 import { RecaptchaStorybookWrapper } from 'components/molecules/Recaptcha/RecaptchaStorybookWrapper'
+
+import './Recaptcha.module.scss'
 
 const TEST_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
 const meta: Meta<typeof RecaptchaStorybookWrapper> = {

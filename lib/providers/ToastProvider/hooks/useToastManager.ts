@@ -1,7 +1,8 @@
 import { useCallback, useRef, useState } from 'react'
+
+import { Toast } from 'components/molecules/Toast/Toast.types'
 import { ToastInput } from 'providers/ToastProvider/hooks/useToast'
 import { v4 as uuidv4 } from 'uuid'
-import { Toast } from 'components/molecules/Toast/Toast.types'
 
 export interface UseToastManagerOptions {
   maxToasts?: number
@@ -47,7 +48,7 @@ export interface UseToastManagerReturn {
 export const useToastManager = (options: UseToastManagerOptions): UseToastManagerReturn => {
   const { maxToasts = 5 } = options
   const [toasts, setToasts] = useState<Toast[]>([])
-  const timeouts = useRef<Record<string, NodeJS.Timeout>>({})
+  const timeouts = useRef<Record<string, number>>({})
   /**
    * Removes a toast by its ID and clears its timeout.
    *
@@ -81,17 +82,20 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
 
       setToasts(prev => {
         const newToasts = [...prev, newToast]
+
         if (newToasts.length > maxToasts) {
           const [removed] = newToasts
+
           clearTimeout(timeouts.current[removed.id])
           delete timeouts.current[removed.id]
           newToasts.shift()
         }
+
         return newToasts
       })
 
       if (toast.duration !== 0) {
-        timeouts.current[id] = setTimeout(() => removeToast(id), toast.duration ?? 4000)
+        timeouts.current[id] = window.setTimeout(() => removeToast(id), toast.duration ?? 4000)
       }
     },
     [maxToasts]
@@ -104,7 +108,9 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
   const pauseToast = (toast: Toast) => {
     setToasts(prev =>
       prev.map(t => {
-        if (t.id !== toast.id) return t
+        if (t.id !== toast.id) {
+          return t
+        }
         const now = Date.now()
         const elapsed = now - t.createdAt
         const remaining = (t.remaining ?? t.duration ?? 5000) - elapsed
@@ -127,7 +133,9 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
   const resumeToast = (toast: Toast) => {
     setToasts(prev =>
       prev.map(t => {
-        if (t.id !== toast.id) return t
+        if (t.id !== toast.id) {
+          return t
+        }
 
         const remaining = t.remaining ?? t.duration ?? 5000
 
@@ -143,6 +151,7 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
       })
     )
   }
+
   return {
     toasts,
     showToast,

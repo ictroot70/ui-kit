@@ -1,8 +1,9 @@
 import { ReactElement, ReactNode } from 'react'
-import { motion } from 'framer-motion'
+
 import { Alert } from 'components/molecules'
-import { getToastProgress } from 'components/molecules/Toast/helpers/getToastProgress'
 import { Toast } from 'components/molecules/Toast/Toast.types'
+import { getToastProgress } from 'components/molecules/Toast/helpers/getToastProgress'
+import { motion } from 'framer-motion'
 
 export interface ToastItemProps {
   toast: Toast
@@ -62,6 +63,7 @@ export const ToastItem = (props: ToastItemProps): ReactElement => {
 
   const progress = getToastProgress(toast.createdAt, toast.duration)
   const isCloseable = toast.closeable ?? enableCloseButton
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -76,7 +78,7 @@ export const ToastItem = (props: ToastItemProps): ReactElement => {
         renderToast(toast, onClose)
       ) : (
         <Alert
-          typographyVariant="regular_14"
+          typographyVariant={'regular_14'}
           type={toast.type}
           title={toast.title}
           message={toast.message}

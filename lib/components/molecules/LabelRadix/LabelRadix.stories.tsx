@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { LabelRadix } from 'components/molecules/LabelRadix/LabelRadix'
 
 const meta = {
@@ -21,7 +22,7 @@ export const Default: Story = {
     disabled: false,
     required: false,
     children: (
-      <input style={{ color: 'var(--color-primary-500)' }} type="email" placeholder={'Email'} />
+      <input style={{ color: 'var(--color-primary-500)' }} type={'email'} placeholder={'Email'} />
     ),
   },
 }

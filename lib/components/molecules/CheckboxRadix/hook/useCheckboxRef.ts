@@ -1,6 +1,7 @@
 import { useRef } from 'react'
-import { mergeRefs } from 'components/molecules/CheckboxRadix/mergeRefs'
 import type { Ref } from 'react'
+
+import { mergeRefs } from 'components/molecules/CheckboxRadix/mergeRefs'
 
 /**
  * Custom hook for combining an internal and external ref using `mergeRefs`.

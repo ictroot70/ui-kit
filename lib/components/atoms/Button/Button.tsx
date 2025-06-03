@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
+
 import clsx from 'clsx'
+
 import s from 'components/atoms/Button/Button.module.scss'
 
 type Variant = 'primary' | 'outlined' | 'secondary' | 'text'

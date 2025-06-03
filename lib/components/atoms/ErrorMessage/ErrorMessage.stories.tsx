@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { ErrorMessage } from 'components/atoms/ErrorMessage/ErrorMessage'
 
 const meta = {

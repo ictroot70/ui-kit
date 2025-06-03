@@ -1,45 +1,9 @@
-/*
-import fs from 'fs'
-import path from 'path'
-
-const libDir = path.resolve('lib')
-const componentsDir = path.join(libDir, 'components')
-
-const componentFolders = fs.readdirSync(componentsDir).filter(name => {
-  const fullPath = path.join(componentsDir, name)
-  return fs.statSync(fullPath).isDirectory()
-})
-
-const componentExports =
-  componentFolders
-    .filter(name => fs.existsSync(path.join(componentsDir, name, 'index.ts')))
-    .sort()
-    .map(name => `export * from './${name}'`)
-    .join('\n') + '\n'
-
-fs.writeFileSync(path.join(componentsDir, 'index.ts'), componentExports)
-console.log('✅ components/index.ts updated')
-
-const libExports = fs.existsSync(path.join(libDir, 'index.ts'))
-  ? fs.readFileSync(path.join(libDir, 'index.ts'), 'utf-8')
-  : ''
-
-if (!libExports.includes(`export * from './components'`)) {
-  const updatedLibExports = libExports + `\nexport * from './components'\n`
-  fs.writeFileSync(path.join(libDir, 'index.ts'), updatedLibExports.trim() + '\n')
-  console.log('✅ lib/index.ts updated')
-} else {
-  console.log('ℹ️ lib/index.ts Already contains the export of components')
-}
-*/
-
 import fs from 'fs'
 import path from 'path'
 
 const ROOT_DIR = path.resolve('lib')
 const COMPONENTS_DIR = path.join(ROOT_DIR, 'components')
 
-// Список игнорируемых файлов по расширению/суффиксу
 const IGNORED_PATTERNS = [
   /\.stories\.(tsx?|jsx?)$/,
   /\.test\.(tsx?|jsx?)$/,
@@ -80,11 +44,9 @@ function createIndexFileRecursively(dir) {
   }
 }
 
-// 🔁 Создание/обновление всех index.ts в components/*
 createIndexFileRecursively(COMPONENTS_DIR)
 console.log('✅ All index.ts files in components/* updated')
 
-// 🧩 Добавление экспортов в lib/index.ts
 const libIndexPath = path.join(ROOT_DIR, 'index.ts')
 const libExports = fs.existsSync(libIndexPath) ? fs.readFileSync(libIndexPath, 'utf-8') : ''
 

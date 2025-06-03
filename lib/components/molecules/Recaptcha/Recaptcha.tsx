@@ -1,13 +1,15 @@
 'use client'
 
-import { default as ReCAPTCHA, ReCAPTCHA as ReCAPTCHAInstance } from 'react-google-recaptcha'
-import clsx from 'clsx'
 import { forwardRef, ReactElement } from 'react'
-import s from 'components/molecules/Recaptcha/Recaptcha.module.scss'
-import { RecaptchaProps } from 'components/molecules/Recaptcha/Recaptcha.types'
-import { useRecaptchaStatus } from 'components/molecules/Recaptcha/hook/useRecaptchaStatus'
-import { useRecaptchaHandlers } from 'components/molecules/Recaptcha/hook/useRecaptchaHandlers'
+import { default as ReCAPTCHA, ReCAPTCHA as ReCAPTCHAInstance } from 'react-google-recaptcha'
+
+import clsx from 'clsx'
 import { Typography } from 'components/atoms'
+import { RecaptchaProps } from 'components/molecules/Recaptcha/Recaptcha.types'
+import { useRecaptchaHandlers } from 'components/molecules/Recaptcha/hook/useRecaptchaHandlers'
+import { useRecaptchaStatus } from 'components/molecules/Recaptcha/hook/useRecaptchaStatus'
+
+import s from 'components/molecules/Recaptcha/Recaptcha.module.scss'
 /**
  * @component Recaptcha
  * @description
@@ -53,9 +55,9 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
       >
         <ReCAPTCHA
           ref={ref}
-          hl="en"
-          theme="dark"
-          className="recaptcha-core"
+          hl={'en'}
+          theme={'dark'}
+          className={'recaptcha-core'}
           sitekey={sitekey}
           onChange={handleOnChange}
           onExpired={handleOnExpired}
