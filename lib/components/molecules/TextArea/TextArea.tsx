@@ -105,7 +105,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           onChange={e => setValue(e.target.value)}
           {...restProps}
         />
-        {error && <ErrorMessage errorMessage={error} variant={'danger'} />}
+        {error && <ErrorMessage message={error} variant={'danger'} />}
       </div>
     )
   }
