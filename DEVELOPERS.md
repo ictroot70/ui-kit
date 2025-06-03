@@ -20,6 +20,60 @@
 
 ---
 
+## 🚦 Pull Request Workflow
+
+> To keep everything stable and clean, we follow a clear Pull Request process:
+
+- All changes must go **through a Pull Request** — pushing directly to `main` or `dev` is not allowed.
+- **Two reviewers** with write access are required to approve the PR.
+- **All comments must be resolved** before merging.
+- **You can't approve your own last commit.**
+
+### 📄 **Details** — see [GitHub Workflow Rules](./.github/GITHUB_WORKFLOW_RULES.md)
+
+#### Covers branch protection, required checks, review process, and merge strategy.
+
+### 📋 **Don't forget the PR template** — [Pull Request Template](./.github/PULL_REQUEST_TEMPLATE/pull_request_template.md)
+
+#### Includes a handy checklist and structure to keep things consistent.
+
+---
+
+## ✅ To install a package into dependencies (default for runtime):
+
+- for example: `@radix-ui/react-dialog`
+
+```bash
+pnpm add @radix-ui/react-dialog
+```
+
+## ❌ To avoid (what you don’t want):
+
+- for example: `@radix-ui/react-dialog`
+
+```bash
+pnpm add @radix-ui/react-dialog --save-dev  # ❌ Adds to devDependencies
+pnpm add @radix-ui/react-dialog --save-peer # ❌ Adds to peerDependencies
+```
+
+## ✅ Summary for Radix in your library:
+
+- Use:
+
+```bash
+pnpm add @radix-ui/react-dialog
+```
+
+- It will be added to:
+
+```bash
+{
+    "dependencies": {
+        "@radix-ui/react-dialog": "..."
+    }
+}
+```
+
 ## 📁 Project structure
 
 <pre>
