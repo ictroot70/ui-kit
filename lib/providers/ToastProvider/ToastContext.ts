@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react'
+
 import { ToastInput } from 'providers/ToastProvider/hooks/useToast'
 
 export type ToastContextType = {
@@ -33,8 +34,10 @@ export const ToastContext = createContext<ToastContextType | undefined>(undefine
 
 export const useToastContext = (): ToastContextType => {
   const context = useContext(ToastContext)
+
   if (!context) {
     throw new Error('useToastContext must be used within a ToastProvider')
   }
+
   return context
 }

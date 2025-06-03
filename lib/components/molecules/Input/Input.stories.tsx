@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { Input } from './Input'
 
 const meta: Meta<typeof Input> = {
@@ -45,7 +46,7 @@ export const Hideable: Story = {
     inputType: 'hide-able',
     label: 'Password',
     id: 'password',
-    required: true
+    required: true,
   },
 }
 

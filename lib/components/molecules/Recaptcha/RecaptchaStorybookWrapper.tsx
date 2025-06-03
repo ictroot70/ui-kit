@@ -1,6 +1,7 @@
+import { ReactElement } from 'react'
+
 import { Recaptcha } from 'components/molecules/Recaptcha/Recaptcha'
 import { RecaptchaProps } from 'components/molecules/Recaptcha/Recaptcha.types'
-import { ReactElement } from 'react'
 
 /**
  * A wrapper component for the `Recaptcha` component, used specifically in Storybook.

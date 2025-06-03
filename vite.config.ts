@@ -1,7 +1,7 @@
 import { join, resolve } from 'path'
 
-import analize from 'rollup-plugin-analyzer'
 import viteReact from '@vitejs/plugin-react'
+import analize from 'rollup-plugin-analyzer'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import tsconfigPaths from 'vite-tsconfig-paths'

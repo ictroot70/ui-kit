@@ -1,12 +1,13 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactElement, ReactNode } from 'react'
+
 import * as Checkbox from '@radix-ui/react-checkbox'
+import { ErrorMessage } from 'components/atoms'
+import { CheckboxIndicator } from 'components/molecules/CheckboxRadix/CheckboxIndicator'
+import { getCheckboxClassNames } from 'components/molecules/CheckboxRadix/helpers/helpers'
+import { useCheckboxRef } from 'components/molecules/CheckboxRadix/hook/useCheckboxRef'
+import { LabelRadix } from 'components/molecules/LabelRadix'
 
 import s from './CheckboxRadix.module.scss'
-import { CheckboxIndicator } from 'components/molecules/CheckboxRadix/CheckboxIndicator'
-import { LabelRadix } from 'components/molecules/LabelRadix'
-import { ErrorMessage } from 'components/atoms'
-import { useCheckboxRef } from 'components/molecules/CheckboxRadix/hook/useCheckboxRef'
-import { getCheckboxClassNames } from 'components/molecules/CheckboxRadix/helpers/helpers'
 
 export interface CheckboxProps extends ComponentPropsWithoutRef<typeof Checkbox.Root> {
   className?: string

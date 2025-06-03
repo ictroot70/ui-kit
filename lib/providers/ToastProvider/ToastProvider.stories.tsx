@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { ToastProvider } from 'providers/ToastProvider/ToastProvider'
 import { useToast } from 'providers/ToastProvider/hooks/useToast'
 
@@ -63,6 +64,7 @@ const DemoComponent = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <button
+        type={'button'}
         style={buttonStyle}
         onClick={() =>
           toast({
@@ -78,6 +80,7 @@ const DemoComponent = () => {
       </button>
 
       <button
+        type={'button'}
         style={buttonStyle}
         onClick={() =>
           toast({
@@ -93,6 +96,7 @@ const DemoComponent = () => {
       </button>
 
       <button
+        type={'button'}
         style={buttonStyle}
         onClick={() =>
           toast({
@@ -107,6 +111,7 @@ const DemoComponent = () => {
       </button>
 
       <button
+        type={'button'}
         style={buttonStyle}
         onClick={() =>
           toast({

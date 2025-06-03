@@ -1,7 +1,9 @@
 import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react'
+
 import * as TabsPrimitive from '@radix-ui/react-tabs'
 import clsx from 'clsx'
-import s from './tabs.module.scss'
+
+import s from './Tabs.module.scss'
 
 type TriggerType = {
   title: string

@@ -24,6 +24,7 @@ type Story = StoryObj<typeof meta>
 const linkStyle = {
   color: '#66b2ff',
 }
+
 export const Controlled: Story = {
   args: {
     id: 'eeewww',
@@ -32,11 +33,21 @@ export const Controlled: Story = {
     label: (
       <>
         I agree to the{' '}
-        <a style={linkStyle} href="" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
+        <a
+          style={linkStyle}
+          href={''}
+          rel={'noopener noreferrer'}
+          onClick={e => e.stopPropagation()}
+        >
           Terms of Service
         </a>{' '}
         and{' '}
-        <a style={linkStyle} href="" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
+        <a
+          style={linkStyle}
+          href={''}
+          rel={'noopener noreferrer'}
+          onClick={e => e.stopPropagation()}
+        >
           Privacy Policy
         </a>
       </>
@@ -91,11 +102,15 @@ export const MasterWithChildren: Story = {
 
     const allChecked = checkedItems.every(Boolean)
     const someChecked = checkedItems.some(Boolean)
-    const masterChecked: boolean | 'indeterminate' = allChecked
-      ? true
-      : someChecked
-        ? 'indeterminate'
-        : false
+    let masterChecked: boolean | 'indeterminate'
+
+    if (allChecked) {
+      masterChecked = true
+    } else if (someChecked) {
+      masterChecked = 'indeterminate'
+    } else {
+      masterChecked = false
+    }
 
     const toggleAll = (value: boolean) => {
       setCheckedItems(checkedItems.map(() => value))
@@ -103,6 +118,7 @@ export const MasterWithChildren: Story = {
 
     const toggleOne = (index: number, value: boolean) => {
       const updated = [...checkedItems]
+
       updated[index] = value
       setCheckedItems(updated)
     }
@@ -110,10 +126,12 @@ export const MasterWithChildren: Story = {
     return (
       <div style={{ padding: 16 }}>
         <CheckboxRadix
-          label="Select all fruits"
+          label={'Select all fruits'}
           checked={masterChecked}
           onCheckedChange={val => {
-            if (typeof val === 'boolean') toggleAll(val)
+            if (typeof val === 'boolean') {
+              toggleAll(val)
+            }
           }}
         />
 

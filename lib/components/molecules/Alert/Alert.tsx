@@ -1,13 +1,15 @@
 'use client'
 
-import styles from 'components/molecules/Alert/Alert.module.scss'
+import { ReactElement } from 'react'
+
 import clsx from 'clsx'
-import { useProgressBar } from 'components/molecules/Alert/hooks/useAlertProgress'
+import { AlertProps } from 'components/molecules/Alert/Alert.types'
+import { AlertContent } from 'components/molecules/Alert/components/AlertContent/AlertContent'
 import { AlertProgressBar } from 'components/molecules/Alert/components/AlertProgressBar/AlertProgressBar'
 import { CloseButton } from 'components/molecules/Alert/components/CloseButton/CloseButton'
-import { AlertContent } from 'components/molecules/Alert/components/AlertContent/AlertContent'
-import { ReactElement } from 'react'
-import { AlertProps } from 'components/molecules/Alert/Alert.types'
+import { useProgressBar } from 'components/molecules/Alert/hooks/useAlertProgress'
+
+import styles from 'components/molecules/Alert/Alert.module.scss'
 
 /**
  * Renders a customizable alert component with optional title, message, close button, and progress bar.
@@ -57,6 +59,7 @@ export const Alert = (props: AlertProps): ReactElement => {
     progressBar = false,
   } = props
   const progress = useProgressBar(duration, progressBar)
+
   return (
     <div className={clsx(styles.alert, styles[type], className)}>
       <div className={styles.content}>
