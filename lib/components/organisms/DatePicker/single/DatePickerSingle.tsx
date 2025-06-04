@@ -1,39 +1,74 @@
-import clsx from "clsx";
-import "react-day-picker/style.css";
-import s from "../DatePicker.module.scss";
-import { DayPicker, type DayPickerProps } from "react-day-picker";
-import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
-import { useId, useMemo, useState } from "react";
-import { LabelRadix } from "../../../molecules/LabelRadix";
-import { Calendar, CalendarOutline } from "../../../../assets/icons";
+import clsx from 'clsx'
+import 'react-day-picker/style.css'
+import s from 'components/organisms/DatePicker/DatePicker.module.scss'
+import { DayPicker, type DayPickerProps } from 'react-day-picker'
+import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
+import { HTMLAttributes, ReactElement, useState } from 'react'
+import { LabelRadix } from 'components/molecules/LabelRadix'
+import { Calendar, CalendarOutline } from 'assets/icons'
+import { useFormattedDate } from 'components/organisms/DatePicker/single/hooks/useFormattedDate'
+import { ErrorMessage } from 'components/atoms/ErrorMessage/ErrorMessage'
+import {
+  dayPickerClassNames,
+  modifiersClassNames,
+} from 'components/organisms/DatePicker/single/helpers/DatePickerModifiers'
+import { useDatePickerModifiers } from './helpers/useDatePickerModifiers'
+import { useStableId } from './hooks/useStableld'
 
-/**
- * Props for the DatePickerSingle component.
- */
 export type DatePickerSingleProps = {
-  value?: Date;
-  defaultDate?: Date;
-  onDateChange?: (date: Date | undefined) => void;
-  label?: string;
-  placeholder?: string;
-  disabled?: boolean;
-  required?: boolean;
-  className?: string;
-  inputClassName?: string;
-  error?: string;
-  hint?: string;
-  calendarProps?: Omit<DayPickerProps, "mode" | "selected" | "onSelect">;
-} & Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">;
+  value?: Date
+  defaultDate?: Date
+  onDateChange?: (date: Date | undefined) => void
+  label?: string
+  placeholder?: string
+  disabled?: boolean
+  required?: boolean
+  className?: string
+  inputClassName?: string
+  error?: string
+  hint?: string
+  calendarProps?: Omit<DayPickerProps, 'mode' | 'selected' | 'onSelect'>
+} & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>
 
 /**
- * Main DatePicker component for single date selection.
+ * DatePickerSingle is a reusable React component for selecting a single date using `react-day-picker`.
+ * It supports both controlled and uncontrolled modes, with accessible keyboard navigation and customizable styling.
+ *
+ * @component
+ * @example
+ * ```tsx
+ * <DatePickerSingle
+ *   label="Date of birth"
+ *   value={selectedDate}
+ *   onDateChange={setSelectedDate}
+ *   placeholder="Select your date"
+ *   error="This field is required"
+ * />
+ * ```
+ *
+ * @param {DatePickerSingleProps} props - Component props
+ * @param {Date} [props.value] - Controlled selected date
+ * @param {Date} [props.defaultDate] - Default date (for uncontrolled mode)
+ * @param {(date: Date | undefined) => void} [props.onDateChange] - Callback when date changes
+ * @param {string} [props.label] - Label displayed above the input
+ * @param {string} [props.placeholder] - Placeholder shown when no date is selected
+ * @param {boolean} [props.disabled=false] - Disables interaction with the picker
+ * @param {boolean} [props.required=false] - Marks the field as required
+ * @param {string} [props.className] - Custom class for the outer container
+ * @param {string} [props.inputClassName] - Custom class for the trigger input/button
+ * @param {string} [props.error] - Error message shown below the input
+ * @param {string} [props.hint] - Hint text shown below the input (only if no error)
+ * @param {Omit<DayPickerProps, 'mode' | 'selected' | 'onSelect'>} [props.calendarProps] - Additional props for `DayPicker`
+ * @param {React.HTMLAttributes<HTMLDivElement>} restProps - Other native div attributes
+ *
+ * @returns {ReactElement} The rendered single date picker component
  */
 export const DatePickerSingle = ({
                                    value,
                                    defaultDate,
                                    onDateChange,
-                                   label = "Select Date",
-                                   placeholder = "Select date",
+                                   label = 'Select Date',
+                                   placeholder = 'Select date',
                                    disabled = false,
                                    required = false,
                                    className,
@@ -42,36 +77,36 @@ export const DatePickerSingle = ({
                                    hint,
                                    calendarProps,
                                    ...restProps
-                                 }: DatePickerSingleProps) => {
-  const isControlled = value !== undefined;
-  const [internalDate, setInternalDate] = useState<Date | undefined>(defaultDate);
-  const selectedDate = isControlled ? value : internalDate;
-  const today = useMemo(() => new Date(), []);
-  const [isFocused, setIsFocused] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const inputId = useId();
+                                 }: DatePickerSingleProps): ReactElement => {
+  const isControlled = value !== undefined
+  const [internalDate, setInternalDate] = useState<Date | undefined>(defaultDate)
+  const selectedDate = isControlled ? value : internalDate
+  const [isFocused, setIsFocused] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonId = useStableId('date-picker-trigger')
+  const popoverContentId = useStableId('date-picker-popover')
+  const displayText = useFormattedDate(selectedDate, placeholder)
+  const modifiers = useDatePickerModifiers()
 
   const handleSelect = (date: Date | undefined) => {
-    if (!isControlled) {
-      setInternalDate(date);
-    }
-    onDateChange?.(date);
-  };
+    if (!isControlled) setInternalDate(date)
+    onDateChange?.(date)
+  }
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (disabled) return;
-    if (event.key === " " || event.key === "Enter") {
-      event.preventDefault();
-      setIsOpen((prev) => !prev);
+    if (disabled) return
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault()
+      setIsOpen(prev => !prev)
     }
-  };
+  }
 
   return (
     <div className={clsx(s.container, className)} {...restProps}>
-      <div className={s.datePickerWrapper}>
+      <div className={clsx(s.datePickerWrapper, { [s.open]: isOpen })}>
         {label && (
           <LabelRadix
-            htmlFor={inputId}
+            htmlFor={buttonId}
             required={required}
             className={s.label}
             disabled={disabled}
@@ -79,11 +114,10 @@ export const DatePickerSingle = ({
             {label}
           </LabelRadix>
         )}
-
         <Popover open={isOpen} onOpenChange={setIsOpen}>
           <PopoverTrigger asChild>
-            <div
-              id={inputId}
+            <button
+              id={buttonId}
               tabIndex={disabled ? -1 : 0}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
@@ -99,25 +133,20 @@ export const DatePickerSingle = ({
               role="button"
               aria-haspopup="dialog"
               aria-expanded={isOpen}
+              aria-controls={popoverContentId}
+              aria-label={label}
             >
-              <div className={s.dateText}>
-                {selectedDate
-                  ? selectedDate.toLocaleDateString("en-GB", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                  })
-                  : placeholder}
-              </div>
+              <div className={s.dateText}>{displayText}</div>
               {isOpen ? <Calendar /> : <CalendarOutline />}
-            </div>
+            </button>
           </PopoverTrigger>
           {!disabled && (
             <PopoverContent
               className={s.popoverContent}
               side="bottom"
-              align="center"
+              align="start"
               avoidCollisions={true}
+              id={popoverContentId}
             >
               <div className={s.wrapperCalendar}>
                 <DayPicker
@@ -127,34 +156,20 @@ export const DatePickerSingle = ({
                   mode="single"
                   selected={selectedDate}
                   onSelect={handleSelect}
-                  modifiers={{
-                    today: today,
-                    weekend: (date) => date.getDay() === 0 || date.getDay() === 6,
-                    hover: () => true,
-                    outside: (date) => date.getMonth() !== today.getMonth(),
-                  }}
-                  modifiersClassNames={{
-                    today: s.rdpDay_today,
-                    selected: s.rdpDay_selected,
-                    weekend: s.weekendDay,
-                    hover: s.rdpDay_hover,
-                    outside: s.rdpDay_outside,
-                  }}
-                  classNames={{
-                    caption_label: s.rdpCaptionLabel,
-                    button_next: s.rdpButton_next,
-                    button_previous: s.rdpButton_previous,
-                    nav: s.rdpNav,
-                  }}
+                  modifiers={modifiers}
+                  modifiersClassNames={modifiersClassNames}
+                  classNames={dayPickerClassNames}
                   {...calendarProps}
                 />
               </div>
             </PopoverContent>
           )}
         </Popover>
+        {hint && !error && <div className={s.hint}>{hint}</div>}
+        {error && (
+          <ErrorMessage message={error} className={s.errorMessage} variant={'danger_small'} />
+        )}
       </div>
-      {hint && !error && <div className={s.hint}>{hint}</div>}
-      {error && <div className={s.errorMessage}>{error}</div>}
     </div>
-  );
-};
+  )
+}
