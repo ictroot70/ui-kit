@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { join, resolve } from 'path'
 
 import react from '@vitejs/plugin-react'
@@ -5,8 +6,8 @@ import analize from 'rollup-plugin-analyzer'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import tsconfigPaths from 'vite-tsconfig-paths'
+
 import { dependencies, devDependencies, peerDependencies } from './package.json'
-import path from 'node:path'
 
 // https://vitejs.dev/config/
 export default defineConfig({

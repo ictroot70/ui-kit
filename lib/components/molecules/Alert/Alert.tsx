@@ -1,13 +1,13 @@
 import { ReactElement } from 'react'
 
 import clsx from 'clsx'
+import { TypographyVariant } from 'components/atoms'
 import { AlertContent } from 'components/molecules/Alert/components/AlertContent/AlertContent'
 import { AlertProgressBar } from 'components/molecules/Alert/components/AlertProgressBar/AlertProgressBar'
 import { CloseButton } from 'components/molecules/Alert/components/CloseButton/CloseButton'
 import { useProgressBar } from 'components/molecules/Alert/hooks/useAlertProgress'
 
 import styles from 'components/molecules/Alert/Alert.module.scss'
-import { TypographyVariant } from 'components/atoms'
 
 export type AlertType = 'success' | 'error' | 'warning' | 'info'
 
