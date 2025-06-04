@@ -11,7 +11,7 @@
 }
 
 .datePickerWrapper {
-  @include display-flex(flex, null, null, column, 4px);
+  @include display-flex(flex, null, null, column);
 }
 
 .label {
@@ -22,13 +22,14 @@
     var(--color-light-900)
   );
 
-  margin-bottom: 4px;
 
   &[aria-disabled='true'] {
     cursor: unset;
     color: var(--color-light-900);
   }
+
 }
+
 
 .requiredIndicator {
   margin-left: 4px;
@@ -52,7 +53,7 @@
   line-height: var(--line-height-m);
   color: var(--color-light-100);
 
-  background-color: transparent;
+  background-color: var(--color-dark-500);
 
   @include display-flex(inline-flex, center, space-between, $gap: 23px);
 

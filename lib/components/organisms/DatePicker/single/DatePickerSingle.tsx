@@ -1,19 +1,18 @@
-import clsx from 'clsx'
 import 'react-day-picker/style.css'
 import s from 'components/organisms/DatePicker/DatePicker.module.scss'
 import { DayPicker, type DayPickerProps } from 'react-day-picker'
-import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
 import { HTMLAttributes, ReactElement, useState } from 'react'
-import { LabelRadix } from 'components/molecules/LabelRadix'
-import { Calendar, CalendarOutline } from 'assets/icons'
 import { useFormattedDate } from 'components/organisms/DatePicker/single/hooks/useFormattedDate'
-import { ErrorMessage } from 'components/atoms/ErrorMessage/ErrorMessage'
 import {
   dayPickerClassNames,
   modifiersClassNames,
 } from 'components/organisms/DatePicker/single/helpers/DatePickerModifiers'
 import { useDatePickerModifiers } from './helpers/useDatePickerModifiers'
+import { useDatePickerBehavior } from '../shared/useDatePickerBehavior'
+import { DatePickerWrapper } from '../shared/DatePickerWrapper'
 import { useStableId } from './hooks/useStableld'
+
+
 
 export type DatePickerSingleProps = {
   value?: Date
@@ -64,112 +63,69 @@ export type DatePickerSingleProps = {
  * @returns {ReactElement} The rendered single date picker component
  */
 export const DatePickerSingle = ({
-                                   value,
-                                   defaultDate,
-                                   onDateChange,
-                                   label = 'Select Date',
-                                   placeholder = 'Select date',
-                                   disabled = false,
-                                   required = false,
-                                   className,
-                                   inputClassName,
-                                   error,
-                                   hint,
-                                   calendarProps,
-                                   ...restProps
-                                 }: DatePickerSingleProps): ReactElement => {
+  value,
+  defaultDate,
+  onDateChange,
+  label = 'Select Date',
+  placeholder = 'Select date',
+  disabled = false,
+  required = false,
+  className,
+  inputClassName,
+  error,
+  hint,
+  calendarProps,
+  ...restProps
+}: DatePickerSingleProps): ReactElement => {
   const isControlled = value !== undefined
   const [internalDate, setInternalDate] = useState<Date | undefined>(defaultDate)
   const selectedDate = isControlled ? value : internalDate
-  const [isFocused, setIsFocused] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
   const buttonId = useStableId('date-picker-trigger')
   const popoverContentId = useStableId('date-picker-popover')
   const displayText = useFormattedDate(selectedDate, placeholder)
   const modifiers = useDatePickerModifiers()
+
+  const { isFocused, setIsFocused, isOpen, setIsOpen, handleKeyDown } =
+    useDatePickerBehavior(disabled)
 
   const handleSelect = (date: Date | undefined) => {
     if (!isControlled) setInternalDate(date)
     onDateChange?.(date)
   }
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (disabled) return
-    if (event.key === ' ' || event.key === 'Enter') {
-      event.preventDefault()
-      setIsOpen(prev => !prev)
-    }
-  }
-
   return (
-    <div className={clsx(s.container, className)} {...restProps}>
-      <div className={clsx(s.datePickerWrapper, { [s.open]: isOpen })}>
-        {label && (
-          <LabelRadix
-            htmlFor={buttonId}
-            required={required}
-            className={s.label}
-            disabled={disabled}
-          >
-            {label}
-          </LabelRadix>
-        )}
-        <Popover open={isOpen} onOpenChange={setIsOpen}>
-          <PopoverTrigger asChild>
-            <button
-              id={buttonId}
-              tabIndex={disabled ? -1 : 0}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              onKeyDown={handleKeyDown}
-              className={clsx(
-                s.datePicker,
-                disabled && s.disabled,
-                error && s.error,
-                isFocused && s.focused,
-                inputClassName
-              )}
-              aria-disabled={disabled}
-              role="button"
-              aria-haspopup="dialog"
-              aria-expanded={isOpen}
-              aria-controls={popoverContentId}
-              aria-label={label}
-            >
-              <div className={s.dateText}>{displayText}</div>
-              {isOpen ? <Calendar /> : <CalendarOutline />}
-            </button>
-          </PopoverTrigger>
-          {!disabled && (
-            <PopoverContent
-              className={s.popoverContent}
-              side="bottom"
-              align="start"
-              avoidCollisions={true}
-              id={popoverContentId}
-            >
-              <div className={s.wrapperCalendar}>
-                <DayPicker
-                  animate={true}
-                  showOutsideDays
-                  weekStartsOn={1}
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={handleSelect}
-                  modifiers={modifiers}
-                  modifiersClassNames={modifiersClassNames}
-                  classNames={dayPickerClassNames}
-                  {...calendarProps}
-                />
-              </div>
-            </PopoverContent>
-          )}
-        </Popover>
-        {hint && !error && <div className={s.hint}>{hint}</div>}
-        {error && (
-          <ErrorMessage message={error} className={s.errorMessage} variant={'danger_small'} />
-        )}
+    <DatePickerWrapper
+      label={label}
+      required={required}
+      disabled={disabled}
+      error={error}
+      hint={hint}
+      className={className}
+      inputClassName={inputClassName}
+      buttonId={buttonId}
+      popoverContentId={popoverContentId}
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      isFocused={isFocused}
+      setIsFocused={setIsFocused}
+      handleKeyDown={handleKeyDown}
+      displayText={displayText}
+      {...restProps}
+    >
+      <div className={s.wrapperCalendar}>
+        <DayPicker
+          animate={true}
+          showOutsideDays
+          weekStartsOn={1}
+          mode="single"
+          selected={selectedDate}
+          onSelect={handleSelect}
+          modifiers={modifiers}
+          modifiersClassNames={modifiersClassNames}
+          classNames={dayPickerClassNames}
+          {...calendarProps}
+        />
       </div>
-    </div>
+    </DatePickerWrapper>
   )
 }
