@@ -44,7 +44,7 @@ type Props = {
  */
 
 export const Modal = ({ modalTitle, onClose, open, children, className, ...rest }: Props) => (
-  <Dialog.Root open={open} onOpenChange={onClose} {...rest}>
+  <Dialog.Root open={open} onOpenChange={() => onClose()} {...rest}>
     <Dialog.Portal>
       <Dialog.Overlay className={s.overlay} />
       <Dialog.Content className={clsx(s.content, className)}>
