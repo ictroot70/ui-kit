@@ -1,5 +1,3 @@
-'use client'
-
 import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import clsx from 'clsx'
@@ -12,11 +10,11 @@ import Search from 'assets/icons/components/Search'
 import { ErrorMessage, Typography } from 'components/atoms'
 import { LabelRadix } from 'components/molecules'
 
-interface InputProps extends ComponentPropsWithoutRef<'input'> {
+export interface InputProps extends ComponentPropsWithoutRef<'input'> {
   label?: string
   error?: string
   placeholder?: string
-  inputType: 'text' | 'hide-able' | 'search'
+  inputType?: 'text' | 'hide-able' | 'search'
   disabled?: boolean
   required?: boolean
   id?: string
