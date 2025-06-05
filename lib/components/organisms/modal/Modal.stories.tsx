@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 import { Modal } from "./Modal";
 import { Button, Typography } from "../../atoms";
 
@@ -30,35 +31,66 @@ const meta: Meta<typeof Modal> = {
 export default meta;
 type Story = StoryObj<typeof Modal>;
 
+// Компонент-обертка для управления состоянием
+const ModalWithState = ({ children, modalTitle, ...args }: any) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleCloseModal = () => setIsOpen(false);
+
+  // Клонируем children и передаем функцию закрытия в кнопки
+  const enhancedChildren = typeof children === 'function'
+    ? children(handleCloseModal)
+    : children;
+
+  return (
+    <div>
+      <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+      <Modal
+        {...args}
+        open={isOpen}
+        onClose={handleCloseModal}
+        modalTitle={modalTitle}
+      >
+        {enhancedChildren}
+      </Modal>
+    </div>
+  );
+};
+
 export const WithButton: Story = {
-  args: {
-    open: true,
-    modalTitle: "Email sent",
-    onClose: () => {},
-    children: (
-      <div>
-        <Typography variant="regular_16" color="light">
-          We have sent a link to confirm your email to <b>epam@epam.com</b>.
-        </Typography>
-        <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 24 }}>
-          <Button>OK</Button>
+  render: (args) => (
+    <ModalWithState {...args}>
+      {(closeModal: () => void) => (
+        <div>
+          <Typography variant="regular_16" color="light">
+            We have sent a link to confirm your email to <b>epam@epam.com</b>.
+          </Typography>
+          <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 24 }}>
+            <Button onClick={closeModal}>OK</Button>
+          </div>
         </div>
-      </div>
-    ),
+      )}
+    </ModalWithState>
+  ),
+  args: {
+    modalTitle: "Email sent",
   },
 };
 
 export const Default: Story = {
+  render: (args) => (
+    <ModalWithState {...args}>
+        <div>
+          <Typography variant="regular_16" color="light">
+            We have sent a link to confirm your email to <b>epam@epam.com</b>.
+          </Typography>
+        </div>
+    </ModalWithState>
+  ),
   args: {
-    open: true,
     modalTitle: "Email sent",
-    onClose: () => {},
-    children: (
-      <div>
-        <Typography variant="regular_16" color="light">
-          We have sent a link to confirm your email to <b>epam@epam.com</b>.
-        </Typography>
-      </div>
-    ),
   },
 };
+
+// Если нужна история с всегда открытым модальным окном для тестирования,
+// используйте отдельную страницу Canvas, а не Docs

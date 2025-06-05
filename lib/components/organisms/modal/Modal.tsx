@@ -9,8 +9,8 @@ import { Separator } from '../../atoms/Separator/Separator'
 type Props = {
   open: boolean;
   onClose: () => void;
-  modalTitle: string;
-} & ComponentPropsWithoutRef<"div">;
+  modalTitle?: string;
+} & ComponentPropsWithoutRef<typeof Dialog.Content>;
 
 /**
  * `Modal` is a customizable and accessible dialog component built on top of `@radix-ui/react-dialog`.
@@ -43,28 +43,38 @@ type Props = {
  * @returns Accessible, styled modal dialog with header, close button, and custom content area
  */
 
-export const Modal = ({ modalTitle, onClose, open, children, className, ...rest }: Props) => (
-  <Dialog.Root open={open} onOpenChange={(isOpen) => !isOpen && onClose()} {...rest}>
-    <Dialog.Portal>
-      <Dialog.Overlay className={s.overlay} />
-      <Dialog.Content className={clsx(s.content, className)}>
-        <div className={s.header}>
-          <Dialog.Title className={s.title}>
-            <Typography variant={"h1"} color={"light"}>
-              {modalTitle}
-            </Typography>
-          </Dialog.Title>
-          <Dialog.Close asChild>
-            <button className={s.iconButton} aria-label="Close">
-              <SvgClose svgProps={{ width: 24, height: 24 }} />
-            </button>
-          </Dialog.Close>
-        </div>
-        <Separator />
-        <div className={s.body}>
-          {children}
-        </div>
-      </Dialog.Content>
-    </Dialog.Portal>
-  </Dialog.Root>
-);
+export const Modal = ({ modalTitle, onClose, open, children, className, ...rest }: Props) => {
+  const handleOpenChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      onClose();
+    }
+  };
+
+  return (
+    <Dialog.Root open={open} onOpenChange={handleOpenChange}>
+      <Dialog.Portal>
+        <Dialog.Overlay className={s.overlay} />
+        <Dialog.Content className={clsx(s.content, className)} {...rest}>
+          <div className={s.header}>
+            {modalTitle && (
+            <Dialog.Title className={s.title}>
+              <Typography variant={"h1"} color={"light"}>
+                {modalTitle}
+              </Typography>
+            </Dialog.Title>
+              )}
+            <Dialog.Close asChild>
+              <button className={s.iconButton} aria-label="Close">
+                <SvgClose svgProps={{ width: 24, height: 24 }} />
+              </button>
+            </Dialog.Close>
+          </div>
+          <Separator />
+          <div className={s.body}>
+            {children}
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};

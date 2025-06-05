@@ -1,20 +1,31 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/typography' as *;
+@use '@/styles/function' as *;
+
 .overlay {
-  background-color: rgb(0 0 0 / 50%);
   position: fixed;
   inset: 0;
+
+  background-color: rgb(0 0 0 / 50%);
+
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .content {
-  background-color: var(--color-dark-300);
-  border-radius: 2px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  box-sizing: border-box;
   width: 378px;
   height: 228px;
   border: 1px solid var(--color-dark-100);
+  border-radius: 2px;
+
+  background-color: var(--color-dark-300);
+
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 
   &:focus {
@@ -22,45 +33,80 @@
   }
 }
 
-
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 24px;
   position: relative;
+  padding: 12px 24px;
+
+  @include display-flex(flex, center, space-between);
 }
 
 .title {
-  padding: 0;
   margin: 0;
+  padding: 0;
+
+  @include typography-with-color(
+                  16px,
+                  var(--font-weight-bold),
+                  var(--line-height-m),
+                  var(--color-light-100)
+  );
 }
 
 .body {
   padding: 30px 24px 18px 24px;
+
+  @include typography-with-color(
+                  14px,
+                  var(--font-weight-regular),
+                  var(--line-height-m),
+                  var(--color-light-100)
+  );
 }
 
 .iconButton {
   all: unset;
-  font-family: inherit;
-  border-radius: 100%;
-  background-color: var(--dark-300);
-  height: 24px;
-  width: 24px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--light-100);
+
   cursor: pointer;
+
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
   margin-left: 16px;
+  border-radius: 100%;
+
+  font-family: inherit;
+  color: var(--color-light-100);
+
+  background-color: var(--color-dark-300);
+
+  @include display-flex(inline-flex, center, center);
 
   &:hover {
-    background-color: var(--dark-100);
+    background-color: var(--color-dark-100);
   }
 
   &:focus {
-    background-color: var(--dark-100);
+    background-color: var(--color-dark-100);
+    outline: none;
   }
 }
 
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
