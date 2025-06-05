@@ -12,10 +12,6 @@
     color: var(--color-light-900);
 }
 
-.iconDown {
-    margin-left: auto;
-}
-
 .trigger {
     all: unset;
 
@@ -103,6 +99,10 @@
 .selectItem {
     @include mixins.display-flex($align: center, $justify: start);
 
+    svg, img {
+        flex-shrink: 0;
+        vertical-align: middle;
+    }
     cursor: pointer;
 
     width: 100%;
@@ -125,6 +125,19 @@
     &[data-disabled] {
         opacity: 0.5;
         color: var(--color-dark-100);
+    }
+}
+
+.selectItems {
+    @include mixins.display-flex($align: center, $justify: start, $gap: function.px-to-unit(8));
+
+
+    svg, img {
+        flex-shrink: 0;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+
     }
 }
 

@@ -60,7 +60,7 @@ export const SelectWithFlag: Story = {
     defaultValue: "ru",
     items: [
       { value: "ru", label: "Русский", icon: <RussiaFlag /> },
-      { value: "en", label: "Английский", icon: <span><UkFlag /></span> },
+      { value: "en", label: "Английский", icon: <UkFlag /> },
     ],
     disabled: false,
   },
@@ -70,7 +70,7 @@ export const SelectWithFlag: Story = {
 export const SelectWithShow: Story = {
   args: {
     defaultValue: "100",
-    style: { width: '50px', padding: "6px" },
+    style: { width: '70px' },
     items: [
       { value: "10", label: "10" },
       { value: "20", label: "20" },
