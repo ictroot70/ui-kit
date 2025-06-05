@@ -126,3 +126,10 @@
 .fullWidth {
   width: 100%;
 }
+.left {
+  flex-direction: row;
+}
+
+.right {
+  flex-direction: row-reverse;
+}
