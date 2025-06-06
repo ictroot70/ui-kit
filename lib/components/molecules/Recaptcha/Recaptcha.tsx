@@ -1,4 +1,4 @@
-import { forwardRef, ReactElement } from 'react'
+import { forwardRef, ReactElement, useState } from 'react'
 import {
   default as ReCAPTCHA,
   ReCAPTCHA as ReCAPTCHAInstance,
@@ -6,7 +6,7 @@ import {
 } from 'react-google-recaptcha'
 
 import clsx from 'clsx'
-import { Typography } from 'components/atoms'
+import { ErrorMessage } from 'components/atoms'
 import { useRecaptchaHandlers } from 'components/molecules/Recaptcha/hook/useRecaptchaHandlers'
 import { useRecaptchaStatus } from 'components/molecules/Recaptcha/hook/useRecaptchaStatus'
 
@@ -62,6 +62,7 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
   (props, ref): ReactElement => {
     const { statusForStorybook, sitekey, onChange, onExpired, ...rest } = props
     const { visualStatus, setSuccess, setExpired } = useRecaptchaStatus(statusForStorybook)
+    const [isLoaded, setIsLoaded] = useState(false)
 
     const { handleOnChange, handleOnExpired } = useRecaptchaHandlers({
       setSuccess,
@@ -69,12 +70,14 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
       onChange,
       onExpired,
     })
+    const handleLoad = () => setIsLoaded(true)
 
     return (
       <div
         className={clsx(s.recaptchaWrapper, {
           [s.error]: visualStatus === 'error',
           [s.expired]: visualStatus === 'expired',
+          [s.hidden]: !isLoaded,
         })}
       >
         <ReCAPTCHA
@@ -85,13 +88,16 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
           sitekey={sitekey}
           onChange={handleOnChange}
           onExpired={handleOnExpired}
+          onLoadCapture={handleLoad}
           {...rest}
         />
 
-        {visualStatus === 'error' && (
-          <Typography variant={'danger_small'} className={s.recaptchaMessage}>
-            Please verify that you are not a robot
-          </Typography>
+        {visualStatus === 'error' && isLoaded && (
+          <ErrorMessage
+            variant={'danger_small'}
+            className={s.recaptchaMessage}
+            message={'Please verify that you are not a robot'}
+          />
         )}
       </div>
     )
