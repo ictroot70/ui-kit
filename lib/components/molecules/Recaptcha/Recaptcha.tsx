@@ -1,4 +1,4 @@
-import { forwardRef, ReactElement, useState } from 'react'
+import { forwardRef, ReactElement } from 'react'
 import {
   default as ReCAPTCHA,
   ReCAPTCHA as ReCAPTCHAInstance,
@@ -7,8 +7,11 @@ import {
 
 import clsx from 'clsx'
 import { ErrorMessage } from 'components/atoms'
-import { useRecaptchaHandlers } from 'components/molecules/Recaptcha/hook/useRecaptchaHandlers'
-import { useRecaptchaStatus } from 'components/molecules/Recaptcha/hook/useRecaptchaStatus'
+import {
+  useRecaptchaHandlers,
+  useRecaptchaLoadGuard,
+  useRecaptchaStatus,
+} from 'components/molecules/Recaptcha/hook'
 
 import s from 'components/molecules/Recaptcha/Recaptcha.module.scss'
 
@@ -62,7 +65,6 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
   (props, ref): ReactElement => {
     const { statusForStorybook, sitekey, onChange, onExpired, ...rest } = props
     const { visualStatus, setSuccess, setExpired } = useRecaptchaStatus(statusForStorybook)
-    const [isLoaded, setIsLoaded] = useState(false)
 
     const { handleOnChange, handleOnExpired } = useRecaptchaHandlers({
       setSuccess,
@@ -70,7 +72,7 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
       onChange,
       onExpired,
     })
-    const handleLoad = () => setIsLoaded(true)
+    const { isLoaded, hasTimedOut, markAsLoaded } = useRecaptchaLoadGuard()
 
     return (
       <div
@@ -88,7 +90,7 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
           sitekey={sitekey}
           onChange={handleOnChange}
           onExpired={handleOnExpired}
-          onLoadCapture={handleLoad}
+          onLoadCapture={markAsLoaded}
           {...rest}
         />
 
@@ -97,6 +99,13 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
             variant={'danger_small'}
             className={s.recaptchaMessage}
             message={'Please verify that you are not a robot'}
+          />
+        )}
+        {!isLoaded && hasTimedOut && (
+          <ErrorMessage
+            variant="danger_small"
+            className={s.recaptchaMessage}
+            message="ReCAPTCHA failed to load. Please try again later."
           />
         )}
       </div>
