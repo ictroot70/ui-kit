@@ -1,8 +1,11 @@
-import { Label } from '@radix-ui/react-label'
-import { Typography } from 'components/atoms/Typography'
 import { ComponentPropsWithoutRef, ReactElement, ReactNode } from 'react'
-import styles from './LabelRadix.module.scss'
+
+import { Label } from '@radix-ui/react-label'
 import clsx from 'clsx'
+import { Typography } from 'components/atoms/Typography'
+
+import styles from './LabelRadix.module.scss'
+
 
 export interface LabelRadixProps extends ComponentPropsWithoutRef<typeof Label> {
   disabled?: boolean
@@ -72,6 +75,7 @@ export const LabelRadix = (props: LabelRadixProps): ReactElement => {
       {required && <span className={styles.required}> *</span>}
     </Typography>
   )
+
   return (
     <Label
       aria-required={required}
