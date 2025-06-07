@@ -11,6 +11,7 @@ export type TypographyVariant =
   | 'h2'
   | 'h3'
   | 'regular_16'
+  | 'bold_16'
   | 'regular_14'
   | 'medium_14'
   | 'bold_14'
