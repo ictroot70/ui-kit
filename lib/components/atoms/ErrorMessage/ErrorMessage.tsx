@@ -7,7 +7,7 @@ import { Typography } from 'components/atoms/Typography'
 
 import styles from './ErrorMessage.module.scss'
 
-type ErrorVariant = Extract<TypographyVariant, 'danger_small' | 'danger'>
+export type ErrorVariant = Extract<TypographyVariant, 'danger_small' | 'danger'>
 
 export interface ErrorMessageProps {
   message: string

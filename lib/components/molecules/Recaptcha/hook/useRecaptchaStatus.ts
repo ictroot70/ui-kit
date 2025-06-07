@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { RecaptchaStatusForStorybook } from 'components/molecules/Recaptcha/Recaptcha.types'
+import { RecaptchaStatusForStorybook } from 'components/molecules/Recaptcha/Recaptcha'
 
 type UseRecaptchaStatusReturn = {
   visualStatus: RecaptchaInternalStatus
