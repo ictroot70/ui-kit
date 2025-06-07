@@ -13,6 +13,6 @@ export const CheckboxIndicator = (props: CheckboxIndicatorProps) => {
   )
 }
 
-interface CheckboxIndicatorProps extends ComponentPropsWithoutRef<typeof Indicator> {
+export interface CheckboxIndicatorProps extends ComponentPropsWithoutRef<typeof Indicator> {
   iconSize?: number
 }

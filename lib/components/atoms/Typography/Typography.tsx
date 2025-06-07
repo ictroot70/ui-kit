@@ -22,13 +22,13 @@ export type TypographyVariant =
   | 'danger'
   | 'danger_small'
 
-type Props = {
+export type TypographyProps = {
   asChild?: boolean
   className?: string
   variant?: TypographyVariant
 } & ComponentProps<'p'>
 
-export const Typography = forwardRef<HTMLParagraphElement, Props>(
+export const Typography = forwardRef<HTMLParagraphElement, TypographyProps>(
   ({ asChild = false, className, variant = 'regular_14', children, ...props }, ref) => {
     if (asChild) {
       if (React.Children.count(children) !== 1 || !React.isValidElement(children)) {

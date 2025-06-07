@@ -6,6 +6,7 @@ import { Typography } from 'components/atoms/Typography'
 
 import styles from './LabelRadix.module.scss'
 
+
 export interface LabelRadixProps extends ComponentPropsWithoutRef<typeof Label> {
   disabled?: boolean
   children?: ReactNode
@@ -77,6 +78,7 @@ export const LabelRadix = (props: LabelRadixProps): ReactElement => {
 
   return (
     <Label
+      aria-required={required}
       id={id}
       aria-disabled={disabled}
       className={clsx(styles.label, className)}

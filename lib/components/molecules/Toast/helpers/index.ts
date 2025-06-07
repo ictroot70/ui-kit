@@ -1,2 +1,2 @@
-export * from './getPositionStyle';
-export * from './getToastProgress';
+export * from './getPositionStyle'
+export * from './getToastProgress'

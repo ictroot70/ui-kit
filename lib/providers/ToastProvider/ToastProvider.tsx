@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 
 import { Toast } from 'components/molecules/Toast/Toast.types'
