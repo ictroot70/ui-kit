@@ -14,9 +14,7 @@
 
 .trigger {
     all: unset;
-
     cursor: pointer;
-
     width: 210px;
     height: 36px;
     min-height: function.px-to-unit(40);
@@ -56,23 +54,13 @@
 
     &[data-disabled] {
         cursor: default;
-        border: 1px solid var(--color-light-900);
-        color: var(--color-light-900);
+        border: 1px solid var(--color-dark-100);
+        color: var(--color-dark-100);
         background-color: var(--color-dark-900);
         outline: none;
-
-
-        &:hover,
-        &:focus,
-        &:active {
-            cursor: default;
-            border: 1px solid var(--color-light-900);
-            color: var(--color-light-900);
-            background-color: var(--color-dark-900);
-            outline: none;
-        }
-
-
+    }
+    span[role='img'] {
+        flex-shrink: 0;
     }
 }
 
@@ -83,7 +71,6 @@
 
     position: absolute;
     z-index: 101;
-
     border-radius: function.px-to-unit(2);
 
     color: var(--color-light-100);
@@ -115,6 +102,11 @@
     border: none;
     transition: background-color 0.2s ease;
 
+    ._regular_14_stqve_43,
+    [class^="_regular_14_"] {
+        font-size: 16px;
+    }
+
 
     &[data-highlighted] {
         background-color: var(--color-dark-300);
@@ -131,14 +123,19 @@
 .selectItems {
     @include mixins.display-flex($align: center, $justify: start, $gap: function.px-to-unit(8));
 
+    span[role='img'] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-    svg, img {
-        flex-shrink: 0;
-        vertical-align: middle;
+    svg {
         width: 20px;
         height: 20px;
-
     }
+}
+.customFontSize {
+    font-size: 16px;
 }
 
 .Separator {

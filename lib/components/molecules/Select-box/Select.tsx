@@ -2,7 +2,6 @@ import s from './Select.module.scss'
 import * as RadixSelect from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 import { type ComponentRef, forwardRef, ReactNode, useId } from 'react'
-import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import { Typography } from '../../atoms'
 import { LabelRadix } from '../LabelRadix'
 import { ArrowDownSimple } from '../../../assets/icons'
@@ -163,7 +162,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
           <RadixSelect.Portal>
             <RadixSelect.Content className={s.Content} position={'popper'} style={contentStyle}>
               <RadixSelect.ScrollUpButton className={s.ScrollButton}>
-                <ChevronUpIcon />
+                <ArrowDownSimple />
               </RadixSelect.ScrollUpButton>
               <RadixSelect.Viewport
                 className={s.Viewport}
@@ -181,7 +180,10 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
                   {items.map(item => (
                     <RadixSelect.Item key={item.value} value={item.value} className={s.selectItem}>
                       <RadixSelect.ItemText asChild>
-                        <Typography variant={'regular_14'} className={s.selectItems}>
+                        <Typography
+                          variant={'regular_14'}
+                          className={`${s.selectItems} ${s.customFontSize}`}
+                        >
                           {item.icon && item.icon} {item.label}
                         </Typography>
                       </RadixSelect.ItemText>
@@ -190,7 +192,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
                 </RadixSelect.Group>
               </RadixSelect.Viewport>
               <RadixSelect.ScrollDownButton>
-                <ChevronDownIcon />
+                <ArrowDownSimple />
               </RadixSelect.ScrollDownButton>
             </RadixSelect.Content>
           </RadixSelect.Portal>
