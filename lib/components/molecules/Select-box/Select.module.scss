@@ -1,0 +1,161 @@
+@use '@/styles/mixins' as mixins;
+@use '@/styles/function' as function;
+
+.selectWrapper {
+    @include mixins.display-flex($direction: column);
+
+    position: relative;
+    width: 100%;
+}
+
+.label {
+    color: var(--color-light-900);
+}
+
+.trigger {
+    all: unset;
+    cursor: pointer;
+    width: 210px;
+    height: 36px;
+    min-height: function.px-to-unit(40);
+    padding: function.px-to-unit(6) function.px-to-unit(12);
+    border: 1px solid var(--color-light-100);
+    border-radius: function.px-to-unit(2);
+
+    background-color: var(--color-dark-500);
+    outline: 1px solid transparent;
+
+    @include mixins.display-flex($align: center, $justify: space-between);
+    @include mixins.box-sizing(border-box);
+
+    &[data-state='open'] .iconDown {
+        transform: rotate(180deg);
+    }
+
+    &[data-placeholder] {
+        background-color: var(--color-dark-500);
+    }
+
+    &:not([data-disabled]):active {
+        background-color: var(--color-primary-500);
+        outline-color: var(--color-light-700);
+    }
+
+    &:not([data-disabled]):hover {
+        cursor: pointer;
+        color: var(--color-light-100);
+    }
+
+    &:not([data-disabled]):focus {
+        border: 1px solid var(--color-primary-500);
+        background-color: var(--color-dark-900);
+        outline: 1px solid var(--color-primary-500);
+    }
+
+    &[data-disabled] {
+        cursor: default;
+        border: 1px solid var(--color-dark-100);
+        color: var(--color-dark-100);
+        background-color: var(--color-dark-900);
+        outline: none;
+    }
+    span[role='img'] {
+        flex-shrink: 0;
+    }
+}
+
+.Content {
+    @include mixins.display-flex($direction: column, $align: center, $justify: center);
+
+    cursor: pointer;
+
+    position: absolute;
+    z-index: 101;
+    border-radius: function.px-to-unit(2);
+
+    color: var(--color-light-100);
+
+    background-color: var(--color-dark-500);
+}
+
+.Viewport {
+    width: 210px;
+    border: 1px solid var(--color-light-100);
+}
+
+.selectItem {
+    @include mixins.display-flex($align: center, $justify: start);
+
+    svg, img {
+        flex-shrink: 0;
+        vertical-align: middle;
+    }
+    cursor: pointer;
+
+    width: 100%;
+    padding: function.px-to-unit(6) function.px-to-unit(12);
+
+    color: var(--color-light-100);
+    background-color: transparent;
+
+    outline: none;
+    border: none;
+    transition: background-color 0.2s ease;
+
+    ._regular_14_stqve_43,
+    [class^="_regular_14_"] {
+        font-size: 16px;
+    }
+
+
+    &[data-highlighted] {
+        background-color: var(--color-dark-300);
+        color: var(--color-primary-500);
+    }
+
+
+    &[data-disabled] {
+        opacity: 0.5;
+        color: var(--color-dark-100);
+    }
+}
+
+.selectItems {
+    @include mixins.display-flex($align: center, $justify: start, $gap: function.px-to-unit(8));
+
+    span[role='img'] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+.customFontSize {
+    font-size: 16px;
+}
+
+.Separator {
+    @include mixins.display-flex($direction: column, $align: center, $justify: center);
+
+    height: 1px;
+    margin: function.px-to-unit(5);
+    background-color: var(--color-light-100);
+}
+
+.ScrollButton {
+    @include mixins.display-flex($align: center, $justify: center);
+
+    cursor: pointer;
+
+    height: 100%;
+    min-height: function.px-to-unit(25);
+    border: 1px solid var(--color-light-100);
+
+    color: var(--color-light-100);
+
+    background-color: var(--color-dark-500);
+}
