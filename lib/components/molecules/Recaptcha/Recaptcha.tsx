@@ -1,15 +1,42 @@
-'use client'
-
 import { forwardRef, ReactElement } from 'react'
-import { default as ReCAPTCHA, ReCAPTCHA as ReCAPTCHAInstance } from 'react-google-recaptcha'
+import {
+  default as ReCAPTCHA,
+  ReCAPTCHA as ReCAPTCHAInstance,
+  ReCAPTCHAProps,
+} from 'react-google-recaptcha'
 
 import clsx from 'clsx'
-import { Typography } from 'components/atoms'
-import { RecaptchaProps } from 'components/molecules/Recaptcha/Recaptcha.types'
-import { useRecaptchaHandlers } from 'components/molecules/Recaptcha/hook/useRecaptchaHandlers'
-import { useRecaptchaStatus } from 'components/molecules/Recaptcha/hook/useRecaptchaStatus'
+import { ErrorMessage } from 'components/atoms'
+import {
+  useRecaptchaHandlers,
+  useRecaptchaLoadGuard,
+  useRecaptchaStatus,
+} from 'components/molecules/Recaptcha/hook'
 
 import s from 'components/molecules/Recaptcha/Recaptcha.module.scss'
+
+/**
+ * @typedef {'default' | 'error' | 'expired'} RecaptchaStatusForStorybook
+ * @description
+ * Represents visual states of the ReCAPTCHA component used specifically in Storybook
+ * to simulate different scenarios (default, error, or expired).
+ */
+export type RecaptchaStatusForStorybook = 'default' | 'error' | 'expired'
+
+/**
+ * @interface RecaptchaProps
+ * @extends ReCAPTCHAProps
+ * @description
+ * Props for the custom Recaptcha component. Inherits all props from `react-google-recaptcha`
+ * and adds an optional prop for Storybook-specific state simulation.
+ *
+ * @property {RecaptchaStatusForStorybook} [statusForStorybook] - Used only in Storybook to simulate visual states.
+ */
+export interface RecaptchaProps extends ReCAPTCHAProps {
+  /** Used only in Storybook to simulate visual states */
+  statusForStorybook?: RecaptchaStatusForStorybook
+}
+
 /**
  * @component Recaptcha
  * @description
@@ -45,12 +72,14 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
       onChange,
       onExpired,
     })
+    const { isLoaded, hasTimedOut, markAsLoaded } = useRecaptchaLoadGuard()
 
     return (
       <div
         className={clsx(s.recaptchaWrapper, {
           [s.error]: visualStatus === 'error',
           [s.expired]: visualStatus === 'expired',
+          [s.hidden]: !isLoaded,
         })}
       >
         <ReCAPTCHA
@@ -61,13 +90,23 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
           sitekey={sitekey}
           onChange={handleOnChange}
           onExpired={handleOnExpired}
+          onLoadCapture={markAsLoaded}
           {...rest}
         />
 
-        {visualStatus === 'error' && (
-          <Typography variant={'danger_small'} className={s.recaptchaMessage}>
-            Please verify that you are not a robot
-          </Typography>
+        {visualStatus === 'error' && isLoaded && (
+          <ErrorMessage
+            variant={'danger_small'}
+            className={s.recaptchaMessage}
+            message={'Please verify that you are not a robot'}
+          />
+        )}
+        {!isLoaded && hasTimedOut && (
+          <ErrorMessage
+            variant="danger_small"
+            className={s.recaptchaMessage}
+            message="ReCAPTCHA failed to load. Please try again later."
+          />
         )}
       </div>
     )

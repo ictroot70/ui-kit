@@ -40,6 +40,7 @@ https://www.google.com/recaptcha/admin/create
 export const Error: Story = {
   args: {
     statusForStorybook: 'error',
+    sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
   },
 }
 

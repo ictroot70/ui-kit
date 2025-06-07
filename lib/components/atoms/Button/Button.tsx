@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 import s from 'components/atoms/Button/Button.module.scss'
 
-type Variant = 'primary' | 'outlined' | 'secondary' | 'text'
+export type Variant = 'primary' | 'outlined' | 'secondary' | 'text'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T

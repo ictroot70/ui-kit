@@ -5,13 +5,13 @@ import clsx from 'clsx'
 
 import s from './Tabs.module.scss'
 
-type TriggerType = {
+export type TriggerType = {
   title: string
   disabled?: boolean
   value: string
 }
 
-type TabsProps = {
+export type TabsProps = {
   children?: ReactNode
   triggers: TriggerType[]
   fullWidth?: boolean
