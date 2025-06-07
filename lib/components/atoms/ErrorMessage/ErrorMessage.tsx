@@ -1,11 +1,12 @@
+import { ReactElement } from 'react'
 import type { TypographyVariant } from 'components/atoms/Typography'
 import { Typography } from 'components/atoms/Typography'
 import clsx from 'clsx'
 
 import styles from './ErrorMessage.module.scss'
-import { ReactElement } from 'react'
 
 type ErrorVariant = Extract<TypographyVariant, 'danger_small' | 'danger'>
+
 
 export interface ErrorMessageProps {
   message: string

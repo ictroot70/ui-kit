@@ -1,0 +1,88 @@
+.ScrollAreaRoot {
+  position: relative;
+  overflow: hidden;
+}
+
+.ScrollAreaViewport {
+  // ! Maybe we'll need to add padding here
+
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.ScrollAreaScrollbar {
+  touch-action: none;
+  user-select: none;
+
+  overflow: hidden;
+  display: flex;
+
+  padding: 2px;
+
+  background: transparent;
+  border-radius: 3px;
+
+  transition: all 0.2s ease;
+
+  &[data-orientation='vertical'] {
+    width: 10px;
+
+    &:hover {
+      width: 12px;
+      border-radius: 6px;
+    }
+  }
+
+  &[data-orientation='horizontal'] {
+    flex-direction: column;
+    height: 10px;
+
+    &:hover {
+      height: 12px;
+      border-radius: 6px;
+    }
+  }
+}
+
+.ScrollAreaThumb {
+  flex: 1;
+  background: var(--color-dark-300);
+  border-radius: 3px;
+  transition: background 0.2s ease-in-out;
+
+  &:hover {
+    background: var(--color-light-900);
+  }
+
+  &[data-orientation='vertical'] {
+    width: 100%;
+  }
+
+  &[data-orientation='horizontal'] {
+    height: 100%;
+  }
+}
+
+.ScrollAreaCorner {
+  background: transparent;
+}
+
+// ScrollArea Storybook styles
+
+.scrollAreaVertical_storybook {
+  width: 100%;
+  height: 300px;
+}
+
+.scrollAreaHorizontal_storybook {
+  overflow: auto;
+  width: 500px;
+  padding: 12px;
+}
+
+.scrollAreaViewportHorizontal_storybook {
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+}
