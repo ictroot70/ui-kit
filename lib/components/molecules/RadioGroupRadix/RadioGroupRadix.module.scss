@@ -48,7 +48,7 @@ button {
     border-color: var(--color-dark-100);
   }
 
-  &:active {
+  &:active:not([data-disabled]) {
     background-color: var(--color-dark-100);
     box-shadow: 0 0 0 8px var(--color-dark-100);
   }
@@ -79,12 +79,12 @@ button {
     align-items: flex-start;
   }
 
-  &:hover .item {
+  &:hover .item:not([data-disabled]) {
     background-color: var(--color-dark-300);
     box-shadow: 0 0 0 8px var(--color-dark-300);
   }
 
-  &:active .item {
+  &:active .item:not([data-disabled]) {
     background-color: var(--color-dark-100);
     box-shadow: 0 0 0 8px var(--color-dark-100);
   }

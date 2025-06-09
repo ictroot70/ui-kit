@@ -38,7 +38,7 @@ export const Default: Story = {
     options: [
       { value: 'apple', label: 'Apple', id: 'radio-apple' },
       { value: 'banana', label: 'Banana', id: 'radio-banana' },
-      { value: 'orange', label: 'Orange', id: 'radio-orange' },
+      { value: 'orange', label: 'Orange', id: 'radio-orange', disabled: true },
     ],
   },
 }

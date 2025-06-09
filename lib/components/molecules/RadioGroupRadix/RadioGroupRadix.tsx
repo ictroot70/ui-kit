@@ -15,6 +15,7 @@ export interface RadioOption {
   value: string
   label: string
   id?: string
+  disabled?: boolean
 }
 
 /**
@@ -85,7 +86,6 @@ export const RadioGroupRadix = forwardRef<ElementRef<typeof Root>, RadioGroupRad
       disabled,
       ...rest
     } = props
-    const isDisabled = disabled ? '' : undefined
     return (
       <Root
         name={name}
@@ -102,27 +102,33 @@ export const RadioGroupRadix = forwardRef<ElementRef<typeof Root>, RadioGroupRad
         ref={ref}
         {...rest}
       >
-        {options?.map(option => (
-          <div key={option.id || option.value} className={clsx(styles.radioOption)}>
-            <Item
-              disabled={disabled}
-              data-disabled={isDisabled}
-              className={styles.item}
-              data-slot="radio-item"
-              value={option.value}
-              id={option.id}
+        {options?.map(option => {
+          const isOptionDisabled = disabled || option.disabled
+          return (
+            <div
+              key={option.id || option.value}
+              className={clsx(styles.radioOption, isOptionDisabled && styles.disabled)}
             >
-              <Indicator data-slot="radio-indicator" className={styles.indicator} />
-            </Item>
-            <LabelRadix
-              className={styles.label}
-              data-disabled={isDisabled}
-              required={required}
-              htmlFor={option.id}
-              label={option.label}
-            />
-          </div>
-        ))}
+              <Item
+                disabled={isOptionDisabled}
+                data-disabled={isOptionDisabled || undefined}
+                className={clsx(styles.item, isOptionDisabled && styles.disabled)}
+                data-slot="radio-item"
+                value={option.value}
+                id={option.id}
+              >
+                <Indicator data-slot="radio-indicator" className={styles.indicator} />
+              </Item>
+              <LabelRadix
+                className={styles.label}
+                data-disabled={isOptionDisabled || undefined}
+                required={required}
+                htmlFor={option.id}
+                label={option.label}
+              />
+            </div>
+          )
+        })}
       </Root>
     )
   }
