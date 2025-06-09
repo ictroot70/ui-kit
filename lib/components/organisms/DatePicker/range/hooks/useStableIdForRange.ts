@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+
 import { v4 as uuidv4 } from 'uuid'
 /**
  * React hook that generates a stable unique ID for the lifetime of the component.
@@ -9,6 +10,6 @@ import { v4 as uuidv4 } from 'uuid'
  * @param prefix - Optional string to prefix the ID with (default is `'id'`).
  * @returns A stable, memoized string ID like `prefix-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
  */
-export const useStableId = (prefix = 'id'): string => {
+export const useStableIdForRange = (prefix = 'id'): string => {
   return useMemo(() => `${prefix}-${uuidv4()}`, [prefix])
 }

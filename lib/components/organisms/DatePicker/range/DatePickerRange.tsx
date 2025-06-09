@@ -1,16 +1,20 @@
-import 'react-day-picker/style.css'
-import s from 'components/organisms/DatePicker/DatePicker.module.scss'
-import { type DateRange, DayPicker, type DayPickerProps } from 'react-day-picker'
 import { HTMLAttributes, ReactElement, useState } from 'react'
-import { useFormattedRange } from 'components/organisms/DatePicker/range/hooks/useFormattedRange'
-import { useDatePickerModifiers } from 'components/organisms/DatePicker/range/hooks/useDatePickerModifiers'
+import { type DateRange, DayPicker, type DayPickerProps } from 'react-day-picker'
+
 import {
-  dayPickerClassNames,
-  modifiersClassNames,
-} from 'components/organisms/DatePicker/range/helpers/DatePickerModifiers'
-import { useStableId } from 'components/organisms/DatePicker/range/hooks/useStableId'
-import { useDatePickerBehavior } from '../shared/useDatePickerBehavior'
+  dayPickerClassNamesForRange,
+  modifiersClassNamesForRange,
+} from 'components/organisms/DatePicker/range/helpers/DatePickerModifiersForRange'
+import { useDatePickerModifiersForRange } from 'components/organisms/DatePicker/range/hooks/useDatePickerModifiersForRange'
+import { useFormattedRange } from 'components/organisms/DatePicker/range/hooks/useFormattedRange'
+import { useStableIdForRange } from 'components/organisms/DatePicker/range/hooks/useStableIdForRange'
+
+import 'react-day-picker/style.css'
+
+import s from 'components/organisms/DatePicker/DatePicker.module.scss'
+
 import { DatePickerWrapper } from '../shared/DatePickerWrapper'
+import { useDatePickerBehavior } from '../shared/useDatePickerBehavior'
 
 export type DatePickerRangeProps = {
   value?: DateRange
@@ -81,10 +85,10 @@ export const DatePickerRange = ({
     defaultDate || { from: undefined, to: undefined }
   )
   const selectedDates = isControlled ? value : internalDates
-  const buttonId = useStableId('date-picker-trigger')
-  const popoverContentId = useStableId('date-picker-popover')
+  const buttonId = useStableIdForRange('date-picker-trigger')
+  const popoverContentId = useStableIdForRange('date-picker-popover')
   const displayText = useFormattedRange(selectedDates, placeholder)
-  const modifiers = useDatePickerModifiers(selectedDates)
+  const modifiers = useDatePickerModifiersForRange(selectedDates)
 
   const { isFocused, setIsFocused, isOpen, setIsOpen, handleKeyDown } =
     useDatePickerBehavior(disabled)
@@ -120,15 +124,15 @@ export const DatePickerRange = ({
     >
       <div className={s.wrapperCalendar}>
         <DayPicker
-          animate={true}
+          animate
           showOutsideDays
           weekStartsOn={1}
-          mode="range"
+          mode={'range'}
           selected={selectedDates}
           onSelect={handleSelect}
           modifiers={modifiers}
-          modifiersClassNames={modifiersClassNames}
-          classNames={dayPickerClassNames}
+          modifiersClassNames={modifiersClassNamesForRange}
+          classNames={dayPickerClassNamesForRange}
           {...calendarProps}
         />
       </div>

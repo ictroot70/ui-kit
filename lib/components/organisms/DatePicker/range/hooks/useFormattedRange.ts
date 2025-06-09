@@ -19,8 +19,10 @@ export const useFormattedRange = (range: DateRange | undefined, placeholder: str
     if (range?.from && range?.to) {
       const format = (date: Date) =>
         date.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' })
+
       return `${format(range.from)} - ${format(range.to)}`
     }
+
     return placeholder
   }, [range, placeholder])
 }

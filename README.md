@@ -66,7 +66,9 @@ Storybook: [🔗 Open Storybook on Vercel](https://ict-root-ui-kit.vercel.app)
 ### If you have any questions or suggestions for improvements, please open an [issue on GitHub](https://github.com/ictroot70/ui-kit/issues)
 
 ### You can find the full source code of the library [here](https://github.com/ictroot70/ui-kit)
+
 ---
+
 ---
 
 ## 👨‍💻 Author

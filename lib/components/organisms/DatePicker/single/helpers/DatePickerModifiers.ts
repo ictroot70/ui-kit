@@ -1,7 +1,8 @@
-import { Matcher } from 'react-day-picker';
-import s from '../../DatePicker.module.scss';
+import { Matcher } from 'react-day-picker'
 
-export type Modifiers = Record<string, Matcher | Matcher[] | undefined>;
+import s from '../../DatePicker.module.scss'
+
+export type Modifiers = Record<string, Matcher | Matcher[] | undefined>
 
 /**
  * Returns a set of custom modifiers for react-day-picker.
@@ -13,7 +14,7 @@ export const getSingleModifiers = (today: Date): Modifiers => ({
   weekend: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
   hover: (_: Date) => true,
   outside: (date: Date) => date.getMonth() !== today.getMonth(),
-});
+})
 
 /**
  * Mapping of modifier names to their corresponding CSS class names.
@@ -24,7 +25,7 @@ export const modifiersClassNames = {
   weekend: s.weekendDay,
   hover: s.rdpDay_hover,
   outside: s.rdpDay_outside,
-};
+}
 
 /**
  * Mapping of react-day-picker structural elements to custom CSS class names.
@@ -34,4 +35,4 @@ export const dayPickerClassNames = {
   button_next: s.rdpButton_next,
   button_previous: s.rdpButton_previous,
   nav: s.rdpNav,
-};
+}

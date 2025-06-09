@@ -1,7 +1,8 @@
 import { DateRange, Matcher } from 'react-day-picker'
+
 import s from 'components/organisms/DatePicker/DatePicker.module.scss'
 
-export type Modifiers = Record<string, Matcher | Matcher[] | undefined>
+export type ModifiersForRange = Record<string, Matcher | Matcher[] | undefined>
 
 /**
  * Returns a set of custom modifiers for react-day-picker.
@@ -10,11 +11,12 @@ export type Modifiers = Record<string, Matcher | Matcher[] | undefined>
  * @param today - The current date used for context.
  * @returns An object of modifiers used to customize day behavior.
  */
-export const getModifiers = (selectedDates: DateRange, today: Date): Modifiers => ({
+export const getModifiersForRange = (selectedDates: DateRange, today: Date): ModifiersForRange => ({
   today,
   weekend: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
   inRange: (date: Date) => {
     const { from, to } = selectedDates
+
     return !!(from && to && date >= from && date <= to)
   },
   hover: (_: Date) => true,
@@ -25,7 +27,7 @@ export const getModifiers = (selectedDates: DateRange, today: Date): Modifiers =
  * Mapping of modifier names to their corresponding CSS class names.
  * Used to style specific days in the calendar based on state.
  */
-export const modifiersClassNames = {
+export const modifiersClassNamesForRange = {
   today: s.rdpDay_today,
   selected: s.rdpDay_selected,
   weekend: s.weekendDay,
@@ -41,7 +43,7 @@ export const modifiersClassNames = {
  * Mapping of react-day-picker structural elements to custom CSS class names.
  * Used to style navigation, caption, and day range states.
  */
-export const dayPickerClassNames = {
+export const dayPickerClassNamesForRange = {
   caption_label: s.rdpCaptionLabel,
   button_next: s.rdpButton_next,
   button_previous: s.rdpButton_previous,

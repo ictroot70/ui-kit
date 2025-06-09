@@ -1,10 +1,13 @@
-import s from './Select.module.scss'
+import { type ComponentRef, CSSProperties, forwardRef, ReactNode, useId } from 'react'
+
 import * as RadixSelect from '@radix-ui/react-select'
 import { clsx } from 'clsx'
-import { type ComponentRef, forwardRef, ReactNode, useId } from 'react'
+
+import s from './Select.module.scss'
+
+import { ArrowDownSimple } from '../../../assets/icons'
 import { Typography } from '../../atoms'
 import { LabelRadix } from '../LabelRadix'
-import { ArrowDownSimple } from '../../../assets/icons'
 
 /**
  * SelectItemsProps represents an individual option in the select dropdown.
@@ -44,7 +47,7 @@ type NullableProps<T> = null | T
 export type SelectProps = {
   id?: string
   className?: string
-  style?: React.CSSProperties
+  style?: CSSProperties
   labelClassName?: string
   placeholder?: string
   label?: string
@@ -164,10 +167,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
               <RadixSelect.ScrollUpButton className={s.ScrollButton}>
                 <ArrowDownSimple />
               </RadixSelect.ScrollUpButton>
-              <RadixSelect.Viewport
-                className={s.Viewport}
-                style={viewportStyle}
-              >
+              <RadixSelect.Viewport className={s.Viewport} style={viewportStyle}>
                 <RadixSelect.Group>
                   {/* Render group label and separator if present */}
                   {groupLabel && (

@@ -1,9 +1,7 @@
 ---
-
 # 🚧 GitHub Workflow Rules
 
 This document outlines the required rules and workflow for working with `main` and `dev` branches in this repository.
-
 ---
 
 ## 🔐 Branch Protection

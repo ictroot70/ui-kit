@@ -103,9 +103,9 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
         )}
         {!isLoaded && hasTimedOut && (
           <ErrorMessage
-            variant="danger_small"
+            variant={'danger_small'}
             className={s.recaptchaMessage}
-            message="ReCAPTCHA failed to load. Please try again later."
+            message={'ReCAPTCHA failed to load. Please try again later.'}
           />
         )}
       </div>

@@ -1,18 +1,20 @@
-import 'react-day-picker/style.css'
-import s from 'components/organisms/DatePicker/DatePicker.module.scss'
-import { DayPicker, type DayPickerProps } from 'react-day-picker'
 import { HTMLAttributes, ReactElement, useState } from 'react'
-import { useFormattedDate } from 'components/organisms/DatePicker/single/hooks/useFormattedDate'
+import { DayPicker, type DayPickerProps } from 'react-day-picker'
+
 import {
   dayPickerClassNames,
   modifiersClassNames,
 } from 'components/organisms/DatePicker/single/helpers/DatePickerModifiers'
-import { useDatePickerModifiers } from './helpers/useDatePickerModifiers'
-import { useDatePickerBehavior } from '../shared/useDatePickerBehavior'
+import { useFormattedDate } from 'components/organisms/DatePicker/single/hooks/useFormattedDate'
+
+import 'react-day-picker/style.css'
+
+import s from 'components/organisms/DatePicker/DatePicker.module.scss'
+
 import { DatePickerWrapper } from '../shared/DatePickerWrapper'
+import { useDatePickerBehavior } from '../shared/useDatePickerBehavior'
+import { useDatePickerModifiers } from './helpers/useDatePickerModifiers'
 import { useStableId } from './hooks/useStableld'
-
-
 
 export type DatePickerSingleProps = {
   value?: Date
@@ -89,7 +91,9 @@ export const DatePickerSingle = ({
     useDatePickerBehavior(disabled)
 
   const handleSelect = (date: Date | undefined) => {
-    if (!isControlled) setInternalDate(date)
+    if (!isControlled) {
+      setInternalDate(date)
+    }
     onDateChange?.(date)
   }
 
@@ -114,10 +118,10 @@ export const DatePickerSingle = ({
     >
       <div className={s.wrapperCalendar}>
         <DayPicker
-          animate={true}
+          animate
           showOutsideDays
           weekStartsOn={1}
-          mode="single"
+          mode={'single'}
           selected={selectedDate}
           onSelect={handleSelect}
           modifiers={modifiers}
