@@ -106,13 +106,13 @@ export const RadioGroupRadix = forwardRef<ElementRef<typeof Root>, RadioGroupRad
           const isOptionDisabled = disabled || option.disabled
           return (
             <div
-              key={option.id || option.value}
-              className={clsx(styles.radioOption, isOptionDisabled && styles.disabled)}
+              key={option.id ?? option.value}
+              className={clsx(styles.radioOption, isOptionDisabled)}
             >
               <Item
                 disabled={isOptionDisabled}
                 data-disabled={isOptionDisabled || undefined}
-                className={clsx(styles.item, isOptionDisabled && styles.disabled)}
+                className={clsx(styles.item, isOptionDisabled)}
                 data-slot="radio-item"
                 value={option.value}
                 id={option.id}
