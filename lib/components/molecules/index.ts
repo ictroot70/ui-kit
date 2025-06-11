@@ -1,3 +1,4 @@
+export * from './HeaderAuthorized'
 export * from './Alert'
 export * from './CheckboxRadix'
 export * from './Input'
