@@ -1,8 +1,11 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactNode } from 'react';
 import clsx from 'clsx';
 import styles from './HeaderAuthorized.module.scss';
-import {SelectLanguage, Typography} from "../../atoms";
-import {BellOutline} from "../../../assets/icons";
+import {Typography} from "../../atoms";
+import {Select} from "../Select-box";
+import {UkFlag} from "../../../assets/icons";
+import RussiaFlag from "../../../assets/icons/components/RussiaFlag";
+import BellOutline from "../../../assets/icons/components/BellOutline";
 
 export interface HeaderProps extends ComponentPropsWithoutRef<'div'> {
     children?: ReactNode;
@@ -18,11 +21,16 @@ export const HeaderAuthorized = forwardRef<ElementRef<'div'>, HeaderProps>(
             >
                 <Typography variant={'large'} >Inctagram</Typography>
                 <div className={styles.wrap}>
-                    <SelectLanguage options={[
-                        { value: 'English', label: 'English' },
-                        { value: 'Russian', label: 'Русский' },
-                    ]}/>
-                    <BellOutline/>
+                    <BellOutline size={24}/>
+                    <Select
+                        items={[
+                            { value: 'en', label: 'English', icon: <UkFlag/> },
+                            { value: 'ru', label: 'Русский', icon: <RussiaFlag/> },
+                        ]}
+                        defaultValue={'en'}
+                        onValueChange={(value) => console.log('Selected language:', value)}
+                        className={styles.select}
+                    />
                 </div>
             </div>
         );

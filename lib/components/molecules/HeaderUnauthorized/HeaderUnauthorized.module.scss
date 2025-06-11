@@ -14,5 +14,10 @@
 .wrap{
   display: flex;
   align-items: center;
-  gap: 45px;
+  gap: 2.8125rem;
+  height: 2.25rem;
+}
+
+.select {
+  width: 10rem !important; // не могу по другому перебить
 }

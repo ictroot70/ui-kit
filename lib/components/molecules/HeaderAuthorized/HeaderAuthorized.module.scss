@@ -1,18 +1,25 @@
 @use '@/styles/mixins' as mixins;
-
 @use '@/styles/function' as function;
 
-.header{
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 60px;
-  border-bottom: 1px solid var(--color-dark-300);
+  padding: 0.75rem 3.75rem;
+  border-bottom: 0.0625rem solid var(--color-dark-300);
   background-color: var(--color-dark-700);
 }
 
 .wrap{
   display: flex;
+  gap: 2.8125rem;
   align-items: center;
-  gap: 45px;
+}
+
+.select {
+  width: 10rem !important; // не могу по другому перебить
+}
+
+.bell{
+  width: 1.5rem;
 }
