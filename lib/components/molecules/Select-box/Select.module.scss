@@ -68,7 +68,8 @@
     @include mixins.display-flex($direction: column, $align: center, $justify: center);
 
     cursor: pointer;
-
+    width: var(--radix-select-trigger-width);
+    min-width: fit-content;
     position: absolute;
     z-index: 101;
     border-radius: function.px-to-unit(2);

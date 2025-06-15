@@ -67,17 +67,22 @@ export const SelectWithFlag: Story = {
 };
 
 
-export const SelectWithShow: Story = {
+export const SelectMedium: Story = {
   args: {
     defaultValue: "100",
-    style: { width: '70px' },
+    width: "50px",
+    height: "32px",
+    padding: "6px 6px",
+    fontSize: "14px",
+    dropdownWidth: "50px",
+    itemPadding: "6px 6px",
+    arrowSize: "16px",
     items: [
       { value: "10", label: "10" },
       { value: "20", label: "20" },
       { value: "30", label: "30" },
       { value: "50", label: "50" },
       { value: "100", label: "100" },
-
     ],
     disabled: false,
   },
