@@ -68,7 +68,8 @@
   @include mixins.display-flex($direction: column, $align: center, $justify: center);
 
   cursor: pointer;
-
+  width: var(--radix-select-trigger-width);
+  min-width: fit-content;
   position: absolute;
   z-index: 101;
   border-radius: function.px-to-unit(2);
@@ -86,8 +87,7 @@
 .selectItem {
   @include mixins.display-flex($align: center, $justify: start);
 
-  svg,
-  img {
+  svg, img {
     flex-shrink: 0;
     vertical-align: middle;
   }
@@ -104,14 +104,16 @@
   transition: background-color 0.2s ease;
 
   ._regular_14_stqve_43,
-  [class^='_regular_14_'] {
+  [class^="_regular_14_"] {
     font-size: 16px;
   }
+
 
   &[data-highlighted] {
     background-color: var(--color-dark-300);
     color: var(--color-primary-500);
   }
+
 
   &[data-disabled] {
     opacity: 0.5;
