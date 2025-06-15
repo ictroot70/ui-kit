@@ -55,7 +55,7 @@ export function MyComponent() {
 ## 🧪 View components
 
 Check out the library of components, their options and documentation in
-Storybook: [🔗 Open Storybook on Vercel](https://ictroot-ui-kit.vercel.app/)
+Storybook: [🔗 Open Storybook on Vercel](https://ict-root-ui-kit.vercel.app)
 
 ---
 
@@ -67,9 +67,21 @@ Storybook: [🔗 Open Storybook on Vercel](https://ictroot-ui-kit.vercel.app/)
 
 ### You can find the full source code of the library [here](https://github.com/ictroot70/ui-kit)
 
+---
+
+---
+
 ## 👨‍💻 Author
 
 ### - [IctRoot](https://github.com/ictroot70)
+
+---
+
+## 👩 Project Manager
+
+### - [Irina Sedmaya](https://github.com/IrinaSedmaya)
+
+---
 
 ## 🙋‍♂️ Contributors
 
@@ -86,6 +98,10 @@ Storybook: [🔗 Open Storybook on Vercel](https://ictroot-ui-kit.vercel.app/)
 ### - [kenesaryLastKing](https://github.com/kenesaryLastKing)
 
 ### - [Evgeny Guzeev](https://github.com/GuzeevZhenya)
+
+---
+
+---
 
 ## 📝 License
 

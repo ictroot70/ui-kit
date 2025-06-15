@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { Tabs, TabsContent } from './Tabs'
 
 const meta = {
@@ -31,9 +32,9 @@ const commonTabsArgs = {
   defaultValue: 'modern',
   children: (
     <div style={{ padding: '10px' }}>
-      <TabsContent value="modern">{templateContent.modern}</TabsContent>
-      <TabsContent value="warm">{templateContent.warm}</TabsContent>
-      <TabsContent value="bold">{templateContent.bold}</TabsContent>
+      <TabsContent value={'modern'}>{templateContent.modern}</TabsContent>
+      <TabsContent value={'warm'}>{templateContent.warm}</TabsContent>
+      <TabsContent value={'bold'}>{templateContent.bold}</TabsContent>
     </div>
   ),
 }

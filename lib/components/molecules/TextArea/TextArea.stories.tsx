@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { TextArea } from './TextArea'
 
 const meta = {
   title: 'Components/TextArea',
   component: TextArea,
   parameters: {
-    layout: 'centered'
+    layout: 'centered',
   },
-  tags: ['autodocs']
+  tags: ['autodocs'],
 } satisfies Meta<typeof TextArea>
 
 export default meta
@@ -16,8 +17,8 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     label: 'TextArea',
-    placeholder: 'Type something...'
-  }
+    placeholder: 'Type something...',
+  },
 }
 
 export const Error: Story = {
@@ -25,8 +26,8 @@ export const Error: Story = {
     placeholder: 'Type something...',
     error: 'Error text',
     label: 'Error',
-    id: 'error'
-  }
+    id: 'error',
+  },
 }
 
 export const Disabled: Story = {
@@ -34,6 +35,6 @@ export const Disabled: Story = {
     placeholder: 'Type something...',
     disabled: true,
     value: 'Disabled textarea',
-    label: 'Disabled TextArea'
-  }
+    label: 'Disabled TextArea',
+  },
 }
