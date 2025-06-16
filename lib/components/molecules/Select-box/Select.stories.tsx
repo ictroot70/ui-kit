@@ -71,9 +71,10 @@ export const SelectMedium: Story = {
   args: {
     defaultValue: "100",
     width: "50px",
-    height: "32px",
+    height: "24px",
     padding: "6px 4px",
     fontSize: "14px",
+    itemFontSize: "14px",
     dropdownWidth: "50px",
     itemPadding: "6px 6px",
     arrowSize: "16px",
