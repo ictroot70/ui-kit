@@ -42,3 +42,4 @@ const CreditCardOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref)
 })
 
 export default CreditCardOutline
+CreditCardOutline.displayName = 'CreditCardOutline'

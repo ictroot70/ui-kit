@@ -42,3 +42,4 @@ const PlusSquareOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref)
 })
 
 export default PlusSquareOutline
+PlusSquareOutline.displayName = 'PlusSquareOutline'

@@ -40,3 +40,4 @@ const TrendingUp = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default TrendingUp
+TrendingUp.displayName = 'TrendingUp'

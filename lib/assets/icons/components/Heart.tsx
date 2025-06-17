@@ -40,3 +40,4 @@ const Heart = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Heart
+Heart.displayName = 'Heart'

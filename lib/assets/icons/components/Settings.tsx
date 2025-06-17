@@ -40,3 +40,4 @@ const Settings = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Settings
+Settings.displayName = 'Settings'

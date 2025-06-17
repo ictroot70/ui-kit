@@ -40,3 +40,4 @@ const RadioButtonChecked = forwardRef<HTMLSpanElement, IconProps>((allProps, ref
 })
 
 export default RadioButtonChecked
+RadioButtonChecked.displayName = 'RadioButtonChecked'

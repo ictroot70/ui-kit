@@ -39,3 +39,4 @@ const PersonRemove = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default PersonRemove
+PersonRemove.displayName = 'PersonRemove'

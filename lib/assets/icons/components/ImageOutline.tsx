@@ -40,3 +40,4 @@ const ImageOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default ImageOutline
+ImageOutline.displayName = 'ImageOutline'

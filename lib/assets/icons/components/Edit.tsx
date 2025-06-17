@@ -39,3 +39,4 @@ const Edit = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Edit
+Edit.displayName = 'Edit'

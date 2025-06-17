@@ -40,3 +40,4 @@ const Mic = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Mic
+Mic.displayName = 'Mic'

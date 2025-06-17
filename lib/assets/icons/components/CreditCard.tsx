@@ -40,3 +40,4 @@ const CreditCard = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default CreditCard
+CreditCard.displayName = 'CreditCard'

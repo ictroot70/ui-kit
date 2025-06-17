@@ -92,3 +92,4 @@ export const ToastItem = (props: ToastItemProps): ReactElement => {
     </motion.div>
   )
 }
+ToastItem.displayName = 'ToastItem'

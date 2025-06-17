@@ -41,3 +41,4 @@ const Facebook = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Facebook
+Facebook.displayName = 'Facebook'

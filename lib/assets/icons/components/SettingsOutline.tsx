@@ -44,3 +44,4 @@ const SettingsOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) =
 })
 
 export default SettingsOutline
+SettingsOutline.displayName = 'SettingsOutline'

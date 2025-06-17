@@ -40,3 +40,5 @@ const CalendarOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) =
 })
 
 export default CalendarOutline
+
+CalendarOutline.displayName = 'CalendarOutline'

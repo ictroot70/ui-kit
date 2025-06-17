@@ -42,3 +42,4 @@ const PlayCircleOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref)
 })
 
 export default PlayCircleOutline
+PlayCircleOutline.displayName = 'PlayCircleOutline'
