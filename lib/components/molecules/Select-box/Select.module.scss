@@ -13,13 +13,16 @@
 }
 
 .trigger {
+  display: flex;
+  align-items: center;
   all: unset;
   cursor: pointer;
-  width: 210px;
+  width: 100%;
   height: 36px;
   padding: function.px-to-unit(6) function.px-to-unit(12);
   border: 1px solid var(--color-light-100);
   border-radius: function.px-to-unit(2);
+  gap: 2px;
 
   background-color: var(--color-dark-500);
   outline: 1px solid transparent;
@@ -58,8 +61,14 @@
     background-color: var(--color-dark-900);
     outline: none;
   }
+
   span[role='img'] {
     flex-shrink: 0;
+  }
+
+
+  &.customTriggerSize {
+    font-size: inherit !important;
   }
 }
 
@@ -79,17 +88,19 @@
 }
 
 .Viewport {
-  width: 210px;
+  width: 100%;
   border: 1px solid var(--color-light-100);
 }
 
 .selectItem {
   @include mixins.display-flex($align: center, $justify: start);
+  height: var(--radix-select-trigger-height);
 
   svg, img {
     flex-shrink: 0;
     vertical-align: middle;
   }
+
   cursor: pointer;
 
   width: 100%;
@@ -102,17 +113,10 @@
   border: none;
   transition: background-color 0.2s ease;
 
-  ._regular_14_stqve_43,
-  [class^="_regular_14_"] {
-    font-size: 16px;
-  }
-
-
   &[data-highlighted] {
     background-color: var(--color-dark-300);
     color: var(--color-primary-500);
   }
-
 
   &[data-disabled] {
     opacity: 0.5;
@@ -122,7 +126,7 @@
 
 .selectItems {
   @include mixins.display-flex($align: center, $justify: start, $gap: function.px-to-unit(8));
-
+  font-size: var(--select-item-font-size, 16px);
   span[role='img'] {
     display: flex;
     justify-content: center;
@@ -134,9 +138,7 @@
     height: 20px;
   }
 }
-.customFontSize {
-  font-size: var(--select-item-font-size, 16px);
-}
+
 
 .Separator {
   @include mixins.display-flex($direction: column, $align: center, $justify: center);
@@ -158,4 +160,18 @@
   color: var(--color-light-100);
 
   background-color: var(--color-dark-500);
+}
+
+.pagination {
+  width: 50px;
+  height: 24px;
+  font-size: 14px;
+
+  & .trigger {
+    padding: 0 4px 0 6px;
+  }
+
+  & .selectItems {
+    font-size: var(--select-item-font-size, 14px);
+  }
 }

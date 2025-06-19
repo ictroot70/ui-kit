@@ -41,15 +41,6 @@ type NullableProps<T> = null | T
  * @property disabled - Whether the select is disabled
  * @property onValueChange - Callback fired when the selected value changes
  * @property width - Custom width for the select trigger
- * @property height - Custom height for the select trigger
- * @property padding - Custom padding for the select trigger
- * @property fontSize - Custom font size for the trigger text
- * @property dropdownWidth - Custom width for the dropdown
- * @property itemPadding - Custom padding for dropdown items
- * @property itemFontSize - Custom font size for dropdown items
- * @property arrowSize - Custom size for the arrow icon (width and height)
- * @property arrowWidth - Custom width for the arrow icon
- * @property arrowHeight - Custom height for the arrow icon
  */
 export type SelectProps = {
   id?: string
@@ -66,15 +57,7 @@ export type SelectProps = {
   disabled?: boolean
   onValueChange?: (value: string) => void
   width?: string
-  height?: string
-  padding?: string
-  fontSize?: string
-  dropdownWidth?: string
-  itemPadding?: string
-  itemFontSize?: string
-  arrowSize?: string
-  arrowWidth?: string
-  arrowHeight?: string
+  pagination?: boolean
 }
 
 /**
@@ -123,15 +106,7 @@ export type SelectProps = {
  * - `props.style` - Inline styles for the select trigger
  * - `props.id` - Optional id for the select trigger
  * - `props.width` - Custom width for the select trigger
- * - `props.height` - Custom height for the select trigger
- * - `props.padding` - Custom padding for the select trigger
- * - `props.fontSize` - Custom font size for the trigger text
- * - `props.dropdownWidth` - Custom width for the dropdown
- * - `props.itemPadding` - Custom padding for dropdown items
- * - `props.itemFontSize` - Custom font size for dropdown items
- * - `props.arrowSize` - Custom size for the arrow icon (sets both width and height)
- * - `props.arrowWidth` - Custom width for the arrow icon
- * - `props.arrowHeight` - Custom height for the arrow icon
+ * - `props.pagination` - Pagination class
  *
  * ### Returns
  * - A fully styled and accessible select dropdown component
@@ -149,16 +124,8 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
       groupLabel,
       withSeparator = true,
       style,
-      width,
-      height,
-      padding,
-      fontSize,
-      dropdownWidth,
-      itemPadding,
-      itemFontSize,
-      arrowSize,
-      arrowWidth,
-      arrowHeight,
+      width = '210px',
+      pagination,
       ...rest
     },
     ref
@@ -171,31 +138,8 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
     const triggerStyle: React.CSSProperties = {
       ...style,
       ...(width && { width }),
-      ...(height && { height }),
-      ...(padding && { padding }),
-      ...(fontSize && { fontSize })
     }
 
-    // Inline styles for the dropdown content and viewport
-    const contentStyle: React.CSSProperties = {
-      ...(dropdownWidth && { width: dropdownWidth })
-    }
-
-    const viewportStyle: React.CSSProperties = {
-      ...(dropdownWidth && { width: dropdownWidth })
-    }
-
-    // Styles for dropdown items
-    const itemStyle: React.CSSProperties = {
-      ...(itemPadding && { padding: itemPadding }),
-      ...(itemFontSize && { fontSize: itemFontSize })
-    }
-
-    // Styles for arrow icon
-    const arrowStyle: React.CSSProperties = {
-      width: arrowSize || arrowWidth || '24px',
-      height: arrowSize || arrowHeight || '24px',
-    }
 
     return (
       <div className={s.selectWrapper}>
@@ -218,31 +162,28 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
           {/* Select trigger button */}
           <RadixSelect.Trigger
             id={id}
-            className={clsx(s.trigger, className)}
+            className={clsx(s.trigger, className, pagination ? s.pagination : '')}
             ref={ref}
             {...rest}
             style={triggerStyle}
           >
             <RadixSelect.Value placeholder={placeholder} />
             <RadixSelect.Icon asChild>
-              <ArrowDownSimple className={s.iconDown} style={arrowStyle} />
+              <ArrowDownSimple className={s.iconDown} size={pagination ? 16 : 24} />
             </RadixSelect.Icon>
           </RadixSelect.Trigger>
           {/* Dropdown content rendered in a portal */}
           <RadixSelect.Portal>
-            <RadixSelect.Content className={s.Content} position={'popper'} style={contentStyle}>
+            <RadixSelect.Content className={s.Content} position={'popper'}>
               <RadixSelect.ScrollUpButton className={s.ScrollButton}>
-                <ArrowDownSimple style={arrowStyle} />
+                <ArrowDownSimple />
               </RadixSelect.ScrollUpButton>
-              <RadixSelect.Viewport
-                className={s.Viewport}
-                style={viewportStyle}
-              >
+              <RadixSelect.Viewport className={s.Viewport}>
                 <RadixSelect.Group>
                   {/* Render group label and separator if present */}
                   {groupLabel && (
                     <>
-                      <RadixSelect.Label style={{ marginLeft: 5 }}>{groupLabel}</RadixSelect.Label>
+                      <RadixSelect.Label>{groupLabel}</RadixSelect.Label>
                       {withSeparator && <RadixSelect.Separator className={s.Separator} />}
                     </>
                   )}
@@ -251,12 +192,11 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
                     <RadixSelect.Item
                       key={item.value}
                       value={item.value}
-                      className={s.selectItem}
-                      style={itemStyle}
+                      className={clsx(s.selectItem)}
                     >
                       <RadixSelect.ItemText asChild>
                         <Typography
-                          variant={'regular_14'}
+                          variant={pagination ? 'regular_14' : 'regular_16'}
                           className={`${s.selectItems} ${s.customFontSize}`}
                         >
                           {item.icon && item.icon} {item.label}
@@ -267,7 +207,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
                 </RadixSelect.Group>
               </RadixSelect.Viewport>
               <RadixSelect.ScrollDownButton className={s.ScrollButton}>
-                <ArrowDownSimple style={arrowStyle} />
+                <ArrowDownSimple size={pagination ? 16 : 24} />
               </RadixSelect.ScrollDownButton>
             </RadixSelect.Content>
           </RadixSelect.Portal>
