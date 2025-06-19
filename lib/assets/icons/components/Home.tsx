@@ -40,3 +40,4 @@ const Home = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Home
+Home.displayName = 'Home'

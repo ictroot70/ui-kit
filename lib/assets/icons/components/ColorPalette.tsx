@@ -44,3 +44,5 @@ const ColorPalette = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default ColorPalette
+
+ColorPalette.displayName = 'ColorPalette'

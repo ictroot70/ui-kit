@@ -139,3 +139,5 @@ export const DatePickerRange = ({
     </DatePickerWrapper>
   )
 }
+
+DatePickerRange.displayName = 'DatePickerRange'

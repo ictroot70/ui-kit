@@ -39,3 +39,4 @@ const PersonAddOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) 
 })
 
 export default PersonAddOutline
+PersonAddOutline.displayName = 'PersonAddOutline'

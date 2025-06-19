@@ -40,3 +40,4 @@ const ArrowDownSimple = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) =
 })
 
 export default ArrowDownSimple
+ArrowDownSimple.displayName = 'ArrowDownSimple'

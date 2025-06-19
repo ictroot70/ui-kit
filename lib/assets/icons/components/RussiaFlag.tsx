@@ -48,3 +48,4 @@ const RussiaFlag = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default RussiaFlag
+RussiaFlag.displayName = 'RussiaFlag'

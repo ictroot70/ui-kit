@@ -39,3 +39,4 @@ const PersonRemoveOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, re
 })
 
 export default PersonRemoveOutline
+PersonRemoveOutline.displayName = 'PersonRemoveOutline'

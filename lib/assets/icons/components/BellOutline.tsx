@@ -42,3 +42,4 @@ const BellOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default BellOutline
+BellOutline.displayName = 'BellOutline'

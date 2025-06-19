@@ -42,3 +42,4 @@ const MaximizeOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) =
 })
 
 export default MaximizeOutline
+MaximizeOutline.displayName = 'MaximizeOutline'

@@ -114,3 +114,5 @@ const TabsContent = forwardRef<HTMLDivElement, TabsContentProps>(
 )
 
 export { Tabs, TabsContent }
+Tabs.displayName = 'Tabs'
+TabsContent.displayName = 'TabsContent'

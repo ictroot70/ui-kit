@@ -48,3 +48,4 @@ const Paid = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Paid
+Paid.displayName = 'Paid'

@@ -40,3 +40,4 @@ const BookmarkOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) =
 })
 
 export default BookmarkOutline
+BookmarkOutline.displayName = 'BookmarkOutline'

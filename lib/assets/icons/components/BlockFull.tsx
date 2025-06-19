@@ -39,3 +39,4 @@ const BlockFull = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default BlockFull
+BlockFull.displayName = 'BlockFull'

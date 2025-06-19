@@ -51,3 +51,4 @@ const RecaptchaIcon = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => 
 })
 
 export default RecaptchaIcon
+RecaptchaIcon.displayName = 'RecaptchaIcon'

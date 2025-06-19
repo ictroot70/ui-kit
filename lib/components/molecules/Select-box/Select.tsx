@@ -201,3 +201,4 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
     )
   }
 )
+Select.displayName = 'Select'
