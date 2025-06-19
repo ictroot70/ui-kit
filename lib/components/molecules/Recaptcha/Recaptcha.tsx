@@ -76,23 +76,25 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
 
     return (
       <div
-        className={clsx(s.recaptchaWrapper, {
+        className={clsx(s.container, {
           [s.error]: visualStatus === 'error',
           [s.expired]: visualStatus === 'expired',
           [s.hidden]: !isLoaded,
         })}
       >
-        <ReCAPTCHA
-          ref={ref}
-          hl={'en'}
-          theme={'dark'}
-          className={'recaptcha-core'}
-          sitekey={sitekey}
-          onChange={handleOnChange}
-          onExpired={handleOnExpired}
-          onLoadCapture={markAsLoaded}
-          {...rest}
-        />
+        <div className={s.recaptchaWrapper}>
+          <ReCAPTCHA
+            ref={ref}
+            hl={'en'}
+            theme={'dark'}
+            className={'recaptcha-core'}
+            sitekey={sitekey}
+            onChange={handleOnChange}
+            onExpired={handleOnExpired}
+            onLoadCapture={markAsLoaded}
+            {...rest}
+          />
+        </div>
 
         {visualStatus === 'error' && isLoaded && (
           <ErrorMessage
