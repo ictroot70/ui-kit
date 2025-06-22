@@ -29,7 +29,7 @@ export const HeaderAuthorized = forwardRef<ElementRef<'div'>, HeaderProps>(
                         ]}
                         defaultValue={'en'}
                         onValueChange={(value) => console.log('Selected language:', value)}
-                        className={styles.select}
+                        style={{ width: '10rem' }}
                     />
                 </div>
             </div>
