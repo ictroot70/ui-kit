@@ -40,3 +40,4 @@ const Eye = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Eye
+Eye.displayName = 'Eye'

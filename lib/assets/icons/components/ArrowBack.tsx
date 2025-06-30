@@ -31,3 +31,4 @@ const ArrowBack = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default ArrowBack
+ArrowBack.displayName = 'ArrowBack'

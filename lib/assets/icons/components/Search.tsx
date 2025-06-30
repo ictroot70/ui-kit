@@ -40,3 +40,4 @@ const Search = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Search
+Search.displayName = 'Search'

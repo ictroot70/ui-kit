@@ -58,3 +58,4 @@ const Google = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Google
+Google.displayName = 'Google'

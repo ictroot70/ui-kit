@@ -40,3 +40,5 @@ const MessageCircle = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => 
 })
 
 export default MessageCircle
+
+MessageCircle.displayName = 'MessageCircle'

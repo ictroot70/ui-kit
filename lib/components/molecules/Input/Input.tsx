@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import { ComponentPropsWithoutRef, forwardRef, useId, useState } from 'react'
 
 import Eye from 'assets/icons/components/Eye'
 import EyeOff from 'assets/icons/components/EyeOff'
@@ -84,13 +84,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         }
       }
     }
+    const generatedId = useId()
 
+    const inputId = id ?? generatedId
     return (
       <div className={clsx(s.inputWrapper, disabled && s.disabled)}>
         {label && (
           <LabelRadix
             label={label}
-            htmlFor={id}
+            htmlFor={inputId}
             typographyVariant={'regular_14'}
             required={required}
             disabled={disabled}
@@ -109,7 +111,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               type={type}
               placeholder={placeholder}
               ref={ref}
-              id={id}
+              id={inputId}
               className={clsx(s.input, error && s.error, className)}
               disabled={disabled}
               required={required}

@@ -40,3 +40,4 @@ const Maximize = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Maximize
+Maximize.displayName = 'Maximize'

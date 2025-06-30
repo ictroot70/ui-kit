@@ -40,3 +40,4 @@ const Calendar = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Calendar
+Calendar.displayName = 'Calendar'

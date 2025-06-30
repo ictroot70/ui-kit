@@ -40,3 +40,4 @@ const Email = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Email
+Email.displayName = 'Email'

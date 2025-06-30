@@ -62,3 +62,5 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
 
   return <Component className={buttonClasses} {...rest} />
 }
+
+Button.displayName = 'Button'

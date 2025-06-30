@@ -100,3 +100,4 @@ export const Modal = ({
     </Dialog.Root>
   )
 }
+Modal.displayName = 'Modal'

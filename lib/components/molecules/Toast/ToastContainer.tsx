@@ -89,3 +89,5 @@ export const ToastContainer = (props: ToastContainerProps): React.ReactPortal | 
     document.body
   )
 }
+
+ToastContainer.displayName = 'ToastContainer'

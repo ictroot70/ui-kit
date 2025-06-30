@@ -44,3 +44,4 @@ const PinOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default PinOutline
+PinOutline.displayName = 'PinOutline'

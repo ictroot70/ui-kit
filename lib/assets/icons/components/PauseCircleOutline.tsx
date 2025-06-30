@@ -42,3 +42,4 @@ const PauseCircleOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref
 })
 
 export default PauseCircleOutline
+PauseCircleOutline.displayName = 'PauseCircleOutline'

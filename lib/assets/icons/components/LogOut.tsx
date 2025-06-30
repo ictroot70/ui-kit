@@ -39,3 +39,4 @@ const LogOut = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default LogOut
+LogOut.displayName = 'LogOut'

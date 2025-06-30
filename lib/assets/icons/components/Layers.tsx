@@ -49,3 +49,4 @@ const Layers = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Layers
+Layers.displayName = 'Layers'

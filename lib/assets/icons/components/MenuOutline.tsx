@@ -39,3 +39,4 @@ const MenuOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default MenuOutline
+MenuOutline.displayName = 'MenuOutline'

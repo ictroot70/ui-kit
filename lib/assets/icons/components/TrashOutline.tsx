@@ -40,3 +40,4 @@ const TrashOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default TrashOutline
+TrashOutline.displayName = 'TrashOutline'

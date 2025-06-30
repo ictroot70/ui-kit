@@ -40,3 +40,4 @@ const Pin = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Pin
+Pin.displayName = 'Pin'

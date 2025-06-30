@@ -40,3 +40,4 @@ const PauseCircle = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default PauseCircle
+PauseCircle.displayName = 'PauseCircle'

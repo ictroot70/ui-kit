@@ -95,8 +95,7 @@
   @include mixins.display-flex($align: center, $justify: start);
   height: var(--radix-select-trigger-height);
 
-  svg,
-  img {
+  svg, img {
     flex-shrink: 0;
     vertical-align: middle;
   }

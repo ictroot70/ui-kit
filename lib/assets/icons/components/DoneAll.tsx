@@ -40,3 +40,4 @@ const DoneAllOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) =>
 })
 
 export default DoneAllOutline
+DoneAllOutline.displayName = 'DoneAllOutline'
