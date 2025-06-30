@@ -49,3 +49,4 @@ const Stripe = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Stripe
+Stripe.displayName = 'Stripe'

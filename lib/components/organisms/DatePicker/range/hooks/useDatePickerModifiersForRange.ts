@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
-import { getModifiers, Modifiers } from '../helpers/DatePickerModifiers'
 import { type DateRange } from 'react-day-picker'
+
+import { getModifiersForRange, ModifiersForRange } from '../helpers/DatePickerModifiersForRange'
 
 /**
  * React hook that returns memoized date modifiers for use with react-day-picker.
@@ -16,7 +17,8 @@ import { type DateRange } from 'react-day-picker'
  * @returns A memoized object of date modifiers used to customize day rendering.
  */
 
-export const useDatePickerModifiers = (selectedDates: DateRange): Modifiers => {
+export const useDatePickerModifiersForRange = (selectedDates: DateRange): ModifiersForRange => {
   const today = useMemo(() => new Date(), [])
-  return useMemo(() => getModifiers(selectedDates, today), [selectedDates, today])
+
+  return useMemo(() => getModifiersForRange(selectedDates, today), [selectedDates, today])
 }

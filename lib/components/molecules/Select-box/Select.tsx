@@ -40,6 +40,7 @@ type NullableProps<T> = null | T
  * @property defaultValue - Default value for the select (uncontrolled)
  * @property disabled - Whether the select is disabled
  * @property onValueChange - Callback fired when the selected value changes
+ * @property width - Custom width for the select trigger
  */
 export type SelectProps = {
   id?: string
@@ -55,6 +56,8 @@ export type SelectProps = {
   defaultValue?: string
   disabled?: boolean
   onValueChange?: (value: string) => void
+  width?: string
+  pagination?: boolean
 }
 
 /**
@@ -67,7 +70,8 @@ export type SelectProps = {
  * - Optional group label and separator for dropdown options
  * - Supports icons in options
  * - Controlled and uncontrolled value handling
- * - Customizable styling through className and style props
+ * - Customizable width, height, padding, and font sizes
+ * - Customizable arrow icon size
  * - Scroll buttons for long lists
  *
  * ## Example usage:
@@ -75,6 +79,11 @@ export type SelectProps = {
  * <Select
  *   label="Choose a language"
  *   placeholder="Select..."
+ *   width="120px"
+ *   height="32px"
+ *   padding="8px 12px"
+ *   fontSize="14px"
+ *   arrowSize="12px"
  *   items={[
  *     { value: "en", label: "English", icon: <EnFlag /> },
  *     { value: "fr", label: "Français", icon: <FrFlag /> }
@@ -96,6 +105,8 @@ export type SelectProps = {
  * - `props.className` - Additional class name(s) for the select trigger
  * - `props.style` - Inline styles for the select trigger
  * - `props.id` - Optional id for the select trigger
+ * - `props.width` - Custom width for the select trigger
+ * - `props.pagination` - Pagination class
  *
  * ### Returns
  * - A fully styled and accessible select dropdown component
@@ -113,6 +124,8 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
       groupLabel,
       withSeparator = true,
       style,
+      width = '210px',
+      pagination,
       ...rest
     },
     ref
@@ -121,11 +134,12 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
     const generatedId = useId()
     const id = rest.id || generatedId
 
-    // Inline styles for the trigger and dropdown content/viewport
-    const triggerStyle = style
-    const widthStyle = style?.width
-    const contentStyle = widthStyle ? { width: widthStyle } : undefined
-    const viewportStyle = widthStyle ? { width: widthStyle } : undefined
+    // Inline styles for the trigger
+    const triggerStyle: React.CSSProperties = {
+      ...style,
+      ...(width && { width }),
+    }
+
 
     return (
       <div className={s.selectWrapper}>
@@ -148,40 +162,41 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
           {/* Select trigger button */}
           <RadixSelect.Trigger
             id={id}
-            className={clsx(s.trigger, className)}
+            className={clsx(s.trigger, className, pagination ? s.pagination : '')}
             ref={ref}
             {...rest}
             style={triggerStyle}
           >
             <RadixSelect.Value placeholder={placeholder} />
             <RadixSelect.Icon asChild>
-              <ArrowDownSimple className={s.iconDown} />
+              <ArrowDownSimple className={s.iconDown} size={pagination ? 16 : 24} />
             </RadixSelect.Icon>
           </RadixSelect.Trigger>
           {/* Dropdown content rendered in a portal */}
           <RadixSelect.Portal>
-            <RadixSelect.Content className={s.Content} position={'popper'} style={contentStyle}>
+            <RadixSelect.Content className={s.Content} position={'popper'}>
               <RadixSelect.ScrollUpButton className={s.ScrollButton}>
                 <ArrowDownSimple />
               </RadixSelect.ScrollUpButton>
-              <RadixSelect.Viewport
-                className={s.Viewport}
-                style={viewportStyle}
-              >
+              <RadixSelect.Viewport className={s.Viewport}>
                 <RadixSelect.Group>
                   {/* Render group label and separator if present */}
                   {groupLabel && (
                     <>
-                      <RadixSelect.Label style={{ marginLeft: 5 }}>{groupLabel}</RadixSelect.Label>
+                      <RadixSelect.Label>{groupLabel}</RadixSelect.Label>
                       {withSeparator && <RadixSelect.Separator className={s.Separator} />}
                     </>
                   )}
                   {/* Render each option */}
                   {items.map(item => (
-                    <RadixSelect.Item key={item.value} value={item.value} className={s.selectItem}>
+                    <RadixSelect.Item
+                      key={item.value}
+                      value={item.value}
+                      className={clsx(s.selectItem)}
+                    >
                       <RadixSelect.ItemText asChild>
                         <Typography
-                          variant={'regular_14'}
+                          variant={pagination ? 'regular_14' : 'regular_16'}
                           className={`${s.selectItems} ${s.customFontSize}`}
                         >
                           {item.icon && item.icon} {item.label}
@@ -191,8 +206,8 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
                   ))}
                 </RadixSelect.Group>
               </RadixSelect.Viewport>
-              <RadixSelect.ScrollDownButton>
-                <ArrowDownSimple />
+              <RadixSelect.ScrollDownButton className={s.ScrollButton}>
+                <ArrowDownSimple size={pagination ? 16 : 24} />
               </RadixSelect.ScrollDownButton>
             </RadixSelect.Content>
           </RadixSelect.Portal>
@@ -201,3 +216,4 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
     )
   }
 )
+Select.displayName = 'Select'

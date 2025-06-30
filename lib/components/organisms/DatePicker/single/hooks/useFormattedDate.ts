@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo } from 'react'
 
 /**
  * Formats a single date or returns a placeholder if not set.
@@ -12,16 +12,16 @@ import { useMemo } from "react";
 export const useFormattedDate = (
   date: Date | undefined,
   placeholder: string,
-  locale: string = "en-GB"
+  locale: string = 'en-GB'
 ): string =>
   useMemo(
     () =>
       date
         ? date.toLocaleDateString(locale, {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        })
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          })
         : placeholder,
     [date, placeholder, locale]
-  );
+  )

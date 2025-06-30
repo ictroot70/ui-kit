@@ -1,3 +1,3 @@
 export * from './useRecaptchaHandlers'
-export * from './useRecaptchaStatus'
 export * from './useRecaptchaLoadGuard'
+export * from './useRecaptchaStatus'

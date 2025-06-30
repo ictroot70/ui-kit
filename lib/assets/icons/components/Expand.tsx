@@ -39,3 +39,4 @@ const Expand = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Expand
+Expand.displayName = 'Expand'

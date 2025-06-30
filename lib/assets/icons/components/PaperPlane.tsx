@@ -40,3 +40,4 @@ const PaperPlane = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default PaperPlane
+PaperPlane.displayName = 'PaperPlane'

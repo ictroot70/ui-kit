@@ -44,3 +44,4 @@ const CopyOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default CopyOutline
+CopyOutline.displayName = 'CopyOutline'

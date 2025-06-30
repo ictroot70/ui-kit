@@ -44,3 +44,4 @@ const MicOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default MicOutline
+MicOutline.displayName = 'MicOutline'

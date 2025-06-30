@@ -40,3 +40,4 @@ const GitHub = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default GitHub
+GitHub.displayName = 'GitHub'

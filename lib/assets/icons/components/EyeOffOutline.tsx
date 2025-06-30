@@ -44,3 +44,4 @@ const EyeOffOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => 
 })
 
 export default EyeOffOutline
+EyeOffOutline.displayName = 'EyeOffOutline'

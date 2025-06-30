@@ -40,3 +40,4 @@ const Trash = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Trash
+Trash.displayName = 'Trash'

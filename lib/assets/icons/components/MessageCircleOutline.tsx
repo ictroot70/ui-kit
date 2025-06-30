@@ -44,3 +44,4 @@ const MessageCircleOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, r
 })
 
 export default MessageCircleOutline
+MessageCircleOutline.displayName = 'MessageCircleOutline'

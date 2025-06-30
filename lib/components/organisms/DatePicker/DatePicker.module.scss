@@ -22,14 +22,11 @@
     var(--color-light-900)
   );
 
-
   &[aria-disabled='true'] {
     cursor: unset;
     color: var(--color-light-900);
   }
-
 }
-
 
 .requiredIndicator {
   margin-left: 4px;

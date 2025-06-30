@@ -40,3 +40,4 @@ const Close = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Close
+Close.displayName = 'Close'
