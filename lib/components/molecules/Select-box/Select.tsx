@@ -137,12 +137,6 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
     const generatedId = useId()
     const id = rest.id || generatedId
 
-    // Inline styles for the trigger
-    const triggerStyle: CSSProperties = {
-      ...style,
-      ...(width && { width }),
-    }
-
     return (
       <div className={s.selectWrapper}>
         {/* Render label above the select if provided */}
@@ -167,7 +161,6 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
             className={clsx(s.trigger, className, pagination ? s.pagination : '')}
             ref={ref}
             {...rest}
-            style={triggerStyle}
           >
             <RadixSelect.Value placeholder={placeholder} />
             <RadixSelect.Icon asChild>
