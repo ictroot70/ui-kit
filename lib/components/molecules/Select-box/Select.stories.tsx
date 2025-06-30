@@ -1,32 +1,31 @@
+// TODO: is necessary delete `s`, and change SelectMedium story
 import type { Meta, StoryObj } from '@storybook/react'
-
-import s from './Select.module.scss'
 
 import { RussiaFlag } from '../../../assets/icons'
 import UkFlag from '../../../assets/icons/components/UkFlag'
 import s from './Select.module.scss'
-
+import { Select } from './Select'
 
 const meta: Meta<typeof Select> = {
-  title: "Components/Select",
+  title: 'Components/Select',
   component: Select,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     items: {
-      control: { type: "object" },
+      control: { type: 'object' },
     },
-    disabled: { control: "boolean" },
+    disabled: { control: 'boolean' },
   },
   args: {
-    defaultValue: "React",
+    defaultValue: 'React',
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-} satisfies Meta<typeof Select>;
+} satisfies Meta<typeof Select>
 
-export default meta;
-type Story = StoryObj<typeof Select>;
+export default meta
+type Story = StoryObj<typeof Select>
 
 export const SelectLanguages: Story = {
   render: () => {
@@ -67,20 +66,19 @@ export const SelectDisabled: Story = {
       </div>
     )
   },
-};
-
+}
 
 export const SelectWithFlag: Story = {
   args: {
     label: 'Выберите язык',
     defaultValue: 'ru',
     items: [
-      { value: "ru", label: "Русский", icon: <RussiaFlag /> },
-      { value: "en", label: "Английский", icon: <UkFlag /> },
+      { value: 'ru', label: 'Русский', icon: <RussiaFlag /> },
+      { value: 'en', label: 'Английский', icon: <UkFlag /> },
     ],
     disabled: false,
   },
-};
+}
 
 export const SelectMedium: Story = {
   render: () => {

@@ -88,7 +88,7 @@ export const Header = forwardRef<ElementRef<'header'>, HeaderProps>((props, ref)
       ref={ref}
       {...restProps}
     >
-      <div className={clsx(styles.logo, classNameForLogo)}>{logo}</div>
+      {logo && <div className={clsx(styles.logo, classNameForLogo)}>{logo}</div>}
       {children}
     </header>
   )
