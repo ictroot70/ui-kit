@@ -66,7 +66,6 @@
     flex-shrink: 0;
   }
 
-
   &.customTriggerSize {
     font-size: inherit !important;
   }
@@ -96,7 +95,8 @@
   @include mixins.display-flex($align: center, $justify: start);
   height: var(--radix-select-trigger-height);
 
-  svg, img {
+  svg,
+  img {
     flex-shrink: 0;
     vertical-align: middle;
   }
@@ -127,6 +127,7 @@
 .selectItems {
   @include mixins.display-flex($align: center, $justify: start, $gap: function.px-to-unit(8));
   font-size: var(--select-item-font-size, 16px);
+
   span[role='img'] {
     display: flex;
     justify-content: center;
@@ -138,7 +139,6 @@
     height: 20px;
   }
 }
-
 
 .Separator {
   @include mixins.display-flex($direction: column, $align: center, $justify: center);
@@ -166,10 +166,7 @@
   width: 50px;
   height: 24px;
   font-size: 14px;
-
-  & .trigger {
-    padding: 0 4px 0 6px;
-  }
+  padding: 0 4px 0 6px;
 
   & .selectItems {
     font-size: var(--select-item-font-size, 14px);

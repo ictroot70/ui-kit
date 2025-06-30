@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, forwardRef, useId, useState } from 'react'
 import Eye from 'assets/icons/components/Eye'
 import EyeOff from 'assets/icons/components/EyeOff'
 import Search from 'assets/icons/components/Search'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { ErrorMessage, Typography } from 'components/atoms'
 import { LabelRadix } from 'components/molecules'
 
@@ -87,6 +87,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const generatedId = useId()
 
     const inputId = id ?? generatedId
+
     return (
       <div className={clsx(s.inputWrapper, disabled && s.disabled)}>
         {label && (

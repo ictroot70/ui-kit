@@ -2,12 +2,11 @@ import React from 'react'
 
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
 import { Calendar, CalendarOutline } from 'assets/icons'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
+import { ErrorMessage } from 'components/atoms'
 import { LabelRadix } from 'components/molecules'
 
 import s from 'components/organisms/DatePicker/DatePicker.module.scss'
-
-import { ErrorMessage } from 'components/atoms'
 
 interface DatePickerWrapperProps {
   label?: string
