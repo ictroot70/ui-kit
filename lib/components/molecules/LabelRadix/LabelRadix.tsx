@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, ReactElement, ReactNode } from 'react'
 
 import { Label } from '@radix-ui/react-label'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { Typography } from 'components/atoms/Typography'
 
 import styles from './LabelRadix.module.scss'

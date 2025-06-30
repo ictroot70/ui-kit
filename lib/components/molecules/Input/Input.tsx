@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 import Eye from 'assets/icons/components/Eye'
 import EyeOff from 'assets/icons/components/EyeOff'
 import Search from 'assets/icons/components/Search'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { ErrorMessage, Typography } from 'components/atoms'
 import { LabelRadix } from 'components/molecules'
 

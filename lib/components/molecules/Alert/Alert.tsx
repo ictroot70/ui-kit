@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { TypographyVariant } from 'components/atoms'
 import { AlertContent } from 'components/molecules/Alert/components/AlertContent/AlertContent'
 import { AlertProgressBar } from 'components/molecules/Alert/components/AlertProgressBar/AlertProgressBar'

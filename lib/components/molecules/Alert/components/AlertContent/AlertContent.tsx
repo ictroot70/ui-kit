@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { Typography, TypographyVariant } from 'components/atoms'
 
 import styles from 'components/molecules/Alert/components/AlertContent/AlertContent.module.scss'

@@ -2,7 +2,7 @@
 
 @use '@/styles/function' as function;
 
-.header{
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -11,7 +11,7 @@
   background-color: var(--color-dark-700);
 }
 
-.wrap{
+.wrap {
   display: flex;
   align-items: center;
   gap: 45px;

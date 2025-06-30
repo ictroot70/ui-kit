@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Select } from './Select'
+
+import s from './Select.module.scss'
+
 import { RussiaFlag } from '../../../assets/icons'
 import UkFlag from '../../../assets/icons/components/UkFlag'
-import s from './Select.module.scss'
+import { Select } from './Select'
 
 const meta: Meta<typeof Select> = {
   title: 'Components/Select',
@@ -52,7 +54,7 @@ export const SelectDisabled: Story = {
         <Select
           label={'Select-box'}
           placeholder={'React'}
-          disabled={true}
+          disabled
           items={[
             { value: 'HTML', label: 'HTML' },
             { value: 'CSS', label: 'CSS' },
@@ -98,5 +100,3 @@ export const SelectMedium: Story = {
     )
   },
 }
-
-import s from './Select.module.scss'

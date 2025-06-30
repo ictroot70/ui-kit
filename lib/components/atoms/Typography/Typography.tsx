@@ -1,7 +1,7 @@
 import React, { ComponentProps, forwardRef } from 'react'
 
 import { Slot } from '@radix-ui/react-slot'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import s from './Typography.module.scss'
 

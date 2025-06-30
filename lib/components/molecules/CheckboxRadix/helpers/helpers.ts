@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import s from 'components/molecules/CheckboxRadix/CheckboxRadix.module.scss'
 
