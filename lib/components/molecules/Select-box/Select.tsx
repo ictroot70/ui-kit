@@ -1,10 +1,13 @@
-import s from './Select.module.scss'
+import { type ComponentRef, CSSProperties, forwardRef, ReactNode, useId } from 'react'
+
 import * as RadixSelect from '@radix-ui/react-select'
 import { clsx } from 'clsx'
-import { type ComponentRef, forwardRef, ReactNode, useId } from 'react'
+
+import s from './Select.module.scss'
+
+import { ArrowDownSimple } from '../../../assets/icons'
 import { Typography } from '../../atoms'
 import { LabelRadix } from '../LabelRadix'
-import { ArrowDownSimple } from '../../../assets/icons'
 
 /**
  * SelectItemsProps represents an individual option in the select dropdown.
@@ -45,7 +48,7 @@ type NullableProps<T> = null | T
 export type SelectProps = {
   id?: string
   className?: string
-  style?: React.CSSProperties
+  style?: CSSProperties
   labelClassName?: string
   placeholder?: string
   label?: string
@@ -135,11 +138,10 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
     const id = rest.id || generatedId
 
     // Inline styles for the trigger
-    const triggerStyle: React.CSSProperties = {
+    const triggerStyle: CSSProperties = {
       ...style,
       ...(width && { width }),
     }
-
 
     return (
       <div className={s.selectWrapper}>

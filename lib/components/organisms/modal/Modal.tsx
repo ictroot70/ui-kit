@@ -2,11 +2,10 @@ import { ComponentPropsWithoutRef, CSSProperties } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import SvgClose from 'assets/icons/components/Close'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
+import { Separator, Typography } from 'components/atoms'
 
 import s from './Modal.module.scss'
-
-import { Separator, Typography } from 'components/atoms'
 
 export type ModalProps = {
   open: boolean

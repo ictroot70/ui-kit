@@ -5,7 +5,7 @@ import {
   ReCAPTCHAProps,
 } from 'react-google-recaptcha'
 
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { ErrorMessage } from 'components/atoms'
 import {
   useRecaptchaHandlers,
