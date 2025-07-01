@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { RussiaFlag } from '../../../assets/icons'
 import UkFlag from '../../../assets/icons/components/UkFlag'
 import { Select } from './Select'
-// import './Select.module.scss'
+import './Select.module.scss'
 
 const meta: Meta<typeof Select> = {
   title: 'Components/Select',
@@ -83,7 +83,6 @@ export const SelectMedium: Story = {
   render: () => {
     return (
       <Select
-        width={'50px'}
         placeholder={'100'}
         pagination
         items={[
