@@ -1,4 +1,3 @@
-import path from 'node:path'
 import { join, resolve } from 'path'
 
 import react from '@vitejs/plugin-react'
@@ -8,7 +7,6 @@ import dts from 'vite-plugin-dts'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 import { dependencies, devDependencies, peerDependencies } from './package.json'
-
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
@@ -26,25 +24,21 @@ export default defineConfig({
         ...Object.keys(devDependencies),
       ],
       output: {
-        dir: 'dist',
-        entryFileNames: '[name].js',
-        format: 'es',
         globals: {
           react: 'React',
           'react/jsx-runtime': 'jsxRuntime',
         },
       },
     },
-    target: 'esnext',
     sourcemap: true,
-    cssCodeSplit: true,
+    target: 'esnext',
   },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'lib'),
-      providers: path.resolve(__dirname, 'lib/providers'),
-      components: path.resolve(__dirname, 'lib/components'),
-      assets: path.resolve(__dirname, 'lib/assets'),
+      providers: resolve(__dirname, 'lib/providers'),
+      components: resolve(__dirname, 'lib/components'),
+      assets: resolve(__dirname, 'lib/assets'),
     },
   },
   plugins: [
