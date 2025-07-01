@@ -40,3 +40,4 @@ const PlusSquare = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default PlusSquare
+PlusSquare.displayName = 'PlusSquare'

@@ -1,9 +1,7 @@
 ---
-
 # 🚧 GitHub Workflow Rules
 
 This document outlines the required rules and workflow for working with `main` and `dev` branches in this repository.
-
 ---
 
 ## 🔐 Branch Protection
@@ -23,8 +21,8 @@ This document outlines the required rules and workflow for working with `main` a
 ## ✅ Pull Request Requirements
 
 - ✅ Create a separate feature/fix branch
-  - Example: `feature/add-navbar`, `fix/login-bug`
-    -✅ Open a Pull Request into `main` or `dev`
+    - Example: `feature/add-navbar`, `fix/login-bug`
+      -✅ Open a Pull Request into `main` or `dev`
 
 ### Reviews:
 

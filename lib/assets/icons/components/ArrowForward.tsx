@@ -38,3 +38,4 @@ const ArrowForward = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default ArrowForward
+ArrowForward.displayName = 'ArrowForward'

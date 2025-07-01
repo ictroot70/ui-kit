@@ -39,3 +39,4 @@ const PersonAdd = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default PersonAdd
+PersonAdd.displayName = 'PersonAdd'

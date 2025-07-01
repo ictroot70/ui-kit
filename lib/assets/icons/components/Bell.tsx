@@ -58,3 +58,4 @@ const Bell = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Bell
+Bell.displayName = 'Bell'

@@ -1,17 +1,17 @@
 import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react'
 
 import * as TabsPrimitive from '@radix-ui/react-tabs'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import s from './Tabs.module.scss'
 
-type TriggerType = {
+export type TriggerType = {
   title: string
   disabled?: boolean
   value: string
 }
 
-type TabsProps = {
+export type TabsProps = {
   children?: ReactNode
   triggers: TriggerType[]
   fullWidth?: boolean
@@ -114,3 +114,5 @@ const TabsContent = forwardRef<HTMLDivElement, TabsContentProps>(
 )
 
 export { Tabs, TabsContent }
+Tabs.displayName = 'Tabs'
+TabsContent.displayName = 'TabsContent'

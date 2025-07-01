@@ -40,3 +40,4 @@ const HomeOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default HomeOutline
+HomeOutline.displayName = 'HomeOutline'

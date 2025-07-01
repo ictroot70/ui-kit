@@ -17,7 +17,7 @@ export const Default: Story = {
   args: {
     children: (
       <>
-        <h1>Card</h1>
+        <h3>Inctagram</h3>
         <h4>Card content</h4>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequatur dolorem ducimus

@@ -40,3 +40,4 @@ const LayersOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => 
 })
 
 export default LayersOutline
+LayersOutline.displayName = 'LayersOutline'

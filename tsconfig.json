@@ -26,6 +26,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["lib", "scripts/generate-index.ts"],
+  "include": ["./lib/**/*.ts", "./lib/**/*.tsx", "scripts", "scripts"],
+  "exclude": ["./lib/**/*.stories.*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,3 +1,4 @@
+//TODO: Add icon support styles
 .button {
   all: unset;
 
@@ -11,6 +12,7 @@
   box-sizing: border-box;
   min-width: 100px;
   padding: 6px 24px;
+  height: 36px;
   border: none;
   border-radius: 2px;
 
@@ -19,7 +21,6 @@
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-m);
   color: var(--color-light-100);
-  text-align: center;
 
   background-color: transparent;
   outline: 1px solid transparent;

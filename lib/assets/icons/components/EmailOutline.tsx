@@ -40,3 +40,4 @@ const EmailOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default EmailOutline
+EmailOutline.displayName = 'EmailOutline'

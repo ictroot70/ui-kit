@@ -39,3 +39,4 @@ const MoreHorizontal = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) =>
 })
 
 export default MoreHorizontal
+MoreHorizontal.displayName = 'MoreHorizontal'

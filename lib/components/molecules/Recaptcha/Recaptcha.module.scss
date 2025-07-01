@@ -1,11 +1,28 @@
-.recaptchaWrapper {
+.container {
+  display: block;
+  opacity: 1;
   position: relative;
-
-  display: inline-block;
-
-  padding: 8px;
   border: 1px solid transparent;
-  border-radius: 2px;
+  border-radius: 3px;
+  padding: 8px 8px 12px;
+  width: fit-content;
+  box-sizing: border-box;
+
+  transition: opacity 0.3s ease;
+  & .recaptchaWrapper {
+    position: relative;
+
+    display: inline-block;
+    width: 302px;
+    height: 76px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  &.hidden {
+    pointer-events: none;
+    opacity: 0;
+  }
 
   &.error {
     border-color: var(--color-danger-400);

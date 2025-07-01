@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactNode } from 'react'
 
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import styles from './Card.module.scss'
 
@@ -14,7 +14,7 @@ export const Card = forwardRef<ElementRef<'div'>, CardProps>(
   }
 )
 
-interface CardProps extends ComponentPropsWithoutRef<'div'> {
+export interface CardProps extends ComponentPropsWithoutRef<'div'> {
   children?: ReactNode
 }
 

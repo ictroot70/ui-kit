@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 
 import { Toast } from 'components/molecules/Toast/Toast.types'
@@ -82,3 +80,5 @@ export const ToastProvider = (props: ToastProviderProps): React.ReactElement => 
     </ToastContext.Provider>
   )
 }
+
+ToastProvider.displayName = 'ToastProvider'

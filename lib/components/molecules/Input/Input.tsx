@@ -1,22 +1,19 @@
-'use client'
-
-import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
-
-import clsx from 'clsx'
-
-import s from 'components/molecules/Input/Input.module.scss'
+import { ComponentPropsWithoutRef, forwardRef, useId, useState } from 'react'
 
 import Eye from 'assets/icons/components/Eye'
 import EyeOff from 'assets/icons/components/EyeOff'
 import Search from 'assets/icons/components/Search'
+import { clsx } from 'clsx'
 import { ErrorMessage, Typography } from 'components/atoms'
 import { LabelRadix } from 'components/molecules'
 
-interface InputProps extends ComponentPropsWithoutRef<'input'> {
+import s from 'components/molecules/Input/Input.module.scss'
+
+export interface InputProps extends ComponentPropsWithoutRef<'input'> {
   label?: string
   error?: string
   placeholder?: string
-  inputType: 'text' | 'hide-able' | 'search'
+  inputType?: 'text' | 'hide-able' | 'search'
   disabled?: boolean
   required?: boolean
   id?: string
@@ -87,13 +84,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         }
       }
     }
+    const generatedId = useId()
+
+    const inputId = id ?? generatedId
 
     return (
       <div className={clsx(s.inputWrapper, disabled && s.disabled)}>
         {label && (
           <LabelRadix
             label={label}
-            htmlFor={id}
+            htmlFor={inputId}
             typographyVariant={'regular_14'}
             required={required}
             disabled={disabled}
@@ -112,7 +112,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               type={type}
               placeholder={placeholder}
               ref={ref}
-              id={id}
+              id={inputId}
               className={clsx(s.input, error && s.error, className)}
               disabled={disabled}
               required={required}

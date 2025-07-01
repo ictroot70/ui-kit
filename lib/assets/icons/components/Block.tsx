@@ -45,3 +45,4 @@ const Block = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Block
+Block.displayName = 'Block'

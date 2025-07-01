@@ -40,3 +40,4 @@ const Copy = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Copy
+Copy.displayName = 'Copy'

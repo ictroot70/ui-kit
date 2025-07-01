@@ -40,3 +40,4 @@ const Checkmark = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
 })
 
 export default Checkmark
+Checkmark.displayName = 'Checkmark'

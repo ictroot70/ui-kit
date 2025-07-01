@@ -6,7 +6,7 @@ import { LabelRadix } from 'components/molecules/LabelRadix/LabelRadix'
 
 import s from './TextArea.module.scss'
 
-type DefaultTextAreaPropsType = DetailedHTMLProps<
+export type DefaultTextAreaPropsType = DetailedHTMLProps<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
 >

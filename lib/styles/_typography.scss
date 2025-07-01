@@ -1,11 +1,7 @@
-@import '@fontsource/inter/300.css';
-@import '@fontsource/inter/400.css';
-@import '@fontsource/inter/500.css';
-@import '@fontsource/inter/600.css';
-@import '@fontsource/inter/700.css';
+@use '@fontsource-variable/inter' as *;
 
 :root {
-  --font-family-primary: 'Inter', sans-serif;
+  --font-family-primary: 'Inter Variable', sans-serif;
 
   // line heights
   --line-height-s: 16px;

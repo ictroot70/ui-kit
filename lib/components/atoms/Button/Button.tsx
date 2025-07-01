@@ -1,10 +1,10 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import s from 'components/atoms/Button/Button.module.scss'
 
-type Variant = 'primary' | 'outlined' | 'secondary' | 'text'
+export type Variant = 'primary' | 'outlined' | 'secondary' | 'text'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
@@ -35,6 +35,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
  * @returns A customizable button component with style and layout control.
  */
 
+// TODO: Add icon support, and Slot support
 export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
   const {
     as: Component = 'button',
@@ -62,3 +63,5 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
 
   return <Component className={buttonClasses} {...rest} />
 }
+
+Button.displayName = 'Button'
