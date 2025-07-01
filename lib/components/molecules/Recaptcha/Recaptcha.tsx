@@ -7,6 +7,7 @@ import {
 
 import { clsx } from 'clsx'
 import { ErrorMessage } from 'components/atoms'
+import { RecaptchaStatusForStorybook } from 'components/molecules/Recaptcha/Recaptcha.types'
 import {
   useRecaptchaHandlers,
   useRecaptchaLoadGuard,
@@ -14,7 +15,6 @@ import {
 } from 'components/molecules/Recaptcha/hook'
 
 import s from 'components/molecules/Recaptcha/Recaptcha.module.scss'
-import { RecaptchaStatusForStorybook } from 'components/molecules/Recaptcha/Recaptcha.types'
 
 /**
  * @interface RecaptchaProps
