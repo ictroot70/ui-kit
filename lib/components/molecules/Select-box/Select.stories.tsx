@@ -1,7 +1,4 @@
-// TODO: is necessary delete `s`, and change SelectMedium story
 import type { Meta, StoryObj } from '@storybook/react'
-
-import s from './Select.module.scss'
 
 import { RussiaFlag } from '../../../assets/icons'
 import UkFlag from '../../../assets/icons/components/UkFlag'
@@ -84,20 +81,18 @@ export const SelectWithFlag: Story = {
 export const SelectMedium: Story = {
   render: () => {
     return (
-      <div className={s.pagination}>
-        <Select
-          width={'50px'}
-          placeholder={'100'}
-          pagination
-          items={[
-            { value: '10', label: '10' },
-            { value: '20', label: '20' },
-            { value: '30', label: '30' },
-            { value: '50', label: '50' },
-            { value: '100', label: '100' },
-          ]}
-        ></Select>
-      </div>
+      <Select
+        width={'50px'}
+        placeholder={'100'}
+        pagination
+        items={[
+          { value: '10', label: '10' },
+          { value: '20', label: '20' },
+          { value: '30', label: '30' },
+          { value: '50', label: '50' },
+          { value: '100', label: '100' },
+        ]}
+      />
     )
   },
 }
