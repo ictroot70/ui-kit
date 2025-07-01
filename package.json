@@ -1,6 +1,6 @@
 {
   "name": "@ictroot/ui-kit",
-  "version": "0.0.2-beta.2",
+  "version": "0.0.2-beta.3",
   "description": "Modular and expanded library of components created using Vite, Storybook and Typescript. Suitable for re-used UI elements in various projects",
   "author": "IctRoot",
   "license": "MIT",
@@ -116,6 +116,7 @@
     "storybook": "8.6.14",
     "stylelint": "^16.19.1",
     "ts-node": "^10.9.2",
+    "rimraf": "^6.0.1",
     "typescript": "5.8.3",
     "vite": "6.3.5",
     "vite-plugin-dts": "^4.5.3",

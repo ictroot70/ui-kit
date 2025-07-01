@@ -25,18 +25,14 @@ export default defineConfig({
         ...Object.keys(devDependencies),
       ],
       output: {
-        dir: 'dist',
-        entryFileNames: '[name].js',
-        format: 'es',
         globals: {
           react: 'React',
           'react/jsx-runtime': 'jsxRuntime',
         },
       },
     },
-    target: 'esnext',
     sourcemap: true,
-    cssCodeSplit: true,
+    target: 'esnext',
   },
   resolve: {
     alias: {

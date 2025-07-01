@@ -36,8 +36,8 @@ scripts:
 
   # ⚙️ Assembly and preparation
   prebuild:
-    script: 'rm -rf dist'
-    description: '🧨 Dist cleaning before assembly'
+    script: 'rimraf dist storybook-static .cache node_modules/.cache'
+    description: '🧨 Dist cleaning before assembly (cross-platform)'
 
   generateIndex:
     script: 'node scripts/generate-index.js'
