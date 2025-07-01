@@ -1,5 +1,4 @@
 import { useState } from 'react'
-
 import { RecaptchaStatusForStorybook } from 'components/molecules/Recaptcha/Recaptcha.types'
 
 type UseRecaptchaStatusReturn = {

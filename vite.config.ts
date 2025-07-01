@@ -7,6 +7,7 @@ import dts from 'vite-plugin-dts'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 import { dependencies, devDependencies, peerDependencies } from './package.json'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
@@ -24,14 +25,18 @@ export default defineConfig({
         ...Object.keys(devDependencies),
       ],
       output: {
+        dir: 'dist',
+        entryFileNames: '[name].js',
+        format: 'es',
         globals: {
           react: 'React',
           'react/jsx-runtime': 'jsxRuntime',
         },
       },
     },
-    sourcemap: true,
     target: 'esnext',
+    sourcemap: true,
+    cssCodeSplit: true,
   },
   resolve: {
     alias: {
