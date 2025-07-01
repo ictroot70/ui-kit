@@ -35,6 +35,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
  * @returns A customizable button component with style and layout control.
  */
 
+// TODO: Add icon support, and Slot support
 export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
   const {
     as: Component = 'button',

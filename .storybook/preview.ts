@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react'
 import '../lib/styles/index.scss'
-
+// TODO: is necessary change background parameters for default theme
 const preview: Preview = {
   parameters: {
     backgrounds: {
