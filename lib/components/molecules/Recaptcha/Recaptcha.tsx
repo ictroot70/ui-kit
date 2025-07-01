@@ -14,14 +14,7 @@ import {
 } from 'components/molecules/Recaptcha/hook'
 
 import s from 'components/molecules/Recaptcha/Recaptcha.module.scss'
-
-/**
- * @typedef {'default' | 'error' | 'expired'} RecaptchaStatusForStorybook
- * @description
- * Represents visual states of the ReCAPTCHA component used specifically in Storybook
- * to simulate different scenarios (default, error, or expired).
- */
-export type RecaptchaStatusForStorybook = 'default' | 'error' | 'expired'
+import { RecaptchaStatusForStorybook } from 'components/molecules/Recaptcha/Recaptcha.types'
 
 /**
  * @interface RecaptchaProps
@@ -30,7 +23,7 @@ export type RecaptchaStatusForStorybook = 'default' | 'error' | 'expired'
  * Props for the custom Recaptcha component. Inherits all props from `react-google-recaptcha`
  * and adds an optional prop for Storybook-specific state simulation.
  *
- * @property {RecaptchaStatusForStorybook} [statusForStorybook] - Used only in Storybook to simulate visual states.
+ [statusForStorybook] - Used only in Storybook to simulate visual states.
  */
 export interface RecaptchaProps extends ReCAPTCHAProps {
   /** Used only in Storybook to simulate visual states */

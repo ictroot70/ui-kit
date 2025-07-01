@@ -1,9 +1,10 @@
 import { ReactElement } from 'react'
 
 import { Recaptcha, RecaptchaProps } from 'components/molecules/Recaptcha/Recaptcha'
+import { RecaptchaStatusForStorybook } from 'components/molecules/Recaptcha/Recaptcha.types'
 
 export interface RecaptchaStorybookControls {
-  statusForStorybook?: 'default' | 'success' | 'expired' | 'error'
+  statusForStorybook?: RecaptchaStatusForStorybook
   simulateTimeout?: boolean
 }
 
