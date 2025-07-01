@@ -1,6 +1,8 @@
-import { Meta, StoryObj } from '@storybook/react'
-import { RadioGroupRadix, RadioGroupRadixProps } from './RadioGroupRadix'
 import { useState } from 'react'
+
+import { Meta, StoryObj } from '@storybook/react'
+
+import { RadioGroupRadix, RadioGroupRadixProps } from './RadioGroupRadix'
 
 const meta: Meta<typeof RadioGroupRadix> = {
   title: 'Components/RadioGroupRadix',
@@ -22,6 +24,7 @@ const meta: Meta<typeof RadioGroupRadix> = {
     },
   },
 } satisfies Meta<typeof RadioGroupRadix>
+
 export default meta
 
 type Story = StoryObj<typeof RadioGroupRadix>

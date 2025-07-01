@@ -87,6 +87,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const generatedId = useId()
 
     const inputId = id ?? generatedId
+
     return (
       <div className={clsx(s.inputWrapper, disabled && s.disabled)}>
         {label && (

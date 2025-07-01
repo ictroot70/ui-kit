@@ -1,9 +1,10 @@
 // TODO: is necessary delete `s`, and change SelectMedium story
 import type { Meta, StoryObj } from '@storybook/react'
 
+import s from './Select.module.scss'
+
 import { RussiaFlag } from '../../../assets/icons'
 import UkFlag from '../../../assets/icons/components/UkFlag'
-import s from './Select.module.scss'
 import { Select } from './Select'
 
 const meta: Meta<typeof Select> = {

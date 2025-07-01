@@ -1,8 +1,10 @@
-import { Indicator, Item, Root } from '@radix-ui/react-radio-group'
-import { LabelRadix } from 'components/molecules/LabelRadix'
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactElement } from 'react'
+
+import { Indicator, Item, Root } from '@radix-ui/react-radio-group'
+import { clsx } from 'clsx'
+import { LabelRadix } from 'components/molecules/LabelRadix'
+
 import styles from './RadioGroupRadix.module.scss'
-import clsx from 'clsx'
 
 /**
  * # Describes a single radio option to be rendered inside the `RadioGroupRadix`.
@@ -86,6 +88,7 @@ export const RadioGroupRadix = forwardRef<ElementRef<typeof Root>, RadioGroupRad
       disabled,
       ...rest
     } = props
+
     return (
       <Root
         name={name}
@@ -93,7 +96,7 @@ export const RadioGroupRadix = forwardRef<ElementRef<typeof Root>, RadioGroupRad
         disabled={disabled}
         orientation={orientation}
         className={clsx(styles.root, styles[`orientation-${orientation}`], className)}
-        data-slot="radio-group"
+        data-slot={'radio-group'}
         value={value}
         id={id}
         defaultValue={defaultValue}
@@ -104,6 +107,7 @@ export const RadioGroupRadix = forwardRef<ElementRef<typeof Root>, RadioGroupRad
       >
         {options?.map(option => {
           const isOptionDisabled = disabled || option.disabled
+
           return (
             <div
               key={option.id ?? option.value}
@@ -113,11 +117,11 @@ export const RadioGroupRadix = forwardRef<ElementRef<typeof Root>, RadioGroupRad
                 disabled={isOptionDisabled}
                 data-disabled={isOptionDisabled || undefined}
                 className={clsx(styles.item, isOptionDisabled)}
-                data-slot="radio-item"
+                data-slot={'radio-item'}
                 value={option.value}
                 id={option.id}
               >
-                <Indicator data-slot="radio-indicator" className={styles.indicator} />
+                <Indicator data-slot={'radio-indicator'} className={styles.indicator} />
               </Item>
               <LabelRadix
                 className={styles.label}
