@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import './Select.module.scss'
+
 import { RussiaFlag } from '../../../assets/icons'
 import UkFlag from '../../../assets/icons/components/UkFlag'
 import { Select } from './Select'
-
-import './Select.module.scss'
 
 const meta: Meta<typeof Select> = {
   title: 'Components/Select',
