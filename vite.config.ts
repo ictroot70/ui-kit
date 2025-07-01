@@ -1,6 +1,6 @@
 import { join, resolve } from 'path'
 
-import viteReact from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react'
 import analize from 'rollup-plugin-analyzer'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
@@ -33,10 +33,20 @@ export default defineConfig({
     sourcemap: true,
     target: 'esnext',
   },
-  plugins: [viteReact(), tsconfigPaths(), dts({ insertTypesEntry: true }), analize()],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'lib'),
+      providers: resolve(__dirname, 'lib/providers'),
+      components: resolve(__dirname, 'lib/components'),
+      assets: resolve(__dirname, 'lib/assets'),
     },
   },
+  plugins: [
+    tsconfigPaths(),
+    react(),
+    dts({
+      rollupTypes: true,
+    }),
+    analize(),
+  ],
 })
