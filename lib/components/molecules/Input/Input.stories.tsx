@@ -7,6 +7,7 @@ const meta: Meta<typeof Input> = {
   component: Input,
   parameters: {
     layout: 'centered',
+    background: 'dark',
   },
   argTypes: {
     label: { control: 'text' },
