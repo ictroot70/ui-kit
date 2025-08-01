@@ -1,13 +1,13 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
-
+import { Slot } from '@radix-ui/react-slot'
 import { clsx } from 'clsx'
-
 import s from 'components/atoms/Button/Button.module.scss'
 
 export type Variant = 'primary' | 'outlined' | 'secondary' | 'text'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
+  asChild?: boolean
   children?: ReactNode
   className?: string
   fullWidth?: boolean
@@ -19,12 +19,13 @@ export type ButtonProps<T extends ElementType = 'button'> = {
  * Button component with multiple visual variants and layout options.
  *
  * Supports rendering as different HTML elements via the `as` prop
- * (e.g. `'a'`, `'button'`, `'div'`, etc.).
+ * (e.g. `'a'`, `'button'`, `'div'`, etc.) or using Radix UI Slot via `asChild`.
  *
  * @typeParam T - The type of element to render as (defaults to `'button'`).
  *
  * - @param props - Props for configuring the button's behavior and appearance.
  * - @param props.as - Custom element type to render (e.g. `'a'` for link).
+ * - @param props.asChild - If `true`, uses Radix UI Slot to merge props with the first child element.
  * - @param props.children - Content inside the button.
  * - @param props.className - Additional custom class names.
  * - @param props.fullWidth - If `true`, makes the button take the full container width.
@@ -35,16 +36,17 @@ export type ButtonProps<T extends ElementType = 'button'> = {
  * @returns A customizable button component with style and layout control.
  */
 
-// TODO: Add icon support, and Slot support
 export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
   const {
-    as: Component = 'button',
+    as,
+    asChild,
     className,
     fullWidth,
     iconPosition = 'left',
     variant = 'primary',
     ...rest
   } = props
+
   const hasIcon = !!props.iconPosition
   const positionClasses = {
     left: s.left,
@@ -58,10 +60,12 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
     hasIcon && s.hasIconPadding,
     className,
     positionClass,
-    s.button
+    s.button,
   )
 
-  return <Component className={buttonClasses} {...rest} />
+  const Component = asChild ? Slot : as ? as as ElementType : 'button'
+
+  return <Component className={buttonClasses} {... rest} />
 }
 
 Button.displayName = 'Button'

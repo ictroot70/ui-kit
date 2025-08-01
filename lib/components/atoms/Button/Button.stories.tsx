@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Person } from 'assets/icons'
+import { Person } from '../../../assets/icons'
 
 import './Button.module.scss'
 
@@ -30,6 +30,7 @@ const meta: Meta<typeof Button> = {
       options: ['button', 'a', 'div', 'span'],
       defaultValue: 'button',
     },
+    asChild: { control: 'boolean' },
   },
 } satisfies Meta<typeof Button>
 
@@ -83,16 +84,36 @@ export const FullWidth: Story = {
   },
 }
 
+// Пример использования as prop (приоритет 2)
 export const AsLink: Story = {
   args: {
     as: 'a',
     href: '#',
     target: '_blank',
-    children: 'Link Button',
+    children: 'Link Button (using as prop)',
     variant: 'primary',
   },
 }
 
+// Пример использования asChild (приоритет 1)
+export const AsLinkWithSlot: Story = {
+  args: {
+    asChild: true,
+    children: <a href="#" target="_blank" rel="noopener noreferrer">Link Button (using asChild)</a>,
+    variant: 'outlined',
+  },
+}
+
+// Пример использования asChild с div
+export const AsCustomElement: Story = {
+  args: {
+    asChild: true,
+    children: <div role="button" tabIndex={0}>Custom Element Button</div>,
+    variant: 'secondary',
+  },
+}
+
+// Пример обычной кнопки (приоритет 3)
 export const Text: StoryObj<typeof Button> = {
   args: {
     children: 'Text Button',
