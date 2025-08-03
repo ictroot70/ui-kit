@@ -11,6 +11,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   children?: ReactNode
   className?: string
   fullWidth?: boolean
+  nowrap?: boolean
   iconPosition?: 'left' | 'right'
   variant?: Variant
 } & ComponentPropsWithoutRef<T>
@@ -30,6 +31,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
  * - @param props.className - Additional custom class names.
  * - @param props.fullWidth - If `true`, makes the button take the full container width.
  * - @param props.iconPosition - Optional icon position: `'left'` or `'right'`. Adds special padding and direction.
+ * - @param props.nowrap - option to set 'nowrap' style to button
  * - @param props.variant - Visual style of the button: `'primary'`, `'outlined'`, `'secondary'`, or `'text'`.
  * - @param rest - Additional props forwarded to the rendered component.
  *
@@ -42,6 +44,7 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
     asChild,
     className,
     fullWidth,
+    nowrap,
     iconPosition = 'left',
     variant = 'primary',
     ...rest
@@ -52,6 +55,9 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
     left: s.left,
     right: s.right,
   }
+  const nowrapClass = {
+    nowrap,
+  }
   const positionClass = positionClasses[iconPosition]
 
   const buttonClasses = clsx(
@@ -60,6 +66,7 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
     hasIcon && s.hasIconPadding,
     className,
     positionClass,
+    nowrapClass ? s.nowrap : '',
     s.button,
   )
 
