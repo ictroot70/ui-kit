@@ -44,21 +44,14 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
     asChild,
     className,
     fullWidth,
-    nowrap,
+    nowrap = false,
     iconPosition = 'left',
     variant = 'primary',
     ...rest
   } = props
 
   const hasIcon = !!props.iconPosition
-  const positionClasses = {
-    left: s.left,
-    right: s.right,
-  }
-  const nowrapClass = {
-    nowrap,
-  }
-  const positionClass = positionClasses[iconPosition]
+  const positionClass = s[iconPosition]
 
   const buttonClasses = clsx(
     s[variant],
@@ -66,11 +59,11 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
     hasIcon && s.hasIconPadding,
     className,
     positionClass,
-    nowrapClass ? s.nowrap : '',
+    nowrap,
     s.button,
   )
 
-  const Component = asChild ? Slot : as ? as as ElementType : 'button'
+  const Component = asChild ? Slot : (as ?? 'button') as ElementType;
 
   return <Component className={buttonClasses} {... rest} />
 }

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Person } from '../../../assets/icons'
+import { Person } from 'assets/icons'
 
 import './Button.module.scss'
 
