@@ -3,63 +3,61 @@
 
 .selectWrapper {
   @include mixins.display-flex($direction: column);
-
   position: relative;
   width: 100%;
 }
 
-.label {
+.label > p {
   color: var(--color-light-900);
 }
 
 .trigger {
-  display: flex;
-  align-items: center;
   all: unset;
   cursor: pointer;
   width: 100%;
-  height: 36px;
-  padding: function.px-to-unit(6) function.px-to-unit(12);
-  border: 1px solid var(--color-light-100);
-  border-radius: function.px-to-unit(2);
-  gap: 2px;
-
-  background-color: var(--color-dark-500);
-  outline: 1px solid transparent;
-
   @include mixins.display-flex($align: center, $justify: space-between);
   @include mixins.box-sizing(border-box);
+  box-sizing: border-box;
+  padding: function.px-to-unit(6) function.px-to-unit(12);
+  border: 1px solid var(--color-dark-100);
+  border-radius: function.px-to-unit(2);
+  gap: 2px;
+  background-color: transparent;
+  outline: 1px solid transparent;
 
-  &[data-state='open'] .iconDown {
-    transform: rotate(180deg);
+  &[data-state='open'] {
+    border: 1px solid var(--color-light-100);
+    color: var(--color-light-100);
+    background-color: var(--color-dark-500);
+
+    .iconDown {
+      transform: rotate(180deg);
+    }
   }
 
   &[data-placeholder] {
     background-color: var(--color-dark-500);
   }
 
-  &:not([data-disabled]):active {
-    background-color: var(--color-primary-500);
-    outline-color: var(--color-light-700);
-  }
-
   &:not([data-disabled]):hover {
     cursor: pointer;
     color: var(--color-light-100);
+    border-color: var(--color-light-900);
   }
 
-  &:not([data-disabled]):focus {
-    border: 1px solid var(--color-primary-500);
-    background-color: var(--color-dark-900);
-    outline: 1px solid var(--color-primary-500);
+  &:not([data-disabled]):focus-visible {
+    border-color: transparent;
+    outline: 2px solid var(--color-primary-500);
   }
 
   &[data-disabled] {
     cursor: default;
     border: 1px solid var(--color-dark-100);
     color: var(--color-dark-100);
-    background-color: var(--color-dark-900);
-    outline: none;
+
+    svg {
+      color: var(--color-light-100);
+    }
   }
 
   span[role='img'] {
