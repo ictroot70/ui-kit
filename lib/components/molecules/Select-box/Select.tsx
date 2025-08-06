@@ -129,6 +129,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
       style,
       width = '210px',
       pagination,
+      onValueChange,
       ...rest
     },
     ref
@@ -140,19 +141,18 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
     return (
       <div className={s.selectWrapper}>
         {/* Render label above the select if provided */}
-        {label && (
+        {!!label && (
           <LabelRadix
             className={s.label}
             typographyVariant={'regular_14'}
             htmlFor={id}
             label={label}
-            style={{ color: 'var(--color-light-900)' }}
           />
         )}
         <RadixSelect.Root
           defaultValue={defaultValue}
           value={value}
-          onValueChange={rest.onValueChange}
+          onValueChange={onValueChange}
           disabled={disabled}
         >
           {/* Select trigger button */}
