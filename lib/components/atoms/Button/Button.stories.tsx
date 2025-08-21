@@ -38,16 +38,27 @@ export default meta
 
 type Story = StoryObj<typeof Button>
 
-export const WithIcon: Story = {
+export const WithIconLeft: Story = {
   args: {
     children: (
       <>
         <Person /> Button with Icon
       </>
     ),
+  },
+}
+
+export const WithIconRight: Story = {
+  args: {
+    children: (
+        <>
+          Button with Icon<Person />
+        </>
+    ),
     iconPosition: 'left',
   },
 }
+
 export const Primary: Story = {
   args: {
     children: 'Primary Button',
