@@ -12,7 +12,6 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   className?: string
   fullWidth?: boolean
   nowrap?: boolean
-  // iconPosition?: 'left' | 'right'
   variant?: Variant
 } & ComponentPropsWithoutRef<T>
 
@@ -21,6 +20,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
  *
  * Supports rendering as different HTML elements via the `as` prop
  * (e.g. `'a'`, `'button'`, `'div'`, etc.) or using Radix UI Slot via `asChild`.
+ * Supports icons (place an icon to the left or right of the text
  *
  * @typeParam T - The type of element to render as (defaults to `'button'`).
  *
@@ -30,7 +30,6 @@ export type ButtonProps<T extends ElementType = 'button'> = {
  * - @param props.children - Content inside the button.
  * - @param props.className - Additional custom class names.
  * - @param props.fullWidth - If `true`, makes the button take the full container width.
- // * - @param props.iconPosition - Optional icon position: `'left'` or `'right'`. Adds special padding and direction.
  * - @param props.nowrap - option to set 'nowrap' style to button
  * - @param props.variant - Visual style of the button: `'primary'`, `'outlined'`, `'secondary'`, or `'text'`.
  * - @param rest - Additional props forwarded to the rendered component.
@@ -45,20 +44,15 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
     className,
     fullWidth,
     nowrap = false,
-    // iconPosition = 'left',
     variant = 'primary',
     ...rest
   } = props
 
-  // const hasIcon = !!iconPosition
-  // const positionClass = iconPosition && s[iconPosition]
 
   const buttonClasses = clsx(
     s[variant],
     fullWidth ? s.fullWidth : '',
-    // hasIcon && s.hasIconPadding,
     className,
-    // positionClass,
     nowrap && s.nowrap,
     s.button
   )
