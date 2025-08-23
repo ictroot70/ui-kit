@@ -1,18 +1,19 @@
 //TODO: Add icon support styles
 .button {
   all: unset;
-
+  overflow: hidden;
   cursor: pointer;
 
   display: inline-flex;
   gap: 10px;
   align-items: center;
   justify-content: center;
+  white-space: normal;
 
   box-sizing: border-box;
   min-width: 100px;
   padding: 6px 24px;
-  height: 36px;
+  min-height: 36px;
   border: none;
   border-radius: 2px;
 
@@ -133,10 +134,6 @@
   width: 100%;
 }
 
-.left {
-  flex-direction: row;
-}
-
-.right {
-  flex-direction: row-reverse;
+.nowrap {
+  white-space: nowrap;
 }
