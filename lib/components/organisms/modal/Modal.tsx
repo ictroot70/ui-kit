@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, CSSProperties } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import SvgClose from 'assets/icons/components/Close'
 import { clsx } from 'clsx'
 import { Separator, Typography } from 'components/atoms'
@@ -78,7 +79,7 @@ export const Modal = ({
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className={s.overlay} />
-        <Dialog.Content className={clsx(s.content, className)} style={modalStyle} {...rest}>
+        <Dialog.Content  className={clsx(s.content, className)} style={modalStyle} {...rest}>
           <div className={s.header}>
             {modalTitle && (
               <Dialog.Title className={s.title}>
@@ -94,6 +95,11 @@ export const Modal = ({
             </Dialog.Close>
           </div>
           <Separator />
+          <Dialog.Description asChild>
+            <VisuallyHidden>
+              {modalTitle ? `Dialog box: ${modalTitle}` : 'Dialog box'}
+            </VisuallyHidden>
+          </Dialog.Description>
           <div className={s.body}>{children}</div>
         </Dialog.Content>
       </Dialog.Portal>
