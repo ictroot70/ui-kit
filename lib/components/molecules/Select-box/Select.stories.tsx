@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { RussiaFlag } from '../../../assets/icons'
 import UkFlag from '../../../assets/icons/components/UkFlag'
 import { Select } from './Select'

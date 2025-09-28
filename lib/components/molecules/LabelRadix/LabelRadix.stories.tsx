@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { LabelRadix } from 'components/molecules/LabelRadix/LabelRadix'
 

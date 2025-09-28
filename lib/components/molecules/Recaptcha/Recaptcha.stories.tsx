@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { RecaptchaStorybookWrapper } from 'components/molecules/Recaptcha/RecaptchaStorybookWrapper'
 

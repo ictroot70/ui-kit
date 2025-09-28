@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { ScrollAreaRadix } from 'components/atoms/ScrollAreaRadix/ScrollAreaRadix'
 
 import styles from './ScrollAreaRadix.module.scss'

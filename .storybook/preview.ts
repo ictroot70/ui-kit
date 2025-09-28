@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/react-vite'
 import '../lib/styles/index.scss'
 // TODO: is necessary change background parameters for default theme
 const preview: Preview = {
@@ -21,6 +21,8 @@ const preview: Preview = {
       },
     },
   },
+
+  tags: ['autodocs']
 }
 
 export default preview

@@ -42,6 +42,11 @@ export default defineConfig({
       assets: resolve(__dirname, 'lib/assets'),
     },
   },
+  server: {
+    fs: {
+      strict: true,
+    }
+  },
   plugins: [
     tsconfigPaths(),
     react(),

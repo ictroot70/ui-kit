@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { BellOutline, RussiaFlag, UkFlag } from '../../../assets/icons'
 import { Button, Typography } from '../../atoms'
