@@ -13,6 +13,7 @@ export type ModalProps = {
   modalTitle?: string
   width?: string | number
   height?: string | number
+  showOutsideCloseButton?: boolean
 } & ComponentPropsWithoutRef<typeof Dialog.Content>
 
 /**
@@ -52,16 +53,17 @@ export type ModalProps = {
  */
 
 export const Modal = ({
-  modalTitle,
-  onClose,
-  open,
-  children,
-  className,
-  width,
-  height,
-  style,
-  ...rest
-}: ModalProps) => {
+                        modalTitle,
+                        onClose,
+                        open,
+                        children,
+                        className,
+                        width,
+                        height,
+                        showOutsideCloseButton,
+                        style,
+                        ...rest
+                      }: ModalProps) => {
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
       onClose()
@@ -79,20 +81,25 @@ export const Modal = ({
       <Dialog.Portal>
         <Dialog.Overlay className={s.overlay} />
         <Dialog.Content className={clsx(s.content, className)} style={modalStyle} {...rest}>
-          <div className={s.header}>
-            {modalTitle && (
-              <Dialog.Title className={s.title}>
-                <Typography variant={'h1'} color={'light'}>
-                  {modalTitle}
-                </Typography>
-              </Dialog.Title>
-            )}
+          {!modalTitle && showOutsideCloseButton && (
+            <Dialog.Close asChild>
+              <button type={'button'} className={s.outsideCloseButton} aria-label={'Close'}>
+                <SvgClose svgProps={{ width: 40, height: 40 }} />
+              </button>
+            </Dialog.Close>
+          )}
+          {modalTitle && <div className={s.header}>
+            <Dialog.Title className={s.title}>
+              <Typography variant={'h1'} color={'light'}>
+                {modalTitle}
+              </Typography>
+            </Dialog.Title>
             <Dialog.Close asChild>
               <button type={'button'} className={s.iconButton} aria-label={'Close'}>
                 <SvgClose svgProps={{ width: 24, height: 24 }} />
               </button>
             </Dialog.Close>
-          </div>
+          </div>}
           <Separator />
           <div className={s.body}>{children}</div>
         </Dialog.Content>
