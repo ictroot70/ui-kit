@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import React from 'react'
 
 import { useState } from 'react'
 
@@ -17,6 +18,10 @@ const meta: Meta<typeof Modal> = {
     modalTitle: {
       control: 'text',
       description: 'Modal window title',
+    },
+    showOutsideCloseButton: {
+      control: 'boolean',
+      description: 'Show outside close button when there is no header',
     },
     className: {
       control: false,
@@ -84,6 +89,22 @@ export const Default: Story = {
   ),
   args: {
     modalTitle: 'Email sent',
+  },
+}
+
+export const WithoutHeaderOutsideClose: Story = {
+  render: args => (
+    <ModalWithState {...args}>
+      <div>
+        <Typography variant={'regular_16'} color={'light'}>
+          We have sent a link to confirm your email to <b>epam@epam.com</b>.
+        </Typography>
+      </div>
+    </ModalWithState>
+  ),
+  args: {
+    showOutsideCloseButton: true,
+    modalTitle: '',
   },
 }
 
