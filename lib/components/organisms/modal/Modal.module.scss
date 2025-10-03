@@ -20,7 +20,6 @@
 
   box-sizing: border-box;
   width: 378px;
-  height: 228px;
   border: 1px solid var(--color-dark-100);
   border-radius: 2px;
 
@@ -45,10 +44,10 @@
   padding: 0;
 
   @include typography-with-color(
-    16px,
-    var(--font-weight-bold),
-    var(--line-height-m),
-    var(--color-light-100)
+                  16px,
+                  var(--font-weight-bold),
+                  var(--line-height-m),
+                  var(--color-light-100)
   );
 }
 
@@ -56,11 +55,15 @@
   padding: 30px 24px 18px 24px;
 
   @include typography-with-color(
-    14px,
-    var(--font-weight-regular),
-    var(--line-height-m),
-    var(--color-light-100)
+                  14px,
+                  var(--font-weight-regular),
+                  var(--line-height-m),
+                  var(--color-light-100)
   );
+
+  &_withoutPadding {
+    padding: 0;
+  }
 }
 
 .iconButton {
@@ -89,6 +92,28 @@
     background-color: var(--color-dark-100);
     outline: none;
   }
+}
+
+.outsideCloseButton {
+  all: unset;
+
+  cursor: pointer;
+
+  position: absolute;
+  top: -40px;
+  right: -40px;
+
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+
+  font-family: inherit;
+  color: var(--color-light-100);
+
+  @include display-flex(inline-flex, center, center);
+
+
 }
 
 @keyframes overlayShow {

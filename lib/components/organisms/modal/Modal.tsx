@@ -1,7 +1,6 @@
 import { ComponentPropsWithoutRef, CSSProperties } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import SvgClose from 'assets/icons/components/Close'
 import { clsx } from 'clsx'
 import { Separator, Typography } from 'components/atoms'
@@ -14,6 +13,7 @@ export type ModalProps = {
   modalTitle?: string
   width?: string | number
   height?: string | number
+  showOutsideCloseButton?: boolean
 } & ComponentPropsWithoutRef<typeof Dialog.Content>
 
 /**
@@ -53,16 +53,17 @@ export type ModalProps = {
  */
 
 export const Modal = ({
-  modalTitle,
-  onClose,
-  open,
-  children,
-  className,
-  width,
-  height,
-  style,
-  ...rest
-}: ModalProps) => {
+                        modalTitle,
+                        onClose,
+                        open,
+                        children,
+                        className,
+                        showOutsideCloseButton,
+                        width,
+                        height,
+                        style,
+                        ...rest
+                      }: ModalProps) => {
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
       onClose()
@@ -79,28 +80,33 @@ export const Modal = ({
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className={s.overlay} />
-        <Dialog.Content  className={clsx(s.content, className)} style={modalStyle} {...rest}>
-          <div className={s.header}>
-            {modalTitle && (
-              <Dialog.Title className={s.title}>
-                <Typography variant={'h1'} color={'light'}>
-                  {modalTitle}
-                </Typography>
-              </Dialog.Title>
-            )}
+        <Dialog.Content className={clsx(s.content, className)} style={modalStyle}  {...rest}>
+          {!modalTitle && showOutsideCloseButton && (
             <Dialog.Close asChild>
-              <button type={'button'} className={s.iconButton} aria-label={'Close'}>
-                <SvgClose svgProps={{ width: 24, height: 24 }} />
+              <button type={'button'} className={s.outsideCloseButton} aria-label={'Close'}>
+                <SvgClose svgProps={{ width: 40, height: 40 }} />
               </button>
             </Dialog.Close>
-          </div>
-          <Separator />
-          <Dialog.Description asChild>
-            <VisuallyHidden>
-              {modalTitle ? `Dialog box: ${modalTitle}` : 'Dialog box'}
-            </VisuallyHidden>
-          </Dialog.Description>
-          <div className={s.body}>{children}</div>
+          )}
+
+          {modalTitle && (
+            <>
+              <div className={s.header}>
+                <Dialog.Title className={s.title}>
+                  <Typography variant={'h1'} color={'light'}>
+                    {modalTitle}
+                  </Typography>
+                </Dialog.Title>
+                <Dialog.Close asChild>
+                  <button type={'button'} className={s.iconButton} aria-label={'Close'}>
+                    <SvgClose svgProps={{ width: 24, height: 24 }} />
+                  </button>
+                </Dialog.Close>
+              </div>
+              <Separator />
+            </>
+          )}
+          {!modalTitle && !showOutsideCloseButton ? children : (<div className={showOutsideCloseButton ? s.body_withoutPadding : s.body}>{children}</div>)}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
