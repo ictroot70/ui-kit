@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { useState } from 'react'
@@ -18,7 +19,7 @@ const meta: Meta<typeof Modal> = {
       control: 'text',
       description: 'Modal window title',
     },
-    showOutsideCloseButton: {
+    closeBtnOutside: {
       control: 'boolean',
       description: 'Show outside close button when there is no header',
     },
@@ -112,7 +113,7 @@ export const WithoutHeaderOutsideClose: Story = {
             alignItems: 'center',
           }}
         >
-          <img width={'100%'} src="https://cbc-group.kz/images/man.png" alt="man" />
+          <img width={'100%'} src={'https://cbc-group.kz/images/man.png'} alt={'man'} />
         </div>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 24px' }}>
@@ -141,7 +142,7 @@ export const WithoutHeaderOutsideClose: Story = {
                   <strong> UserName</strong> Lorem ipsum dolor sit amet, consectetur adipiscing
                   elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </Typography>
-                <Typography variant="small_text" style={{ color: '#8D9094' }}>
+                <Typography variant={'small_text'} style={{ color: '#8D9094' }}>
                   2 minute ago
                 </Typography>
               </div>
@@ -161,7 +162,7 @@ export const WithoutHeaderOutsideClose: Story = {
                   <strong> UserName</strong> Lorem ipsum dolor sit amet, consectetur adipiscing
                   elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </Typography>
-                <Typography variant="small_text" style={{ color: '#8D9094' }}>
+                <Typography variant={'small_text'} style={{ color: '#8D9094' }}>
                   2 hours ago
                 </Typography>
               </div>
@@ -181,7 +182,7 @@ export const WithoutHeaderOutsideClose: Story = {
                   <strong> UserName</strong> Lorem ipsum dolor sit amet, consectetur adipiscing
                   elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </Typography>
-                <Typography variant="small_text" style={{ color: '#8D9094' }}>
+                <Typography variant={'small_text'} style={{ color: '#8D9094' }}>
                   2 week ago
                 </Typography>
               </div>
@@ -201,7 +202,7 @@ export const WithoutHeaderOutsideClose: Story = {
                   <strong> UserName</strong> Lorem ipsum dolor sit amet, consectetur adipiscing
                   elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </Typography>
-                <Typography variant="small_text" style={{ color: '#8D9094' }}>
+                <Typography variant={'small_text'} style={{ color: '#8D9094' }}>
                   2 day ago
                 </Typography>
               </div>
@@ -244,9 +245,9 @@ export const WithoutHeaderOutsideClose: Story = {
             </div>
             <div>
               <Typography variant={'regular_14'} color={'light'}>
-                2 243 "<strong>Like</strong>"
+                2 243 &quot;<strong>Like</strong>&quot;
               </Typography>
-              <Typography variant="small_text" style={{ color: '#8D9094' }}>
+              <Typography variant={'small_text'} style={{ color: '#8D9094' }}>
                 July 3, 2021
               </Typography>
             </div>
@@ -256,14 +257,13 @@ export const WithoutHeaderOutsideClose: Story = {
     </ModalWithState>
   ),
   args: {
-    showOutsideCloseButton: true,
-    modalTitle: '',
+    closeBtnOutside: true,
   },
 }
 
 export const WithoutHeader: Story = {
   render: args => (
-    <ModalWithState {...args} style={{ width: '503px' }}>
+    <ModalWithState {...args} style={{ width: '503px', height: '228px', paddingBottom: '50px' }}>
       <div>
         <Typography variant={'regular_16'} color={'light'}>
           We have sent a link to confirm your email to <b>epam@epam.com</b>.
@@ -291,6 +291,7 @@ const Header = () => {
       }}
     >
       <button
+        type={'button'}
         style={{
           padding: '0',
           color: isHoveredSvg ? '#397DF6' : '#d2cece',
@@ -300,8 +301,9 @@ const Header = () => {
       >
         &lt;
       </button>
-      <Typography variant="h1">Cropping</Typography>
+      <Typography variant={'h1'}>Cropping</Typography>
       <button
+        type={'button'}
         style={{
           padding: '0',
           color: isHovered ? '#d2cece' : '#397DF6',
@@ -322,11 +324,18 @@ const HoverButtons = () => {
 
   return (
     <div
-      style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'space-between', padding:'12px 14px' }}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        justifyContent: 'space-between',
+        padding: '12px 14px',
+      }}
     >
       <div>
         {buttons.map(name => (
           <button
+            type={'button'}
             key={name}
             style={{
               background: hovered === name ? '#397DF6' : 'none',
@@ -345,15 +354,17 @@ const HoverButtons = () => {
 
       <div>
         <button
+          type={'button'}
           style={{
             width: '24px',
             height: '24px',
             fontSize: hovered === 'dot' ? '33px' : '28px',
-
           }}
           onMouseEnter={() => setHovered('dot')}
           onMouseLeave={() => setHovered(null)}
-        >📷</button>
+        >
+          📷
+        </button>
       </div>
     </div>
   )
@@ -368,20 +379,46 @@ export const WithoutHeaderAndCloseBtn: Story = {
           <img
             width={490}
             height={503}
-            src="https://images.pexels.com/photos/1557652/pexels-photo-1557652.jpeg"
-            alt=""
+            src={'https://images.pexels.com/photos/1557652/pexels-photo-1557652.jpeg'}
+            alt={'image'}
+            aria-label={'image'}
+            aria-describedby={'image'}
+            loading={'lazy'}
           />
         </div>
-        <HoverButtons/>
-        <div style={{display:'flex', gap:'30px', alignItems: 'center', justifyContent: 'center'}}>
-          <div style={{border:'2px solid blue'}}><img width={50} height={50} src="https://images.pexels.com/photos/1557652/pexels-photo-1557652.jpeg" alt="" /></div>
-          <div><img width={50} height={50} src="https://images.pexels.com/photos/1557652/pexels-photo-1557652.jpeg" alt="" /></div>
-          <div><img width={50} height={50} src="https://images.pexels.com/photos/1557652/pexels-photo-1557652.jpeg" alt="" /></div>
+        <HoverButtons />
+        <div
+          style={{ display: 'flex', gap: '30px', alignItems: 'center', justifyContent: 'center' }}
+        >
+          <div style={{ border: '2px solid blue' }}>
+            <img
+              width={50}
+              height={50}
+              src={'https://images.pexels.com/photos/1557652/pexels-photo-1557652.jpeg'}
+              alt={''}
+            />
+          </div>
+          <div>
+            <img
+              width={50}
+              height={50}
+              src={'https://images.pexels.com/photos/1557652/pexels-photo-1557652.jpeg'}
+              alt={''}
+            />
+          </div>
+          <div>
+            <img
+              width={50}
+              height={50}
+              src={'https://images.pexels.com/photos/1557652/pexels-photo-1557652.jpeg'}
+              alt={''}
+            />
+          </div>
         </div>
       </div>
     </ModalWithState>
   ),
   args: {},
 }
-// Если нужна история с всегда открытым модальным окном для тестирования,
-// используйте отдельную страницу Canvas, а не Docs
+// If you need a story with an always open modal window for testing,
+// Use a separate Canvas page, not DOCS

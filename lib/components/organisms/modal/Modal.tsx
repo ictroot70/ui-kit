@@ -1,115 +1,106 @@
-import { ComponentPropsWithoutRef, CSSProperties } from 'react'
+import { ComponentPropsWithoutRef, ReactNode } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
-import SvgClose from 'assets/icons/components/Close'
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
+import Close from 'assets/icons/components/Close'
 import { clsx } from 'clsx'
 import { Separator, Typography } from 'components/atoms'
 
 import s from './Modal.module.scss'
 
-export type ModalProps = {
+type BaseProps = {
   open: boolean
   onClose: () => void
-  modalTitle?: string
-  width?: string | number
-  height?: string | number
-  showOutsideCloseButton?: boolean
+  children: ReactNode
 } & ComponentPropsWithoutRef<typeof Dialog.Content>
 
-/**
- * `Modal` is a customizable and accessible dialog component built on top of `@radix-ui/react-dialog`.
- * It provides a styled modal window with a header, title, close button, separator, and content area.
- *
- * ## Features:
- * - Accessible modal dialog with focus trapping and ARIA attributes
- * - Customizable title rendered with the `Typography` component
- * - Integrated close button with custom SVG icon
- * - Styled overlay and separator between header and content
- * - Accepts any React nodes as children for flexible modal content
- * - Customizable width and height through props
- *
- * ## Examples:
- * ```tsx
- * <Modal
- *   open={isOpen}
- *   modalTitle="Email sent"
- *   onClose={() => setOpen(false)}
- *   width="500px"
- *   height="400px"
- * >
- *   <p>Content goes here...</p>
- * </Modal>
- * ```
- *
- * @param props - Modal props
- * @param props.open - Controls whether the modal is open
- * @param props.onClose - Function to be called when the modal is dismissed
- * @param props.modalTitle - String displayed as the modal header/title
- * @param props.width - Width of the modal (CSS value as string or number in pixels)
- * @param props.height - Height of the modal (CSS value as string or number in pixels)
- * @param props.children - Content to render within the modal body
- * @param props.className - Additional class name(s) for the modal content container
- * @returns Accessible, styled modal dialog with header, close button, and custom content area
- */
+type ModalWithTitle = BaseProps & { modalTitle: string; closeBtnOutside?: never }
+type ModalWithOutsideClose = BaseProps & { modalTitle?: never; closeBtnOutside: true }
+type ModalSimple = BaseProps & { modalTitle?: never; closeBtnOutside?: never }
+
+export type ModalProps = ModalWithTitle | ModalWithOutsideClose | ModalSimple
 
 export const Modal = ({
-                        modalTitle,
-                        onClose,
-                        open,
-                        children,
-                        className,
-                        showOutsideCloseButton,
-                        width,
-                        height,
-                        style,
-                        ...rest
-                      }: ModalProps) => {
+  modalTitle,
+  onClose,
+  open,
+  children,
+  className,
+  closeBtnOutside,
+  ...rest
+}: ModalProps) => {
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
       onClose()
     }
   }
-
-  const modalStyle: CSSProperties = {
-    ...style,
-    ...(width && { width: typeof width === 'number' ? `${width}px` : width }),
-    ...(height && { height: typeof height === 'number' ? `${height}px` : height }),
-  }
+  const shouldRemovePadding = closeBtnOutside || !modalTitle
 
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className={s.overlay} />
-        <Dialog.Content className={clsx(s.content, className)} style={modalStyle}  {...rest}>
-          {!modalTitle && showOutsideCloseButton && (
+        <Dialog.Content
+          aria-describedby={undefined}
+          className={clsx(s.content, className)}
+          {...rest}
+        >
+          {modalTitle ? (
+            <Header title={modalTitle} />
+          ) : (
+            <Dialog.Title className={'visually-hidden'} hidden>
+              <VisuallyHidden>Modal</VisuallyHidden>
+            </Dialog.Title>
+          )}
+
+          {!modalTitle && closeBtnOutside && (
             <Dialog.Close asChild>
-              <button type={'button'} className={s.outsideCloseButton} aria-label={'Close'}>
-                <SvgClose svgProps={{ width: 40, height: 40 }} />
-              </button>
+              <CloseBtn className={clsx(s.outsideCloseButton, s.closeBtn)} />
             </Dialog.Close>
           )}
 
-          {modalTitle && (
-            <>
-              <div className={s.header}>
-                <Dialog.Title className={s.title}>
-                  <Typography variant={'h1'} color={'light'}>
-                    {modalTitle}
-                  </Typography>
-                </Dialog.Title>
-                <Dialog.Close asChild>
-                  <button type={'button'} className={s.iconButton} aria-label={'Close'}>
-                    <SvgClose svgProps={{ width: 24, height: 24 }} />
-                  </button>
-                </Dialog.Close>
-              </div>
-              <Separator />
-            </>
-          )}
-          {!modalTitle && !showOutsideCloseButton ? children : (<div className={showOutsideCloseButton ? s.body_withoutPadding : s.body}>{children}</div>)}
+          <div className={clsx(s.body, shouldRemovePadding && s['body--withoutPadding'])}>
+            {children}
+          </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
   )
 }
+
 Modal.displayName = 'Modal'
+
+const Header = ({ title }: { title: string }) => {
+  return (
+    <>
+      <div className={s.header}>
+        <Dialog.Title className={s.title}>
+          <Typography variant={'h1'} color={'light'}>
+            {title}
+          </Typography>
+        </Dialog.Title>
+        <Dialog.Close asChild>
+          <CloseBtn className={s.iconButton} />
+        </Dialog.Close>
+      </div>
+      <Separator />
+    </>
+  )
+}
+
+type CloseBtnProps = ComponentPropsWithoutRef<'button'>
+const CloseBtn = (props: CloseBtnProps) => {
+  const { onClick, className, ...rest } = props
+
+  return (
+    <button
+      onClick={onClick}
+      type={'button'}
+      className={clsx(className)}
+      aria-label={'Close'}
+      {...rest}
+    >
+      <Close svgProps={{ width: 24, height: 24 }} />
+    </button>
+  )
+}

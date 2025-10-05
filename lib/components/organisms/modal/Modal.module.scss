@@ -17,13 +17,17 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
+  max-width: 90vw;
+  max-height: 90vh;
   box-sizing: border-box;
-  width: 378px;
   border: 1px solid var(--color-dark-100);
   border-radius: 2px;
 
   background-color: var(--color-dark-300);
+  overflow: visible;
+
+  display: flex;
+  flex-direction: column;
 
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -42,26 +46,45 @@
 .title {
   margin: 0;
   padding: 0;
-
   @include typography-with-color(
-                  16px,
-                  var(--font-weight-bold),
-                  var(--line-height-m),
-                  var(--color-light-100)
+    16px,
+    var(--font-weight-bold),
+    var(--line-height-m),
+    var(--color-light-100)
   );
 }
 
-.body {
-  padding: 30px 24px 18px 24px;
+.closeBtn {
+  svg {
+    outline: none;
+  }
 
+  transition: fill 0.2s ease;
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    color: var(--color-primary-500);
+  }
+
+  &:hover {
+    color: var(--color-light-900);
+  }
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+  padding: 24px 24px 36px;
+  overflow: hidden;
   @include typography-with-color(
-                  14px,
-                  var(--font-weight-regular),
-                  var(--line-height-m),
-                  var(--color-light-100)
+    14px,
+    var(--font-weight-regular),
+    var(--line-height-m),
+    var(--color-light-100)
   );
 
-  &_withoutPadding {
+  &--withoutPadding {
     padding: 0;
   }
 }
@@ -107,13 +130,10 @@
   width: 24px;
   height: 24px;
   border-radius: 100%;
-
   font-family: inherit;
   color: var(--color-light-100);
 
   @include display-flex(inline-flex, center, center);
-
-
 }
 
 @keyframes overlayShow {

@@ -51,9 +51,10 @@ export const WithIconLeft: Story = {
 export const WithIconRight: Story = {
   args: {
     children: (
-        <>
-          Button with Icon<Person />
-        </>
+      <>
+        Button with Icon
+        <Person />
+      </>
     ),
     iconPosition: 'left',
   },
@@ -110,7 +111,11 @@ export const AsLink: Story = {
 export const AsLinkWithSlot: Story = {
   args: {
     asChild: true,
-    children: <a href="#" target="_blank" rel="noopener noreferrer">Link Button (using asChild)</a>,
+    children: (
+      <a href={'#'} target={'_blank'} rel={'noopener noreferrer'}>
+        Link Button (using asChild)
+      </a>
+    ),
     variant: 'outlined',
   },
 }
@@ -119,7 +124,11 @@ export const AsLinkWithSlot: Story = {
 export const AsCustomElement: Story = {
   args: {
     asChild: true,
-    children: <div role="button" tabIndex={0}>Custom Element Button</div>,
+    children: (
+      <div role={'button'} tabIndex={0}>
+        Custom Element Button
+      </div>
+    ),
     variant: 'secondary',
   },
 }
