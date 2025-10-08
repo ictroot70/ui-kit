@@ -1,6 +1,8 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
+
 import { Slot } from '@radix-ui/react-slot'
 import { clsx } from 'clsx'
+
 import s from 'components/atoms/Button/Button.module.scss'
 
 export type Variant = 'primary' | 'outlined' | 'secondary' | 'text'
@@ -38,16 +40,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
  */
 
 export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
-  const {
-    as,
-    asChild,
-    className,
-    fullWidth,
-    nowrap = false,
-    variant = 'primary',
-    ...rest
-  } = props
-
+  const { as, asChild, className, fullWidth, nowrap = false, variant = 'primary', ...rest } = props
 
   const buttonClasses = clsx(
     s[variant],
@@ -57,9 +50,9 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
     s.button
   )
 
-  const Component = asChild ? Slot : (as ?? 'button') as ElementType;
+  const Component = asChild ? Slot : ((as ?? 'button') as ElementType)
 
-  return <Component className={buttonClasses} {... rest} />
+  return <Component className={buttonClasses} {...rest} />
 }
 
 Button.displayName = 'Button'

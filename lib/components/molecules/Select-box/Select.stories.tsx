@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { RussiaFlag } from '../../../assets/icons'
 import UkFlag from '../../../assets/icons/components/UkFlag'
 import { Select } from './Select'
