@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import './Select.module.scss'
-
 import { RussiaFlag } from '../../../assets/icons'
 import UkFlag from '../../../assets/icons/components/UkFlag'
 import { Select } from './Select'
@@ -69,14 +67,19 @@ export const SelectDisabled: Story = {
 }
 
 export const SelectWithFlag: Story = {
-  args: {
-    label: 'Выберите язык',
-    defaultValue: 'ru',
-    items: [
-      { value: 'ru', label: 'Русский', icon: <RussiaFlag /> },
-      { value: 'en', label: 'Английский', icon: <UkFlag /> },
-    ],
-    disabled: false,
+  render: () => {
+    return (
+      <div style={{ minWidth: '210px' }}>
+        <Select
+          label={'Выберите язык'}
+          defaultValue={'ru'}
+          items={[
+            { value: 'ru', label: 'Русский', icon: <RussiaFlag /> },
+            { value: 'en', label: 'Английский', icon: <UkFlag /> },
+          ]}
+        ></Select>
+      </div>
+    )
   },
 }
 
