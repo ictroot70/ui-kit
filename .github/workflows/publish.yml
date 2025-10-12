@@ -2,17 +2,22 @@ name: Publish to NPM
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 20 ]
+        node-version: [20]
     steps:
-      - uses: actions/checkout@v4
+      - name: 🧾 Checkout repository
+        uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
         with:
@@ -23,21 +28,39 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
 
-      - name: Install dependencies
+      - name: 🔄 Update npm (for Trusted Publishing)
+        run: npm install -g npm@latest  # Important for OIDC!
+
+      - name: 📦 Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Build lib
+      - name: 🧱 Build package
         run: pnpm run build
 
-      # Add a step to launch our script
+      - name: 🧪 Run tests
+        run: pnpm nps test
+
       - name: Run commit message script
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           npm run commit
 
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_PUBLISH_TOKEN }}
-          access: 'public'
+      - name: 🚀 Publish to NPM
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if [[ "$VERSION" == *"beta"* ]]; then
+            echo "Publishing as BETA ($VERSION)"
+            npm publish --tag beta --access public
+          elif [[ "$VERSION" == *"alpha"* ]]; then
+            echo "Publishing as ALPHA ($VERSION)"
+            npm publish --tag alpha --access public
+          elif [[ "$VERSION" == *"rc"* ]]; then
+            echo "Publishing as RC ($VERSION)"
+            npm publish --tag rc --access public
+          else
+            echo "Publishing as STABLE ($VERSION)"
+            npm publish --access public
+          fi
