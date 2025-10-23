@@ -54,8 +54,8 @@ export const Modal = ({
           )}
 
           {!modalTitle && closeBtnOutside && (
-            <Dialog.Close asChild>
-              <CloseBtn className={clsx(s.outsideCloseButton, s.closeBtn)} />
+            <Dialog.Close className={clsx(s.outsideCloseButton, s.closeBtn)}>
+              <Close svgProps={{ width: 24, height: 24 }} />
             </Dialog.Close>
           )}
 
@@ -79,8 +79,8 @@ const Header = ({ title }: { title: string }) => {
             {title}
           </Typography>
         </Dialog.Title>
-        <Dialog.Close asChild>
-          <CloseBtn className={s.iconButton} />
+        <Dialog.Close aria-label={'Close'} className={s.iconButton}>
+          <Close svgProps={{ width: 24, height: 24 }} />
         </Dialog.Close>
       </div>
       <Separator />
@@ -88,19 +88,3 @@ const Header = ({ title }: { title: string }) => {
   )
 }
 
-type CloseBtnProps = ComponentPropsWithoutRef<'button'>
-const CloseBtn = (props: CloseBtnProps) => {
-  const { onClick, className, ...rest } = props
-
-  return (
-    <button
-      onClick={onClick}
-      type={'button'}
-      className={clsx(className)}
-      aria-label={'Close'}
-      {...rest}
-    >
-      <Close svgProps={{ width: 24, height: 24 }} />
-    </button>
-  )
-}
