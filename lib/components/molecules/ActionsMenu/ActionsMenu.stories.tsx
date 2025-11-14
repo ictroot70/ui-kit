@@ -140,3 +140,100 @@ export const DifferentPositions: Story = {
     </div>
   ),
 }
+
+export const WithArrow: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '40px' }}>
+      <ActionsMenu
+        items={[
+          { label: 'Top Side', onClick: () => console.log('top side') },
+          { label: 'With Arrow', onClick: () => console.log('with arrow') },
+        ]}
+        side="top"
+        showArrow={true}
+      />
+      <ActionsMenu
+        items={[
+          { label: 'Bottom Side', onClick: () => console.log('bottom side') },
+          { label: 'With Arrow', onClick: () => console.log('with arrow') },
+        ]}
+        side="bottom"
+        showArrow={true}
+      />
+      <ActionsMenu
+        items={[
+          { label: 'Right Side', onClick: () => console.log('right side') },
+          { label: 'With Arrow', onClick: () => console.log('with arrow') },
+        ]}
+        side="right"
+        showArrow={true}
+      />
+      <ActionsMenu
+        items={[
+          { label: 'Left Side', onClick: () => console.log('left side') },
+          { label: 'With Arrow', onClick: () => console.log('with arrow') },
+        ]}
+        side="left"
+        showArrow={true}
+      />
+    </div>
+  ),
+}
+
+export const WithCustomArrow: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '40px' }}>
+      <ActionsMenu
+        items={[
+          { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
+          { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
+        ]}
+        showArrow={true}
+        arrow={
+          <svg width="16" height="8" viewBox="0 0 16 8" fill="none">
+            <path d="M8 8L0 0L16 0L8 8Z" fill="#4c4c4c" />
+          </svg>
+        }
+      />
+      <ActionsMenu
+        items={[
+          { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
+          { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
+        ]}
+        showArrow={true}
+        side="top"
+        arrow={
+          <svg width="16" height="8" viewBox="0 0 16 8" fill="none">
+            <path d="M8 8L0 0L16 0L8 8Z" fill="#4c4c4c" />
+          </svg>
+        }
+      />
+      <ActionsMenu
+        items={[
+          { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
+          { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
+        ]}
+        showArrow={true}
+        side="left"
+        arrow={
+          <svg width="16" height="8" viewBox="0 0 16 8" fill="none">
+            <path d="M8 8L0 0L16 0L8 8Z" fill="#4c4c4c" />
+          </svg>
+        }
+      />
+      <ActionsMenu
+        items={[
+          { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
+          { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
+        ]}
+        showArrow={true}
+        side="right"
+        arrow={
+          <svg width="16" height="8" viewBox="0 0 16 8" fill="none">
+            <path d="M8 8L0 0L16 0L8 8Z" fill="#4c4c4c" />
+          </svg>
+        }
+      />
+    </div>
+  ),
+}

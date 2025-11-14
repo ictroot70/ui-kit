@@ -4,20 +4,23 @@ import s from './ActionsMenu.module.scss'
 import { MoreHorizontal } from 'assets/icons'
 import { Typography } from 'components/atoms'
 
-interface ActionItem {
+export interface ActionItem {
   label: string
   icon?: React.ReactNode
   onClick?: () => void
   disabled?: boolean
 }
 
-type Props = {
+export type ActionMenuProps = {
   items: ActionItem[]
   align?: 'start' | 'end' | 'center'
   side?: 'top' | 'right' | 'bottom' | 'left'
   trigger?: React.ReactNode
+  showArrow?: boolean
+  arrow?: React.ReactNode
   className?: string
   contentClassName?: string
+  arrowClassName?: string
 }
 
 /**
@@ -32,6 +35,8 @@ type Props = {
  * - Disabled state for individual menu items
  * - Fully accessible (keyboard navigation, ARIA attributes)
  * - Portal rendering for proper z-index management
+ * - Optional arrow indicator for better visual connection to trigger
+ * - Customizable arrow with support for custom components or styling
  *
  * ## Examples:
  * ```tsx
@@ -42,7 +47,8 @@ type Props = {
  *     { label: 'Share', icon: <ShareIcon />, onClick: () => console.log('Share clicked') }
  *   ]}
  *   align="start"
- *   side="right"
+ *   side="top"
+ *   showArrow={true}
  * />
  * ```
  *
@@ -51,6 +57,9 @@ type Props = {
  * - `align` - Alignment of the menu relative to the trigger (`'start' | 'end' | 'center'`, defaults to `'end'`)
  * - `side` - Side of the trigger where the menu appears (`'top' | 'right' | 'bottom' | 'left'`, defaults to `'bottom'`)
  * - `trigger` - Custom trigger element (if not provided, uses default MoreHorizontal icon)
+ * - `showArrow` - Whether to show the arrow pointing to the trigger (`boolean`, defaults to `false`)
+ * - `arrow` - Custom arrow component to replace the default arrow (`React.ReactNode`)
+ * - `arrowClassName` - Additional class name(s) for the arrow element (`string`)
  * - `className` - Additional class name(s) for the trigger element
  * - `contentClassName` - Additional class name(s) for the menu content
  *
@@ -58,14 +67,17 @@ type Props = {
  * - Fully styled and accessible dropdown menu with customizable actions and positioning
  */
 
-const ActionsMenu = ({
+export const ActionsMenu = ({
   items,
   align = 'end',
   side = 'bottom',
   trigger,
+  arrow,
+  showArrow = false,
   className,
   contentClassName,
-}: Props) => {
+  arrowClassName,
+}: ActionMenuProps) => {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
@@ -96,10 +108,27 @@ const ActionsMenu = ({
               </DropdownMenu.Item>
             )
           })}
+          {showArrow &&
+            (arrow ? (
+              <DropdownMenu.Arrow asChild className={arrowClassName}>
+                {arrow}
+              </DropdownMenu.Arrow>
+            ) : (
+              <DropdownMenu.Arrow asChild className={arrowClassName}>
+                <svg
+                  width="17"
+                  height="10"
+                  viewBox="0 0 17 10"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M17 1L8.5 1H0L8.5 9.5L17 1Z" fill="#4C4C4C" />
+                  <path d="M16.5 1.43051e-06L0.5 0L8.5 8L16.5 1.43051e-06Z" fill="#171717" />
+                </svg>
+              </DropdownMenu.Arrow>
+            ))}
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
   )
 }
-
-export { ActionsMenu, type ActionItem }
