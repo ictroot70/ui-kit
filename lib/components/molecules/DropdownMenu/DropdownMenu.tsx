@@ -1,18 +1,18 @@
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import * as RadixDropdown from '@radix-ui/react-dropdown-menu'
 
-import s from './ActionsMenu.module.scss'
+import s from './DropdownMenu.module.scss'
 import { MoreHorizontal } from 'assets/icons'
 import { Typography } from 'components/atoms'
 
-export interface ActionItem {
+export interface DropdownItem {
   label: string
   icon?: React.ReactNode
   onClick?: () => void
   disabled?: boolean
 }
 
-export type ActionMenuProps = {
-  items: ActionItem[]
+export type DropdownMenuProps = {
+  items: DropdownItem[]
   align?: 'start' | 'end' | 'center'
   side?: 'top' | 'right' | 'bottom' | 'left'
   trigger?: React.ReactNode
@@ -24,7 +24,7 @@ export type ActionMenuProps = {
 }
 
 /**
- * `ActionsMenu` is a customizable and accessible dropdown menu component built with `@radix-ui/react-dropdown-menu`.
+ * `DropdownMenu` is a customizable and accessible dropdown menu component built with `@radix-ui/react-dropdown-menu`.
  * It provides a contextual menu with actions that can be triggered by the user, typically represented by a "more" icon (kebab menu).
  * This component wraps Radix's primitive with additional features like custom styling, flexible positioning, and support for icons.
  *
@@ -40,7 +40,7 @@ export type ActionMenuProps = {
  *
  * ## Examples:
  * ```tsx
- * <ActionsMenu
+ * <DropdownMenu
  *   items={[
  *     { label: 'Edit', icon: <EditIcon />, onClick: () => console.log('Edit clicked') },
  *     { label: 'Delete', icon: <DeleteIcon />, onClick: () => console.log('Delete clicked'), disabled: true },
@@ -53,7 +53,7 @@ export type ActionMenuProps = {
  * ```
  *
  * ### Props
- * - `items` - An array of action items to display in the menu (`{ label: string, icon?: React.ReactNode, onClick?: () => void, disabled?: boolean }`)
+ * - `items` - An array of dropdown items to display in the menu (`{ label: string, icon?: React.ReactNode, onClick?: () => void, disabled?: boolean }`)
  * - `align` - Alignment of the menu relative to the trigger (`'start' | 'end' | 'center'`, defaults to `'end'`)
  * - `side` - Side of the trigger where the menu appears (`'top' | 'right' | 'bottom' | 'left'`, defaults to `'bottom'`)
  * - `trigger` - Custom trigger element (if not provided, uses default MoreHorizontal icon)
@@ -64,10 +64,10 @@ export type ActionMenuProps = {
  * - `contentClassName` - Additional class name(s) for the menu content
  *
  * ### Returns
- * - Fully styled and accessible dropdown menu with customizable actions and positioning
+ * - Fully styled and accessible dropdown menu component with customizable items and positioning
  */
 
-export const ActionsMenu = ({
+export const DropdownMenu = ({
   items,
   align = 'end',
   side = 'bottom',
@@ -77,19 +77,19 @@ export const ActionsMenu = ({
   className,
   contentClassName,
   arrowClassName,
-}: ActionMenuProps) => {
+}: DropdownMenuProps) => {
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
+    <RadixDropdown.Root>
+      <RadixDropdown.Trigger asChild>
         {trigger || (
           <button className={`${s.trigger} ${className || ''}`} aria-label="Open menu">
             <MoreHorizontal />
           </button>
         )}
-      </DropdownMenu.Trigger>
+      </RadixDropdown.Trigger>
 
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
+      <RadixDropdown.Portal>
+        <RadixDropdown.Content
           className={`${s.menu} ${contentClassName || ''}`}
           align={align}
           side={side}
@@ -97,7 +97,7 @@ export const ActionsMenu = ({
         >
           {items.map(({ icon, label, disabled, onClick }, index) => {
             return (
-              <DropdownMenu.Item
+              <RadixDropdown.Item
                 className={s.item}
                 key={index}
                 disabled={disabled}
@@ -105,16 +105,16 @@ export const ActionsMenu = ({
               >
                 {icon}
                 <Typography variant="regular_14">{label}</Typography>
-              </DropdownMenu.Item>
+              </RadixDropdown.Item>
             )
           })}
           {showArrow &&
             (arrow ? (
-              <DropdownMenu.Arrow asChild className={arrowClassName}>
+              <RadixDropdown.Arrow asChild className={arrowClassName}>
                 {arrow}
-              </DropdownMenu.Arrow>
+              </RadixDropdown.Arrow>
             ) : (
-              <DropdownMenu.Arrow asChild className={arrowClassName}>
+              <RadixDropdown.Arrow asChild className={arrowClassName}>
                 <svg
                   width="17"
                   height="10"
@@ -125,10 +125,10 @@ export const ActionsMenu = ({
                   <path d="M17 1L8.5 1H0L8.5 9.5L17 1Z" fill="#4C4C4C" />
                   <path d="M16.5 1.43051e-06L0.5 0L8.5 8L16.5 1.43051e-06Z" fill="#171717" />
                 </svg>
-              </DropdownMenu.Arrow>
+              </RadixDropdown.Arrow>
             ))}
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+        </RadixDropdown.Content>
+      </RadixDropdown.Portal>
+    </RadixDropdown.Root>
   )
 }

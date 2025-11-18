@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { ActionsMenu } from './ActionsMenu'
+import { DropdownMenu } from './DropdownMenu'
 
 import {
   BlockFull,
@@ -10,16 +10,16 @@ import {
   TrashOutline,
 } from '../../../assets/icons'
 
-const meta: Meta<typeof ActionsMenu> = {
-  title: 'Components/ActionsMenu',
-  component: ActionsMenu,
+const meta: Meta<typeof DropdownMenu> = {
+  title: 'Components/DropdownMenu',
+  component: DropdownMenu,
   parameters: {
     layout: 'centered',
   },
 }
 
 export default meta
-type Story = StoryObj<typeof ActionsMenu>
+type Story = StoryObj<typeof DropdownMenu>
 
 export const Default: Story = {
   args: {
@@ -85,7 +85,7 @@ export const DifferentPositions: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '40px', flexDirection: 'column', alignItems: 'center' }}>
       <div style={{ display: 'flex', gap: '40px' }}>
-        <ActionsMenu
+        <DropdownMenu
           items={[
             { label: 'Top Start', onClick: () => console.log('top start') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
@@ -93,7 +93,7 @@ export const DifferentPositions: Story = {
           side="top"
           align="start"
         />
-        <ActionsMenu
+        <DropdownMenu
           items={[
             { label: 'Top Center', onClick: () => console.log('top center') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
@@ -101,7 +101,7 @@ export const DifferentPositions: Story = {
           side="top"
           align="center"
         />
-        <ActionsMenu
+        <DropdownMenu
           items={[
             { label: 'Top End', onClick: () => console.log('top end') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
@@ -112,7 +112,7 @@ export const DifferentPositions: Story = {
       </div>
 
       <div style={{ display: 'flex', gap: '40px' }}>
-        <ActionsMenu
+        <DropdownMenu
           items={[
             { label: 'Bottom Start', onClick: () => console.log('bottom start') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
@@ -120,7 +120,7 @@ export const DifferentPositions: Story = {
           side="bottom"
           align="start"
         />
-        <ActionsMenu
+        <DropdownMenu
           items={[
             { label: 'Bottom Center', onClick: () => console.log('bottom center') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
@@ -128,7 +128,7 @@ export const DifferentPositions: Story = {
           side="bottom"
           align="center"
         />
-        <ActionsMenu
+        <DropdownMenu
           items={[
             { label: 'Bottom End', onClick: () => console.log('bottom end') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
@@ -144,7 +144,7 @@ export const DifferentPositions: Story = {
 export const WithArrow: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '40px' }}>
-      <ActionsMenu
+      <DropdownMenu
         items={[
           { label: 'Top Side', onClick: () => console.log('top side') },
           { label: 'With Arrow', onClick: () => console.log('with arrow') },
@@ -152,7 +152,7 @@ export const WithArrow: Story = {
         side="top"
         showArrow={true}
       />
-      <ActionsMenu
+      <DropdownMenu
         items={[
           { label: 'Bottom Side', onClick: () => console.log('bottom side') },
           { label: 'With Arrow', onClick: () => console.log('with arrow') },
@@ -160,7 +160,7 @@ export const WithArrow: Story = {
         side="bottom"
         showArrow={true}
       />
-      <ActionsMenu
+      <DropdownMenu
         items={[
           { label: 'Right Side', onClick: () => console.log('right side') },
           { label: 'With Arrow', onClick: () => console.log('with arrow') },
@@ -168,7 +168,7 @@ export const WithArrow: Story = {
         side="right"
         showArrow={true}
       />
-      <ActionsMenu
+      <DropdownMenu
         items={[
           { label: 'Left Side', onClick: () => console.log('left side') },
           { label: 'With Arrow', onClick: () => console.log('with arrow') },
@@ -183,7 +183,7 @@ export const WithArrow: Story = {
 export const WithCustomArrow: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '40px' }}>
-      <ActionsMenu
+      <DropdownMenu
         items={[
           { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
           { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
@@ -195,7 +195,7 @@ export const WithCustomArrow: Story = {
           </svg>
         }
       />
-      <ActionsMenu
+      <DropdownMenu
         items={[
           { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
           { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
@@ -208,7 +208,7 @@ export const WithCustomArrow: Story = {
           </svg>
         }
       />
-      <ActionsMenu
+      <DropdownMenu
         items={[
           { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
           { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
@@ -221,7 +221,7 @@ export const WithCustomArrow: Story = {
           </svg>
         }
       />
-      <ActionsMenu
+      <DropdownMenu
         items={[
           { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
           { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
