@@ -13,7 +13,7 @@ export const getSingleModifiers = (today: Date): Modifiers => ({
   today,
   weekend: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
   hover: (_: Date) => true,
-  outside: (date: Date) => date.getMonth() !== today.getMonth(),
+  /*  outside: (date: Date) => date.getMonth() !== today.getMonth(), */
 })
 
 /**

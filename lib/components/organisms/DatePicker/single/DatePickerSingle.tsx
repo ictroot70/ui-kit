@@ -119,7 +119,7 @@ export const DatePickerSingle = ({
       <div className={s.wrapperCalendar}>
         <DayPicker
           animate
-          showOutsideDays
+          showOutsideDays={false}
           weekStartsOn={1}
           mode={'single'}
           selected={selectedDate}

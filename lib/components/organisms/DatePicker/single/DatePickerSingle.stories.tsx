@@ -43,3 +43,13 @@ export const Disabled: Story = {
     defaultDate: new Date(),
   },
 }
+
+export const WithYearAndMonthDropdowns: Story = {
+  args: {
+    calendarProps: {
+      captionLayout: 'dropdown',
+      fromYear: 1950,
+      toYear: 2026,
+    },
+  },
+}
