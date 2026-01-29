@@ -99,8 +99,8 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
           </PopoverContent>
         )}
       </Popover>
-      {hint && !error && <div className={s.hint}>{hint}</div>}
-      {error && (
+      {hint && !error && !isOpen && <div className={s.hint}>{hint}</div>}
+      {error && !isOpen && (
         <ErrorMessage message={error} className={s.errorMessage} variant={'danger_small'} />
       )}
     </div>
