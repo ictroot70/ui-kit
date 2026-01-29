@@ -1,6 +1,4 @@
-import React from 'react'
-
-import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
+import { Popover, PopoverContent, PopoverPortal, PopoverTrigger } from '@radix-ui/react-popover'
 import { Calendar, CalendarOutline } from 'assets/icons'
 import { clsx } from 'clsx'
 import { ErrorMessage } from 'components/atoms'
@@ -20,8 +18,6 @@ interface DatePickerWrapperProps {
   popoverContentId: string
   isOpen: boolean
   setIsOpen: (open: boolean) => void
-  isFocused: boolean
-  setIsFocused: (focused: boolean) => void
   handleKeyDown: (event: React.KeyboardEvent) => void
   displayText: string
   children: React.ReactNode
@@ -42,21 +38,14 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
   popoverContentId,
   isOpen,
   setIsOpen,
-  isFocused,
-  setIsFocused,
   handleKeyDown,
   displayText,
   children,
 }) => (
   <div className={clsx(s.container, className)}>
-    <div className={clsx(s.datePickerWrapper, { [s.open]: isOpen })}>
+    <div className={s.datePickerWrapper}>
       {label && (
-        <LabelRadix
-          htmlFor={buttonId}
-          required={required}
-          className={clsx(s.label, error && s.labelError)}
-          disabled={disabled}
-        >
+        <LabelRadix htmlFor={buttonId} required={required} className={s.label} disabled={disabled}>
           {label}
         </LabelRadix>
       )}
@@ -66,16 +55,8 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
             type={'button'}
             id={buttonId}
             tabIndex={disabled ? -1 : 0}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
             onKeyDown={handleKeyDown}
-            className={clsx(
-              s.datePicker,
-              disabled && s.disabled,
-              error && s.error,
-              isFocused && s.focused,
-              inputClassName
-            )}
+            className={clsx(s.datePicker, disabled && s.disabled, error && s.error, inputClassName)}
             aria-disabled={disabled}
             role={'button'}
             aria-haspopup={'dialog'}
@@ -83,26 +64,26 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
             aria-controls={popoverContentId}
             aria-label={label}
           >
-            <div className={s.dateText}>{displayText}</div>
+            <div>{displayText}</div>
             {isOpen ? <Calendar /> : <CalendarOutline />}
           </button>
         </PopoverTrigger>
         {!disabled && (
-          <PopoverContent
-            className={s.popoverContent}
-            side={'bottom'}
-            align={'start'}
-            avoidCollisions
-            id={popoverContentId}
-          >
-            {children}
-          </PopoverContent>
+          <PopoverPortal>
+            <PopoverContent
+              className={s.popoverContent}
+              side={'bottom'}
+              align={'start'}
+              avoidCollisions
+              id={popoverContentId}
+            >
+              {children}
+            </PopoverContent>
+          </PopoverPortal>
         )}
       </Popover>
       {hint && !error && !isOpen && <div className={s.hint}>{hint}</div>}
-      {error && !isOpen && (
-        <ErrorMessage message={error} className={s.errorMessage} variant={'danger_small'} />
-      )}
+      {error && !isOpen && <ErrorMessage message={error} variant={'danger_small'} />}
     </div>
   </div>
 )

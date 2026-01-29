@@ -35,7 +35,7 @@ export const DatePickerBase = ({
   const buttonId = useStableId('date-picker-trigger')
   const popoverContentId = useStableId('date-picker-popover')
 
-  const { isFocused, setIsFocused, isOpen, setIsOpen, handleKeyDown } =
+  const { isOpen, setIsOpen, handleKeyDown } =
     useDatePickerBehavior(disabled)
 
   return (
@@ -51,8 +51,6 @@ export const DatePickerBase = ({
       popoverContentId={popoverContentId}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
-      isFocused={isFocused}
-      setIsFocused={setIsFocused}
       handleKeyDown={handleKeyDown}
       displayText={displayText}
       {...restProps}
