@@ -6,7 +6,7 @@ import { clsx } from 'clsx'
 import { ErrorMessage } from 'components/atoms'
 import { LabelRadix } from 'components/molecules'
 
-import s from 'components/organisms/DatePicker/DatePicker.module.scss'
+import s from '../styles/DatePicker.module.scss'
 
 interface DatePickerWrapperProps {
   label?: string
@@ -55,7 +55,6 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
           htmlFor={buttonId}
           required={required}
           className={clsx(s.label, error && s.labelError)}
-          style={{ color: 'var(--color-light-900)' }}
           disabled={disabled}
         >
           {label}

@@ -1,20 +1,19 @@
+import 'react-day-picker/style.css'
+import s from '../styles/DatePicker.module.scss'
+
 import { HTMLAttributes, ReactElement, useState } from 'react'
 import { DayPicker, type DayPickerProps } from 'react-day-picker'
 
+import { dayPickerClassNames, modifiersClassNames } from '../helpers'
+
 import {
-  dayPickerClassNames,
-  modifiersClassNames,
-} from 'components/organisms/DatePicker/single/helpers/DatePickerModifiers'
-import { useFormattedDate } from 'components/organisms/DatePicker/single/hooks/useFormattedDate'
+  useFormattedDate,
+  useDatePickerBehavior,
+  useDatePickerModifiers,
+  useStableId,
+} from '../hooks'
 
-import 'react-day-picker/style.css'
-
-import s from 'components/organisms/DatePicker/DatePicker.module.scss'
-
-import { DatePickerWrapper } from '../shared/DatePickerWrapper'
-import { useDatePickerBehavior } from '../shared/useDatePickerBehavior'
-import { useDatePickerModifiers } from './helpers/useDatePickerModifiers'
-import { useStableId } from './hooks/useStableld'
+import { DatePickerWrapper } from './DatePickerWrapper'
 
 export type DatePickerSingleProps = {
   value?: Date

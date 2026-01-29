@@ -1,6 +1,6 @@
 import { Matcher } from 'react-day-picker'
 
-import s from '../../DatePicker.module.scss'
+import s from '../styles/DatePicker.module.scss'
 
 export type Modifiers = Record<string, Matcher | Matcher[] | undefined>
 

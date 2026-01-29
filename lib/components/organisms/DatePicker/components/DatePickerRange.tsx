@@ -1,20 +1,18 @@
 import { HTMLAttributes, ReactElement, useState } from 'react'
 import { type DateRange, DayPicker, type DayPickerProps } from 'react-day-picker'
 
-import {
-  dayPickerClassNamesForRange,
-  modifiersClassNamesForRange,
-} from 'components/organisms/DatePicker/range/helpers/DatePickerModifiersForRange'
-import { useDatePickerModifiersForRange } from 'components/organisms/DatePicker/range/hooks/useDatePickerModifiersForRange'
-import { useFormattedRange } from 'components/organisms/DatePicker/range/hooks/useFormattedRange'
-import { useStableIdForRange } from 'components/organisms/DatePicker/range/hooks/useStableIdForRange'
-
 import 'react-day-picker/style.css'
+import s from '../styles/DatePicker.module.scss'
 
-import s from 'components/organisms/DatePicker/DatePicker.module.scss'
+import { dayPickerClassNamesForRange, modifiersClassNamesForRange } from '../helpers'
+import {
+  useDatePickerModifiersForRange,
+  useDatePickerBehavior,
+  useFormattedRange,
+  useStableId,
+} from '../hooks'
 
-import { DatePickerWrapper } from '../shared/DatePickerWrapper'
-import { useDatePickerBehavior } from '../shared/useDatePickerBehavior'
+import { DatePickerWrapper } from './DatePickerWrapper'
 
 export type DatePickerRangeProps = {
   value?: DateRange
@@ -85,8 +83,8 @@ export const DatePickerRange = ({
     defaultDate || { from: undefined, to: undefined }
   )
   const selectedDates = isControlled ? value : internalDates
-  const buttonId = useStableIdForRange('date-picker-trigger')
-  const popoverContentId = useStableIdForRange('date-picker-popover')
+  const buttonId = useStableId('date-picker-trigger')
+  const popoverContentId = useStableId('date-picker-popover')
   const displayText = useFormattedRange(selectedDates, placeholder)
   const modifiers = useDatePickerModifiersForRange(selectedDates)
 
