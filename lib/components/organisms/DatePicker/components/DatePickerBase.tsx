@@ -1,6 +1,6 @@
 import 'react-day-picker/style.css'
 
-import { HTMLAttributes, ReactElement } from 'react'
+import { HTMLAttributes, ReactElement, ReactNode } from 'react'
 
 import { useDatePickerBehavior, useStableId } from '../hooks'
 
@@ -13,7 +13,7 @@ export type DatePickerBaseProps = {
   required?: boolean
   className?: string
   inputClassName?: string
-  error?: string
+  error?: string | ReactNode
   hint?: string
   displayText: string
   children: React.ReactNode
@@ -35,8 +35,7 @@ export const DatePickerBase = ({
   const buttonId = useStableId('date-picker-trigger')
   const popoverContentId = useStableId('date-picker-popover')
 
-  const { isOpen, setIsOpen, handleKeyDown } =
-    useDatePickerBehavior(disabled)
+  const { isOpen, setIsOpen, handleKeyDown } = useDatePickerBehavior(disabled)
 
   return (
     <DatePickerWrapper

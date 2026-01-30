@@ -1,7 +1,7 @@
 import 'react-day-picker/style.css'
 import s from '../styles/DatePicker.module.scss'
 
-import { HTMLAttributes, ReactElement, useState } from 'react'
+import { HTMLAttributes, ReactElement, ReactNode, useState } from 'react'
 import { DayPicker, type DayPickerProps } from 'react-day-picker'
 
 import { dayPickerClassNames, modifiersClassNames } from '../helpers'
@@ -19,7 +19,7 @@ export type DatePickerSingleProps = {
   required?: boolean
   className?: string
   inputClassName?: string
-  error?: string
+  error?: string | ReactNode
   hint?: string
   calendarProps?: Omit<DayPickerProps, 'mode' | 'selected' | 'onSelect'>
 } & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>
@@ -68,7 +68,6 @@ export const DatePickerSingle = ({
       <div className={s.wrapperCalendar}>
         <DayPicker
           animate
-          showOutsideDays={false}
           weekStartsOn={1}
           mode={'single'}
           selected={selectedDate}
@@ -84,4 +83,3 @@ export const DatePickerSingle = ({
 }
 
 DatePickerSingle.displayName = 'DatePickerSingle'
-

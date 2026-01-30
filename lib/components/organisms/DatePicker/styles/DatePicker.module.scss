@@ -181,7 +181,7 @@
     background-color: var(--color-dark-300);
   }
 
-  &:focus {
+  &:focus-visible {
     border: 2px solid var(--color-primary-700);
     outline: none;
   }
@@ -207,37 +207,37 @@
 .rdpDay_inRange {
   border-radius: 0;
   color: var(--color-light-100);
-  opacity: 1;
-  background-color: var(--color-primary-700);
+  /*   opacity: 1; */
+  background-color: var(--color-primary-900);
 }
 
 .rdpDay_first {
-  border-top-left-radius: 50%;
-  border-bottom-left-radius: 50%;
+  border-radius: 50% 0 0 50%;
   color: var(--color-light-100);
-  background-color: var(--color-primary-700);
+  background-color: var(--color-primary-900);
 }
 
 .rdpDay_last {
-  border-top-right-radius: 50%;
-  border-bottom-right-radius: 50%;
+  border-radius: 0 50% 50% 0;
   color: var(--color-light-100);
-  background-color: var(--color-primary-700);
+  background-color: var(--color-primary-900);
 }
 
-.rdpDay_hover:hover {
-  cursor: pointer;
+.rdpDay_first.rdpDay_last.rdpDay_selected {
   border-radius: 50%;
-  color: var(--color-light-100);
-  background-color: var(--color-primary-700);
+}
+
+.rdpDay_inRange,
+.rdpDay_first,
+.rdpDay_last {
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-primary-700);
+  }
 }
 
 .weekendDay {
-  color: var(--color-danger-500);
-
-  &:hover {
-    color: var(--color-danger-500);
-  }
+  color: var(--color-danger-300);
 }
 
 .rdpDay_today {
@@ -268,7 +268,7 @@
   --rdp-day_button-width: 36px;
 }
 
-:global(.rdp-day_button:focus) {
+:global(.rdp-day_button:focus-visible) {
   z-index: 2;
   border-radius: 50%;
   outline: 2px solid var(--color-primary-700);
@@ -290,6 +290,11 @@
   background: var(--color-dark-500);
   font-size: 1rem;
   outline: none !important;
+
+  &:focus-visible {
+    border-color: var(--color-primary-700);
+    box-shadow: 0 0 0 2px var(--color-primary-700);
+  }
 
   &::-webkit-scrollbar {
     width: 4px;

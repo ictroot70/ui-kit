@@ -10,7 +10,7 @@ interface DatePickerWrapperProps {
   label?: string
   required?: boolean
   disabled?: boolean
-  error?: string
+  error?: string | React.ReactNode
   hint?: string
   className?: string
   inputClassName?: string
@@ -83,7 +83,7 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
         )}
       </Popover>
       {hint && !error && !isOpen && <div className={s.hint}>{hint}</div>}
-      {error && !isOpen && <ErrorMessage message={error} variant={'danger_small'} />}
+      {error && !isOpen && (typeof error === 'string' ? <ErrorMessage message={error} variant={'danger_small'} /> : error)}
     </div>
   </div>
 )

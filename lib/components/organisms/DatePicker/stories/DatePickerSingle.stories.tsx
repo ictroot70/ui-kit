@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-
+import { Typography } from 'components/atoms'
+import { useState } from 'react'
 import { DatePickerSingle, type DatePickerSingleProps } from '../components'
 
 const meta: Meta<typeof DatePickerSingle> = {
@@ -7,7 +8,7 @@ const meta: Meta<typeof DatePickerSingle> = {
   component: DatePickerSingle,
   tags: ['autodocs'],
   args: {
-    label: 'Date of Birth',
+    label: 'Date of birth',
     placeholder: 'Select your date',
   },
 }
@@ -31,6 +32,16 @@ export const WithError: Story = {
   },
 }
 
+export const WithErrorReactNode: Story = {
+  args: {
+    error: (
+      <Typography variant="danger_small" style={{ marginTop: '5px' }}>
+        This is a custom <strong>ReactNode</strong> error!
+      </Typography>
+    ),
+  },
+}
+
 export const WithHint: Story = {
   args: {
     hint: 'You can pick any date after today.',
@@ -44,12 +55,39 @@ export const Disabled: Story = {
   },
 }
 
-export const WithYearAndMonthDropdowns: Story = {
+export const WithAgeValidation: Story = {
+  render: (args: DatePickerSingleProps) => {
+    const [date, setDate] = useState<Date | undefined>(new Date('2011-12-12'))
+    const [error, setError] = useState<string | undefined>(
+      'A user under 13 cannot create a profile. Privacy Policy'
+    )
+
+    const handleDateChange = (selectedDate: Date | undefined) => {
+      setDate(selectedDate)
+      if (selectedDate) {
+        const today = new Date()
+        const birthDate = new Date(selectedDate)
+        let age = today.getFullYear() - birthDate.getFullYear()
+        const m = today.getMonth() - birthDate.getMonth()
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--
+        }
+        if (age < 13) {
+          setError('A user under 13 cannot create a profile. Privacy Policy')
+        } else {
+          setError(undefined)
+        }
+      }
+    }
+
+    return <DatePickerSingle {...args} value={date} onDateChange={handleDateChange} error={error} />
+  },
   args: {
+    label: 'Date of birth',
     calendarProps: {
       captionLayout: 'dropdown',
       fromYear: 1950,
-      toYear: 2026,
+      toYear: new Date().getFullYear(),
     },
   },
 }
