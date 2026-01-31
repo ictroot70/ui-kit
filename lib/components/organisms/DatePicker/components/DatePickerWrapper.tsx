@@ -1,9 +1,9 @@
-import { clsx } from 'clsx'
-import s from '../styles/DatePicker.module.scss'
-import { LabelRadix } from 'components/molecules'
-import { ErrorMessage } from 'components/atoms'
 import { Popover, PopoverContent, PopoverPortal, PopoverTrigger } from '@radix-ui/react-popover'
 import { Calendar, CalendarOutline } from 'assets/icons'
+import { clsx } from 'clsx'
+import { ErrorMessage } from 'components/atoms'
+import { LabelRadix } from 'components/molecules'
+import s from '../styles/DatePicker.module.scss'
 
 interface DatePickerWrapperProps {
   label?: string
@@ -79,6 +79,7 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
           required={required}
           className={clsx(s.label, classNames?.label)}
           disabled={disabled}
+          data-label-for-datepicker={'true'}
         >
           {label}
         </LabelRadix>
@@ -115,6 +116,11 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
               align={'start'}
               avoidCollisions
               id={popoverContentId}
+              onInteractOutside={e => {
+                if ((e.target as HTMLElement).closest('[data-label-for-datepicker]')) {
+                  e.preventDefault()
+                }
+              }}
             >
               {children}
             </PopoverContent>

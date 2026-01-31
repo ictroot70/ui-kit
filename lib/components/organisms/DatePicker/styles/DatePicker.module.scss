@@ -4,6 +4,7 @@
 @use '@/styles/function' as *;
 
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -313,4 +314,17 @@
       background: var(--color-light-900);
     }
   }
+}
+
+.pickerWithLabel {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.valueAndIcon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
