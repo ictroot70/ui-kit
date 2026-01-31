@@ -3,7 +3,8 @@ import { Calendar, CalendarOutline } from 'assets/icons'
 import { clsx } from 'clsx'
 import { ErrorMessage } from 'components/atoms'
 import { LabelRadix } from 'components/molecules'
-import s from '../styles/DatePicker.module.scss'
+
+import s from '../DatePicker.module.scss'
 
 interface DatePickerWrapperProps {
   label?: string

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { DatePickerRange, type DatePickerRangeProps } from '../components'
+import { DatePickerRange, type DatePickerRangeProps } from './components'
 
 const meta: Meta<typeof DatePickerRange> = {
   title: 'Components/DatePicker/Range',
@@ -25,7 +25,9 @@ export const WithDefaultDate: Story = {
       from: new Date(),
       to: (() => {
         const date = new Date()
+
         date.setDate(date.getDate() + 3)
+
         return date
       })(),
     },
@@ -51,7 +53,9 @@ export const Disabled: Story = {
       from: new Date(),
       to: (() => {
         const date = new Date()
+
         date.setDate(date.getDate() + 3)
+
         return date
       })(),
     },

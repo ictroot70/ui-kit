@@ -1,11 +1,13 @@
-import 'react-day-picker/style.css'
-import s from '../styles/DatePicker.module.scss'
 import { HTMLAttributes, ReactElement, useState } from 'react'
 import { type DateRange, DayPicker, type DayPickerProps } from 'react-day-picker'
 
-import { DatePickerBase } from './DatePickerBase'
-import { useDatePickerModifiers, useFormattedRange } from '../hooks'
+import 'react-day-picker/style.css'
+
+import s from '../DatePicker.module.scss'
+
 import { dayPickerClassNames, modifiersClassNames } from '../helpers'
+import { useDatePickerModifiers, useFormattedRange } from '../hooks'
+import { DatePickerBase } from './DatePickerBase'
 
 export type DatePickerRangeProps = {
   value?: DateRange

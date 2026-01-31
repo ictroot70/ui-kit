@@ -1,9 +1,8 @@
-import 'react-day-picker/style.css'
-
 import { HTMLAttributes, ReactElement, ReactNode, useId } from 'react'
 
-import { useDatePickerBehavior } from '../hooks'
+import 'react-day-picker/style.css'
 
+import { useDatePickerBehavior } from '../hooks'
 import { DatePickerWrapper } from './DatePickerWrapper'
 
 export type DatePickerBaseProps = {

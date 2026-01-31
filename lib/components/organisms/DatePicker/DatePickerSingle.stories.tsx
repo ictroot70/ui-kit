@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Typography } from 'components/atoms'
+
 import { useState } from 'react'
-import { DatePickerSingle, type DatePickerSingleProps } from '../components'
+
+import { Typography } from 'components/atoms'
+
+import { DatePickerSingle, type DatePickerSingleProps } from './components'
 
 const meta: Meta<typeof DatePickerSingle> = {
   title: 'Components/DatePicker/Single',
@@ -35,7 +38,7 @@ export const WithError: Story = {
 export const WithErrorReactNode: Story = {
   args: {
     error: (
-      <Typography variant="danger_small" style={{ marginTop: '2px' }}>
+      <Typography variant={'danger_small'} style={{ marginTop: '2px' }}>
         This is a custom <strong>ReactNode</strong> error!
       </Typography>
     ),
@@ -58,12 +61,12 @@ export const Disabled: Story = {
 export const WithAgeValidation: Story = {
   render: (args: DatePickerSingleProps) => {
     const link = (
-      <a href="#" target="_blank" style={{ color: 'inherit' }}>
+      <a href={'#'} target={'_blank'} style={{ color: 'inherit' }} rel={'noreferrer'}>
         Privacy Policy
       </a>
     )
     const privacyPolicyMessage = (
-      <Typography variant="danger_small" style={{ marginTop: '2px' }}>
+      <Typography variant={'danger_small'} style={{ marginTop: '2px' }}>
         A user under 13 cannot create a profile. {link}
       </Typography>
     )
@@ -77,6 +80,7 @@ export const WithAgeValidation: Story = {
         const birthDate = new Date(selectedDate)
         let age = today.getFullYear() - birthDate.getFullYear()
         const m = today.getMonth() - birthDate.getMonth()
+
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
           age--
         }

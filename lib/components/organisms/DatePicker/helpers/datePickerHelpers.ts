@@ -1,5 +1,5 @@
 import { DateRange, Matcher } from 'react-day-picker'
-import s from '../styles/DatePicker.module.scss'
+import s from '../DatePicker.module.scss'
 
 export type Modifiers = Record<string, Matcher | Matcher[] | undefined>
 
@@ -11,21 +11,21 @@ export type Modifiers = Record<string, Matcher | Matcher[] | undefined>
  * @returns An object of modifiers used to customize day behavior.
  */
 export const getModifiers = (today: Date, selectedDates?: DateRange): Modifiers => {
-  const isRange = selectedDates !== undefined;
+  const isRange = selectedDates !== undefined
 
   const modifiers: Modifiers = {
     today,
     weekend: (date: Date) => date.getDay() === 0 || date.getDay() === 6,
-  };
+  }
 
   if (isRange && selectedDates) {
     modifiers.inRange = (date: Date) => {
       const { from, to } = selectedDates
       return !!(from && to && date >= from && date <= to)
-    };
+    }
   }
 
-  return modifiers;
+  return modifiers
 }
 
 /**
