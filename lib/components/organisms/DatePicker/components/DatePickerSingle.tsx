@@ -17,8 +17,12 @@ export type DatePickerSingleProps = {
   placeholder?: string
   disabled?: boolean
   required?: boolean
-  className?: string
-  inputClassName?: string
+  classNames?: {
+    wrapper?: string
+    label?: string
+    trigger?: string
+    content?: string
+  }
   error?: string | ReactNode
   hint?: string
   calendarProps?: Omit<DayPickerProps, 'mode' | 'selected' | 'onSelect'>
@@ -32,8 +36,7 @@ export const DatePickerSingle = ({
   placeholder = 'Select date',
   disabled = false,
   required = false,
-  className,
-  inputClassName,
+  classNames,
   error,
   hint,
   calendarProps,
@@ -60,8 +63,7 @@ export const DatePickerSingle = ({
       disabled={disabled}
       error={error}
       hint={hint}
-      className={className}
-      inputClassName={inputClassName}
+      classNames={classNames}
       displayText={displayText}
       {...restProps}
     >

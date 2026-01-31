@@ -11,8 +11,12 @@ export type DatePickerBaseProps = {
   placeholder?: string
   disabled?: boolean
   required?: boolean
-  className?: string
-  inputClassName?: string
+  classNames?: {
+    wrapper?: string
+    label?: string
+    trigger?: string
+    content?: string
+  }
   error?: string | ReactNode
   hint?: string
   displayText: string
@@ -24,8 +28,7 @@ export const DatePickerBase = ({
   placeholder,
   disabled = false,
   required = false,
-  className,
-  inputClassName,
+  classNames,
   error,
   hint,
   displayText,
@@ -44,8 +47,7 @@ export const DatePickerBase = ({
       disabled={disabled}
       error={error}
       hint={hint}
-      className={className}
-      inputClassName={inputClassName}
+      classNames={classNames}
       buttonId={buttonId}
       popoverContentId={popoverContentId}
       isOpen={isOpen}

@@ -12,8 +12,12 @@ interface DatePickerWrapperProps {
   disabled?: boolean
   error?: string | React.ReactNode
   hint?: string
-  className?: string
-  inputClassName?: string
+  classNames?: {
+    wrapper?: string
+    label?: string
+    trigger?: string
+    content?: string
+  }
   buttonId: string
   popoverContentId: string
   isOpen: boolean
@@ -32,8 +36,7 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
   disabled,
   error,
   hint,
-  className,
-  inputClassName,
+  classNames,
   buttonId,
   popoverContentId,
   isOpen,
@@ -42,10 +45,15 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
   displayText,
   children,
 }) => (
-  <div className={clsx(s.container, className)}>
+  <div className={clsx(s.container, classNames?.wrapper)}>
     <div className={s.datePickerWrapper}>
       {label && (
-        <LabelRadix htmlFor={buttonId} required={required} className={s.label} disabled={disabled}>
+        <LabelRadix
+          htmlFor={buttonId}
+          required={required}
+          className={clsx(s.label, classNames?.label)}
+          disabled={disabled}
+        >
           {label}
         </LabelRadix>
       )}
@@ -56,7 +64,12 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
             id={buttonId}
             tabIndex={disabled ? -1 : 0}
             onKeyDown={handleKeyDown}
-            className={clsx(s.datePicker, disabled && s.disabled, error && s.error, inputClassName)}
+            className={clsx(
+              s.datePicker,
+              disabled && s.disabled,
+              error && s.error,
+              classNames?.trigger
+            )}
             aria-disabled={disabled}
             role={'button'}
             aria-haspopup={'dialog'}
@@ -71,7 +84,7 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
         {!disabled && (
           <PopoverPortal>
             <PopoverContent
-              className={s.popoverContent}
+              className={clsx(s.popoverContent, classNames?.content)}
               side={'bottom'}
               align={'start'}
               avoidCollisions
@@ -83,7 +96,13 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
         )}
       </Popover>
       {hint && !error && !isOpen && <div className={s.hint}>{hint}</div>}
-      {error && !isOpen && (typeof error === 'string' ? <ErrorMessage message={error} variant={'danger_small'} /> : error)}
+      {error &&
+        !isOpen &&
+        (typeof error === 'string' ? (
+          <ErrorMessage message={error} variant={'danger_small'} />
+        ) : (
+          error
+        ))}
     </div>
   </div>
 )

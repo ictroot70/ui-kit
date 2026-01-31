@@ -17,8 +17,12 @@ export type DatePickerRangeProps = {
   placeholder?: string
   disabled?: boolean
   required?: boolean
-  className?: string
-  inputClassName?: string
+  classNames?: {
+    wrapper?: string
+    label?: string
+    trigger?: string
+    content?: string
+  }
   error?: string
   hint?: string
   calendarProps?: Omit<DayPickerProps, 'mode' | 'selected' | 'onSelect'>
@@ -32,8 +36,7 @@ export const DatePickerRange = ({
   placeholder = 'Select date range',
   disabled = false,
   required = false,
-  className,
-  inputClassName,
+  classNames,
   error,
   hint,
   calendarProps,
@@ -64,13 +67,12 @@ export const DatePickerRange = ({
 
   return (
     <DatePickerBase
+      hint={hint}
+      error={error}
       label={label}
       required={required}
       disabled={disabled}
-      error={error}
-      hint={hint}
-      className={className}
-      inputClassName={inputClassName}
+      classNames={classNames}
       displayText={displayText}
       {...restProps}
     >
