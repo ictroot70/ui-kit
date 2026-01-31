@@ -20,7 +20,6 @@ export const getModifiersForRange = (selectedDates: DateRange, today: Date): Mod
     return !!(from && to && date >= from && date <= to)
   },
   hover: (_: Date) => true,
-  outside: (date: Date) => date.getMonth() !== today.getMonth(),
 })
 
 /**
