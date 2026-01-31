@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { getSingleModifiers, Modifiers } from '../helpers/DatePickerModifiers'
+import { getModifiers, Modifiers } from '../helpers/datePickerHelpers'
 
 /**
  * React hook that returns memoized date modifiers for use with react-day-picker (single mode).
@@ -10,5 +10,5 @@ import { getSingleModifiers, Modifiers } from '../helpers/DatePickerModifiers'
 export const useDatePickerModifiers = (): Modifiers => {
   const today = useMemo(() => new Date(), [])
 
-  return useMemo(() => getSingleModifiers(today), [today])
+  return useMemo(() => getModifiers(today), [today])
 }

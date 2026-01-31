@@ -5,7 +5,7 @@ import { type DateRange, DayPicker, type DayPickerProps } from 'react-day-picker
 
 import { DatePickerBase } from './DatePickerBase'
 import { useDatePickerModifiersForRange, useFormattedRange } from '../hooks'
-import { dayPickerClassNamesForRange, modifiersClassNamesForRange } from '../helpers'
+import { dayPickerClassNames, modifiersClassNames } from '../helpers'
 
 export type DatePickerRangeProps = {
   value?: DateRange
@@ -129,8 +129,8 @@ export const DatePickerRange = ({
           selected={selectedDates}
           onSelect={handleSelect}
           modifiers={modifiers}
-          modifiersClassNames={modifiersClassNamesForRange}
-          classNames={dayPickerClassNamesForRange}
+          modifiersClassNames={modifiersClassNames}
+          classNames={dayPickerClassNames}
           {...calendarProps}
         />
       </div>

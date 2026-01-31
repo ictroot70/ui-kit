@@ -35,7 +35,7 @@ export const WithError: Story = {
 export const WithErrorReactNode: Story = {
   args: {
     error: (
-      <Typography variant="danger_small" style={{ marginTop: '5px' }}>
+      <Typography variant="danger_small" style={{ marginTop: '2px' }}>
         This is a custom <strong>ReactNode</strong> error!
       </Typography>
     ),
@@ -63,7 +63,7 @@ export const WithAgeValidation: Story = {
       </a>
     )
     const privacyPolicyMessage = (
-      <Typography variant="danger_small" style={{ marginTop: '5px' }}>
+      <Typography variant="danger_small" style={{ marginTop: '2px' }}>
         A user under 13 cannot create a profile. {link}
       </Typography>
     )

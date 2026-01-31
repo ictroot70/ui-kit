@@ -1,4 +1,4 @@
-import { useId, useRef } from 'react'
+import { useId } from 'react'
 
 /**
  * Generates a stable unique ID for client/server rendering.
@@ -7,7 +7,6 @@ import { useId, useRef } from 'react'
  */
 export const useStableId = (prefix = 'id'): string => {
   const reactId = useId()
-  const fallback = useRef(`${prefix}-${Math.random().toString(36).slice(2, 10)}`)
 
-  return reactId || fallback.current
+  return prefix ? `${prefix}-${reactId}` : reactId
 }
