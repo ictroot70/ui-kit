@@ -57,10 +57,18 @@ export const Disabled: Story = {
 
 export const WithAgeValidation: Story = {
   render: (args: DatePickerSingleProps) => {
-    const [date, setDate] = useState<Date | undefined>(new Date('2011-12-12'))
-    const [error, setError] = useState<string | undefined>(
-      'A user under 13 cannot create a profile. Privacy Policy'
+    const link = (
+      <a href="#" target="_blank" style={{ color: 'inherit' }}>
+        Privacy Policy
+      </a>
     )
+    const privacyPolicyMessage = (
+      <Typography variant="danger_small" style={{ marginTop: '5px' }}>
+        A user under 13 cannot create a profile. {link}
+      </Typography>
+    )
+    const [date, setDate] = useState<Date | undefined>(new Date('2011-12-12'))
+    const [error, setError] = useState<string | React.ReactNode | undefined>(privacyPolicyMessage)
 
     const handleDateChange = (selectedDate: Date | undefined) => {
       setDate(selectedDate)
@@ -73,7 +81,7 @@ export const WithAgeValidation: Story = {
           age--
         }
         if (age < 13) {
-          setError('A user under 13 cannot create a profile. Privacy Policy')
+          setError(privacyPolicyMessage)
         } else {
           setError(undefined)
         }
