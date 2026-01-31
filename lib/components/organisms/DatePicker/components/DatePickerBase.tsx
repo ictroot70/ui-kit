@@ -1,8 +1,8 @@
 import 'react-day-picker/style.css'
 
-import { HTMLAttributes, ReactElement, ReactNode } from 'react'
+import { HTMLAttributes, ReactElement, ReactNode, useId } from 'react'
 
-import { useDatePickerBehavior, useStableId } from '../hooks'
+import { useDatePickerBehavior } from '../hooks'
 
 import { DatePickerWrapper } from './DatePickerWrapper'
 
@@ -25,7 +25,7 @@ export type DatePickerBaseProps = {
 
 /**
  * `DatePickerBase` is a component that provides the core behavior and state management for the date picker.
- * It uses `useStableId` for generating accessible IDs and `useDatePickerBehavior` to manage the popover's open/closed state.
+ * It uses `useId` for generating accessible IDs and `useDatePickerBehavior` to manage the popover's open/closed state.
  * It then passes all the necessary props down to the `DatePickerWrapper` for rendering the UI.
  *
  * ## Features:
@@ -60,8 +60,9 @@ export const DatePickerBase = ({
   children,
   ...restProps
 }: DatePickerBaseProps): ReactElement => {
-  const buttonId = useStableId('date-picker-trigger')
-  const popoverContentId = useStableId('date-picker-popover')
+  const baseId = useId()
+  const buttonId = `${baseId}-trigger`
+  const popoverContentId = `${baseId}-popover`
 
   const { isOpen, setIsOpen, handleKeyDown } = useDatePickerBehavior(disabled)
 
