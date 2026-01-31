@@ -188,18 +188,11 @@
 }
 
 .rdpDay_outside {
-  cursor: not-allowed;
   color: var(--color-light-700);
   opacity: 0.5;
 
-  &:active {
-    color: var(--color-light-900);
-    opacity: 1;
-    background-color: var(--color-primary-700);
-  }
-
   &.rdpDay_selected {
-    color: var(--color-light-900);
+    color: var(--color-light-100);
     opacity: 1;
   }
 }
@@ -238,6 +231,9 @@
 
 .weekendDay {
   color: var(--color-danger-300);
+  &.rdpDay_selected {
+    color: var(--color-danger-300);
+  }
 }
 
 .rdpDay_today {
@@ -245,20 +241,21 @@
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-m);
   color: var(--color-primary-700);
+
+  &.rdpDay_selected {
+    color: var(--color-primary-500);
+  }
 }
 
 .datePicker.disabled,
 .datePicker[aria-disabled='true'] {
-  pointer-events: none;
-  cursor: not-allowed;
-
-  border: 1px solid var(--color-dark-300);
-
-  color: var(--color-light-900);
-
-  background: var(--color-dark-500);
   outline: none;
   box-shadow: none;
+  cursor: not-allowed;
+  pointer-events: none;
+  color: var(--color-light-900);
+  background: var(--color-dark-500);
+  border: 1px solid var(--color-dark-300);
 }
 
 :global(.rdp-root) {

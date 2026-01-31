@@ -1,10 +1,9 @@
+import { clsx } from 'clsx'
+import s from '../styles/DatePicker.module.scss'
+import { LabelRadix } from 'components/molecules'
+import { ErrorMessage } from 'components/atoms'
 import { Popover, PopoverContent, PopoverPortal, PopoverTrigger } from '@radix-ui/react-popover'
 import { Calendar, CalendarOutline } from 'assets/icons'
-import { clsx } from 'clsx'
-import { ErrorMessage } from 'components/atoms'
-import { LabelRadix } from 'components/molecules'
-
-import s from '../styles/DatePicker.module.scss'
 
 interface DatePickerWrapperProps {
   label?: string
@@ -28,7 +27,34 @@ interface DatePickerWrapperProps {
 }
 
 /**
- * Общий layout/wrapper для DatePicker-компонентов (Single/Range)
+ * `DatePickerWrapper` is a shared layout component that provides the main structure and styling for `DatePickerSingle` and `DatePickerRange`.
+ * It's built upon `@radix-ui/react-popover` to handle the floating calendar view and includes the trigger button, label, and error/hint messages.
+ *
+ * ## Features:
+ * - Provides a consistent layout for all date picker variants.
+ * - Manages the popover state (open/closed).
+ * - Displays label, error messages, and hints.
+ * - Integrates ARIA attributes for accessibility, connecting the trigger button and the popover content.
+ * - Allows style customization through the `classNames` prop.
+ *
+ * ### Props
+ * - `props` - Props for configuring the DatePicker wrapper.
+ * - `props.label` - The text label displayed above the date picker trigger.
+ * - `props.required` - If `true`, adds a required indicator to the label.
+ * - `props.disabled` - If `true`, disables the date picker and styles it accordingly.
+ * - `props.error` - An error message (string or ReactNode) to display below the picker.
+ * - `props.hint` - A hint message to display below the picker when there is no error.
+ * - `props.classNames` - An object to apply custom CSS classes to internal elements (`wrapper`, `label`, `trigger`, `content`).
+ * - `props.buttonId` - A unique ID for the trigger button, used for `htmlFor` on the label.
+ * - `props.popoverContentId` - A unique ID for the popover content, used for ARIA attributes.
+ * - `props.isOpen` - A boolean controlling the visibility of the popover.
+ * - `props.setIsOpen` - A function to update the `isOpen` state.
+ * - `props.handleKeyDown` - A keydown event handler for the trigger button.
+ * - `props.displayText` - The text to display inside the trigger button (e.g., the selected date).
+ * - `props.children` - The content to be rendered inside the popover (the calendar).
+ *
+ * ### Returns
+ * - A fully structured date picker layout component with a trigger and a popover for calendar content.
  */
 export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
   label,

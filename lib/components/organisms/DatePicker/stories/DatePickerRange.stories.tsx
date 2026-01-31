@@ -19,7 +19,7 @@ export const Default: Story = {
   render: (args: DatePickerRangeProps) => <DatePickerRange {...args} />,
 }
 
-export const WithDefaultDateRange: Story = {
+export const WithDefaultDate: Story = {
   args: {
     defaultDate: {
       from: new Date(),
