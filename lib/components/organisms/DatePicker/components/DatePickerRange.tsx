@@ -4,7 +4,7 @@ import { HTMLAttributes, ReactElement, useState } from 'react'
 import { type DateRange, DayPicker, type DayPickerProps } from 'react-day-picker'
 
 import { DatePickerBase } from './DatePickerBase'
-import { useDatePickerModifiersForRange, useFormattedRange } from '../hooks'
+import { useDatePickerModifiers, useFormattedRange } from '../hooks'
 import { dayPickerClassNames, modifiersClassNames } from '../helpers'
 
 export type DatePickerRangeProps = {
@@ -93,7 +93,7 @@ export const DatePickerRange = ({
   const selectedDates = isControlled ? value : internalDates
 
   const displayText = useFormattedRange(selectedDates, placeholder)
-  const modifiers = useDatePickerModifiersForRange(selectedDates)
+  const modifiers = useDatePickerModifiers(selectedDates)
 
   const handleSelect = (range: DateRange | undefined) => {
     if (range) {
