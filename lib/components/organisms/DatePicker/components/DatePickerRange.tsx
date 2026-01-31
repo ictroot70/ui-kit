@@ -96,17 +96,10 @@ export const DatePickerRange = ({
   const modifiers = useDatePickerModifiers(selectedDates)
 
   const handleSelect = (range: DateRange | undefined) => {
-    if (range) {
-      if (!isControlled) {
-        setInternalDates(range)
-      }
-      onDateChange?.(range)
-    } else {
-      if (!isControlled) {
-        setInternalDates({ from: undefined, to: undefined })
-      }
-      onDateChange?.({ from: undefined, to: undefined })
+    if (!isControlled) {
+      setInternalDates(range || { from: undefined, to: undefined })
     }
+    onDateChange?.(range || { from: undefined, to: undefined })
   }
 
   return (
