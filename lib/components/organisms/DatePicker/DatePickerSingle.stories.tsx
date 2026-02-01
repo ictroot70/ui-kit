@@ -99,7 +99,7 @@ export const WithAgeValidation: Story = {
     calendarProps: {
       captionLayout: 'dropdown',
       fromYear: 1950,
-      toYear: new Date().getFullYear(),
+      endMonth: new Date(),
     },
   },
 }
