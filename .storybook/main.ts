@@ -19,10 +19,10 @@ const config: StorybookConfig = {
   },
   viteFinal: async config => {
     if (config.plugins) {
-      config.plugins = config.plugins.filter((plugin) => {
-        if (!plugin || typeof plugin !== 'object' || !('name' in plugin)) return true;
-        return plugin.name !== 'vite:dts' && plugin.name !== 'rollup-plugin-analyzer';
-      });
+      config.plugins = config.plugins.filter(plugin => {
+        if (!plugin || typeof plugin !== 'object' || !('name' in plugin)) return true
+        return plugin.name !== 'vite:dts' && plugin.name !== 'rollup-plugin-analyzer'
+      })
     }
     return {
       ...config,
