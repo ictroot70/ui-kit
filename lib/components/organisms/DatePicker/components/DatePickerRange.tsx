@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactElement, useState } from 'react'
+import { HTMLAttributes, ReactElement, ReactNode, useState } from 'react'
 import { type DateRange, DayPicker, type DayPickerProps } from 'react-day-picker'
 
 import 'react-day-picker/style.css'
@@ -23,7 +23,7 @@ export type DatePickerRangeProps = {
     trigger?: string
     content?: string
   }
-  error?: string
+  error?: string | ReactNode
   hint?: string
   calendarProps?: Omit<DayPickerProps, 'mode' | 'selected' | 'onSelect'>
 } & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>
