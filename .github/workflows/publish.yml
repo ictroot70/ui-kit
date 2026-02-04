@@ -1,4 +1,4 @@
-name: Publish to NPM
+name: 🚀 Publish to NPM
 
 on:
   push:
@@ -22,42 +22,50 @@ jobs:
           fetch-depth: 0  # to get tag history
 
 
-      - name: 🔍 Check tag and branch safety
+      - name: 🛡️ Determine release type and branch safety
+        id: check_release
         run: |
-         # Get the latest commit of the tag
+          TAG_NAME="${GITHUB_REF#refs/tags/}"
           LATEST_TAG_COMMIT=$(git rev-list -n 1 ${{ github.ref_name }})
-          # Проверяем что тег находится на main ветке
           BRANCHES_WITH_TAG=$(git branch -r --contains $LATEST_TAG_COMMIT)
           
-          echo "Tag: ${{ github.ref_name }}"
-          echo "Commit: $LATEST_TAG_COMMIT"
-          echo "Branches containing this tag:"
+          echo "🏷️ Tag: $TAG_NAME"
+          echo "🔗 Commit: $LATEST_TAG_COMMIT"
+          echo "🌿 Branches containing this tag:"
           echo "$BRANCHES_WITH_TAG"
           
-          # Publish STABLE only if the tag is on main
-          if [[ "$BRANCHES_WITH_TAG" == *"origin/main"* ]]; then
-            echo "✅ SAFE: Tag is on main branch - STABLE release"
-            echo "RELEASE_TYPE=stable" >> $GITHUB_ENV
-          elif [[ "${{ github.ref_name }}" == *"beta"* ]]; then
-            echo "🟡 BETA: Pre-release tag"
-            echo "RELEASE_TYPE=beta" >> $GITHUB_ENV
-          elif [[ "${{ github.ref_name }}" == *"alpha"* ]]; then
-            echo "🔵 ALPHA: Pre-release tag" 
-            echo "RELEASE_TYPE=alpha" >> $GITHUB_ENV
-          elif [[ "${{ github.ref_name }}" == *"rc"* ]]; then
-            echo "🟣 RC: Release candidate"
-            echo "RELEASE_TYPE=rc" >> $GITHUB_ENV
+          RELEASE_TYPE=""
+          
+          # 1️⃣ First, we determine the pre-release type by tag
+          if [[ "$TAG_NAME" == *"-beta"* ]]; then
+            echo "🟡 BETA pre-release detected"
+            RELEASE_TYPE="beta"
+          elif [[ "$TAG_NAME" == *"-alpha"* ]]; then
+            echo "🔵 ALPHA pre-release detected"
+            RELEASE_TYPE="alpha"
+          elif [[ "$TAG_NAME" == *"-rc"* ]]; then
+            echo "🟣 RC release candidate detected"
+            RELEASE_TYPE="rc"
           else
-            echo "❌ DANGER: Tag not on main branch and not pre-release!"
-            echo "🚫 Blocking publication for safety"
-            exit 1
+            # 2️⃣ If not pre-release, then stable
+            if [[ "$BRANCHES_WITH_TAG" == *"origin/main"* ]]; then
+              echo "✅ STABLE release detected on main branch"
+              RELEASE_TYPE="latest"
+            else
+              echo "❌ ERROR: Stable release must be on 'main' branch!"
+              echo "🔒 Blocking unsafe publication"
+              exit 1
+            fi
           fi
+          
+          echo "RELEASE_TAG=$RELEASE_TYPE" >> $GITHUB_ENV
+      
 
       - uses: pnpm/action-setup@v4
         with:
           version: 8
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: 🧩 Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -81,16 +89,7 @@ jobs:
 
       - name: 🚀 Publish to NPM
         run: |
-          if [[ "$RELEASE_TYPE" == "stable" ]]; then
-            echo "🎉 Publishing STABLE release"
-            npm publish --access public
-          elif [[ "$RELEASE_TYPE" == "beta" ]]; then
-            echo "📦 Publishing BETA release"
-            npm publish --tag beta --access public
-          elif [[ "$RELEASE_TYPE" == "alpha" ]]; then
-            echo "🧪 Publishing ALPHA release" 
-            npm publish --tag alpha --access public
-          elif [[ "$RELEASE_TYPE" == "rc" ]]; then
-            echo "🚀 Publishing RC release"
-            npm publish --tag rc --access public
-          fi
+          echo "🪄 Publishing package using tag: $RELEASE_TAG"
+          npm publish --tag $RELEASE_TAG --access public
+
+          echo "✅ Successfully published with tag: $RELEASE_TAG"

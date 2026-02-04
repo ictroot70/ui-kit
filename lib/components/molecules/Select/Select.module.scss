@@ -1,13 +1,13 @@
 @use '@/styles/mixins' as mixins;
 @use '@/styles/function' as function;
 
-.selectWrapper {
+.wrapper {
   @include mixins.display-flex($direction: column);
   position: relative;
-  width: 100%;
+  min-width: auto;
 }
 
-.label > p {
+.label {
   color: var(--color-light-900);
 }
 
@@ -30,7 +30,7 @@
     color: var(--color-light-100);
     background-color: var(--color-dark-500);
 
-    .iconDown {
+    .icon {
       transform: rotate(180deg);
     }
   }
@@ -63,33 +63,21 @@
   span[role='img'] {
     flex-shrink: 0;
   }
-
-  &.customTriggerSize {
-    font-size: inherit;
-  }
 }
 
-.Content {
-  @include mixins.display-flex($direction: column, $align: center, $justify: center);
-
+.content {
+  z-index: 101;
   cursor: pointer;
   width: var(--radix-select-trigger-width);
-  min-width: fit-content;
-  position: absolute;
-  z-index: 101;
   border-radius: function.px-to-unit(2);
-
   color: var(--color-light-100);
-
   background-color: var(--color-dark-500);
-}
-
-.Viewport {
-  width: 100%;
   border: 1px solid var(--color-light-100);
+  max-height: var(--radix-select-content-available-height);
+  overflow-y: auto;
 }
 
-.selectItem {
+.item {
   @include mixins.display-flex($align: center, $justify: start);
   height: var(--radix-select-trigger-height);
 
@@ -122,7 +110,7 @@
   }
 }
 
-.selectItems {
+.list {
   @include mixins.display-flex($align: center, $justify: start, $gap: function.px-to-unit(8));
   font-size: var(--select-item-font-size, 16px);
 
@@ -138,35 +126,28 @@
   }
 }
 
-.Separator {
-  @include mixins.display-flex($direction: column, $align: center, $justify: center);
-
-  height: 1px;
-  margin: function.px-to-unit(5);
-  background-color: var(--color-light-100);
+.trigger--small,
+.item--small {
+  padding: 0;
+  padding-left: function.px-to-unit(6);
+  padding-right: function.px-to-unit(2);
 }
 
-.ScrollButton {
-  @include mixins.display-flex($align: center, $justify: center);
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
 
+::-webkit-scrollbar-track {
+  background: var(--color-dark-300);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
   cursor: pointer;
-
-  height: 100%;
-  min-height: function.px-to-unit(25);
-  border: 1px solid var(--color-light-100);
-
-  color: var(--color-light-100);
-
-  background-color: var(--color-dark-500);
-}
-
-.pagination {
-  width: 50px;
-  height: 24px;
-  font-size: 14px;
-  padding: 0 4px 0 6px;
-
-  & .selectItems {
-    font-size: var(--select-item-font-size, 14px);
+  background: var(--color-dark-100);
+  border-radius: 2px;
+  &:hover {
+    background: var(--color-light-900);
   }
 }

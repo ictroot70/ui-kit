@@ -8,21 +8,26 @@ import { DateRange } from 'react-day-picker'
  *
  * @param {DateRange | undefined} range - An object containing the selected date range (`from` and `to`).
  * @param {string} placeholder - A fallback string displayed when the date range is incomplete or undefined.
+ * @param locale - Locale for date formatting (default: "en-GB")
  * @returns {string} A formatted date range string or the placeholder if dates are missing.
  *
  * @example
  * const formatted = useFormattedRange({ from: new Date(2024, 0, 1), to: new Date(2024, 0, 10) }, 'Select dates');
  * // formatted = "01/01/2024 - 10/01/2024"
  */
-export const useFormattedRange = (range: DateRange | undefined, placeholder: string): string => {
+export const useFormattedRange = (
+  range: DateRange | undefined,
+  placeholder: string,
+  locale: string = 'en-GB'
+): string => {
   return useMemo(() => {
     if (range?.from && range?.to) {
       const format = (date: Date) =>
-        date.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' })
+        date.toLocaleDateString(locale, { year: 'numeric', month: '2-digit', day: '2-digit' })
 
       return `${format(range.from)} - ${format(range.to)}`
     }
 
     return placeholder
-  }, [range, placeholder])
+  }, [range, placeholder, locale])
 }
