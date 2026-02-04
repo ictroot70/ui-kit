@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react'
 
 export const useDatePickerBehavior = (disabled: boolean) => {
-  const [isFocused, setIsFocused] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
   const handleKeyDown = useCallback(
@@ -18,8 +17,6 @@ export const useDatePickerBehavior = (disabled: boolean) => {
   )
 
   return {
-    isFocused,
-    setIsFocused,
     isOpen,
     setIsOpen,
     handleKeyDown,
