@@ -1,14 +1,14 @@
 import { type ComponentRef, forwardRef, ReactNode, useId } from 'react'
 
-import * as RadixSelect from '@radix-ui/react-select'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
-
+import * as RadixSelect from '@radix-ui/react-select'
+import { ArrowDownSimple } from 'assets/icons'
 import { clsx } from 'clsx'
+import { Typography } from 'components/atoms'
 
 import s from './Select.module.scss'
+
 import { LabelRadix } from '../LabelRadix'
-import { ArrowDownSimple } from 'assets/icons'
-import { Typography } from 'components/atoms'
 
 type SelectItemsProps = {
   value: string
@@ -129,12 +129,12 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
 
           <RadixSelect.Portal>
             <RadixSelect.Content
-              position="popper"
+              position={'popper'}
               avoidCollisions={avoidCollisions}
               collisionPadding={collisionPadding}
               className={clsx(s.content, classNames.content)}
             >
-              <ScrollArea.Root type="auto">
+              <ScrollArea.Root type={'auto'}>
                 <RadixSelect.Viewport asChild>
                   <ScrollArea.Viewport>
                     {items.map(item => (
@@ -156,7 +156,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
                   </ScrollArea.Viewport>
                 </RadixSelect.Viewport>
 
-                <ScrollArea.Scrollbar orientation="vertical">
+                <ScrollArea.Scrollbar orientation={'vertical'}>
                   <ScrollArea.Thumb />
                 </ScrollArea.Scrollbar>
               </ScrollArea.Root>

@@ -1,4 +1,5 @@
 import { DateRange, Matcher } from 'react-day-picker'
+
 import s from '../DatePicker.module.scss'
 
 export type Modifiers = Record<string, Matcher | Matcher[] | undefined>
@@ -21,6 +22,7 @@ export const getModifiers = (today: Date, selectedDates?: DateRange): Modifiers 
   if (isRange && selectedDates) {
     modifiers.inRange = (date: Date) => {
       const { from, to } = selectedDates
+
       return !!(from && to && date >= from && date <= to)
     }
   }

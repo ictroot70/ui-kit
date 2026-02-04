@@ -1,8 +1,8 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu'
-
-import s from './DropdownMenu.module.scss'
 import { MoreHorizontal } from 'assets/icons'
 import { Typography } from 'components/atoms'
+
+import s from './DropdownMenu.module.scss'
 
 export interface DropdownItem {
   label: string
@@ -82,7 +82,11 @@ export const DropdownMenu = ({
     <RadixDropdown.Root>
       <RadixDropdown.Trigger asChild>
         {trigger || (
-          <button className={`${s.trigger} ${className || ''}`} aria-label="Open menu">
+          <button
+            type={'button'}
+            className={`${s.trigger} ${className || ''}`}
+            aria-label={'Open menu'}
+          >
             <MoreHorizontal />
           </button>
         )}
@@ -104,7 +108,7 @@ export const DropdownMenu = ({
                 onSelect={onClick}
               >
                 {icon}
-                <Typography variant="regular_14">{label}</Typography>
+                <Typography variant={'regular_14'}>{label}</Typography>
               </RadixDropdown.Item>
             )
           })}
@@ -116,14 +120,14 @@ export const DropdownMenu = ({
             ) : (
               <RadixDropdown.Arrow asChild className={arrowClassName}>
                 <svg
-                  width="17"
-                  height="10"
-                  viewBox="0 0 17 10"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width={'17'}
+                  height={'10'}
+                  viewBox={'0 0 17 10'}
+                  fill={'none'}
+                  xmlns={'http://www.w3.org/2000/svg'}
                 >
-                  <path d="M17 1L8.5 1H0L8.5 9.5L17 1Z" fill="#4C4C4C" />
-                  <path d="M16.5 1.43051e-06L0.5 0L8.5 8L16.5 1.43051e-06Z" fill="#171717" />
+                  <path d={'M17 1L8.5 1H0L8.5 9.5L17 1Z'} fill={'#4C4C4C'} />
+                  <path d={'M16.5 1.43051e-06L0.5 0L8.5 8L16.5 1.43051e-06Z'} fill={'#171717'} />
                 </svg>
               </RadixDropdown.Arrow>
             ))}

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { DropdownMenu } from './DropdownMenu'
 
 import {
   BlockFull,
@@ -9,6 +8,7 @@ import {
   PersonRemoveOutline,
   TrashOutline,
 } from '../../../assets/icons'
+import { DropdownMenu } from './DropdownMenu'
 
 const meta: Meta<typeof DropdownMenu> = {
   title: 'Components/DropdownMenu',
@@ -64,7 +64,7 @@ export const WithDisabledItems: Story = {
 export const WithCustomTrigger: Story = {
   args: {
     trigger: (
-      <button style={{ cursor: 'pointer' }}>
+      <button type={'button'} style={{ cursor: 'pointer' }}>
         <MenuOutline />
       </button>
     ),
@@ -90,24 +90,24 @@ export const DifferentPositions: Story = {
             { label: 'Top Start', onClick: () => console.log('top start') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
           ]}
-          side="top"
-          align="start"
+          side={'top'}
+          align={'start'}
         />
         <DropdownMenu
           items={[
             { label: 'Top Center', onClick: () => console.log('top center') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
           ]}
-          side="top"
-          align="center"
+          side={'top'}
+          align={'center'}
         />
         <DropdownMenu
           items={[
             { label: 'Top End', onClick: () => console.log('top end') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
           ]}
-          side="top"
-          align="end"
+          side={'top'}
+          align={'end'}
         />
       </div>
 
@@ -117,24 +117,24 @@ export const DifferentPositions: Story = {
             { label: 'Bottom Start', onClick: () => console.log('bottom start') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
           ]}
-          side="bottom"
-          align="start"
+          side={'bottom'}
+          align={'start'}
         />
         <DropdownMenu
           items={[
             { label: 'Bottom Center', onClick: () => console.log('bottom center') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
           ]}
-          side="bottom"
-          align="center"
+          side={'bottom'}
+          align={'center'}
         />
         <DropdownMenu
           items={[
             { label: 'Bottom End', onClick: () => console.log('bottom end') },
             { label: 'Option 2', onClick: () => console.log('option 2') },
           ]}
-          side="bottom"
-          align="end"
+          side={'bottom'}
+          align={'end'}
         />
       </div>
     </div>
@@ -149,32 +149,32 @@ export const WithArrow: Story = {
           { label: 'Top Side', onClick: () => console.log('top side') },
           { label: 'With Arrow', onClick: () => console.log('with arrow') },
         ]}
-        side="top"
-        showArrow={true}
+        side={'top'}
+        showArrow
       />
       <DropdownMenu
         items={[
           { label: 'Bottom Side', onClick: () => console.log('bottom side') },
           { label: 'With Arrow', onClick: () => console.log('with arrow') },
         ]}
-        side="bottom"
-        showArrow={true}
+        side={'bottom'}
+        showArrow
       />
       <DropdownMenu
         items={[
           { label: 'Right Side', onClick: () => console.log('right side') },
           { label: 'With Arrow', onClick: () => console.log('with arrow') },
         ]}
-        side="right"
-        showArrow={true}
+        side={'right'}
+        showArrow
       />
       <DropdownMenu
         items={[
           { label: 'Left Side', onClick: () => console.log('left side') },
           { label: 'With Arrow', onClick: () => console.log('with arrow') },
         ]}
-        side="left"
-        showArrow={true}
+        side={'left'}
+        showArrow
       />
     </div>
   ),
@@ -188,10 +188,10 @@ export const WithCustomArrow: Story = {
           { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
           { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
         ]}
-        showArrow={true}
+        showArrow
         arrow={
-          <svg width="16" height="8" viewBox="0 0 16 8" fill="none">
-            <path d="M8 8L0 0L16 0L8 8Z" fill="#4c4c4c" />
+          <svg width={'16'} height={'8'} viewBox={'0 0 16 8'} fill={'none'}>
+            <path d={'M8 8L0 0L16 0L8 8Z'} fill={'#4c4c4c'} />
           </svg>
         }
       />
@@ -200,11 +200,11 @@ export const WithCustomArrow: Story = {
           { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
           { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
         ]}
-        showArrow={true}
-        side="top"
+        showArrow
+        side={'top'}
         arrow={
-          <svg width="16" height="8" viewBox="0 0 16 8" fill="none">
-            <path d="M8 8L0 0L16 0L8 8Z" fill="#4c4c4c" />
+          <svg width={'16'} height={'8'} viewBox={'0 0 16 8'} fill={'none'}>
+            <path d={'M8 8L0 0L16 0L8 8Z'} fill={'#4c4c4c'} />
           </svg>
         }
       />
@@ -213,11 +213,11 @@ export const WithCustomArrow: Story = {
           { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
           { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
         ]}
-        showArrow={true}
-        side="left"
+        showArrow
+        side={'left'}
         arrow={
-          <svg width="16" height="8" viewBox="0 0 16 8" fill="none">
-            <path d="M8 8L0 0L16 0L8 8Z" fill="#4c4c4c" />
+          <svg width={'16'} height={'8'} viewBox={'0 0 16 8'} fill={'none'}>
+            <path d={'M8 8L0 0L16 0L8 8Z'} fill={'#4c4c4c'} />
           </svg>
         }
       />
@@ -226,11 +226,11 @@ export const WithCustomArrow: Story = {
           { label: 'Custom SVG Arrow', onClick: () => console.log('custom svg') },
           { label: 'Grey Arrow', onClick: () => console.log('grey arrow') },
         ]}
-        showArrow={true}
-        side="right"
+        showArrow
+        side={'right'}
         arrow={
-          <svg width="16" height="8" viewBox="0 0 16 8" fill="none">
-            <path d="M8 8L0 0L16 0L8 8Z" fill="#4c4c4c" />
+          <svg width={'16'} height={'8'} viewBox={'0 0 16 8'} fill={'none'}>
+            <path d={'M8 8L0 0L16 0L8 8Z'} fill={'#4c4c4c'} />
           </svg>
         }
       />
