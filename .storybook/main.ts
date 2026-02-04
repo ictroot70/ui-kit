@@ -18,6 +18,12 @@ const config: StorybookConfig = {
     autodocs: true,
   },
   viteFinal: async config => {
+    if (config.plugins) {
+      config.plugins = config.plugins.filter((plugin) => {
+        if (!plugin || typeof plugin !== 'object' || !('name' in plugin)) return true;
+        return plugin.name !== 'vite:dts' && plugin.name !== 'rollup-plugin-analyzer';
+      });
+    }
     return {
       ...config,
       resolve: {
