@@ -10,13 +10,13 @@ import s from './Select.module.scss'
 
 import { LabelRadix } from '../LabelRadix'
 
-type SelectItemsProps = {
+export type SelectItemsProps = {
   value: string
   label?: string
   icon?: ReactNode
 }
 
-type SelectProps = {
+export type SelectProps = {
   id?: string
   label?: string
   items: SelectItemsProps[]
