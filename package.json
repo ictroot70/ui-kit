@@ -1,6 +1,8 @@
 {
   "name": "@ictroot/ui-kit",
-  "version": "1.0.3",
+
+  "version": "1.0.4",
+
   "description": "Modular and expanded library of components created using Vite, Storybook and Typescript. Suitable for re-used UI elements in various projects",
   "author": "IctRoot",
   "license": "MIT",
