@@ -136,7 +136,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
             >
               <ScrollArea.Root type={'auto'}>
                 <RadixSelect.Viewport asChild>
-                  <ScrollArea.Viewport>
+                  <ScrollArea.Viewport style={{ overflowY: undefined }}>
                     {items.map(item => (
                       <RadixSelect.Item
                         key={item.value}
