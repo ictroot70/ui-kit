@@ -42,6 +42,15 @@ export function MyComponent() {
 import { Search } from '@ictroot/ui-kit/icons'
 ```
 
+```tsx
+import { DatePickerSingle } from '@ictroot/ui-kit/datepicker'
+import { ToastContainer } from '@ictroot/ui-kit/toast'
+import { Recaptcha } from '@ictroot/ui-kit/recaptcha'
+import { Modal } from '@ictroot/ui-kit/modal'
+```
+
+Root import is still supported for DX, but subpath imports are recommended for heavy modules.
+
 ## 📁 components
 
 ### Components are supported at all levels of Atomic Design

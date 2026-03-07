@@ -20,6 +20,26 @@
       "import": "./dist/icons.es.js",
       "require": "./dist/icons.cjs.js"
     },
+    "./datepicker": {
+      "types": "./dist/datepicker.d.ts",
+      "import": "./dist/datepicker.es.js",
+      "require": "./dist/datepicker.cjs.js"
+    },
+    "./toast": {
+      "types": "./dist/toast.d.ts",
+      "import": "./dist/toast.es.js",
+      "require": "./dist/toast.cjs.js"
+    },
+    "./recaptcha": {
+      "types": "./dist/recaptcha.d.ts",
+      "import": "./dist/recaptcha.es.js",
+      "require": "./dist/recaptcha.cjs.js"
+    },
+    "./modal": {
+      "types": "./dist/modal.d.ts",
+      "import": "./dist/modal.es.js",
+      "require": "./dist/modal.cjs.js"
+    },
     "./style.css": "./dist/ui-kit.css",
     "./fonts/inter.css": "./lib/fonts/inter.css"
   },
