@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react'
+import { memo, ReactElement, ReactNode, useMemo } from 'react'
 
 import { Alert } from 'components/molecules'
 import { Toast } from 'components/molecules/Toast/Toast.types'
@@ -7,12 +7,12 @@ import { motion } from 'framer-motion'
 
 export interface ToastItemProps {
   toast: Toast
-  onClose: () => void
+  onClose: (id: string) => void
   enableCloseButton?: boolean
   renderToast?: (toast: Toast, onClose: () => void) => ReactNode
   enableProgressBar?: boolean
-  onMouseEnter: () => void
-  onMouseLeave: () => void
+  onMouseEnter: (toast: Toast) => void
+  onMouseLeave: (toast: Toast) => void
 }
 
 /**
@@ -50,7 +50,7 @@ export interface ToastItemProps {
  * @returns A `ReactElement` representing the animated toast component.
  */
 
-export const ToastItem = (props: ToastItemProps): ReactElement => {
+const ToastItemBase = (props: ToastItemProps): ReactElement => {
   const {
     toast,
     onClose,
@@ -61,8 +61,14 @@ export const ToastItem = (props: ToastItemProps): ReactElement => {
     onMouseLeave,
   } = props
 
-  const progress = getToastProgress(toast.createdAt, toast.duration)
+  const progress = useMemo(
+    () => getToastProgress(toast.createdAt, toast.duration),
+    [toast.createdAt, toast.duration]
+  )
   const isCloseable = toast.closeable ?? enableCloseButton
+  const handleClose = () => onClose(toast.id)
+  const handleMouseEnter = () => onMouseEnter(toast)
+  const handleMouseLeave = () => onMouseLeave(toast)
 
   return (
     <motion.div
@@ -71,11 +77,11 @@ export const ToastItem = (props: ToastItemProps): ReactElement => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.2 }}
       style={{ marginBottom: 8 }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {renderToast ? (
-        renderToast(toast, onClose)
+        renderToast(toast, handleClose)
       ) : (
         <Alert
           typographyVariant={'regular_14'}
@@ -83,7 +89,7 @@ export const ToastItem = (props: ToastItemProps): ReactElement => {
           title={toast.title}
           message={toast.message}
           closeable={isCloseable}
-          onClose={onClose}
+          onClose={handleClose}
           duration={toast.duration}
           progressBar={enableProgressBar}
           progress={progress}
@@ -92,4 +98,6 @@ export const ToastItem = (props: ToastItemProps): ReactElement => {
     </motion.div>
   )
 }
-ToastItem.displayName = 'ToastItem'
+ToastItemBase.displayName = 'ToastItem'
+
+export const ToastItem = memo(ToastItemBase)

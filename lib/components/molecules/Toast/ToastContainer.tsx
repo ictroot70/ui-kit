@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 
 import { Toast } from 'components/molecules/Toast/Toast.types'
@@ -61,26 +61,27 @@ export interface ToastContainerProps {
  * @returns A portal-rendered list of toast notifications, or `null` if rendering on the server.
  */
 
-export const ToastContainer = (props: ToastContainerProps): React.ReactPortal | null => {
+const ToastContainerBase = (props: ToastContainerProps): React.ReactPortal | null => {
   const { toasts, position, renderToast, onRemove, onPause, onResume, enableProgressBar, ...rest } =
     props
+  const positionStyle = useMemo(() => getPositionStyle(position), [position])
 
   if (typeof document === 'undefined') {
     return null
   }
 
   return createPortal(
-    <div style={getPositionStyle(position)}>
+    <div style={positionStyle}>
       <AnimatePresence>
         {toasts.map(toast => (
           <ToastItem
             key={toast.id}
             toast={toast}
-            onClose={() => onRemove(toast.id)}
+            onClose={onRemove}
             renderToast={renderToast}
             enableProgressBar={enableProgressBar}
-            onMouseEnter={() => onPause(toast)}
-            onMouseLeave={() => onResume(toast)}
+            onMouseEnter={onPause}
+            onMouseLeave={onResume}
             {...rest}
           />
         ))}
@@ -90,4 +91,6 @@ export const ToastContainer = (props: ToastContainerProps): React.ReactPortal | 
   )
 }
 
-ToastContainer.displayName = 'ToastContainer'
+ToastContainerBase.displayName = 'ToastContainer'
+
+export const ToastContainer = memo(ToastContainerBase)

@@ -48,17 +48,17 @@ export interface UseToastManagerReturn {
 export const useToastManager = (options: UseToastManagerOptions): UseToastManagerReturn => {
   const { maxToasts = 5 } = options
   const [toasts, setToasts] = useState<Toast[]>([])
-  const timeouts = useRef<Record<string, number>>({})
+  const timeouts = useRef<Record<string, ReturnType<typeof setTimeout>>>({})
   /**
    * Removes a toast by its ID and clears its timeout.
    *
    * @param {string} id - The ID of the toast to remove.
    */
-  const removeToast = (id: string) => {
+  const removeToast = useCallback((id: string) => {
     clearTimeout(timeouts.current[id])
     delete timeouts.current[id]
     setToasts(prev => prev.filter(t => t.id !== id))
-  }
+  }, [])
   /**
    * Displays a new toast message.
    *
@@ -95,17 +95,17 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
       })
 
       if (toast.duration !== 0) {
-        timeouts.current[id] = window.setTimeout(() => removeToast(id), toast.duration ?? 4000)
+        timeouts.current[id] = setTimeout(() => removeToast(id), toast.duration ?? 4000)
       }
     },
-    [maxToasts]
+    [maxToasts, removeToast]
   )
   /**
    * Pauses the timeout for a given toast (used on hover).
    *
    * @param {Toast} toast - The toast to pause.
    */
-  const pauseToast = (toast: Toast) => {
+  const pauseToast = useCallback((toast: Toast) => {
     setToasts(prev =>
       prev.map(t => {
         if (t.id !== toast.id) {
@@ -115,7 +115,8 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
         const elapsed = now - t.createdAt
         const remaining = (t.remaining ?? t.duration ?? 5000) - elapsed
 
-        clearTimeout(t.timeoutId)
+        clearTimeout(timeouts.current[t.id])
+        delete timeouts.current[t.id]
 
         return {
           ...t,
@@ -124,13 +125,13 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
         }
       })
     )
-  }
+  }, [])
   /**
    * Resumes the timeout for a previously paused toast.
    *
    * @param {Toast} toast - The toast to resume.
    */
-  const resumeToast = (toast: Toast) => {
+  const resumeToast = useCallback((toast: Toast) => {
     setToasts(prev =>
       prev.map(t => {
         if (t.id !== toast.id) {
@@ -140,6 +141,7 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
         const remaining = t.remaining ?? t.duration ?? 5000
 
         const timeoutId = setTimeout(() => removeToast(t.id), remaining)
+        timeouts.current[t.id] = timeoutId
 
         return {
           ...t,
@@ -150,7 +152,7 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
         }
       })
     )
-  }
+  }, [removeToast])
 
   return {
     toasts,
