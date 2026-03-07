@@ -72,8 +72,10 @@ export const Alert = (props: AlertProps): ReactElement => {
     className,
     duration = 4000,
     progressBar = false,
+    progress: externalProgress,
   } = props
-  const progress = useProgressBar(duration, progressBar)
+  const internalProgress = useProgressBar(duration, progressBar && externalProgress === undefined)
+  const progress = externalProgress ?? internalProgress
 
   return (
     <div className={clsx(styles.alert, styles[type], className)}>
