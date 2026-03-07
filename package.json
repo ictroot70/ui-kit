@@ -20,8 +20,9 @@
     "./style.css": "./dist/ui-kit.css"
   },
   "files": [
-    "dist",
-    "dist/*.css"
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.css"
   ],
   "sideEffects": [
     "./dist/ui-kit.css"
