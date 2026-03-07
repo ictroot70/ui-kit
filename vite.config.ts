@@ -18,7 +18,6 @@ export default defineConfig({
         datepicker: resolve(__dirname, join('lib', 'datepicker.ts')),
         toast: resolve(__dirname, join('lib', 'toast.ts')),
         recaptcha: resolve(__dirname, join('lib', 'recaptcha.ts')),
-        modal: resolve(__dirname, join('lib', 'modal.ts')),
         style: resolve(__dirname, join('lib', 'style.ts')),
       },
       fileName: (format, entryName) =>

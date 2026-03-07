@@ -35,11 +35,6 @@
       "import": "./dist/recaptcha.es.js",
       "require": "./dist/recaptcha.cjs.js"
     },
-    "./modal": {
-      "types": "./dist/modal.d.ts",
-      "import": "./dist/modal.es.js",
-      "require": "./dist/modal.cjs.js"
-    },
     "./style.css": "./dist/ui-kit.css",
     "./fonts/inter.css": "./lib/fonts/inter.css"
   },
@@ -61,6 +56,7 @@
     "generateIndex": "node scripts/generate-index.js",
     "build": "nps generateIndex && vite build && tsc",
     "size:ci": "node scripts/size-ci-guard.mjs",
+    "ssr:smoke": "node scripts/ssr-hydration-smoke-next.mjs",
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
     "ai:context:detect": "AI_AGENT_CONFIG_DIR=./ai-agent-config-v2 node ai-agent-config-v2/scripts/detect-project-context-registry.mjs",

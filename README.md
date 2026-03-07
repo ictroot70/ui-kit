@@ -46,10 +46,36 @@ import { Search } from '@ictroot/ui-kit/icons'
 import { DatePickerSingle } from '@ictroot/ui-kit/datepicker'
 import { ToastContainer } from '@ictroot/ui-kit/toast'
 import { Recaptcha } from '@ictroot/ui-kit/recaptcha'
-import { Modal } from '@ictroot/ui-kit/modal'
 ```
 
 Root import is still supported for DX, but subpath imports are recommended for heavy modules.
+
+Heavy-module subpaths are intentionally limited to:
+- `@ictroot/ui-kit/datepicker`
+- `@ictroot/ui-kit/toast`
+- `@ictroot/ui-kit/recaptcha`
+
+`Modal` should be imported from root:
+
+```tsx
+import { Modal } from '@ictroot/ui-kit'
+```
+
+SSR note for Next.js + Recaptcha:
+
+```tsx
+import dynamic from 'next/dynamic'
+
+const Recaptcha = dynamic(() => import('@ictroot/ui-kit/recaptcha').then(mod => mod.Recaptcha), {
+  ssr: false,
+})
+```
+
+SSR smoke gate command:
+
+```bash
+npm run ssr:smoke
+```
 
 ## 📁 components
 
