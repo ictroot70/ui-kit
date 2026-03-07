@@ -34,6 +34,7 @@
     "commit": "node scripts/git-commit-message.cjs",
     "generateIndex": "node scripts/generate-index.js",
     "build": "nps generateIndex && vite build && tsc",
+    "size:ci": "node scripts/size-ci-guard.mjs",
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
