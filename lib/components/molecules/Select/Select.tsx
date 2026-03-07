@@ -2,7 +2,7 @@ import { type ComponentRef, forwardRef, ReactNode, useId } from 'react'
 
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import * as RadixSelect from '@radix-ui/react-select'
-import { ArrowDownSimple } from 'assets/icons'
+import ArrowDownSimple from 'assets/icons/components/ArrowDownSimple'
 import { clsx } from 'clsx'
 import { Typography } from 'components/atoms'
 

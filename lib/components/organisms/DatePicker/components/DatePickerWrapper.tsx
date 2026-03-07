@@ -1,5 +1,6 @@
 import { Popover, PopoverContent, PopoverPortal, PopoverTrigger } from '@radix-ui/react-popover'
-import { Calendar, CalendarOutline } from 'assets/icons'
+import Calendar from 'assets/icons/components/Calendar'
+import CalendarOutline from 'assets/icons/components/CalendarOutline'
 import { clsx } from 'clsx'
 import { ErrorMessage } from 'components/atoms'
 import { LabelRadix } from 'components/molecules'
