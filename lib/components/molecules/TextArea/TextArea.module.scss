@@ -57,12 +57,12 @@ $transition-duration: 0.2s;
   width: 100%;
 }
 
-.label p {
+.label {
   color: var(--color-light-900);
 }
 
 .disabled {
-  .label p {
+  .label {
     color: var(--color-dark-100);
   }
 }
@@ -79,7 +79,7 @@ $transition-duration: 0.2s;
 
   &.error {
     border-color: var(--color-danger-500);
-    color: var(--color-light-100);
+    color: var(--color-danger-500);
 
     &:focus {
       border-color: var(--color-danger-500);

@@ -65,6 +65,26 @@
   }
 }
 
+.triggerError {
+  border-color: var(--color-danger-500);
+  color: var(--color-danger-500);
+
+  &:not([data-disabled]):hover {
+    border-color: var(--color-danger-500);
+    color: var(--color-danger-500);
+  }
+
+  &:not([data-disabled]):focus-visible {
+    border-color: transparent;
+    outline: 2px solid var(--color-danger-500);
+  }
+
+  &[data-state='open'] {
+    border-color: var(--color-danger-500);
+    color: var(--color-danger-500);
+  }
+}
+
 .content {
   z-index: 101;
   cursor: pointer;

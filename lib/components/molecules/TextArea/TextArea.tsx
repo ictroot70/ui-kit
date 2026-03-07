@@ -14,6 +14,7 @@ export type DefaultTextAreaPropsType = DetailedHTMLProps<
 export interface TextAreaProps extends DefaultTextAreaPropsType {
   error?: string
   label?: string
+  labelClassName?: string
   placeholder?: string
   disabled?: boolean
   required?: boolean
@@ -61,6 +62,7 @@ export interface TextAreaProps extends DefaultTextAreaPropsType {
  *
  * - @param props - Props for the `TextArea` component
  * - @param props.label - The label for the textarea field
+ * - @param props.labelClassName - Optional className for label customization
  * - @param props.error - The error message to display
  * - @param props.placeholder - The placeholder text for the textarea field
  * - @param props.disabled - Whether the textarea field is disabled
@@ -77,7 +79,19 @@ export interface TextAreaProps extends DefaultTextAreaPropsType {
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (
-    { className, error, label, disabled, placeholder, required, value, onChange, id, ...restProps },
+    {
+      className,
+      error,
+      label,
+      labelClassName,
+      disabled,
+      placeholder,
+      required,
+      value,
+      onChange,
+      id,
+      ...restProps
+    },
     ref
   ) => {
     return (
@@ -89,7 +103,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             typographyVariant={'regular_14'}
             required={required}
             disabled={disabled}
-            className={clsx(s.label, disabled && s.disabled)}
+            invalid={Boolean(error)}
+            className={clsx(s.label, labelClassName)}
           />
         )}
         <textarea

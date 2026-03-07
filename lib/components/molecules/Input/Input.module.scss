@@ -50,14 +50,25 @@ $input-padding-with-icon: 44px;
   width: 100%;
 }
 
+.feedbackSlot {
+  min-height: var(--line-height-m);
+  margin-top: 0;
+}
+
+.feedbackPlaceholder {
+  visibility: hidden;
+  display: block;
+}
+
 .inputContainer {
   position: relative;
 
   @include flex-center;
 }
 
-.label p {
+.label {
   color: var(--color-light-900);
+  margin-bottom: 0;
 }
 
 .input {
@@ -80,7 +91,7 @@ $input-padding-with-icon: 44px;
 
   &.error:not(:disabled) {
     border-color: var(--color-danger-500);
-    color: var(--color-light-100);
+    color: var(--color-danger-500);
     outline-color: var(--color-danger-500);
   }
 }
@@ -94,7 +105,7 @@ $input-padding-with-icon: 44px;
   color: var(--color-light-900);
 
   &.error {
-    color: var(--color-light-100);
+    color: var(--color-danger-500);
   }
 
   & + input {
@@ -128,7 +139,7 @@ $input-padding-with-icon: 44px;
 .disabled {
   .eyeButton,
   .searchIcon,
-  .label p {
+  .label {
     cursor: not-allowed;
     color: var(--color-dark-100);
   }

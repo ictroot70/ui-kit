@@ -11,7 +11,10 @@ import s from 'components/molecules/Input/Input.module.scss'
 
 export interface InputProps extends ComponentPropsWithoutRef<'input'> {
   label?: string
+  labelClassName?: string
+  feedbackSlotClassName?: string
   error?: string
+  reserveErrorSpace?: boolean
   placeholder?: string
   inputType?: 'text' | 'hide-able' | 'search'
   disabled?: boolean
@@ -42,7 +45,10 @@ export interface InputProps extends ComponentPropsWithoutRef<'input'> {
  * - @param props.onChange - The change event handler for the input field
  * - @param props.placeholder - The placeholder text for the input field
  * - @param props.label - The label for the input field
+ * - @param props.labelClassName - Optional className for label customization
+ * - @param props.feedbackSlotClassName - Optional className for the feedback slot (error/hint reserved space)
  * - @param props.error - The error message to display
+ * - @param props.reserveErrorSpace - Whether to reserve vertical space for the error message to prevent layout shift
  * - @param props.inputType - The type of input field to render
  * - @param props.disabled - Whether the input field is disabled
  * - @param props.required - Whether the input field is required
@@ -60,9 +66,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       label,
+      labelClassName,
+      feedbackSlotClassName,
       value,
       onChange,
       error,
+      reserveErrorSpace,
       inputType,
       className,
       placeholder,
@@ -87,6 +96,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const generatedId = useId()
 
     const inputId = id ?? generatedId
+    const errorMessageId = `${inputId}-error`
+    const shouldRenderFeedback = Boolean(error) || reserveErrorSpace
 
     return (
       <div className={clsx(s.inputWrapper, disabled && s.disabled)}>
@@ -97,7 +108,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             typographyVariant={'regular_14'}
             required={required}
             disabled={disabled}
-            className={clsx(s.label)}
+            invalid={Boolean(error)}
+            className={clsx(s.label, labelClassName)}
           />
         )}
         <Typography variant={'regular_16'} asChild>
@@ -118,7 +130,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               required={required}
               aria-required={required}
               aria-invalid={!!error}
-              aria-describedby={error ? `${id}-error` : undefined}
+              aria-describedby={error ? errorMessageId : undefined}
               onChange={onChange}
               {...props}
             />
@@ -135,7 +147,20 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             )}
           </div>
         </Typography>
-        {error && <ErrorMessage message={error} variant={'danger'} />}
+        {shouldRenderFeedback && (
+          <div
+            id={error ? errorMessageId : undefined}
+            className={clsx(s.feedbackSlot, feedbackSlotClassName)}
+          >
+            {error ? (
+              <ErrorMessage message={error} variant={'danger'} />
+            ) : (
+              <span className={s.feedbackPlaceholder} aria-hidden={'true'}>
+                &nbsp;
+              </span>
+            )}
+          </div>
+        )}
       </div>
     )
   }
