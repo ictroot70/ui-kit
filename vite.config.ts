@@ -14,6 +14,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: resolve(__dirname, join('lib', 'index.ts')),
+        icons: resolve(__dirname, join('lib', 'icons.ts')),
         style: resolve(__dirname, join('lib', 'style.ts')),
       },
       fileName: (format, entryName) =>

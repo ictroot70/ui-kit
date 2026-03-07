@@ -38,6 +38,10 @@ export function MyComponent() {
 }
 ```
 
+```tsx
+import { Search } from '@ictroot/ui-kit/icons'
+```
+
 ## 📁 components
 
 ### Components are supported at all levels of Atomic Design

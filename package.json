@@ -15,6 +15,11 @@
       "import": "./dist/ui-kit.es.js",
       "require": "./dist/ui-kit.cjs.js"
     },
+    "./icons": {
+      "types": "./dist/assets/icons/index.d.ts",
+      "import": "./dist/icons.es.js",
+      "require": "./dist/icons.cjs.js"
+    },
     "./style.css": "./dist/ui-kit.css",
     "./fonts/inter.css": "./lib/fonts/inter.css"
   },
