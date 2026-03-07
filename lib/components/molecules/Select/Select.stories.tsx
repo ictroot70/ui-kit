@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { expect, within } from '@storybook/test'
+
+import labelRadixStyles from 'components/molecules/LabelRadix/LabelRadix.module.scss'
 
 import { RussiaFlag, UkFlag } from '../../../assets/icons'
 import { Select } from './Select'
+import styles from './Select.module.scss'
 
 const meta: Meta<typeof Select> = {
   title: 'Components/Select',
@@ -12,6 +16,9 @@ const meta: Meta<typeof Select> = {
       control: { type: 'object' },
     },
     disabled: { control: 'boolean' },
+    classNames: {
+      control: { type: 'object' },
+    },
   },
   args: {
     defaultValue: 'React',
@@ -85,4 +92,46 @@ export const SmallSize: Story = {
       </div>
     ),
   ],
+}
+
+export const CustomLabelClass: Story = {
+  args: {
+    label: 'Language Select Label',
+    defaultValue: 'React',
+    classNames: {
+      label: 'custom-select-label',
+    },
+    items: baseItems,
+  },
+  render: args => (
+    <div>
+      <style>{`.custom-select-label { color: var(--color-danger-500); }`}</style>
+      <Select {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const label = canvas.getByText('Language Select Label').closest('label')
+
+    await expect(label).not.toBeNull()
+    await expect(label).toHaveClass('custom-select-label')
+  },
+}
+
+export const Error: Story = {
+  args: {
+    label: 'Select-box',
+    error: 'This field is required',
+    items: baseItems,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const label = canvas.getByText('Select-box').closest('label')
+    const trigger = canvas.getByLabelText('Select-box')
+
+    await expect(label).not.toBeNull()
+    await expect(label).toHaveClass(labelRadixStyles.invalid)
+    await expect(trigger).toHaveClass(styles.triggerError)
+    await expect(canvas.getByText('This field is required')).toBeInTheDocument()
+  },
 }
