@@ -41,7 +41,8 @@
   "files": [
     "dist/**/*.js",
     "dist/**/*.d.ts",
-    "dist/**/*.css"
+    "dist/**/*.css",
+    "lib/fonts/inter.css"
   ],
   "sideEffects": [
     "./dist/ui-kit.css",
