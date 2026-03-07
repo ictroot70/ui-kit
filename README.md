@@ -29,6 +29,8 @@ npm i @ictroot/ui-kit
 ## 💡 An example of use
 
 ```tsx
+import '@ictroot/ui-kit/style.css'
+import '@ictroot/ui-kit/fonts/inter.css' // optional, opt-in
 import { Button } from '@ictroot/ui-kit'
 
 export function MyComponent() {

@@ -1,8 +1,6 @@
 {
   "name": "@ictroot/ui-kit",
-
   "version": "1.0.4",
-
   "description": "Modular and expanded library of components created using Vite, Storybook and Typescript. Suitable for re-used UI elements in various projects",
   "author": "IctRoot",
   "license": "MIT",
@@ -17,14 +15,17 @@
       "import": "./dist/ui-kit.es.js",
       "require": "./dist/ui-kit.cjs.js"
     },
-    "./style.css": "./dist/ui-kit.css"
+    "./style.css": "./dist/ui-kit.css",
+    "./fonts/inter.css": "./lib/fonts/inter.css"
   },
   "files": [
     "dist",
-    "dist/*.css"
+    "dist/*.css",
+    "lib/fonts/inter.css"
   ],
   "sideEffects": [
-    "./dist/ui-kit.css"
+    "./dist/ui-kit.css",
+    "./lib/fonts/inter.css"
   ],
   "scripts": {
     "nps": "nps",
@@ -37,6 +38,9 @@
     "size:ci": "node scripts/size-ci-guard.mjs",
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
+    "ai:context:detect": "AI_AGENT_CONFIG_DIR=./ai-agent-config-v2 node ai-agent-config-v2/scripts/detect-project-context-registry.mjs",
+    "ai:context:ensure": "AI_AGENT_CONFIG_DIR=./ai-agent-config-v2 node ai-agent-config-v2/scripts/ensure-ai-context.mjs",
+    "ai:profiles:review": "AI_AGENT_CONFIG_DIR=./ai-agent-config-v2 node ai-agent-config-v2/scripts/review-profiles.mjs",
     "build-storybook": "storybook build"
   },
   "publishConfig": {

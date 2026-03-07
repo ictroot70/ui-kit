@@ -12,8 +12,13 @@ import { dependencies, devDependencies, peerDependencies } from './package.json'
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, join('lib', 'index.ts')),
-      fileName: format => `ui-kit.${format}.js`,
+      entry: {
+        index: resolve(__dirname, join('lib', 'index.ts')),
+        style: resolve(__dirname, join('lib', 'style.ts')),
+      },
+      fileName: (format, entryName) =>
+        entryName === 'index' ? `ui-kit.${format}.js` : `${entryName}.${format}.js`,
+      cssFileName: 'ui-kit',
       formats: ['es', 'cjs'],
       name: 'ui-kit',
     },
