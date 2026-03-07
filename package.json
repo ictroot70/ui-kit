@@ -19,9 +19,9 @@
     "./fonts/inter.css": "./lib/fonts/inter.css"
   },
   "files": [
-    "dist",
-    "dist/*.css",
-    "lib/fonts/inter.css"
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.css"
   ],
   "sideEffects": [
     "./dist/ui-kit.css",

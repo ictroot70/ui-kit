@@ -6,7 +6,7 @@ import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-import { dependencies, devDependencies, peerDependencies } from './package.json'
+import { dependencies, peerDependencies } from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,7 +27,6 @@ export default defineConfig({
         'react/jsx-runtime',
         ...Object.keys(peerDependencies),
         ...Object.keys(dependencies),
-        ...Object.keys(devDependencies),
       ],
       output: {
         globals: {
@@ -36,6 +35,7 @@ export default defineConfig({
         },
       },
     },
+    copyPublicDir: false,
     sourcemap: true,
     target: 'esnext',
   },
