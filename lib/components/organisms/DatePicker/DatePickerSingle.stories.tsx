@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { expect, within } from '@storybook/test'
 
-import { useState } from 'react'
+import { type ReactNode, useState } from 'react'
 
+import { expect, userEvent, within } from '@storybook/test'
 import { Typography } from 'components/atoms'
+
 import labelRadixStyles from 'components/molecules/LabelRadix/LabelRadix.module.scss'
 
 import { DatePickerSingle, type DatePickerSingleProps } from './components'
@@ -67,6 +68,46 @@ export const Disabled: Story = {
   },
 }
 
+export const ControlledReset: Story = {
+  render: (args: DatePickerSingleProps) => {
+    const [date, setDate] = useState<Date | undefined>(undefined)
+
+    return (
+      <div style={{ display: 'grid', gap: 8 }}>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button
+            data-testid={'set-date'}
+            type={'button'}
+            onClick={() => setDate(new Date('2011-12-12'))}
+          >
+            Set date
+          </button>
+          <button data-testid={'clear-date'} type={'button'} onClick={() => setDate(undefined)}>
+            Clear date
+          </button>
+        </div>
+        <DatePickerSingle
+          {...args}
+          value={date}
+          defaultDate={new Date('2010-10-10')}
+          onDateChange={setDate}
+        />
+      </div>
+    )
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await expect(canvas.getByText('Select your date')).toBeInTheDocument()
+
+    await userEvent.click(canvas.getByTestId('set-date'))
+    await expect(canvas.getByText('12/12/2011')).toBeInTheDocument()
+
+    await userEvent.click(canvas.getByTestId('clear-date'))
+    await expect(canvas.getByText('Select your date')).toBeInTheDocument()
+  },
+}
+
 export const WithAgeValidation: Story = {
   render: (args: DatePickerSingleProps) => {
     const link = (
@@ -80,7 +121,7 @@ export const WithAgeValidation: Story = {
       </Typography>
     )
     const [date, setDate] = useState<Date | undefined>(new Date('2011-12-12'))
-    const [error, setError] = useState<string | React.ReactNode | undefined>(privacyPolicyMessage)
+    const [error, setError] = useState<string | ReactNode | undefined>(privacyPolicyMessage)
 
     const handleDateChange = (selectedDate: Date | undefined) => {
       setDate(selectedDate)
