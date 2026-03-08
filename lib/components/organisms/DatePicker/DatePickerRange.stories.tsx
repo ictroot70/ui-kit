@@ -1,4 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { expect, within } from '@storybook/test'
+
+import labelRadixStyles from 'components/molecules/LabelRadix/LabelRadix.module.scss'
 
 import { DatePickerRange, type DatePickerRangeProps } from './components'
 
@@ -37,6 +40,13 @@ export const WithDefaultDate: Story = {
 export const WithError: Story = {
   args: {
     error: 'Please select a date range.',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const label = canvas.getByText('Vacation Dates').closest('label')
+
+    await expect(label).not.toBeNull()
+    await expect(label).toHaveClass(labelRadixStyles.invalid)
   },
 }
 

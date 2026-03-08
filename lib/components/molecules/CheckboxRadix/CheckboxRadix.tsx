@@ -88,6 +88,8 @@ export const CheckboxRadix = forwardRef<ElementRef<typeof Checkbox.Root>, Checkb
           required
           label={label}
           aria-label={'Checkbox'}
+          invalid={Boolean(errorMessage)}
+          disabled={disabled}
           className={classNames.label}
           htmlFor={id}
         >

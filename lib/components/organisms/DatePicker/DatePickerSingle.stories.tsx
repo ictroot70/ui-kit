@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { expect, within } from '@storybook/test'
 
 import { useState } from 'react'
 
 import { Typography } from 'components/atoms'
+import labelRadixStyles from 'components/molecules/LabelRadix/LabelRadix.module.scss'
 
 import { DatePickerSingle, type DatePickerSingleProps } from './components'
 
@@ -32,6 +34,13 @@ export const WithDefaultValue: Story = {
 export const WithError: Story = {
   args: {
     error: 'Date is required',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const label = canvas.getByText('Date of birth').closest('label')
+
+    await expect(label).not.toBeNull()
+    await expect(label).toHaveClass(labelRadixStyles.invalid)
   },
 }
 

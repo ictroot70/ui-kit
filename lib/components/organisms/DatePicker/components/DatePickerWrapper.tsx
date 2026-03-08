@@ -79,6 +79,7 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
         <LabelRadix
           htmlFor={buttonId}
           required={required}
+          invalid={Boolean(error)}
           className={clsx(s.label, classNames?.label)}
           disabled={disabled}
           data-label-for-datepicker={'true'}
