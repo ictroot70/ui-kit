@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactElement, ReactNode, useState } from 'react'
+import { HTMLAttributes, ReactElement, ReactNode, useRef, useState } from 'react'
 import { DayPicker, type DayPickerProps } from 'react-day-picker'
 
 import 'react-day-picker/style.css'
@@ -74,21 +74,23 @@ export type DatePickerSingleProps = {
  * ### Returns
  * - A complete single date picker component with a trigger and a calendar popover.
  */
-export const DatePickerSingle = ({
-  value,
-  defaultDate,
-  onDateChange,
-  label = 'Select Date',
-  placeholder = 'Select date',
-  disabled = false,
-  required = false,
-  classNames,
-  error,
-  hint,
-  calendarProps,
-  ...restProps
-}: DatePickerSingleProps): ReactElement => {
-  const isControlled = value !== undefined
+export const DatePickerSingle = (props: DatePickerSingleProps): ReactElement => {
+  const {
+    value,
+    defaultDate,
+    onDateChange,
+    label = 'Select Date',
+    placeholder = 'Select date',
+    disabled = false,
+    required = false,
+    classNames,
+    error,
+    hint,
+    calendarProps,
+    ...restProps
+  } = props
+  const isControlledRef = useRef(Object.prototype.hasOwnProperty.call(props, 'value'))
+  const isControlled = isControlledRef.current
   const [internalDate, setInternalDate] = useState<Date | undefined>(defaultDate)
   const selectedDate = isControlled ? value : internalDate
 
