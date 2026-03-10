@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { expect, within } from '@storybook/test'
 
 import { useState } from 'react'
 
+import { expect, within } from '@storybook/test'
 import { CheckboxRadix } from 'components/molecules/CheckboxRadix/CheckboxRadix'
-import labelRadixStyles from 'components/molecules/LabelRadix/LabelRadix.module.scss'
+
+import labelRadixStyles from '../LabelRadix/LabelRadix.module.scss'
 
 const meta = {
   component: CheckboxRadix,

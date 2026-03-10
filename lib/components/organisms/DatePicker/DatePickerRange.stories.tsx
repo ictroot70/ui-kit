@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { expect, userEvent, within } from '@storybook/test'
 
-import labelRadixStyles from 'components/molecules/LabelRadix/LabelRadix.module.scss'
+import labelRadixStyles from '../../molecules/LabelRadix/LabelRadix.module.scss'
 
 import { DatePickerRange, type DatePickerRangeProps } from './components'
 

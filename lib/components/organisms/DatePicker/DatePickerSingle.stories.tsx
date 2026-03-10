@@ -5,7 +5,7 @@ import { type ReactNode, useState } from 'react'
 import { expect, userEvent, within } from '@storybook/test'
 import { Typography } from 'components/atoms'
 
-import labelRadixStyles from 'components/molecules/LabelRadix/LabelRadix.module.scss'
+import labelRadixStyles from '../../molecules/LabelRadix/LabelRadix.module.scss'
 
 import { DatePickerSingle, type DatePickerSingleProps } from './components'
 

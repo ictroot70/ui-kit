@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { expect, userEvent, within } from '@storybook/test'
 
 import { useState } from 'react'
 
-import labelRadixStyles from 'components/molecules/LabelRadix/LabelRadix.module.scss'
+import { expect, userEvent, within } from '@storybook/test'
+
+import labelRadixStyles from '../LabelRadix/LabelRadix.module.scss'
 
 import { Input } from './Input'
 

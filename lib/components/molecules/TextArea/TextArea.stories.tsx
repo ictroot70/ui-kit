@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect, within } from '@storybook/test'
 
-import labelRadixStyles from 'components/molecules/LabelRadix/LabelRadix.module.scss'
+import labelRadixStyles from '../LabelRadix/LabelRadix.module.scss'
 
 import { TextArea } from './TextArea'
 

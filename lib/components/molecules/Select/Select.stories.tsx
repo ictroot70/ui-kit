@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { expect, within } from '@storybook/test'
 
-import labelRadixStyles from 'components/molecules/LabelRadix/LabelRadix.module.scss'
+import labelRadixStyles from '../LabelRadix/LabelRadix.module.scss'
+import styles from './Select.module.scss'
 
 import { RussiaFlag, UkFlag } from '../../../assets/icons'
 import { Select } from './Select'
-import styles from './Select.module.scss'
 
 const meta: Meta<typeof Select> = {
   title: 'Components/Select',
