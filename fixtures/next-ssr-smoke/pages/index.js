@@ -1,6 +1,8 @@
 import dynamic from 'next/dynamic'
 import { useEffect, useMemo, useState } from 'react'
+import { ModalFrame } from '@ictroot/ui-kit'
 import { DatePickerSingle } from '@ictroot/ui-kit/datepicker'
+import { Modal } from '@ictroot/ui-kit/modal'
 import { ToastContainer } from '@ictroot/ui-kit/toast'
 
 const Recaptcha = dynamic(() => import('@ictroot/ui-kit/recaptcha').then(mod => mod.Recaptcha), {
@@ -40,6 +42,47 @@ export default function HomePage() {
       <div data-testid={'recaptcha-smoke'} style={{ marginTop: 24 }}>
         <Recaptcha sitekey={'test-site-key'} />
       </div>
+
+      {!isClient ? (
+        <div
+          data-testid={'modal-shell-smoke'}
+          aria-hidden
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0, 0, 0, 0.5)',
+            pointerEvents: 'none',
+          }}
+        >
+          <ModalFrame closeBtnOutside style={{ width: 320 }}>
+            <div
+              data-testid={'modal-shell-content-smoke'}
+              style={{
+                minHeight: 160,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              Modal shell rendered
+            </div>
+          </ModalFrame>
+        </div>
+      ) : (
+        <Modal open onClose={() => {}} closeBtnOutside style={{ width: 320 }}>
+          <div
+            data-testid={'modal-content-smoke'}
+            style={{
+              minHeight: 160,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            Modal smoke rendered
+          </div>
+        </Modal>
+      )}
 
       <button
         data-testid={'hydrate-action'}

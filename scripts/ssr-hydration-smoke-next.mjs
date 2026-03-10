@@ -2,6 +2,7 @@ import { execFileSync, spawn } from 'node:child_process'
 import { copyFileSync, existsSync, mkdirSync, rmSync } from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
+
 import { chromium } from 'playwright'
 
 const ROOT_DIR = process.cwd()
@@ -9,6 +10,13 @@ const FIXTURE_DIR = path.resolve(ROOT_DIR, 'fixtures/next-ssr-smoke')
 const FIXTURE_TARBALL_PATH = path.resolve(FIXTURE_DIR, 'vendor/ui-kit-smoke.tgz')
 const FIXTURE_URL = 'http://127.0.0.1:4010'
 const SERVER_BOOT_TIMEOUT_MS = 90_000
+const LOCAL_NPM_CACHE = path.resolve(ROOT_DIR, '.npm-cache')
+const RESOLVED_NPM_CACHE = process.env.UI_KIT_SSR_NPM_CACHE || LOCAL_NPM_CACHE
+const SHARED_ENV = {
+  ...process.env,
+  npm_config_cache: RESOLVED_NPM_CACHE,
+  NPM_CONFIG_CACHE: RESOLVED_NPM_CACHE,
+}
 const HYDRATION_ERROR_PATTERN =
   /(hydration|did not match|text content does not match|server html|window is not defined|document is not defined)/i
 
@@ -18,7 +26,7 @@ const runCommand = (command, args, cwd) =>
   new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       cwd,
-      env: process.env,
+      env: SHARED_ENV,
       shell: process.platform === 'win32',
       stdio: 'inherit',
     })
@@ -27,6 +35,7 @@ const runCommand = (command, args, cwd) =>
     child.on('exit', code => {
       if (code === 0) {
         resolve()
+
         return
       }
 
@@ -40,10 +49,13 @@ const waitForServer = async () => {
   while (Date.now() - startedAt < SERVER_BOOT_TIMEOUT_MS) {
     try {
       const response = await fetch(`${FIXTURE_URL}/`)
+
       if (response.ok) {
         return
       }
-    } catch {}
+    } catch (error) {
+      void error
+    }
 
     await wait(1_000)
   }
@@ -74,7 +86,7 @@ const prepareFixtureTarball = () => {
   const packOutput = execFileSync('npm', ['pack', '--json'], {
     cwd: ROOT_DIR,
     encoding: 'utf8',
-    env: process.env,
+    env: SHARED_ENV,
   })
   const packed = JSON.parse(packOutput)?.[0]
 
@@ -83,6 +95,7 @@ const prepareFixtureTarball = () => {
   }
 
   const sourceTarballPath = path.resolve(ROOT_DIR, packed.filename)
+
   mkdirSync(path.dirname(FIXTURE_TARBALL_PATH), { recursive: true })
   rmSync(FIXTURE_TARBALL_PATH, { force: true })
   copyFileSync(sourceTarballPath, FIXTURE_TARBALL_PATH)
@@ -90,6 +103,8 @@ const prepareFixtureTarball = () => {
 }
 
 const main = async () => {
+  mkdirSync(SHARED_ENV.npm_config_cache, { recursive: true })
+
   if (!existsSync(path.resolve(ROOT_DIR, 'dist/ui-kit.es.js'))) {
     throw new Error('Missing dist build. Run `npm run build` before `npm run ssr:smoke`.')
   }
@@ -117,7 +132,7 @@ const main = async () => {
     ['run', 'start', '--', '--hostname', '127.0.0.1', '--port', '4010'],
     {
       cwd: FIXTURE_DIR,
-      env: process.env,
+      env: SHARED_ENV,
       shell: process.platform === 'win32',
       stdio: 'inherit',
     }
@@ -130,11 +145,18 @@ const main = async () => {
   try {
     await waitForServer()
 
+    const serverRenderedHtml = await fetch(`${FIXTURE_URL}/`).then(response => response.text())
+
+    if (!serverRenderedHtml.includes('data-testid="modal-shell-smoke"')) {
+      throw new Error('Modal SSR shell was not present in the server-rendered HTML.')
+    }
+
     browser = await chromium.launch({ headless: true })
     const page = await browser.newPage()
 
     page.on('console', message => {
       const text = message.text()
+
       if (HYDRATION_ERROR_PATTERN.test(text)) {
         hydrationErrors.push(text)
       }
@@ -147,9 +169,18 @@ const main = async () => {
     await page.goto(`${FIXTURE_URL}/`, { waitUntil: 'domcontentloaded', timeout: 30_000 })
 
     await page.waitForSelector('[data-testid="datepicker-smoke"]', { timeout: 20_000 })
+    await page.waitForSelector('[data-testid="modal-content-smoke"]', { timeout: 20_000 })
     await page.waitForSelector('[data-testid="toast-smoke"]', { timeout: 20_000 })
     await page.waitForSelector('.recaptcha-core', { timeout: 20_000 })
-    await page.click('[data-testid="hydrate-action"]')
+    await page.waitForFunction(
+      () => document.querySelector('[data-testid="hydration-state"]')?.textContent === 'hydrated:1',
+      { timeout: 20_000 }
+    )
+    await page.evaluate(() => {
+      document.querySelector('[data-testid="hydrate-action"]')?.dispatchEvent(
+        new MouseEvent('click', { bubbles: true })
+      )
+    })
     await page.waitForFunction(
       () => document.querySelector('[data-testid="hydration-state"]')?.textContent === 'hydrated:2',
       { timeout: 20_000 }

@@ -16,6 +16,7 @@ dist-ssr
 .next
 fixtures/next-ssr-smoke/vendor
 fixtures/next-ssr-smoke/package-lock.json
+.npm-cache
 
 # Editor directories and files
 .vscode/*

@@ -35,6 +35,16 @@
       "import": "./dist/recaptcha.es.js",
       "require": "./dist/recaptcha.cjs.js"
     },
+    "./modal": {
+      "types": "./dist/modal.d.ts",
+      "import": "./dist/modal.es.js",
+      "require": "./dist/modal.cjs.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.es.js",
+      "require": "./dist/client.cjs.js"
+    },
     "./style.css": "./dist/ui-kit.css",
     "./fonts/inter.css": "./lib/fonts/inter.css"
   },
@@ -105,7 +115,6 @@
     "@radix-ui/react-tabs": "1.1.11",
     "@radix-ui/react-visually-hidden": "^1.2.3",
     "clsx": "2.1.1",
-    "framer-motion": "12.12.1",
     "lucide-react": "0.510.0",
     "react-day-picker": "9.6.7",
     "react-google-recaptcha": "3.1.0",

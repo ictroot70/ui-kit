@@ -6,6 +6,7 @@ export type Toast = {
   title?: string
   message: string
   duration?: number
+  totalDuration?: number
   closeable?: boolean
   pauseStart?: number
   remaining?: number

@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { Toast } from 'components/molecules/Toast/Toast.types'
 import { ToastInput } from 'providers/ToastProvider/hooks/useToast'
@@ -15,6 +15,8 @@ export interface UseToastManagerReturn {
   pauseToast: (toast: Toast) => void
   resumeToast: (toast: Toast) => void
 }
+
+const DEFAULT_TOAST_DURATION = 4000
 
 /**
  * A custom React hook for managing toast notifications.
@@ -49,6 +51,14 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
   const { maxToasts = 5 } = options
   const [toasts, setToasts] = useState<Toast[]>([])
   const timeouts = useRef<Record<string, ReturnType<typeof setTimeout>>>({})
+
+  useEffect(
+    () => () => {
+      Object.values(timeouts.current).forEach(timeoutId => clearTimeout(timeoutId))
+      timeouts.current = {}
+    },
+    []
+  )
   /**
    * Removes a toast by its ID and clears its timeout.
    *
@@ -71,12 +81,15 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
     (toast: ToastInput) => {
       const id = uuidv4()
       const createdAt = Date.now()
+      const duration = toast.duration ?? DEFAULT_TOAST_DURATION
       const newToast: Toast = {
         ...toast,
         id,
         createdAt,
+        duration,
+        totalDuration: duration,
         pauseStart: undefined,
-        remaining: toast.duration ?? 4000,
+        remaining: duration,
         timeoutId: undefined,
       }
 
@@ -94,8 +107,8 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
         return newToasts
       })
 
-      if (toast.duration !== 0) {
-        timeouts.current[id] = setTimeout(() => removeToast(id), toast.duration ?? 4000)
+      if (duration !== 0) {
+        timeouts.current[id] = setTimeout(() => removeToast(id), duration)
       }
     },
     [maxToasts, removeToast]
@@ -111,9 +124,20 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
         if (t.id !== toast.id) {
           return t
         }
+        if (t.pauseStart !== undefined) {
+          return t
+        }
+
+        const totalDuration = t.totalDuration ?? t.duration ?? DEFAULT_TOAST_DURATION
+
+        if (totalDuration <= 0) {
+          return t
+        }
+
+        const currentSegmentDuration = t.remaining ?? t.duration ?? DEFAULT_TOAST_DURATION
         const now = Date.now()
         const elapsed = now - t.createdAt
-        const remaining = (t.remaining ?? t.duration ?? 5000) - elapsed
+        const remaining = currentSegmentDuration - elapsed
 
         clearTimeout(timeouts.current[t.id])
         delete timeouts.current[t.id]
@@ -131,28 +155,45 @@ export const useToastManager = (options: UseToastManagerOptions): UseToastManage
    *
    * @param {Toast} toast - The toast to resume.
    */
-  const resumeToast = useCallback((toast: Toast) => {
-    setToasts(prev =>
-      prev.map(t => {
-        if (t.id !== toast.id) {
-          return t
-        }
+  const resumeToast = useCallback(
+    (toast: Toast) => {
+      setToasts(prev =>
+        prev.map(t => {
+          if (t.id !== toast.id) {
+            return t
+          }
+          if (t.pauseStart === undefined) {
+            return t
+          }
 
-        const remaining = t.remaining ?? t.duration ?? 5000
+          const totalDuration = t.totalDuration ?? t.duration ?? DEFAULT_TOAST_DURATION
 
-        const timeoutId = setTimeout(() => removeToast(t.id), remaining)
-        timeouts.current[t.id] = timeoutId
+          if (totalDuration <= 0) {
+            return {
+              ...t,
+              pauseStart: undefined,
+              remaining: 0,
+            }
+          }
 
-        return {
-          ...t,
-          timeoutId,
-          createdAt: Date.now(), // for the progressbar to recount from the current time
-          pauseStart: undefined,
-          remaining: undefined,
-        }
-      })
-    )
-  }, [removeToast])
+          const remaining = Math.max(t.remaining ?? t.duration ?? DEFAULT_TOAST_DURATION, 0)
+
+          const timeoutId = setTimeout(() => removeToast(t.id), remaining)
+
+          timeouts.current[t.id] = timeoutId
+
+          return {
+            ...t,
+            timeoutId,
+            createdAt: Date.now(),
+            pauseStart: undefined,
+            remaining,
+          }
+        })
+      )
+    },
+    [removeToast]
+  )
 
   return {
     toasts,

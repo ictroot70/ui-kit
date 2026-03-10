@@ -46,20 +46,46 @@ import { Search } from '@ictroot/ui-kit/icons'
 import { DatePickerSingle } from '@ictroot/ui-kit/datepicker'
 import { ToastContainer } from '@ictroot/ui-kit/toast'
 import { Recaptcha } from '@ictroot/ui-kit/recaptcha'
+import { Modal } from '@ictroot/ui-kit/modal'
+```
+
+For Next.js App Router, prefer the client entrypoint for interactive UI:
+
+```tsx
+'use client'
+
+import { Button, DatePickerSingle, ToastProvider } from '@ictroot/ui-kit/client'
 ```
 
 Root import is still supported for DX, but subpath imports are recommended for heavy modules.
 
 Heavy-module subpaths are intentionally limited to:
 - `@ictroot/ui-kit/datepicker`
+- `@ictroot/ui-kit/modal`
 - `@ictroot/ui-kit/toast`
 - `@ictroot/ui-kit/recaptcha`
 
-`Modal` should be imported from root:
+For Next.js App Router, prefer the modal subpath from a client component:
+
+```tsx
+'use client'
+
+import { Modal } from '@ictroot/ui-kit/modal'
+```
+
+Root import is still supported for backward compatibility:
 
 ```tsx
 import { Modal } from '@ictroot/ui-kit'
 ```
+
+Stable CSS override contract for app-level integration:
+
+- Modal overlay z-index: `--ui-kit-modal-overlay-z-index`
+- Modal content z-index: `--ui-kit-modal-content-z-index`
+- Alert min-height: `--ui-kit-alert-min-height`
+- Alert max-height: `--ui-kit-alert-max-height`
+- Stable hooks (for targeted overrides): `data-ui-kit-modal-overlay`, `data-ui-kit-modal-content`, `data-ui-kit-alert`
 
 SSR note for Next.js + Recaptcha:
 
@@ -76,6 +102,15 @@ SSR smoke gate command:
 ```bash
 npm run ssr:smoke
 ```
+
+## 🗒 Changelog Policy
+
+Consumer-visible changes are tracked in [CHANGELOG.md](./CHANGELOG.md).
+
+Before each release:
+- add all user-facing updates to `Unreleased` in `CHANGELOG.md`
+- classify entries as `Added`, `Changed`, `Fixed`, or `Breaking`
+- move `Unreleased` notes to a new version section with release date
 
 ## 📁 components
 
