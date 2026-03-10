@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { memo, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 
 import { Toast } from 'components/molecules/Toast/Toast.types'
 import { ToastItem } from 'components/molecules/Toast/ToastItem'
 import { getPositionStyle } from 'components/molecules/Toast/helpers/getPositionStyle'
-import { AnimatePresence } from 'framer-motion'
 
 export type ToastPosition =
   | 'top-right'
@@ -29,7 +28,7 @@ export interface ToastContainerProps {
  * ToastContainer is responsible for rendering and positioning toast notifications on the screen.
  *
  * It uses `createPortal` to render toasts outside the main React DOM hierarchy, allowing absolute positioning.
- * Toasts are animated using `AnimatePresence` from `framer-motion`, which enables smooth enter and exit transitions.
+ * Toasts use lightweight CSS animation on mount for a smooth appearance.
  *
  * You can customize the appearance of toasts by providing a `renderToast` function, and control behavior such as
  * progress bar visibility and pause-on-hover support.
@@ -61,33 +60,42 @@ export interface ToastContainerProps {
  * @returns A portal-rendered list of toast notifications, or `null` if rendering on the server.
  */
 
-export const ToastContainer = (props: ToastContainerProps): React.ReactPortal | null => {
-  const { toasts, position, renderToast, onRemove, onPause, onResume, enableProgressBar, ...rest } =
-    props
+const ToastContainerBase = (props: ToastContainerProps): React.ReactPortal | null => {
+  const {
+    toasts,
+    position,
+    renderToast,
+    onRemove,
+    onPause,
+    onResume,
+    enableProgressBar,
+    enableHoverPause,
+  } = props
+  const positionStyle = useMemo(() => getPositionStyle(position), [position])
 
   if (typeof document === 'undefined') {
     return null
   }
 
   return createPortal(
-    <div style={getPositionStyle(position)}>
-      <AnimatePresence>
-        {toasts.map(toast => (
-          <ToastItem
-            key={toast.id}
-            toast={toast}
-            onClose={() => onRemove(toast.id)}
-            renderToast={renderToast}
-            enableProgressBar={enableProgressBar}
-            onMouseEnter={() => onPause(toast)}
-            onMouseLeave={() => onResume(toast)}
-            {...rest}
-          />
-        ))}
-      </AnimatePresence>
+    <div style={positionStyle}>
+      {toasts.map(toast => (
+        <ToastItem
+          key={toast.id}
+          toast={toast}
+          onClose={onRemove}
+          renderToast={renderToast}
+          enableProgressBar={enableProgressBar}
+          enableHoverPause={enableHoverPause}
+          onMouseEnter={onPause}
+          onMouseLeave={onResume}
+        />
+      ))}
     </div>,
     document.body
   )
 }
 
-ToastContainer.displayName = 'ToastContainer'
+ToastContainerBase.displayName = 'ToastContainer'
+
+export const ToastContainer = memo(ToastContainerBase)

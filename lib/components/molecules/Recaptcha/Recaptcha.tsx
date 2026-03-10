@@ -56,16 +56,37 @@ export interface RecaptchaProps extends ReCAPTCHAProps {
 
 export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
   (props, ref): ReactElement => {
-    const { statusForStorybook, sitekey, onChange, onExpired, ...rest } = props
-    const { visualStatus, setSuccess, setExpired } = useRecaptchaStatus(statusForStorybook)
-
-    const { handleOnChange, handleOnExpired } = useRecaptchaHandlers({
-      setSuccess,
-      setExpired,
+    const {
+      statusForStorybook,
+      sitekey,
       onChange,
       onExpired,
+      onErrored,
+      asyncScriptOnLoad,
+      ...rest
+    } = props
+    const { visualStatus, setSuccess, setExpired, setError } =
+      useRecaptchaStatus(statusForStorybook)
+
+    const { handleOnChange, handleOnExpired, handleOnErrored } = useRecaptchaHandlers({
+      setSuccess,
+      setExpired,
+      setError,
+      onChange,
+      onExpired,
+      onErrored,
     })
-    const { isLoaded, hasTimedOut, markAsLoaded } = useRecaptchaLoadGuard()
+    const { isLoaded, hasTimedOut, markAsLoaded, markAsFailed } = useRecaptchaLoadGuard()
+
+    const handleScriptLoad = () => {
+      markAsLoaded()
+      asyncScriptOnLoad?.()
+    }
+
+    const handleErrored = () => {
+      handleOnErrored()
+      markAsFailed()
+    }
 
     return (
       <div
@@ -84,7 +105,8 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
             sitekey={sitekey}
             onChange={handleOnChange}
             onExpired={handleOnExpired}
-            onLoadCapture={markAsLoaded}
+            asyncScriptOnLoad={handleScriptLoad}
+            onErrored={handleErrored}
             {...rest}
           />
         </div>

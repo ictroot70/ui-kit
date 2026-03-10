@@ -2,9 +2,9 @@ import { type ComponentRef, forwardRef, ReactNode, useId } from 'react'
 
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import * as RadixSelect from '@radix-ui/react-select'
-import { ArrowDownSimple } from 'assets/icons'
+import ArrowDownSimple from 'assets/icons/components/ArrowDownSimple'
 import { clsx } from 'clsx'
-import { Typography } from 'components/atoms'
+import { ErrorMessage, Typography } from 'components/atoms'
 
 import s from './Select.module.scss'
 
@@ -19,6 +19,7 @@ export type SelectItemsProps = {
 export type SelectProps = {
   id?: string
   label?: string
+  error?: string
   items: SelectItemsProps[]
   placeholder?: string
   size?: 'medium' | 'small'
@@ -29,6 +30,7 @@ export type SelectProps = {
   collisionPadding?: number | Partial<Record<'top' | 'right' | 'bottom' | 'left', number>>
   avoidCollisions?: boolean
   classNames?: {
+    label?: string
     trigger?: string
     content?: string
     item?: string
@@ -42,6 +44,7 @@ export type SelectProps = {
  * ## Features:
  * - Accessible select dropdown menu
  * - Optional label with automatic id association
+ * - Error state with message rendering
  * - Supports icons in options
  * - Controlled and uncontrolled value handling
  * - Customizable size via 'size' prop affecting padding, font sizes, and arrow icon size
@@ -66,6 +69,7 @@ export type SelectProps = {
  * - `props.items` - Array of select options (`{ value: string, label?: string, icon?: ReactNode }`)
  * - `props.label` - Optional label displayed above the select
  * - `props.placeholder` - Placeholder text when no value is selected
+ * - `props.error` - Optional error message displayed below the select
  * - `props.value` - The controlled value of the select. Should be used in conjunction with `onValueChange` to manage the component's state.
  * - `props.defaultValue` - The initial value for an uncontrolled select. The component manages its own state internally.
  * - `props.disabled` - Whether the select is disabled
@@ -73,7 +77,7 @@ export type SelectProps = {
  * - `props.id` - Optional id for the select trigger
  * - `props.size` - Determines the size of the select component, affecting padding, font size, and icon size. Available options are 'medium' or 'small'.
  * - `props.collisionPadding` - The padding between the content and the viewport edge. Can be a single number or a partial object of paddings. Defaults to `20`.
- * - `props.classNames` - An object of custom class names for the component's parts, allowing for targeted style overrides. Can include `trigger`, `content`, and `item`.
+ * - `props.classNames` - An object of custom class names for the component's parts, allowing for targeted style overrides. Can include `label`, `trigger`, `content`, and `item`.
  *
  * ### Returns
  * - A fully styled and accessible select dropdown component
@@ -85,6 +89,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
       defaultValue,
       value,
       label,
+      error,
       disabled,
       items,
       size = 'medium',
@@ -105,7 +110,8 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
           <LabelRadix
             htmlFor={id}
             label={label}
-            className={s.label}
+            className={clsx(s.label, classNames.label)}
+            invalid={Boolean(error)}
             typographyVariant={'regular_14'}
           />
         )}
@@ -118,7 +124,13 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
           <RadixSelect.Trigger
             id={id}
             ref={ref}
-            className={clsx(s.trigger, classNames.trigger, s[`trigger--${size}`])}
+            className={clsx(
+              s.trigger,
+              error && s.triggerError,
+              classNames.trigger,
+              s[`trigger--${size}`]
+            )}
+            aria-invalid={Boolean(error)}
             {...rest}
           >
             <RadixSelect.Value placeholder={placeholder} />
@@ -163,6 +175,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
             </RadixSelect.Content>
           </RadixSelect.Portal>
         </RadixSelect.Root>
+        {error && <ErrorMessage message={error} variant={'danger'} />}
       </div>
     )
   }

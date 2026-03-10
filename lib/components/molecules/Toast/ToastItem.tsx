@@ -1,26 +1,49 @@
-import { ReactElement, ReactNode } from 'react'
+import { memo, ReactElement, ReactNode, useEffect, useState } from 'react'
 
 import { Alert } from 'components/molecules'
 import { Toast } from 'components/molecules/Toast/Toast.types'
 import { getToastProgress } from 'components/molecules/Toast/helpers/getToastProgress'
-import { motion } from 'framer-motion'
+
+import s from './ToastItem.module.scss'
 
 export interface ToastItemProps {
   toast: Toast
-  onClose: () => void
+  onClose: (id: string) => void
   enableCloseButton?: boolean
   renderToast?: (toast: Toast, onClose: () => void) => ReactNode
   enableProgressBar?: boolean
-  onMouseEnter: () => void
-  onMouseLeave: () => void
+  enableHoverPause?: boolean
+  onMouseEnter?: (toast: Toast) => void
+  onMouseLeave?: (toast: Toast) => void
+}
+
+const defaultToastDuration = 4000
+const clampProgress = (value: number): number => Math.min(100, Math.max(0, value))
+
+const getCurrentProgress = (toast: Toast): number => {
+  const totalDuration = toast.totalDuration ?? toast.duration ?? defaultToastDuration
+
+  if (totalDuration <= 0) {
+    return 0
+  }
+
+  const segmentDuration = Math.max(toast.remaining ?? toast.duration ?? defaultToastDuration, 0)
+
+  if (toast.pauseStart !== undefined) {
+    return clampProgress((segmentDuration / totalDuration) * 100)
+  }
+
+  const elapsedProgress = getToastProgress(toast.createdAt, segmentDuration)
+  const segmentRatio = clampProgress((segmentDuration / totalDuration) * 100)
+
+  return clampProgress((elapsedProgress / 100) * segmentRatio)
 }
 
 /**
  * `ToastItem` renders a single toast notification with optional animations, progress bar,
  * and support for custom content rendering.
  *
- * It uses Framer Motion to animate enter/exit transitions and can render either a default
- * `Alert` component or a custom toast via the `renderToast` prop.
+ * It can render either a default `Alert` component or a custom toast via the `renderToast` prop.
  *
  * Supports pause-on-hover functionality and an optional close button.
  *
@@ -50,32 +73,43 @@ export interface ToastItemProps {
  * @returns A `ReactElement` representing the animated toast component.
  */
 
-export const ToastItem = (props: ToastItemProps): ReactElement => {
+const ToastItemBase = (props: ToastItemProps): ReactElement => {
   const {
     toast,
     onClose,
     renderToast,
     enableProgressBar,
+    enableHoverPause = true,
     enableCloseButton,
     onMouseEnter,
     onMouseLeave,
   } = props
 
-  const progress = getToastProgress(toast.createdAt, toast.duration)
+  const [progress, setProgress] = useState(() => getCurrentProgress(toast))
+
+  useEffect(() => {
+    setProgress(getCurrentProgress(toast))
+
+    if (toast.pauseStart !== undefined || (toast.duration ?? defaultToastDuration) <= 0) {
+      return
+    }
+
+    const intervalId = setInterval(() => {
+      setProgress(getCurrentProgress(toast))
+    }, 100)
+
+    return () => clearInterval(intervalId)
+  }, [toast])
+
   const isCloseable = toast.closeable ?? enableCloseButton
+  const handleClose = () => onClose(toast.id)
+  const handleMouseEnter = enableHoverPause ? () => onMouseEnter?.(toast) : undefined
+  const handleMouseLeave = enableHoverPause ? () => onMouseLeave?.(toast) : undefined
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.2 }}
-      style={{ marginBottom: 8 }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
+    <div className={s.toastItem} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {renderToast ? (
-        renderToast(toast, onClose)
+        renderToast(toast, handleClose)
       ) : (
         <Alert
           typographyVariant={'regular_14'}
@@ -83,13 +117,16 @@ export const ToastItem = (props: ToastItemProps): ReactElement => {
           title={toast.title}
           message={toast.message}
           closeable={isCloseable}
-          onClose={onClose}
+          onClose={handleClose}
           duration={toast.duration}
           progressBar={enableProgressBar}
           progress={progress}
         />
       )}
-    </motion.div>
+    </div>
   )
 }
-ToastItem.displayName = 'ToastItem'
+
+ToastItemBase.displayName = 'ToastItem'
+
+export const ToastItem = memo(ToastItemBase)

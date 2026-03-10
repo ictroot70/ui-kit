@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import { Indicator } from '@radix-ui/react-checkbox'
-import { Checkmark } from 'assets/icons'
+import Checkmark from 'assets/icons/components/Checkmark'
 
 export const CheckboxIndicator = (props: CheckboxIndicatorProps) => {
   const { children, className, forceMount, iconSize = 18, ...rest } = props
