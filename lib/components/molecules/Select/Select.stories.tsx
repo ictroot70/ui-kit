@@ -23,7 +23,7 @@ const meta: Meta<typeof Select> = {
   },
   args: {
     defaultValue: 'React',
-    label: 'Select-box',
+    label: 'Select',
     placeholder: 'React',
   },
   decorators: [
@@ -121,14 +121,14 @@ export const CustomLabelClass: Story = {
 
 export const Error: Story = {
   args: {
-    label: 'Select-box',
+    label: 'Select',
     error: 'This field is required',
     items: baseItems,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const label = canvas.getByText('Select-box').closest('label')
-    const trigger = canvas.getByLabelText('Select-box')
+    const label = canvas.getByText('Select').closest('label')
+    const trigger = canvas.getByLabelText('Select')
 
     await expect(label).not.toBeNull()
     await expect(label).toHaveClass(labelRadixStyles.invalid)

@@ -11,6 +11,19 @@
   color: var(--color-light-900);
 }
 
+.value {
+  display: inline-flex;
+  align-items: center;
+  padding-right: var(--select-value-padding-right, #{function.px-to-unit(8)});
+}
+
+.icon {
+  margin-left: auto;
+  margin-right: var(--select-icon-margin-right, #{function.px-to-unit(4)});
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
 .trigger {
   all: unset;
   cursor: pointer;
@@ -18,7 +31,10 @@
   @include mixins.display-flex($align: center, $justify: space-between);
   @include mixins.box-sizing(border-box);
   box-sizing: border-box;
-  padding: function.px-to-unit(6) function.px-to-unit(12);
+  padding-top: var(--select-trigger-padding-top, #{function.px-to-unit(6)});
+  padding-right: var(--select-trigger-padding-right, #{function.px-to-unit(12)});
+  padding-bottom: var(--select-trigger-padding-bottom, #{function.px-to-unit(6)});
+  padding-left: var(--select-trigger-padding-left, #{function.px-to-unit(12)});
   border: 1px solid var(--color-dark-100);
   border-radius: function.px-to-unit(2);
   gap: 2px;
@@ -30,7 +46,7 @@
     color: var(--color-light-100);
     background-color: var(--color-dark-500);
 
-    .icon {
+    [data-slot='icon'] {
       transform: rotate(180deg);
     }
   }
@@ -110,7 +126,10 @@
   cursor: pointer;
 
   width: 100%;
-  padding: function.px-to-unit(6) function.px-to-unit(12);
+  padding-top: var(--select-item-padding-top, #{function.px-to-unit(6)});
+  padding-right: var(--select-item-padding-right, #{function.px-to-unit(12)});
+  padding-bottom: var(--select-item-padding-bottom, #{function.px-to-unit(6)});
+  padding-left: var(--select-item-padding-left, #{function.px-to-unit(12)});
 
   color: var(--color-light-100);
   background-color: transparent;
@@ -131,7 +150,8 @@
 }
 
 .list {
-  @include mixins.display-flex($align: center, $justify: start, $gap: function.px-to-unit(8));
+  @include mixins.display-flex($align: center, $justify: start);
+  gap: var(--select-item-gap, #{function.px-to-unit(8)});
   font-size: var(--select-item-font-size, 16px);
 
   span[role='img'] {
@@ -149,8 +169,8 @@
 .trigger--small,
 .item--small {
   padding: 0;
-  padding-left: function.px-to-unit(6);
-  padding-right: function.px-to-unit(2);
+  padding-left: var(--select-trigger-small-padding-left, #{function.px-to-unit(6)});
+  padding-right: var(--select-trigger-small-padding-right, #{function.px-to-unit(2)});
 }
 
 ::-webkit-scrollbar {
