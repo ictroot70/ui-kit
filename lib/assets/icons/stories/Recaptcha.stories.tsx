@@ -1,7 +1,7 @@
-import { Recaptcha } from '..'
+import { RecaptchaIcon } from '..'
 
 export default {
-  component: Recaptcha,
+  component: RecaptchaIcon,
   title: 'Components/Icons/Recaptcha',
   parameters: {
     layout: 'centered',

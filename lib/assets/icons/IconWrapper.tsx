@@ -27,8 +27,8 @@ export const IconWrapper = memo(
       return (
         <span
           ref={ref}
-          aria-hidden="true"
-          role="img"
+          aria-hidden={'true'}
+          role={'img'}
           style={
             {
               backgroundColor,

@@ -1,0 +1,20 @@
+@use '@/styles/mixins' as mixins;
+@use '@/styles/function' as function;
+
+.root {
+  @include mixins.display-flex(flex, $gap: function.px-to-unit(10));
+}
+
+.regular_16,
+.bold_16 {
+  padding-block: function.px-to-unit(12);
+}
+
+.regular_14 {
+  padding-block: function.px-to-unit(6);
+}
+
+.title,
+.message {
+  margin: 0;
+}

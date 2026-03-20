@@ -10,8 +10,13 @@ lerna-debug.log*
 
 node_modules
 dist
+storybook-static
 dist-ssr
 *.local
+.next
+fixtures/next-ssr-smoke/vendor
+fixtures/next-ssr-smoke/package-lock.json
+.npm-cache
 
 # Editor directories and files
 .vscode/*

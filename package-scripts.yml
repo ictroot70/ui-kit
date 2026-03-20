@@ -36,8 +36,8 @@ scripts:
 
   # ⚙️ Assembly and preparation
   prebuild:
-    script: 'rm -rf dist'
-    description: '🧨 Dist cleaning before assembly'
+    script: 'rimraf dist storybook-static .cache node_modules/.cache'
+    description: '🧨 Dist cleaning before assembly (cross-platform)'
 
   generateIndex:
     script: 'node scripts/generate-index.js'
@@ -67,29 +67,40 @@ scripts:
 
   # 🔖 VERSIONS AND RELEASES
   version:
+    description: '🎯 Version management scripts'
+
+    stable:
+      script: |
+        echo "🚫 Use nps version.patch/minor/major on main branch only" && \
+        exit 1
+      description: '🚫 Stable versions only from main branch'
+
     patch:
       script: |
+        nps version._validateMainBranch && \
         node scripts/git-commit-message.cjs && \
         pnpm version patch && \
         git push origin && \
         git push origin --tags
-      description: '🔖 Improving PATCH version'
+      description: '🔖 Patch version (main branch only)'
 
     minor:
       script: |
+        nps version._validateMainBranch && \
         node scripts/git-commit-message.cjs && \
         pnpm version minor && \
         git push origin && \
         git push origin --tags
-      description: '🆙 Improving minor version'
+      description: '🆙 Minor version (main branch only)'
 
     major:
       script: |
+        nps version._validateMainBranch && \
         node scripts/git-commit-message.cjs && \
         pnpm version major && \
         git push origin && \
         git push origin --tags
-      description: '🚀 Improving the Major version'
+      description: '🚀 Major version (main branch only)'
 
     beta:
       script: |
@@ -97,7 +108,7 @@ scripts:
         pnpm version prerelease --preid=beta && \
         git push origin && \
         git push origin --tags
-      description: '🧪 Issue beta version'
+      description: '🧪 Beta version (any branch)'
 
     alpha:
       script: |
@@ -105,7 +116,7 @@ scripts:
         pnpm version prerelease --preid=alpha && \
         git push origin && \
         git push origin --tags
-      description: '🧬 Issue Alpha version'
+      description: '🔬 Alpha version (any branch)'
 
     rc:
       script: |
@@ -113,4 +124,13 @@ scripts:
         pnpm version prerelease --preid=rc && \
         git push origin && \
         git push origin --tags
-      description: '🧪 Issue RC version'
+      description: '🎯 Release candidate (any branch)'
+
+    _validateMainBranch:
+      script: |
+        if [[ $(git branch --show-current) != 'main' ]]; then \
+          echo '❌ Stable versions only from main branch!'; \
+          echo 'Use nps version.beta for dev branch'; \
+          exit 1; \
+        fi
+      description: '🔒 Internal: Validate main branch'

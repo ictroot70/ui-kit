@@ -33,13 +33,13 @@ function detectCommitType(changes) {
     else if (status === 'M') detectedType = detectedType || 'refactor';
   }
 
-  // Try to detect fix based on diff content
+
   try {
     const diff = execSync('git diff --cached').toString();
     if (/fix|bug/i.test(diff)) return 'fix';
   } catch (_) {}
 
-  // Check for initial commit
+
   try {
     const isFirstCommit = execSync('git rev-list --count HEAD').toString().trim() === '1';
     if (isFirstCommit) return 'init';
@@ -88,7 +88,7 @@ function promptCommitMessage(type) {
   });
 }
 
-// Main
+
 const changes = getChangedFiles();
 const type = detectCommitType(changes);
 

@@ -111,3 +111,21 @@
     var(--color-primary-500)
   );
 }
+
+.danger {
+  @include mixins.typography-with-color(
+    var(--font-size-s),
+    var(--font-weight-regular),
+    var(--line-height-m),
+    var(--color-danger-500)
+  );
+}
+
+.danger_small {
+  @include mixins.typography-with-color(
+    var(--font-size-xs),
+    var(--font-weight-regular),
+    var(--line-height-s),
+    var(--color-danger-500)
+  );
+}

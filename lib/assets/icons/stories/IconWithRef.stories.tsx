@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { useRef } from 'react'
+
 import { IconWrapper } from '../IconWrapper'
-import Bell from '../components/Bell'
 import ArrowBack from '../components/ArrowBack'
+import Bell from '../components/Bell'
 import BookmarkOutline from '../components/BookmarkOutline'
 
 const meta: Meta<typeof IconWrapper> = {
@@ -46,6 +48,7 @@ const IconsWithRefExample = () => {
       <BookmarkOutline ref={bookmarkRef} size={32} />
 
       <button
+        type={'button'}
         onClick={handleClick}
         style={{ padding: '8px 16px', cursor: 'pointer', background: 'var(--color-primary-500)' }}
       >
