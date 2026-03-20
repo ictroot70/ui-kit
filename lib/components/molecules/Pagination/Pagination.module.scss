@@ -85,6 +85,13 @@
   color: var(--color-dark-900);
   border-color: var(--color-light-100);
   cursor: default;
+
+  &:focus-visible {
+    background: var(--color-light-100);
+    color: var(--color-dark-900);
+    border-color: var(--color-info-700);
+    outline: none;
+  }
 }
 
 .buttonInactive {}
