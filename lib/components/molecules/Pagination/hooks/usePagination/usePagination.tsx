@@ -18,12 +18,14 @@ export const usePagination = ({
     const [inputPage, setInputPage] = useState(currentPage.toString());
     const [activeEllipsis, setActiveEllipsis] = useState<'left' | 'right' | null>(null);
 
-    const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+    const safeItemsPerPage = Math.max(1, itemsPerPage);
+    const totalPages = Math.max(1, Math.ceil(totalItems / safeItemsPerPage));
+    const safeCurrentPage = Math.min(totalPages, Math.max(1, currentPage));
 
     useEffect(() => {
-        setInputPage(currentPage.toString());
+        setInputPage(safeCurrentPage.toString());
         setActiveEllipsis(null);
-    }, [currentPage]);
+    }, [safeCurrentPage]);
 
     const handlePageInputChange = useCallback((value: string) => {
         if (/^\d*$/.test(value)) {
@@ -31,16 +33,52 @@ export const usePagination = ({
         }
     }, []);
 
-    const handlePageInputBlur = useCallback(() => {
-        const page = Math.max(1, Math.min(parseInt(inputPage) || currentPage, totalPages));
-        onPageChange(page);
-        setInputPage(page.toString());
+    const closeInput = useCallback(() => {
+        setInputPage(safeCurrentPage.toString());
         setActiveEllipsis(null);
-    }, [inputPage, currentPage, totalPages, onPageChange]);
+    }, [safeCurrentPage]);
+
+    const commitInputPage = useCallback(() => {
+        const trimmedValue = inputPage.trim();
+
+        if (!trimmedValue) {
+            closeInput();
+            return;
+        }
+
+        const parsedPage = Number.parseInt(trimmedValue, 10);
+
+        if (Number.isNaN(parsedPage)) {
+            closeInput();
+            return;
+        }
+
+        const nextPage = Math.max(1, Math.min(parsedPage, totalPages));
+
+        if (nextPage !== safeCurrentPage) {
+            onPageChange(nextPage);
+        }
+
+        setInputPage(nextPage.toString());
+        setActiveEllipsis(null);
+    }, [closeInput, inputPage, onPageChange, safeCurrentPage, totalPages]);
+
+    const handlePageInputBlur = useCallback(() => {
+        commitInputPage();
+    }, [commitInputPage]);
 
     const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-        if (e.key === 'Enter') handlePageInputBlur();
-    }, [handlePageInputBlur]);
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            commitInputPage();
+            return;
+        }
+
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            closeInput();
+        }
+    }, [closeInput, commitInputPage]);
 
     const handleItemsPerPageChange = useCallback((selectedValue: number) => {
         onItemsPerPageChange?.(selectedValue);
@@ -48,6 +86,7 @@ export const usePagination = ({
     }, [onItemsPerPageChange, onPageChange]);
 
     const handleEllipsisClick = useCallback((position: 'left' | 'right') => {
+        setInputPage('');
         setActiveEllipsis(position);
     }, []);
 
@@ -61,8 +100,8 @@ export const usePagination = ({
         if (totalPages <= maxVisiblePages) {
             for (let i = 2; i <= totalPages; i++) pages.push(i);
         } else {
-            const startPage = Math.max(2, currentPage - boundaryPages);
-            const endPage = Math.min(totalPages - 1, currentPage + boundaryPages);
+            const startPage = Math.max(2, safeCurrentPage - boundaryPages);
+            const endPage = Math.min(totalPages - 1, safeCurrentPage + boundaryPages);
 
             if (startPage > 2) pages.push({ type: 'ellipsis', position: 'left' });
             for (let i = startPage; i <= endPage; i++) pages.push(i);
@@ -72,7 +111,7 @@ export const usePagination = ({
         }
 
         return pages;
-    }, [totalPages, currentPage]);
+    }, [totalPages, safeCurrentPage]);
 
     const selectOptions = useMemo(() => (
         PAGE_SIZE_OPTIONS.map(option => ({
@@ -85,6 +124,7 @@ export const usePagination = ({
         inputPage,
         activeEllipsis,
         totalPages,
+        safeCurrentPage,
         visiblePages,
         pageSizeOptions: PAGE_SIZE_OPTIONS,
         handlePageInputChange,
@@ -93,6 +133,6 @@ export const usePagination = ({
         handleItemsPerPageChange,
         handleEllipsisClick,
         selectOptions,
-        selectValue: itemsPerPage.toString(),
+        selectValue: safeItemsPerPage.toString(),
     };
 };

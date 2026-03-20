@@ -22,6 +22,7 @@ export const Pagination = ({
     inputPage,
     activeEllipsis,
     totalPages,
+    safeCurrentPage,
     visiblePages,
     selectOptions,
     handlePageInputChange,
@@ -42,8 +43,8 @@ export const Pagination = ({
       <nav className={styles.paginationNav} aria-label="Pagination">
         <div className={styles.paginationControls}>
           <PaginationButton
-            onClick={() => onPageChange(currentPage - 1)}
-            disabled={currentPage === 1}
+            onClick={() => onPageChange(Math.max(1, safeCurrentPage - 1))}
+            disabled={safeCurrentPage === 1}
             className={styles.navButton}
             ariaLabel="Previous page"
           >
@@ -70,8 +71,8 @@ export const Pagination = ({
                 <PaginationButton
                   key={page}
                   onClick={() => onPageChange(page)}
-                  active={page === currentPage}
-                  disabled={page === currentPage}
+                  active={page === safeCurrentPage}
+                  disabled={page === safeCurrentPage}
                   ariaLabel={`Go to page ${page}`}
                   className={styles.pageButton}
                 >
@@ -82,8 +83,8 @@ export const Pagination = ({
           </div>
 
           <PaginationButton
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
+            onClick={() => onPageChange(Math.min(totalPages, safeCurrentPage + 1))}
+            disabled={safeCurrentPage === totalPages}
             className={styles.navButton}
             ariaLabel="Next page"
           >
@@ -103,11 +104,10 @@ export const Pagination = ({
                 if (value) handleItemsPerPageChange(Number(value));
               }}
               className={styles.paginationSelectTrigger}
+              contentClassName={styles.paginationSelectContent}
               style={{
                 width: '50px',
                 height: '24px',
-                marginLeft: '4px',
-                marginRight: '9px'
               }}
               placeholder={itemsPerPage.toString()}
               withSeparator={false}

@@ -37,6 +37,7 @@ export const PaginationEllipsis = ({
 
   return (
     <button
+      type="button"
       className={styles.ellipsisButton}
       onClick={onClick}
       aria-label={`Jump to page near ${position}`}

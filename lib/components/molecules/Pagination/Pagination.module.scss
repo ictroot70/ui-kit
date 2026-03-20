@@ -5,19 +5,19 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  gap: function.px-to-unit(16);
-  width: 100%;
+  justify-content: flex-start;
+  gap: function.px-to-unit(20);
+  width: max-content;
   background: transparent;
-  height: function.px-to-unit(40);
+  min-height: function.px-to-unit(24);
 }
 
 .paginationNav {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: function.px-to-unit(24);
-  width: 100%;
+  gap: function.px-to-unit(32);
+  width: max-content;
 }
 
 .navButton {
@@ -26,19 +26,22 @@
     height: 24px;
     padding: 0;
     margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
 .paginationControls {
   display: flex;
   align-items: center;
-  gap: function.px-to-unit(12);
+  gap: function.px-to-unit(8);
 }
 
 .paginationPages {
   display: flex;
   align-items: center;
-  gap: function.px-to-unit(12);
+  gap: function.px-to-unit(10);
 }
 
 .textStyle {
@@ -56,47 +59,64 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  border: none;
+  border: 1px solid transparent;
   border-radius: function.px-to-unit(4);
   cursor: pointer;
-  transition: all 0.2s;
-  background: var(--color-dark-700);
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  background: transparent;
   color: var(--color-light-100);
   width: function.px-to-unit(24);
   height: function.px-to-unit(24);
   min-width: auto;
 
-  &:hover:not(.buttonDisabled) {
+  &:hover:not(.buttonDisabled):not(.buttonActive) {
     background: var(--color-dark-500);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary-700);
+    border-color: var(--color-info-700);
+    outline: 1px solid var(--color-info-700);
+    background: var(--color-dark-700);
   }
 }
 
 .buttonActive {
   background: var(--color-light-100);
   color: var(--color-dark-900);
+  border-color: var(--color-light-100);
+  cursor: default;
 }
 
+.buttonInactive {}
+
 .buttonDisabled {
-  cursor: not-allowed;
+  cursor: default;
+  opacity: 0.45;
 }
 
 .ellipsisButton {
   @extend .buttonBase;
-  background: var(--color-dark-700);
-
-  &:hover {
-    background: var(--color-dark-500);
-  }
+  background: transparent;
 }
 
 .ellipsisText {
   @extend .textStyle;
   color: var(--color-light-100);
 }
+
+.textActive {
+  color: var(--color-dark-900);
+}
+
+.textInactive {
+  color: var(--color-light-100);
+}
+
+.textDisabled {
+  opacity: 0.6;
+}
+
+.pageButton {}
 
 .pageInput {
   @extend .textStyle;
@@ -118,6 +138,7 @@
 .itemsPerPageWrapper {
   display: flex;
   align-items: center;
+  gap: function.px-to-unit(8);
 }
 
 .itemsPerPageLabel {
@@ -130,19 +151,31 @@
     @extend .textStyle;
     display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-
-    padding: 0 function.px-to-unit(8);
-    margin-left: function.px-to-unit(4);
-    margin-right: function.px-to-unit(9);
-    border: 1px solid var(--color-dark-300);
-    background-color: var(--color-dark-900);
+    justify-content: flex-start;
+    width: function.px-to-unit(50) !important;
+    min-width: function.px-to-unit(50) !important;
+    max-width: function.px-to-unit(50) !important;
+    min-height: function.px-to-unit(24) !important;
+    height: function.px-to-unit(24) !important;
+    padding-top: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: function.px-to-unit(6) !important;
+    border: 1px solid var(--color-dark-300) !important;
+    border-radius: function.px-to-unit(2) !important;
+    background-color: var(--color-dark-700) !important;
     color: var(--color-light-100);
     cursor: pointer;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, background-color 0.2s;
+
+    &:hover {
+      background-color: var(--color-dark-500) !important;
+    }
 
     &:focus {
-      outline: 1px solid var(--color-info-700);
+      border-color: var(--color-info-700) !important;
+      outline: 1px solid var(--color-info-700) !important;
+      background-color: var(--color-dark-700) !important;
     }
   }
 
@@ -178,14 +211,8 @@
     }
 
     &[data-state='checked'] {
-      background-color: var(--color-dark-700);
-      font-weight: 500;
-      position: relative;
-
-      &::after {
-        content: '✓';
-        margin-left: function.px-to-unit(4);
-      }
+      background-color: var(--color-dark-500);
+      font-weight: 400;
     }
   }
 
@@ -200,10 +227,39 @@
   }
 }
 
+.paginationSelectTrigger {
+  [data-slot='value'] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    text-align: left;
+  }
+
+  [data-slot='icon'] {
+    margin-left: auto !important;
+    margin-right: function.px-to-unit(2) !important;
+  }
+}
+
+.paginationSelectContent {
+  [data-slot='item'] {
+    justify-content: flex-start !important;
+    padding-left: function.px-to-unit(6) !important;
+    padding-right: function.px-to-unit(6) !important;
+  }
+
+  [data-slot='item-text'] {
+    justify-content: flex-start !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+}
+
 @media (max-width: 768px) {
   .paginationNav {
     flex-direction: column;
     gap: function.px-to-unit(12);
+    width: 100%;
   }
 
   .itemsPerPageWrapper {
@@ -213,11 +269,13 @@
 
   .paginationSelect {
     &Trigger {
-      width: 100%;
+      width: function.px-to-unit(50) !important;
+      min-width: function.px-to-unit(50) !important;
+      max-width: function.px-to-unit(50) !important;
     }
 
     &Content {
-      width: 100%;
+      width: function.px-to-unit(50);
     }
   }
 }

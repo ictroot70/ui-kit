@@ -19,16 +19,27 @@ export const PaginationButton = ({
   className,
   ariaLabel,
 }: PaginationButtonProps) => {
+  const isDisabled = disabled && !active
+
+  const handleClick = () => {
+    if (isDisabled || active) {
+      return
+    }
+
+    onClick()
+  }
+
   return (
     <button
+      type="button"
       className={clsx(
         styles.buttonBase,
         active ? styles.buttonActive : styles.buttonInactive,
-        disabled && styles.buttonDisabled,
+        isDisabled && styles.buttonDisabled,
         className
       )}
-      onClick={onClick}
-      disabled={disabled}
+      onClick={handleClick}
+      disabled={isDisabled}
       aria-label={ariaLabel}
       aria-current={active ? 'page' : undefined}
     >
@@ -36,7 +47,7 @@ export const PaginationButton = ({
         variant={active ? 'bold_14' : 'regular_14'}
         className={clsx(
           active ? styles.textActive : styles.textInactive,
-          disabled && styles.textDisabled
+          isDisabled && styles.textDisabled
         )}
       >
         {children}
