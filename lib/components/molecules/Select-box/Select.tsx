@@ -16,27 +16,38 @@ type SelectItemsProps = {
 
 // Generic type for nullable props
 type NullableProps<T> = null | T
+type SelectClassNames = {
+  label?: string
+  trigger?: string
+  content?: string
+  item?: string
+}
 
 // Main Select component wrapped in forwardRef to support ref forwarding
 export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, SelectProps>(
   (
     {
+      id: providedId,
       className,
       placeholder,
       defaultValue,
       value,
       label,
+      labelClassName,
       disabled,
       items,
       groupLabel,
       withSeparator = true,
       style,
+      contentClassName,
+      classNames,
+      onValueChange,
       ...rest
     },
     ref
   ) => {
     const generatedId = useId() // Generate a unique ID if not provided
-    const id = rest.id || generatedId // Use passed ID or fallback to generated
+    const id = providedId || generatedId // Use passed ID or fallback to generated
 
     // Assign the entire style object (if any) to triggerStyle to apply it to the trigger element
     const triggerStyle = style
@@ -48,13 +59,11 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
     // Similarly, create an object with width for the viewport container if width is specified; otherwise undefined
     const viewportStyle = widthStyle ? { width: widthStyle } : undefined
 
-    console.log(value,items)
-
     return (
       <div className={s.selectWrapper}>
         {label && (
           <LabelRadix
-            className={s.label}
+            className={clsx(s.label, classNames?.label, labelClassName)}
             typographyVariant={'regular_14'}
             htmlFor={id}
             label={label}
@@ -64,26 +73,34 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
         <RadixSelect.Root
           defaultValue={defaultValue}
           value={value}
-          onValueChange={rest.onValueChange}
+          onValueChange={onValueChange}
           disabled={disabled}
         >
           {/* Trigger component renders the button used to open the dropdown */}
           <RadixSelect.Trigger
             id={id}
-            className={clsx(s.trigger, className)}
+            className={clsx(s.trigger, classNames?.trigger, className)}
             ref={ref}
             {...rest}
             style={triggerStyle}
           >
-            <RadixSelect.Value placeholder={placeholder} />
+            <RadixSelect.Value
+              className={s.value}
+              data-slot="value"
+              placeholder={placeholder}
+            />
             <RadixSelect.Icon>
-              <ChevronDownIcon className={s.iconDown} />
+              <ChevronDownIcon className={s.iconDown} data-slot="icon" />
             </RadixSelect.Icon>
           </RadixSelect.Trigger>
 
           {/* Portal ensures dropdown content is rendered at the root of the DOM */}
           <RadixSelect.Portal>
-            <RadixSelect.Content className={s.Content} position={'popper'} style={contentStyle}>
+            <RadixSelect.Content
+              className={clsx(s.Content, classNames?.content, contentClassName)}
+              position={'popper'}
+              style={contentStyle}
+            >
               {/* Scroll button for navigating up if items overflow */}
               <RadixSelect.ScrollUpButton className={s.ScrollButton}>
                 <ChevronUpIcon />
@@ -100,8 +117,17 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
                   )}
                   {/* Render each item using a custom SelectItem component */}
                   {items.map(item => (
-                    <SelectItem key={item.value} value={item.value}>
-                      <Typography variant={'regular_14'} className={s.selectItems}>
+                    <SelectItem
+                      className={classNames?.item}
+                      key={item.value}
+                      value={item.value}
+                      data-slot="item"
+                    >
+                      <Typography
+                        variant={'regular_14'}
+                        className={s.selectItems}
+                        data-slot="item-text"
+                      >
                         {item.icon && item.icon} {item.label}
                       </Typography>
                     </SelectItem>
@@ -124,6 +150,8 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
 export type SelectProps = {
   id?: string // Optional ID for the select input
   className?: string // Optional custom class for styling
+  contentClassName?: string // Optional custom class for dropdown content (portal)
+  classNames?: SelectClassNames // Backward compatible targeted classes for select parts
   style?: React.CSSProperties
   labelClassName?: string // Optional custom class for the label
   placeholder?: string // Placeholder text when nothing is selected

@@ -14,6 +14,12 @@
 
 .iconDown {
     margin-left: auto;
+    margin-right: function.px-to-unit(4);
+    flex-shrink: 0;
+}
+
+.value {
+    padding-right: function.px-to-unit(8);
 }
 
 .trigger {
@@ -25,10 +31,10 @@
     height: 36px;
     min-height: function.px-to-unit(40);
     padding: function.px-to-unit(6) function.px-to-unit(12);
-    border: 1px solid var(--color-light-100);
+    border: 1px solid var(--color-dark-300);
     border-radius: function.px-to-unit(2);
 
-    background-color: var(--color-dark-500);
+    background-color: var(--color-dark-700);
     outline: 1px solid transparent;
 
     @include mixins.display-flex($align: center, $justify: space-between);
@@ -39,12 +45,12 @@
     }
 
     &[data-placeholder] {
-        background-color: var(--color-dark-500);
+        background-color: var(--color-dark-700);
     }
 
     &:active {
-        background-color: var(--color-primary-500);
-        outline-color: var(--color-light-700);
+        background-color: var(--color-dark-500);
+        outline-color: var(--color-dark-300);
     }
 
     &:hover {
@@ -53,14 +59,14 @@
     }
 
     &:focus {
-        border: 1px solid var(--color-primary-500);
+        border: 1px solid var(--color-info-700);
         background-color: var(--color-dark-900);
-        outline: 1px solid var(--color-primary-500);
+        outline: 1px solid var(--color-info-700);
     }
 
     &:disabled {
         cursor: default;
-        border: 1px solid var(--color-light-900);
+        border: 1px solid var(--color-dark-300);
         color: var(--color-light-900);
         background-color: var(--color-dark-900);
     }
@@ -74,16 +80,16 @@
     position: absolute;
     z-index: 101;
 
+    border: 1px solid var(--color-dark-300);
     border-radius: function.px-to-unit(2);
 
     color: var(--color-light-100);
 
-    background-color: var(--color-dark-500);
+    background-color: var(--color-dark-700);
 }
 
 .Viewport {
     width: 210px;
-    border: 1px solid var(--color-light-100);
 }
 
 .selectItems {
@@ -100,7 +106,7 @@
 
     height: 1px;
     margin: function.px-to-unit(5);
-    background-color: var(--color-light-100);
+    background-color: var(--color-dark-300);
 }
 
 .ScrollButton {
@@ -110,9 +116,9 @@
 
     height: 100%;
     min-height: function.px-to-unit(25);
-    border: 1px solid var(--color-light-100);
+    border: none;
 
     color: var(--color-light-100);
 
-    background-color: var(--color-dark-500);
+    background-color: var(--color-dark-700);
 }
