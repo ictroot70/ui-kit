@@ -1,1 +1,6 @@
 export * from './Pagination'
+export * from './Pagination.types'
+export * from './PaginationButton'
+export * from './PaginationEllipsis'
+export * from './constants'
+export * from './hooks'
