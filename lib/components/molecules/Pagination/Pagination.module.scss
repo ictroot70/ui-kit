@@ -160,27 +160,28 @@
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
+    --select-trigger-small-padding-left: #{function.px-to-unit(5)};
+    --select-trigger-small-padding-right: 0;
+    --select-value-padding-right: #{function.px-to-unit(5)};
+    --select-icon-margin-right: #{function.px-to-unit(2)};
     width: function.px-to-unit(50) !important;
     min-width: function.px-to-unit(50) !important;
     max-width: function.px-to-unit(50) !important;
     min-height: function.px-to-unit(24) !important;
     height: function.px-to-unit(24) !important;
-    padding-top: 0 !important;
-    padding-right: 0 !important;
-    padding-bottom: 0 !important;
-    padding-left: function.px-to-unit(6) !important;
     border: 1px solid var(--color-dark-300) !important;
     border-radius: function.px-to-unit(2) !important;
     background-color: var(--color-dark-700) !important;
     color: var(--color-light-100);
     cursor: pointer;
+    gap: 0 !important;
     transition: border-color 0.2s, background-color 0.2s;
 
     &:hover {
       background-color: var(--color-dark-500) !important;
     }
 
-    &:focus {
+    &:focus-visible {
       border-color: var(--color-primary-700) !important;
       outline: 1px solid var(--color-primary-700) !important;
       background-color: var(--color-dark-700) !important;
@@ -206,13 +207,16 @@
     @extend .textStyle;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
-    padding: function.px-to-unit(6) function.px-to-unit(12);
+    padding-left: function.px-to-unit(6);
+    padding-right: function.px-to-unit(6);
+    padding-top: function.px-to-unit(6);
+    padding-bottom: function.px-to-unit(6);
     cursor: pointer;
     outline: none;
     color: var(--color-light-100);
-    text-align: center;
+    text-align: left;
 
     &[data-highlighted] {
       background-color: var(--color-dark-500);
@@ -236,25 +240,17 @@
 }
 
 .paginationSelectTrigger {
-  [data-slot='value'] {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    text-align: left;
+  [data-slot='icon'] {
+    width: function.px-to-unit(15) !important;
+    height: function.px-to-unit(15) !important;
   }
 
-  [data-slot='icon'] {
-    margin-left: auto !important;
-    margin-right: function.px-to-unit(2) !important;
+  [data-slot='value'] {
+    text-align: left;
   }
 }
 
 .paginationSelectContent {
-  [data-slot='item'] {
-    justify-content: flex-start !important;
-    padding-left: function.px-to-unit(6) !important;
-    padding-right: function.px-to-unit(6) !important;
-  }
-
   [data-slot='item-text'] {
     justify-content: flex-start !important;
     margin-right: 0 !important;

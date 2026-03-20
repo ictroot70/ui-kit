@@ -1,7 +1,7 @@
 
 import clsx from 'clsx';
 import styles from './Pagination.module.scss';
-import { Select } from 'components/molecules/Select-box/Select';
+import { Select } from 'components/molecules/Select';
 import { Typography } from 'components/atoms';
 import { PaginationProps } from './Pagination.types';
 
@@ -103,15 +103,17 @@ export const Pagination = ({
 
             <Select
               items={selectOptions}
+              size={'small'}
               value={itemsPerPage.toString()}
               onValueChange={(value) => {
                 if (value) handleItemsPerPageChange(Number(value));
               }}
-              className={styles.paginationSelectTrigger}
-              contentClassName={styles.paginationSelectContent}
+              classNames={{
+                content: styles.paginationSelectContent,
+                item: styles.paginationSelectItem,
+                trigger: styles.paginationSelectTrigger,
+              }}
               placeholder={itemsPerPage.toString()}
-              withSeparator={false}
-              groupLabel={undefined}
             />
 
             <Typography variant="regular_14" className={styles.itemsPerPageLabel}>
