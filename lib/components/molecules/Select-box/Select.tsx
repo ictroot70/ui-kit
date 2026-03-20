@@ -7,15 +7,18 @@ import { Typography } from '../../atoms'
 import { LabelRadix } from '../LabelRadix'
 import { SelectItem } from './SelectItem/SelectItems'
 
-// Type definition for individual select items
 type SelectItemsProps = {
   value: string
   label?: string
   icon?: ReactNode
 }
 
-// Generic type for nullable props
 type NullableProps<T> = null | T
+
+/**
+ * Optional class map for targeted styling of `Select` internals.
+ * Keep this for backward compatibility with consumers that already pass `classNames`.
+ */
 type SelectClassNames = {
   label?: string
   trigger?: string
@@ -23,7 +26,24 @@ type SelectClassNames = {
   item?: string
 }
 
-// Main Select component wrapped in forwardRef to support ref forwarding
+/**
+ * Accessible select component based on Radix Select.
+ *
+ * Supports controlled and uncontrolled usage:
+ * - Controlled: pass `value` + `onValueChange`
+ * - Uncontrolled: pass `defaultValue`
+ *
+ * Styling API:
+ * - `className` styles trigger root
+ * - `contentClassName` styles dropdown content
+ * - `classNames` styles specific inner parts (`label`, `trigger`, `content`, `item`)
+ * - `style` is intentionally applied only to trigger as an escape hatch for dynamic sizing
+ *
+ * @todo SCRUM-26 (tech debt): unify styling API for Select.
+ * Current overlap: `className` + `contentClassName` + `classNames`.
+ * Next step: introduce one slot-based classes prop, mark old props as deprecated,
+ * and remove duplicates after one beta release cycle with migration notes.
+ */
 export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, SelectProps>(
   (
     {
@@ -46,18 +66,8 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
     },
     ref
   ) => {
-    const generatedId = useId() // Generate a unique ID if not provided
-    const id = providedId || generatedId // Use passed ID or fallback to generated
-
-    // Assign the entire style object (if any) to triggerStyle to apply it to the trigger element
-    const triggerStyle = style
-    // Extract the width property from the style object, if it exists
-    const widthStyle = style?.width
-
-    // If width is specified, create an object with width to apply to the content container; otherwise undefined
-    const contentStyle = widthStyle ? { width: widthStyle } : undefined
-    // Similarly, create an object with width for the viewport container if width is specified; otherwise undefined
-    const viewportStyle = widthStyle ? { width: widthStyle } : undefined
+    const generatedId = useId()
+    const id = providedId || generatedId
 
     return (
       <div className={s.selectWrapper}>
@@ -69,20 +79,18 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
             label={label}
           />
         )}
-        {/* Radix Select Root component wraps the full Select logic */}
         <RadixSelect.Root
           defaultValue={defaultValue}
           value={value}
           onValueChange={onValueChange}
           disabled={disabled}
         >
-          {/* Trigger component renders the button used to open the dropdown */}
           <RadixSelect.Trigger
             id={id}
             className={clsx(s.trigger, classNames?.trigger, className)}
             ref={ref}
             {...rest}
-            style={triggerStyle}
+            style={style}
           >
             <RadixSelect.Value
               className={s.value}
@@ -94,28 +102,22 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
             </RadixSelect.Icon>
           </RadixSelect.Trigger>
 
-          {/* Portal ensures dropdown content is rendered at the root of the DOM */}
           <RadixSelect.Portal>
             <RadixSelect.Content
               className={clsx(s.Content, classNames?.content, contentClassName)}
               position={'popper'}
-              style={contentStyle}
             >
-              {/* Scroll button for navigating up if items overflow */}
               <RadixSelect.ScrollUpButton className={s.ScrollButton}>
                 <ChevronUpIcon />
               </RadixSelect.ScrollUpButton>
-              {/* Viewport holds the list of items */}
-              <RadixSelect.Viewport className={s.Viewport} style={viewportStyle}>
+              <RadixSelect.Viewport className={s.Viewport}>
                 <RadixSelect.Group>
-                  {/* Optionally render a group label and separator */}
                   {groupLabel && (
                     <>
-                      <RadixSelect.Label style={{ marginLeft: 5 }}>{groupLabel}</RadixSelect.Label>
+                      <RadixSelect.Label className={s.groupLabel}>{groupLabel}</RadixSelect.Label>
                       {withSeparator && <RadixSelect.Separator className={s.Separator} />}
                     </>
                   )}
-                  {/* Render each item using a custom SelectItem component */}
                   {items.map(item => (
                     <SelectItem
                       className={classNames?.item}
@@ -134,7 +136,6 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
                   ))}
                 </RadixSelect.Group>
               </RadixSelect.Viewport>
-              {/* Scroll button for navigating down if items overflow */}
               <RadixSelect.ScrollDownButton>
                 <ChevronDownIcon />
               </RadixSelect.ScrollDownButton>
@@ -146,21 +147,38 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
   }
 )
 
-// Props type definition for the Select component
+/**
+ * Props for `Select`.
+ */
 export type SelectProps = {
-  id?: string // Optional ID for the select input
-  className?: string // Optional custom class for styling
-  contentClassName?: string // Optional custom class for dropdown content (portal)
-  classNames?: SelectClassNames // Backward compatible targeted classes for select parts
+  /** Optional HTML id for trigger and label association. */
+  id?: string
+  /** Custom class for trigger root. */
+  className?: string
+  /** Custom class for dropdown content rendered inside portal. */
+  contentClassName?: string
+  /** Backward-compatible class map for specific parts of Select. */
+  classNames?: SelectClassNames
+  /** Inline styles applied only to trigger (escape hatch for dynamic size/position tweaks). */
   style?: React.CSSProperties
-  labelClassName?: string // Optional custom class for the label
-  placeholder?: string // Placeholder text when nothing is selected
-  label?: string // Label text displayed above the select
-  groupLabel?: NullableProps<string> // Optional group label inside dropdown
-  withSeparator?: boolean // Whether to show a separator below group label
-  items: SelectItemsProps[] // List of items for the dropdown
-  value?: string // Controlled selected value
-  defaultValue?: string // Uncontrolled initial value
-  disabled?: boolean // Disables the select if true
-  onValueChange?: (value: string) => void // Callback when a new value is selected
+  /** Custom class for text label above trigger. */
+  labelClassName?: string
+  /** Placeholder shown when no value is selected. */
+  placeholder?: string
+  /** Optional label rendered above trigger. */
+  label?: string
+  /** Optional group heading shown inside dropdown list. */
+  groupLabel?: NullableProps<string>
+  /** Renders separator below `groupLabel` when true. */
+  withSeparator?: boolean
+  /** Dropdown options list. */
+  items: SelectItemsProps[]
+  /** Controlled selected value. */
+  value?: string
+  /** Initial value for uncontrolled usage. */
+  defaultValue?: string
+  /** Disables trigger and interactions. */
+  disabled?: boolean
+  /** Called when selected value changes. */
+  onValueChange?: (value: string) => void
 }

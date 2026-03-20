@@ -10,6 +10,10 @@ import { usePagination } from './hooks/usePagination/usePagination';
 import { PaginationButton } from './PaginationButton/PaginationButton';
 import { PaginationEllipsis } from './PaginationEllipsis/PaginationEllipsis';
 
+/**
+ * Pagination control with optional page-size selector.
+ * Uses "smart" visible pages with interactive ellipsis input for fast page jumps.
+ */
 export const Pagination = ({
   currentPage = 1,
   totalItems = 120,
@@ -105,10 +109,6 @@ export const Pagination = ({
               }}
               className={styles.paginationSelectTrigger}
               contentClassName={styles.paginationSelectContent}
-              style={{
-                width: '50px',
-                height: '24px',
-              }}
               placeholder={itemsPerPage.toString()}
               withSeparator={false}
               groupLabel={undefined}

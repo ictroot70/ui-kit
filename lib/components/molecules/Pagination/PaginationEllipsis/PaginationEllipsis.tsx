@@ -1,3 +1,4 @@
+import { KeyboardEvent } from 'react';
 import { Typography } from 'components/atoms';
 import styles from '../Pagination.module.scss';
 
@@ -8,9 +9,13 @@ interface PaginationEllipsisProps {
   inputValue: string;
   onInputChange: (value: string) => void;
   onInputBlur: () => void;
-  onKeyDown: (e: React.KeyboardEvent) => void;
+  onKeyDown: (e: KeyboardEvent) => void;
 }
 
+/**
+ * Ellipsis control used by pagination.
+ * Renders either static `...` button or inline numeric input for direct page jump.
+ */
 export const PaginationEllipsis = ({
   position,
   onClick,

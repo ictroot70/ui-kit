@@ -86,10 +86,15 @@
     color: var(--color-light-100);
 
     background-color: var(--color-dark-700);
+    width: var(--radix-select-trigger-width);
 }
 
 .Viewport {
-    width: 210px;
+    width: 100%;
+}
+
+.groupLabel {
+    margin-left: function.px-to-unit(5);
 }
 
 .selectItems {

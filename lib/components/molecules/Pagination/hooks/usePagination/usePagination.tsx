@@ -2,19 +2,30 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { PageItem } from '../../Pagination.types';
 import { PAGE_SIZE_OPTIONS } from '../../constants/constants';
 
+interface UsePaginationParams {
+    currentPage?: number;
+    totalItems?: number;
+    itemsPerPage?: number;
+    onPageChange: (page: number) => void;
+    onItemsPerPageChange?: (count: number) => void;
+}
+
+/**
+ * Encapsulates pagination state and derived handlers used by `Pagination`.
+ *
+ * Ellipsis input behavior:
+ * - click on ellipsis: opens an empty input near that ellipsis
+ * - `Enter`: commits entered page (clamped to valid range)
+ * - `Escape`: cancels edit and restores current page value
+ * - `blur`: commits valid entered value, otherwise closes without page change
+ */
 export const usePagination = ({
     currentPage = 1,
     totalItems = 0,
     itemsPerPage = 10,
     onPageChange,
     onItemsPerPageChange,
-}: {
-    currentPage?: number;
-    totalItems?: number;
-    itemsPerPage?: number;
-    onPageChange: (page: number) => void;
-    onItemsPerPageChange?: (count: number) => void;
-}) => {
+}: UsePaginationParams) => {
     const [inputPage, setInputPage] = useState(currentPage.toString());
     const [activeEllipsis, setActiveEllipsis] = useState<'left' | 'right' | null>(null);
 
