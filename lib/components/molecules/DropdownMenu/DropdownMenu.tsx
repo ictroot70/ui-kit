@@ -1,5 +1,5 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu'
-import { MoreHorizontal } from 'assets/icons'
+import MoreHorizontal from 'assets/icons/components/MoreHorizontal'
 import { Typography } from 'components/atoms'
 
 import s from './DropdownMenu.module.scss'

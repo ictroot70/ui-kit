@@ -1,0 +1,67 @@
+{
+  "measuredAt": "2026-03-07T13:21:49.748Z",
+  "baselineFile": "runtime-perf-baseline.json",
+  "currentFile": "runtime-perf-after.json",
+  "totals": {
+    "before": {
+      "commits": 449,
+      "totalActualDuration": 312.8
+    },
+    "after": {
+      "commits": 362,
+      "totalActualDuration": 265.7
+    },
+    "improvementActualDurationPct": 15.06,
+    "improvementCommitsPct": 19.38
+  },
+  "scenarios": {
+    "input": {
+      "before": {
+        "commits": 119,
+        "totalActualDuration": 52.4,
+        "avgActualDuration": 0.44,
+        "maxActualDuration": 5.4
+      },
+      "after": {
+        "commits": 119,
+        "totalActualDuration": 46.2,
+        "avgActualDuration": 0.388,
+        "maxActualDuration": 6.1
+      },
+      "improvementActualDurationPct": 11.83,
+      "improvementCommitsPct": 0
+    },
+    "toast": {
+      "before": {
+        "commits": 207,
+        "totalActualDuration": 152.4,
+        "avgActualDuration": 0.736,
+        "maxActualDuration": 10
+      },
+      "after": {
+        "commits": 120,
+        "totalActualDuration": 121.4,
+        "avgActualDuration": 1.012,
+        "maxActualDuration": 9.8
+      },
+      "improvementActualDurationPct": 20.34,
+      "improvementCommitsPct": 42.03
+    },
+    "datepicker": {
+      "before": {
+        "commits": 123,
+        "totalActualDuration": 108,
+        "avgActualDuration": 0.878,
+        "maxActualDuration": 17.2
+      },
+      "after": {
+        "commits": 123,
+        "totalActualDuration": 98.1,
+        "avgActualDuration": 0.798,
+        "maxActualDuration": 18.4
+      },
+      "improvementActualDurationPct": 9.17,
+      "improvementCommitsPct": 0
+    }
+  }
+}

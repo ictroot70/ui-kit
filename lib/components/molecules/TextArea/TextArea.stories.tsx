@@ -1,4 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { expect, within } from '@storybook/test'
+
+import labelRadixStyles from '../LabelRadix/LabelRadix.module.scss'
 
 import { TextArea } from './TextArea'
 
@@ -27,6 +30,29 @@ export const Error: Story = {
     error: 'Error text',
     label: 'Error',
     id: 'error',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const label = canvas.getByText('Error').closest('label')
+
+    await expect(label).not.toBeNull()
+    await expect(label).toHaveClass(labelRadixStyles.invalid)
+  },
+}
+
+export const CustomLabelClass: Story = {
+  args: {
+    label: 'Comment',
+    id: 'custom-label-textarea',
+    placeholder: 'Type your comment...',
+    labelClassName: 'custom-textarea-label',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const label = canvas.getByText('Comment').closest('label')
+
+    await expect(label).not.toBeNull()
+    await expect(label).toHaveClass('custom-textarea-label')
   },
 }
 

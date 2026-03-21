@@ -13,6 +13,8 @@ export type Modifiers = Record<string, Matcher | Matcher[] | undefined>
  */
 export const getModifiers = (today: Date, selectedDates?: DateRange): Modifiers => {
   const isRange = selectedDates !== undefined
+  const normalizeDay = (date: Date): Date =>
+    new Date(date.getFullYear(), date.getMonth(), date.getDate())
 
   const modifiers: Modifiers = {
     today,
@@ -23,7 +25,15 @@ export const getModifiers = (today: Date, selectedDates?: DateRange): Modifiers 
     modifiers.inRange = (date: Date) => {
       const { from, to } = selectedDates
 
-      return !!(from && to && date >= from && date <= to)
+      if (!from || !to) {
+        return false
+      }
+
+      const currentDay = normalizeDay(date)
+      const fromDay = normalizeDay(from)
+      const toDay = normalizeDay(to)
+
+      return currentDay >= fromDay && currentDay <= toDay
     }
   }
 

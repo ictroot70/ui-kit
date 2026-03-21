@@ -3,6 +3,11 @@ import '../lib/styles/index.scss'
 // TODO: is necessary change background parameters for default theme
 const preview: Preview = {
   parameters: {
+    options: {
+      storySort: {
+        order: ['Components', ['Icons', ['_Gallery', '*'], '*'], '*'],
+      },
+    },
     backgrounds: {
       default: 'Dark',
       values: [

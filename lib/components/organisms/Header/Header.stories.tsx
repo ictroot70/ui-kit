@@ -50,9 +50,8 @@ export const HeaderStories: Story = {
         <button type={'button'}>
           <BellOutline size={24} />
         </button>
-        <div style={{ paddingInline: '45px 36px' }}>
+        <div style={{ paddingInline: '45px 36px', width: '163px' }}>
           <Select
-            width={'163px'}
             defaultValue={'en'}
             placeholder={'Select...'}
             items={[

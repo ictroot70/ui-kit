@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
-import { Close } from 'assets/icons'
+import Close from 'assets/icons/components/Close'
 
 import styles from 'components/molecules/Alert/components/CloseButton/CloseButton.module.scss'
 
