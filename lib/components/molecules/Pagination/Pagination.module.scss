@@ -143,6 +143,14 @@
   }
 }
 
+// Keep ellipsis input readable even if host app overrides global <input> colors.
+.paginationRoot .pageInput {
+  color: var(--color-dark-900);
+  -webkit-text-fill-color: var(--color-dark-900);
+  caret-color: var(--color-dark-900);
+  background-color: var(--color-light-100);
+}
+
 .itemsPerPageWrapper {
   display: flex;
   align-items: center;
