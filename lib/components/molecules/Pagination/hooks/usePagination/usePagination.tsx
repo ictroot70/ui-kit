@@ -6,6 +6,7 @@ interface UsePaginationParams {
     currentPage?: number;
     totalItems?: number;
     itemsPerPage?: number;
+    pageSizeOptions?: number[];
     onPageChange: (page: number) => void;
     onItemsPerPageChange?: (count: number) => void;
 }
@@ -23,6 +24,7 @@ export const usePagination = ({
     currentPage = 1,
     totalItems = 0,
     itemsPerPage = 10,
+    pageSizeOptions,
     onPageChange,
     onItemsPerPageChange,
 }: UsePaginationParams) => {
@@ -101,6 +103,33 @@ export const usePagination = ({
         setActiveEllipsis(position);
     }, []);
 
+    const resolvedPageSizeOptions = useMemo(() => {
+        const sourceOptions = pageSizeOptions?.length ? pageSizeOptions : PAGE_SIZE_OPTIONS;
+        const uniqueOptions: number[] = [];
+
+        sourceOptions.forEach(option => {
+            if (!Number.isInteger(option) || option <= 0 || uniqueOptions.includes(option)) {
+                return;
+            }
+
+            uniqueOptions.push(option);
+        });
+
+        if (uniqueOptions.length === 0) {
+            PAGE_SIZE_OPTIONS.forEach(option => {
+                if (!uniqueOptions.includes(option)) {
+                    uniqueOptions.push(option);
+                }
+            });
+        }
+
+        if (!uniqueOptions.includes(safeItemsPerPage)) {
+            uniqueOptions.push(safeItemsPerPage);
+        }
+
+        return uniqueOptions;
+    }, [pageSizeOptions, safeItemsPerPage]);
+
     const visiblePages = useMemo<PageItem[]>(() => {
         if (totalPages <= 1) return [1];
 
@@ -125,11 +154,11 @@ export const usePagination = ({
     }, [totalPages, safeCurrentPage]);
 
     const selectOptions = useMemo(() => (
-        PAGE_SIZE_OPTIONS.map(option => ({
+        resolvedPageSizeOptions.map(option => ({
             value: option.toString(),
             label: option.toString()
         }))
-    ), []);
+    ), [resolvedPageSizeOptions]);
 
     return {
         inputPage,
@@ -137,7 +166,7 @@ export const usePagination = ({
         totalPages,
         safeCurrentPage,
         visiblePages,
-        pageSizeOptions: PAGE_SIZE_OPTIONS,
+        pageSizeOptions: resolvedPageSizeOptions,
         handlePageInputChange,
         handlePageInputBlur,
         handleKeyDown,

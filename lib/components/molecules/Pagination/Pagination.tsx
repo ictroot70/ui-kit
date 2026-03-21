@@ -18,6 +18,7 @@ export const Pagination = ({
   currentPage = 1,
   totalItems = 120,
   itemsPerPage = 10,
+  pageSizeOptions,
   onPageChange,
   onItemsPerPageChange,
   className,
@@ -29,6 +30,7 @@ export const Pagination = ({
     safeCurrentPage,
     visiblePages,
     selectOptions,
+    selectValue,
     handlePageInputChange,
     handlePageInputBlur,
     handleKeyDown,
@@ -38,6 +40,7 @@ export const Pagination = ({
     currentPage,
     totalItems,
     itemsPerPage,
+    pageSizeOptions,
     onPageChange,
     onItemsPerPageChange,
   });
@@ -104,7 +107,7 @@ export const Pagination = ({
             <Select
               items={selectOptions}
               size={'small'}
-              value={itemsPerPage.toString()}
+              value={selectValue}
               onValueChange={(value) => {
                 if (value) handleItemsPerPageChange(Number(value));
               }}
@@ -113,7 +116,7 @@ export const Pagination = ({
                 item: styles.paginationSelectItem,
                 trigger: styles.paginationSelectTrigger,
               }}
-              placeholder={itemsPerPage.toString()}
+              placeholder={selectValue}
             />
 
             <Typography variant="regular_14" className={styles.itemsPerPageLabel}>

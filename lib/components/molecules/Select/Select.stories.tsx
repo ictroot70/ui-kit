@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { expect, within } from '@storybook/test'
+import { expect, userEvent, waitFor, within } from '@storybook/test'
 
 import labelRadixStyles from '../LabelRadix/LabelRadix.module.scss'
 import styles from './Select.module.scss'
@@ -134,5 +134,93 @@ export const Error: Story = {
     await expect(label).toHaveClass(labelRadixStyles.invalid)
     await expect(trigger).toHaveClass(styles.triggerError)
     await expect(canvas.getByText('This field is required')).toBeInTheDocument()
+  },
+}
+
+export const AutoCollisionNearBottom: Story = {
+  args: {
+    label: 'Select near bottom',
+    items: baseItems,
+  },
+  parameters: {
+    layout: 'fullscreen',
+  },
+  decorators: [
+    Story => (
+      <div
+        style={{
+          width: '100%',
+          height: '95vh',
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'center',
+          padding: '4px',
+          boxSizing: 'border-box',
+        }}
+      >
+        <div style={{ width: '200px' }}>
+          <Story />
+        </div>
+      </div>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole('combobox', { name: 'Select near bottom' })
+
+    await userEvent.click(trigger)
+
+    await waitFor(() => {
+      const content = canvasElement.ownerDocument.querySelector(
+        '[data-state="open"][data-side]'
+      ) as HTMLElement | null
+
+      expect(content).not.toBeNull()
+      expect(content).toHaveAttribute('data-side', 'top')
+    })
+  },
+}
+
+export const AutoCollisionNearTop: Story = {
+  args: {
+    label: 'Select near top',
+    items: baseItems,
+  },
+  parameters: {
+    layout: 'fullscreen',
+  },
+  decorators: [
+    Story => (
+      <div
+        style={{
+          width: '100%',
+          height: '95vh',
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          padding: '4px',
+          boxSizing: 'border-box',
+        }}
+      >
+        <div style={{ width: '200px' }}>
+          <Story />
+        </div>
+      </div>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole('combobox', { name: 'Select near top' })
+
+    await userEvent.click(trigger)
+
+    await waitFor(() => {
+      const content = canvasElement.ownerDocument.querySelector(
+        '[data-state="open"][data-side]'
+      ) as HTMLElement | null
+
+      expect(content).not.toBeNull()
+      expect(content).toHaveAttribute('data-side', 'bottom')
+    })
   },
 }

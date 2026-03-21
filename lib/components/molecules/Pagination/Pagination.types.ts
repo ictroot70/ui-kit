@@ -14,6 +14,11 @@ export interface PaginationProps {
   totalItems?: number;
   /** Number of items shown per page. */
   itemsPerPage?: number;
+  /**
+   * Optional page-size options for the selector.
+   * If omitted, defaults to `[10, 20, 30, 50, 100]`.
+   */
+  pageSizeOptions?: number[];
   /** Called when current page changes. Receives a clamped 1-based page index. */
   onPageChange: (page: number) => void;
   /**

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { useState } from 'react';
 import { Pagination } from './Pagination';
  
@@ -9,6 +10,7 @@ const meta: Meta<typeof Pagination> = {
   argTypes: {
     onPageChange: { action: 'pageChanged' },
     onItemsPerPageChange: { action: 'itemsPerPageChanged' },
+    pageSizeOptions: { control: 'object' },
   },
   parameters: {
     layout: 'centered',
@@ -92,6 +94,26 @@ export const SinglePage: Story = {
   name: 'Single Page (100 items)',
 };
 
+export const CustomPageSizeOptions: Story = {
+  ...Template,
+  args: {
+    ...Template.args,
+    pageSizeOptions: [25, 50, 100],
+    itemsPerPage: 25,
+  },
+  name: 'Custom Page Sizes (25/50/100)',
+};
+
+export const CurrentSizeNotInOptions: Story = {
+  ...Template,
+  args: {
+    ...Template.args,
+    pageSizeOptions: [10, 20, 30],
+    itemsPerPage: 15,
+  },
+  name: 'Current Size Not In Options',
+};
+
 export const InsideComponent: Story = {
   ...Template,
   args: {
@@ -109,4 +131,45 @@ export const MobileView: Story = {
     },
   },
   name: 'Mobile View',
+};
+
+export const BottomEdgeSelectOpensUp: Story = {
+  ...Template,
+  parameters: {
+    layout: 'fullscreen',
+  },
+  decorators: [
+    Story => (
+      <div
+        style={{
+          width: '100%',
+          height: '95vh',
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'center',
+          backgroundColor: 'black',
+          padding: '4px',
+          boxSizing: 'border-box',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const selectTrigger = canvas.getByRole('combobox');
+
+    await userEvent.click(selectTrigger);
+
+    await waitFor(() => {
+      const content = canvasElement.ownerDocument.querySelector(
+        '[data-state="open"][data-side]'
+      ) as HTMLElement | null;
+
+      expect(content).not.toBeNull();
+      expect(content).toHaveAttribute('data-side', 'top');
+    });
+  },
+  name: 'Bottom Edge (Select Opens Up)',
 };
