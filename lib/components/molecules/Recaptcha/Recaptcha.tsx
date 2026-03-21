@@ -1,4 +1,4 @@
-import { ComponentClass, forwardRef, ReactElement } from 'react'
+import { Component, ComponentClass, LegacyRef, forwardRef, ReactElement } from 'react'
 import {
   default as ReCAPTCHA,
   ReCAPTCHA as ReCAPTCHAInstance,
@@ -95,6 +95,9 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
       markAsFailed()
     }
 
+    // Keep forwarded ref support while normalizing cross-env React type mismatches.
+    const compatRef = ref as unknown as LegacyRef<Component<ReCAPTCHAProps>>
+
     return (
       <div
         className={clsx(s.container, {
@@ -105,7 +108,7 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
       >
         <div className={s.recaptchaWrapper}>
           <ReCAPTCHACompat
-            ref={ref}
+            ref={compatRef}
             hl={'en'}
             theme={'dark'}
             className={'recaptcha-core'}
