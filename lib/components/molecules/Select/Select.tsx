@@ -1,6 +1,5 @@
 import { type ComponentRef, forwardRef, ReactNode, useId } from 'react'
 
-import * as ScrollArea from '@radix-ui/react-scroll-area'
 import * as RadixSelect from '@radix-ui/react-select'
 import ArrowDownSimple from 'assets/icons/components/ArrowDownSimple'
 import { clsx } from 'clsx'
@@ -36,6 +35,10 @@ export type SelectProps = {
   onValueChange?: (value: string) => void
   collisionPadding?: number | Partial<Record<'top' | 'right' | 'bottom' | 'left', number>>
   avoidCollisions?: boolean
+  side?: 'top' | 'bottom'
+  align?: 'start' | 'center' | 'end'
+  sideOffset?: number
+  alignOffset?: number
   /**
    * @deprecated Use `classNames.trigger`.
    */
@@ -62,7 +65,7 @@ export type SelectProps = {
  * - Supports icons in options
  * - Controlled and uncontrolled value handling
  * - Customizable size via 'size' prop affecting padding, font sizes, and arrow icon size
- * - Scroll buttons for long lists (if max-height is set)
+ * - Collision-aware popper positioning with configurable side/alignment
  *
  * ## Example usage:
  * ```tsx
@@ -91,6 +94,11 @@ export type SelectProps = {
  * - `props.id` - Optional id for the select trigger
  * - `props.size` - Determines the size of the select component, affecting padding, font size, and icon size. Available options are 'medium' or 'small'.
  * - `props.collisionPadding` - The padding between the content and the viewport edge. Can be a single number or a partial object of paddings. Defaults to `20`.
+ * - `props.avoidCollisions` - Enables adaptive placement when there is not enough space. Defaults to `true`.
+ * - `props.side` - Preferred dropdown side (`'top' | 'bottom'`). Defaults to `'bottom'`.
+ * - `props.align` - Alignment against the trigger (`'start' | 'center' | 'end'`). Defaults to `'start'`.
+ * - `props.sideOffset` - Distance (px) between trigger and content along the side axis. Defaults to `0`.
+ * - `props.alignOffset` - Distance (px) along the alignment axis. Defaults to `0`.
  * - `props.classNames` - An object of custom class names for the component's parts, allowing for targeted style overrides. Can include `label`, `trigger`, `content`, and `item`.
  *
  * @todo SCRUM-26 (tech debt): after one stable cycle, remove deprecated `className`, `contentClassName`, and `labelClassName`
@@ -116,7 +124,11 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
       size = 'medium',
       onValueChange,
       collisionPadding = 20,
-      avoidCollisions = false,
+      avoidCollisions = true,
+      side = 'bottom',
+      align = 'start',
+      sideOffset = 0,
+      alignOffset = 0,
       classNames = {},
       ...rest
     },
@@ -170,36 +182,32 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
               position={'popper'}
               avoidCollisions={avoidCollisions}
               collisionPadding={collisionPadding}
+              side={side}
+              align={align}
+              sideOffset={sideOffset}
+              alignOffset={alignOffset}
               className={clsx(s.content, classNames.content, contentClassName)}
             >
-              <ScrollArea.Root type={'auto'}>
-                <RadixSelect.Viewport asChild>
-                  <ScrollArea.Viewport>
-                    {items.map(item => (
-                      <RadixSelect.Item
-                        key={item.value}
-                        value={item.value}
-                        data-slot={'item'}
-                        className={clsx(s.item, classNames.item, s[`item--${size}`])}
+              <RadixSelect.Viewport>
+                {items.map(item => (
+                  <RadixSelect.Item
+                    key={item.value}
+                    value={item.value}
+                    data-slot={'item'}
+                    className={clsx(s.item, classNames.item, s[`item--${size}`])}
+                  >
+                    <RadixSelect.ItemText asChild>
+                      <Typography
+                        variant={size === 'small' ? 'regular_14' : 'regular_16'}
+                        className={s.list}
+                        data-slot={'item-text'}
                       >
-                        <RadixSelect.ItemText asChild>
-                          <Typography
-                            variant={size === 'small' ? 'regular_14' : 'regular_16'}
-                            className={s.list}
-                            data-slot={'item-text'}
-                          >
-                            {item.icon && item.icon} {item.label}
-                          </Typography>
-                        </RadixSelect.ItemText>
-                      </RadixSelect.Item>
-                    ))}
-                  </ScrollArea.Viewport>
-                </RadixSelect.Viewport>
-
-                <ScrollArea.Scrollbar orientation={'vertical'}>
-                  <ScrollArea.Thumb />
-                </ScrollArea.Scrollbar>
-              </ScrollArea.Root>
+                        {item.icon && item.icon} {item.label}
+                      </Typography>
+                    </RadixSelect.ItemText>
+                  </RadixSelect.Item>
+                ))}
+              </RadixSelect.Viewport>
             </RadixSelect.Content>
           </RadixSelect.Portal>
         </RadixSelect.Root>
