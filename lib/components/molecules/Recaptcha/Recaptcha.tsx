@@ -1,4 +1,4 @@
-import { forwardRef, ReactElement } from 'react'
+import { ComponentClass, forwardRef, ReactElement } from 'react'
 import {
   default as ReCAPTCHA,
   ReCAPTCHA as ReCAPTCHAInstance,
@@ -15,6 +15,13 @@ import {
 } from 'components/molecules/Recaptcha/hook'
 
 import s from 'components/molecules/Recaptcha/Recaptcha.module.scss'
+
+/**
+ * Type compatibility shim for environments where `@types/react` versions can differ
+ * between the host app and `@types/react-google-recaptcha` (commonly in Yarn installs).
+ * We keep runtime behavior intact and only normalize JSX typing.
+ */
+const ReCAPTCHACompat = ReCAPTCHA as unknown as ComponentClass<ReCAPTCHAProps>
 
 /**
  * @interface RecaptchaProps
@@ -97,7 +104,7 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
         })}
       >
         <div className={s.recaptchaWrapper}>
-          <ReCAPTCHA
+          <ReCAPTCHACompat
             ref={ref}
             hl={'en'}
             theme={'dark'}
