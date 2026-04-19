@@ -4,8 +4,16 @@ import { forwardRef } from 'react'
 
 import { IconWrapper } from '../IconWrapper'
 
-const BellOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
-  const { svgProps: props, ...restProps } = allProps
+type BellOutlineProps = IconProps & {
+  notificationCount?: number
+}
+
+const BellOutline = forwardRef<HTMLSpanElement, BellOutlineProps>((allProps, ref) => {
+  const { svgProps: props, notificationCount, ...restProps } = allProps
+
+  const badgeLabel = notificationCount !== undefined
+    ? notificationCount > 99 ? '99+' : String(notificationCount)
+    : null
 
   return (
     <IconWrapper
@@ -27,6 +35,26 @@ const BellOutline = forwardRef<HTMLSpanElement, IconProps>((allProps, ref) => {
             }
             clipRule={'evenodd'}
           />
+
+          {badgeLabel !== null && (
+            <>
+              <circle cx={17.5} cy={6.5} r={6.5} fill={'#CC1439'} />
+              <text
+                x={17.5}
+                y={6}
+                textAnchor={'middle'}
+                dominantBaseline={'central'}
+                fill={'#fff'}
+                fontSize={badgeLabel.length > 2 ? 6.5 : 10}
+                fontWeight={500}
+                fontFamily={'Inter, sans-serif'}
+                letterSpacing={0}
+              >
+                {badgeLabel}
+              </text>
+            </>
+          )}
+
         </svg>
       }
       {...restProps}
