@@ -1,6 +1,9 @@
-import clsx from 'clsx'
-import styles from '../Pagination.module.scss'
+import React from 'react'
+
+import { clsx } from 'clsx'
 import { Typography } from 'components/atoms/Typography'
+
+import styles from '../Pagination.module.scss'
 
 interface PaginationButtonProps {
   children: React.ReactNode
@@ -31,7 +34,7 @@ export const PaginationButton = ({
 
   return (
     <button
-      type="button"
+      type={'button'}
       className={clsx(
         styles.buttonBase,
         active ? styles.buttonActive : styles.buttonInactive,

@@ -7,6 +7,7 @@ import { clsx } from 'clsx'
 import { Typography } from 'components/atoms'
 
 import s from './Modal.module.scss'
+
 import { ModalFrame } from './ModalFrame'
 
 type BaseProps = {

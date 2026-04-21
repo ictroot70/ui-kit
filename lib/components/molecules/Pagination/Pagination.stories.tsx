@@ -1,8 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { useState } from 'react';
-import { Pagination } from './Pagination';
- 
+/* eslint-disable storybook/no-redundant-story-name */
+import type { Meta, StoryObj } from '@storybook/react'
+
+import { useState } from 'react'
+
+import { expect, userEvent, waitFor, within } from '@storybook/test'
+
+import { Pagination } from './Pagination'
+
 const meta: Meta<typeof Pagination> = {
   title: 'Components/Pagination',
   component: Pagination,
@@ -15,23 +19,25 @@ const meta: Meta<typeof Pagination> = {
   parameters: {
     layout: 'centered',
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Pagination>;
+export default meta
+type Story = StoryObj<typeof Pagination>
 
 const PaginationWithState = (args: any) => {
-  const [page, setPage] = useState(args.currentPage || 1);
-  const [itemsPerPage, setItemsPerPage] = useState(args.itemsPerPage || 10);
+  const [page, setPage] = useState(args.currentPage || 1)
+  const [itemsPerPage, setItemsPerPage] = useState(args.itemsPerPage || 10)
 
   return (
-    <div style={{
-      minWidth: '800px',
-      padding: '20px',
-      position: 'relative',
-      height: '100px',
-      backgroundColor: 'black'
-    }}>
+    <div
+      style={{
+        minWidth: '800px',
+        padding: '20px',
+        position: 'relative',
+        height: '100px',
+        backgroundColor: 'black',
+      }}
+    >
       <Pagination
         {...args}
         currentPage={page}
@@ -41,21 +47,21 @@ const PaginationWithState = (args: any) => {
         className={args.className}
       />
     </div>
-  );
-};
+  )
+}
 
 const Template: Story = {
-  render: (args) => <PaginationWithState {...args} />,
+  render: args => <PaginationWithState {...args} />,
   args: {
     totalItems: 120,
     currentPage: 1,
     itemsPerPage: 10,
   } as any,
-};
+}
 
 export const Default: Story = {
-  ...Template
-};
+  ...Template,
+}
 
 export const ManyPages: Story = {
   ...Template,
@@ -65,7 +71,7 @@ export const ManyPages: Story = {
     currentPage: 25,
   },
   name: 'Many Pages (500 items)',
-};
+}
 
 export const FewItems: Story = {
   ...Template,
@@ -74,7 +80,7 @@ export const FewItems: Story = {
     totalItems: 15,
   },
   name: 'Few Items (15 items)',
-};
+}
 
 export const LargeItemsPerPage: Story = {
   ...Template,
@@ -83,7 +89,7 @@ export const LargeItemsPerPage: Story = {
     itemsPerPage: 50,
   },
   name: '50 Items Per Page',
-};
+}
 
 export const SinglePage: Story = {
   ...Template,
@@ -92,7 +98,7 @@ export const SinglePage: Story = {
     itemsPerPage: 100,
   },
   name: 'Single Page (100 items)',
-};
+}
 
 export const CustomPageSizeOptions: Story = {
   ...Template,
@@ -102,7 +108,7 @@ export const CustomPageSizeOptions: Story = {
     itemsPerPage: 25,
   },
   name: 'Custom Page Sizes (25/50/100)',
-};
+}
 
 export const CurrentSizeNotInOptions: Story = {
   ...Template,
@@ -112,7 +118,7 @@ export const CurrentSizeNotInOptions: Story = {
     itemsPerPage: 15,
   },
   name: 'Current Size Not In Options',
-};
+}
 
 export const InsideComponent: Story = {
   ...Template,
@@ -121,7 +127,7 @@ export const InsideComponent: Story = {
     className: 'insideComponent',
   },
   name: 'Inside Component',
-};
+}
 
 export const MobileView: Story = {
   ...Template,
@@ -131,7 +137,7 @@ export const MobileView: Story = {
     },
   },
   name: 'Mobile View',
-};
+}
 
 export const BottomEdgeSelectOpensUp: Story = {
   ...Template,
@@ -157,19 +163,19 @@ export const BottomEdgeSelectOpensUp: Story = {
     ),
   ],
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const selectTrigger = canvas.getByRole('combobox');
+    const canvas = within(canvasElement)
+    const selectTrigger = canvas.getByRole('combobox')
 
-    await userEvent.click(selectTrigger);
+    await userEvent.click(selectTrigger)
 
     await waitFor(() => {
       const content = canvasElement.ownerDocument.querySelector(
         '[data-state="open"][data-side]'
-      ) as HTMLElement | null;
+      ) as HTMLElement | null
 
-      expect(content).not.toBeNull();
-      expect(content).toHaveAttribute('data-side', 'top');
-    });
+      expect(content).not.toBeNull()
+      expect(content).toHaveAttribute('data-side', 'top')
+    })
   },
   name: 'Bottom Edge (Select Opens Up)',
-};
+}

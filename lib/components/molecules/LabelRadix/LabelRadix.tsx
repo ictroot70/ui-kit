@@ -83,7 +83,12 @@ export const LabelRadix = (props: LabelRadixProps): ReactElement => {
       aria-required={required}
       id={id}
       aria-disabled={disabled}
-      className={clsx(styles.label, invalid && styles.invalid, disabled && styles.disabled, className)}
+      className={clsx(
+        styles.label,
+        invalid && styles.invalid,
+        disabled && styles.disabled,
+        className
+      )}
       htmlFor={htmlFor}
       {...rest}
     >

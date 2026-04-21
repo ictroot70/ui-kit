@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { expect, within } from '@storybook/test'
 
 import labelRadixStyles from '../LabelRadix/LabelRadix.module.scss'

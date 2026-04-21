@@ -1,14 +1,14 @@
+import { ArrowBackSimple, ArrowForwardSimple } from 'assets/icons'
+import { clsx } from 'clsx'
+import { Typography } from 'components/atoms'
+import { Select } from 'components/molecules/Select'
 
-import clsx from 'clsx';
-import styles from './Pagination.module.scss';
-import { Select } from 'components/molecules/Select';
-import { Typography } from 'components/atoms';
-import { PaginationProps } from './Pagination.types';
+import styles from './Pagination.module.scss'
 
-import { ArrowBackSimple, ArrowForwardSimple } from 'assets/icons';
-import { usePagination } from './hooks/usePagination/usePagination';
-import { PaginationButton } from './PaginationButton/PaginationButton';
-import { PaginationEllipsis } from './PaginationEllipsis/PaginationEllipsis';
+import { PaginationProps } from './Pagination.types'
+import { PaginationButton } from './PaginationButton/PaginationButton'
+import { PaginationEllipsis } from './PaginationEllipsis/PaginationEllipsis'
+import { usePagination } from './hooks/usePagination/usePagination'
 
 /**
  * Pagination control with optional page-size selector.
@@ -43,23 +43,23 @@ export const Pagination = ({
     pageSizeOptions,
     onPageChange,
     onItemsPerPageChange,
-  });
+  })
 
   return (
     <div className={clsx(styles.paginationRoot, className)}>
-      <nav className={styles.paginationNav} aria-label="Pagination">
+      <nav className={styles.paginationNav} aria-label={'Pagination'}>
         <div className={styles.paginationControls}>
           <PaginationButton
             onClick={() => onPageChange(Math.max(1, safeCurrentPage - 1))}
             disabled={safeCurrentPage === 1}
             className={styles.navButton}
-            ariaLabel="Previous page"
+            ariaLabel={'Previous page'}
           >
             <ArrowBackSimple />
           </PaginationButton>
 
           <div className={styles.paginationPages}>
-            {visiblePages.map((page) => {
+            {visiblePages.map(page => {
               if (typeof page !== 'number') {
                 return (
                   <PaginationEllipsis
@@ -72,8 +72,9 @@ export const Pagination = ({
                     onInputBlur={handlePageInputBlur}
                     onKeyDown={handleKeyDown}
                   />
-                );
+                )
               }
+
               return (
                 <PaginationButton
                   key={page}
@@ -85,7 +86,7 @@ export const Pagination = ({
                 >
                   {page}
                 </PaginationButton>
-              );
+              )
             })}
           </div>
 
@@ -93,14 +94,14 @@ export const Pagination = ({
             onClick={() => onPageChange(Math.min(totalPages, safeCurrentPage + 1))}
             disabled={safeCurrentPage === totalPages}
             className={styles.navButton}
-            ariaLabel="Next page"
+            ariaLabel={'Next page'}
           >
             <ArrowForwardSimple />
           </PaginationButton>
         </div>
         {onItemsPerPageChange && (
           <div className={styles.itemsPerPageWrapper}>
-            <Typography variant="regular_14" className={styles.itemsPerPageLabel}>
+            <Typography variant={'regular_14'} className={styles.itemsPerPageLabel}>
               Show
             </Typography>
 
@@ -108,8 +109,10 @@ export const Pagination = ({
               items={selectOptions}
               size={'small'}
               value={selectValue}
-              onValueChange={(value) => {
-                if (value) handleItemsPerPageChange(Number(value));
+              onValueChange={value => {
+                if (value) {
+                  handleItemsPerPageChange(Number(value))
+                }
               }}
               classNames={{
                 content: styles.paginationSelectContent,
@@ -119,12 +122,12 @@ export const Pagination = ({
               placeholder={selectValue}
             />
 
-            <Typography variant="regular_14" className={styles.itemsPerPageLabel}>
+            <Typography variant={'regular_14'} className={styles.itemsPerPageLabel}>
               on page
             </Typography>
           </div>
         )}
       </nav>
     </div>
-  );
-};
+  )
+}

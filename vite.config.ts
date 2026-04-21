@@ -1,8 +1,9 @@
+import type { OutputBundle, OutputOptions } from 'rollup'
+
 import { join, resolve } from 'path'
 
 import react from '@vitejs/plugin-react'
 import analize from 'rollup-plugin-analyzer'
-import type { OutputBundle, OutputOptions } from 'rollup'
 import { defineConfig, type Plugin } from 'vite'
 import dts from 'vite-plugin-dts'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -29,10 +30,7 @@ const preserveUseClientDirective = (): Plugin => {
           continue
         }
 
-        if (
-          output.code.startsWith(`'use client';`) ||
-          output.code.startsWith(`"use client";`)
-        ) {
+        if (output.code.startsWith(`'use client';`) || output.code.startsWith(`"use client";`)) {
           continue
         }
 
