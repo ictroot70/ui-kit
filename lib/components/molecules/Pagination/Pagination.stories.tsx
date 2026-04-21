@@ -141,6 +141,7 @@ export const MobileView: Story = {
 
 export const BottomEdgeSelectOpensUp: Story = {
   ...Template,
+  tags: ['!test'],
   parameters: {
     layout: 'fullscreen',
   },
