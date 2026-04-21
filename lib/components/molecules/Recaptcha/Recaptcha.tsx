@@ -1,4 +1,4 @@
-import { forwardRef, ReactElement } from 'react'
+import { Component, ComponentClass, LegacyRef, forwardRef, ReactElement } from 'react'
 import {
   default as ReCAPTCHA,
   ReCAPTCHA as ReCAPTCHAInstance,
@@ -15,6 +15,13 @@ import {
 } from 'components/molecules/Recaptcha/hook'
 
 import s from 'components/molecules/Recaptcha/Recaptcha.module.scss'
+
+/**
+ * Type compatibility shim for environments where `@types/react` versions can differ
+ * between the host app and `@types/react-google-recaptcha` (commonly in Yarn installs).
+ * We keep runtime behavior intact and only normalize JSX typing.
+ */
+const ReCAPTCHACompat = ReCAPTCHA as unknown as ComponentClass<ReCAPTCHAProps>
 
 /**
  * @interface RecaptchaProps
@@ -56,16 +63,40 @@ export interface RecaptchaProps extends ReCAPTCHAProps {
 
 export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
   (props, ref): ReactElement => {
-    const { statusForStorybook, sitekey, onChange, onExpired, ...rest } = props
-    const { visualStatus, setSuccess, setExpired } = useRecaptchaStatus(statusForStorybook)
-
-    const { handleOnChange, handleOnExpired } = useRecaptchaHandlers({
-      setSuccess,
-      setExpired,
+    const {
+      statusForStorybook,
+      sitekey,
       onChange,
       onExpired,
+      onErrored,
+      asyncScriptOnLoad,
+      ...rest
+    } = props
+    const { visualStatus, setSuccess, setExpired, setError } =
+      useRecaptchaStatus(statusForStorybook)
+
+    const { handleOnChange, handleOnExpired, handleOnErrored } = useRecaptchaHandlers({
+      setSuccess,
+      setExpired,
+      setError,
+      onChange,
+      onExpired,
+      onErrored,
     })
-    const { isLoaded, hasTimedOut, markAsLoaded } = useRecaptchaLoadGuard()
+    const { isLoaded, hasTimedOut, markAsLoaded, markAsFailed } = useRecaptchaLoadGuard()
+
+    const handleScriptLoad = () => {
+      markAsLoaded()
+      asyncScriptOnLoad?.()
+    }
+
+    const handleErrored = () => {
+      handleOnErrored()
+      markAsFailed()
+    }
+
+    // Keep forwarded ref support while normalizing cross-env React type mismatches.
+    const compatRef = ref as unknown as LegacyRef<Component<ReCAPTCHAProps>>
 
     return (
       <div
@@ -76,15 +107,16 @@ export const Recaptcha = forwardRef<ReCAPTCHAInstance, RecaptchaProps>(
         })}
       >
         <div className={s.recaptchaWrapper}>
-          <ReCAPTCHA
-            ref={ref}
+          <ReCAPTCHACompat
+            ref={compatRef}
             hl={'en'}
             theme={'dark'}
             className={'recaptcha-core'}
             sitekey={sitekey}
             onChange={handleOnChange}
             onExpired={handleOnExpired}
-            onLoadCapture={markAsLoaded}
+            asyncScriptOnLoad={handleScriptLoad}
+            onErrored={handleErrored}
             {...rest}
           />
         </div>

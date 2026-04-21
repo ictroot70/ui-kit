@@ -6,6 +6,7 @@ type UseRecaptchaStatusReturn = {
   visualStatus: RecaptchaInternalStatus
   setSuccess: () => void
   setExpired: () => void
+  setError: () => void
 }
 type RecaptchaInternalStatus = 'default' | 'error' | 'expired'
 
@@ -45,6 +46,7 @@ export const useRecaptchaStatus = (
 
   const setSuccess = () => setInternalStatus('default')
   const setExpired = () => setInternalStatus('expired')
+  const setError = () => setInternalStatus('error')
 
-  return { visualStatus, setSuccess, setExpired }
+  return { visualStatus, setSuccess, setExpired, setError }
 }

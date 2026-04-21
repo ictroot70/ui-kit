@@ -1,5 +1,6 @@
 import { Popover, PopoverContent, PopoverPortal, PopoverTrigger } from '@radix-ui/react-popover'
-import { Calendar, CalendarOutline } from 'assets/icons'
+import Calendar from 'assets/icons/components/Calendar'
+import CalendarOutline from 'assets/icons/components/CalendarOutline'
 import { clsx } from 'clsx'
 import { ErrorMessage } from 'components/atoms'
 import { LabelRadix } from 'components/molecules'
@@ -78,6 +79,7 @@ export const DatePickerWrapper: React.FC<DatePickerWrapperProps> = ({
         <LabelRadix
           htmlFor={buttonId}
           required={required}
+          invalid={Boolean(error)}
           className={clsx(s.label, classNames?.label)}
           disabled={disabled}
           data-label-for-datepicker={'true'}

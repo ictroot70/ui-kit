@@ -16,4 +16,25 @@
   color: currentcolor;
 
   @include mixins.display-flex(flex, center, $gap: 8px);
+
+  &.invalid {
+    color: var(--color-danger-500);
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    color: var(--color-dark-100);
+  }
+
+  &.disabled.invalid {
+    color: var(--color-dark-100);
+  }
+}
+
+.invalid {
+  color: inherit;
+}
+
+.disabled {
+  color: inherit;
 }

@@ -1,6 +1,6 @@
 {
   "name": "@ictroot/ui-kit",
-  "version": "1.0.5",
+  "version": "2.0.0-beta.3",
   "description": "Modular and expanded library of components created using Vite, Storybook and Typescript. Suitable for re-used UI elements in various projects",
   "author": "IctRoot",
   "license": "MIT",
@@ -15,14 +15,48 @@
       "import": "./dist/ui-kit.es.js",
       "require": "./dist/ui-kit.cjs.js"
     },
-    "./style.css": "./dist/ui-kit.css"
+    "./icons": {
+      "types": "./dist/assets/icons/index.d.ts",
+      "import": "./dist/icons.es.js",
+      "require": "./dist/icons.cjs.js"
+    },
+    "./datepicker": {
+      "types": "./dist/datepicker.d.ts",
+      "import": "./dist/datepicker.es.js",
+      "require": "./dist/datepicker.cjs.js"
+    },
+    "./toast": {
+      "types": "./dist/toast.d.ts",
+      "import": "./dist/toast.es.js",
+      "require": "./dist/toast.cjs.js"
+    },
+    "./recaptcha": {
+      "types": "./dist/recaptcha.d.ts",
+      "import": "./dist/recaptcha.es.js",
+      "require": "./dist/recaptcha.cjs.js"
+    },
+    "./modal": {
+      "types": "./dist/modal.d.ts",
+      "import": "./dist/modal.es.js",
+      "require": "./dist/modal.cjs.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.es.js",
+      "require": "./dist/client.cjs.js"
+    },
+    "./style.css": "./dist/ui-kit.css",
+    "./fonts/inter.css": "./lib/fonts/inter.css"
   },
   "files": [
-    "dist",
-    "dist/*.css"
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.css",
+    "lib/fonts/inter.css"
   ],
   "sideEffects": [
-    "./dist/ui-kit.css"
+    "./dist/ui-kit.css",
+    "./lib/fonts/inter.css"
   ],
   "scripts": {
     "nps": "nps",
@@ -32,8 +66,14 @@
     "commit": "node scripts/git-commit-message.cjs",
     "generateIndex": "node scripts/generate-index.js",
     "build": "nps generateIndex && vite build && tsc",
+    "size:ci": "node scripts/size-ci-guard.mjs",
+    "ssr:smoke": "node scripts/ssr-hydration-smoke-next.mjs",
+    "perf:runtime": "node scripts/runtime-profiler-harness.mjs",
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
+    "ai:context:detect": "AI_AGENT_CONFIG_DIR=./ai-agent-config-v2 node ai-agent-config-v2/scripts/detect-project-context-registry.mjs",
+    "ai:context:ensure": "AI_AGENT_CONFIG_DIR=./ai-agent-config-v2 node ai-agent-config-v2/scripts/ensure-ai-context.mjs",
+    "ai:profiles:review": "AI_AGENT_CONFIG_DIR=./ai-agent-config-v2 node ai-agent-config-v2/scripts/review-profiles.mjs",
     "build-storybook": "storybook build"
   },
   "publishConfig": {
@@ -75,7 +115,6 @@
     "@radix-ui/react-tabs": "1.1.11",
     "@radix-ui/react-visually-hidden": "^1.2.3",
     "clsx": "2.1.1",
-    "framer-motion": "12.12.1",
     "lucide-react": "0.510.0",
     "react-day-picker": "9.6.7",
     "react-google-recaptcha": "3.1.0",

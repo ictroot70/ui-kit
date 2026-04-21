@@ -12,7 +12,9 @@ export const useRecaptchaLoadGuard = ({ timeout = 8000 }: UseRecaptchaLoadGuardO
     const timer = setTimeout(() => {
       if (!isLoaded) {
         setHasTimedOut(true)
-        console.error('Recaptcha failed to load.')
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('Recaptcha failed to load.')
+        }
       }
     }, timeout)
 
@@ -22,6 +24,12 @@ export const useRecaptchaLoadGuard = ({ timeout = 8000 }: UseRecaptchaLoadGuardO
   return {
     isLoaded,
     hasTimedOut,
-    markAsLoaded: () => setIsLoaded(true),
+    markAsLoaded: () => {
+      setIsLoaded(true)
+      setHasTimedOut(false)
+    },
+    markAsFailed: () => {
+      setHasTimedOut(true)
+    },
   }
 }

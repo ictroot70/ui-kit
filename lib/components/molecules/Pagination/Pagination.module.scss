@@ -1,0 +1,293 @@
+@use '@/styles/mixins' as mixins;
+@use '@/styles/function' as function;
+
+.paginationRoot {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: function.px-to-unit(20);
+  width: max-content;
+  background: transparent;
+  min-height: function.px-to-unit(24);
+}
+
+.paginationNav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: function.px-to-unit(32);
+  width: max-content;
+}
+
+.navButton {
+  p {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: function.px-to-unit(8);
+}
+
+.paginationPages {
+  display: flex;
+  align-items: center;
+  gap: function.px-to-unit(10);
+}
+
+.textStyle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: function.px-to-unit(14);
+  line-height: function.px-to-unit(24);
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+.buttonBase {
+  @extend .textStyle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: function.px-to-unit(4);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  background: transparent;
+  color: var(--color-light-100);
+  width: function.px-to-unit(24);
+  height: function.px-to-unit(24);
+  min-width: auto;
+
+  &:hover:not(.buttonDisabled):not(.buttonActive) {
+    background: var(--color-dark-500);
+  }
+
+  &:focus-visible {
+    border-color: var(--color-primary-700);
+    outline: 1px solid var(--color-primary-700);
+    background: var(--color-dark-700);
+  }
+}
+
+.buttonActive {
+  background: var(--color-light-100);
+  color: var(--color-dark-900);
+  border-color: var(--color-light-100);
+  cursor: default;
+
+  &:focus-visible {
+    background: var(--color-light-100);
+    color: var(--color-dark-900);
+    border-color: var(--color-primary-700);
+    outline: 1px solid var(--color-primary-700);
+    outline-offset: function.px-to-unit(1);
+  }
+}
+
+.buttonInactive {}
+
+.buttonDisabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.ellipsisButton {
+  @extend .buttonBase;
+  background: transparent;
+}
+
+.ellipsisText {
+  @extend .textStyle;
+  color: var(--color-light-100);
+}
+
+.textActive {
+  color: var(--color-dark-900);
+}
+
+.textInactive {
+  color: var(--color-light-100);
+}
+
+.textDisabled {
+  opacity: 0.6;
+}
+
+.pageButton {}
+
+.pageInput {
+  @extend .textStyle;
+  width: function.px-to-unit(24);
+  height: function.px-to-unit(24);
+  padding: 0;
+  border: 1px solid var(--color-dark-300);
+  border-radius: function.px-to-unit(4);
+  text-align: center;
+  background-color: var(--color-light-100);
+  color: var(--color-dark-900);
+
+  &:focus {
+    border-color: var(--color-primary-700);
+    outline: none;
+  }
+}
+
+// Keep ellipsis input readable even if host app overrides global <input> colors.
+.paginationRoot .pageInput {
+  color: var(--color-dark-900);
+  -webkit-text-fill-color: var(--color-dark-900);
+  caret-color: var(--color-dark-900);
+  background-color: var(--color-light-100);
+}
+
+.itemsPerPageWrapper {
+  display: flex;
+  align-items: center;
+  gap: function.px-to-unit(8);
+}
+
+.itemsPerPageLabel {
+  color: var(--color-light-100);
+  white-space: nowrap;
+}
+
+.paginationSelect {
+  &Trigger {
+    @extend .textStyle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    --select-trigger-small-padding-left: #{function.px-to-unit(5)};
+    --select-trigger-small-padding-right: 0;
+    --select-value-padding-right: #{function.px-to-unit(5)};
+    --select-icon-margin-right: #{function.px-to-unit(2)};
+    width: function.px-to-unit(50) !important;
+    min-width: function.px-to-unit(50) !important;
+    max-width: function.px-to-unit(50) !important;
+    min-height: function.px-to-unit(24) !important;
+    height: function.px-to-unit(24) !important;
+    border: 1px solid var(--color-dark-300) !important;
+    border-radius: function.px-to-unit(2) !important;
+    background-color: var(--color-dark-700) !important;
+    color: var(--color-light-100);
+    cursor: pointer;
+    gap: 0 !important;
+    transition: border-color 0.2s, background-color 0.2s;
+
+    &:hover {
+      background-color: var(--color-dark-500) !important;
+    }
+
+    &:focus-visible {
+      border-color: var(--color-primary-700) !important;
+      outline: 1px solid var(--color-primary-700) !important;
+      background-color: var(--color-dark-700) !important;
+    }
+  }
+
+  &Content {
+    width: function.px-to-unit(50);
+    background-color: var(--color-dark-900);
+    border-radius: function.px-to-unit(4);
+    border: 1px solid var(--color-dark-300);
+    box-shadow: 0 function.px-to-unit(2) function.px-to-unit(10) rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: hidden;
+  }
+
+  &Viewport {
+    padding: function.px-to-unit(4) 0;
+    width: 100%;
+  }
+
+  &Item {
+    @extend .textStyle;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: function.px-to-unit(6);
+    padding-right: function.px-to-unit(6);
+    padding-top: function.px-to-unit(6);
+    padding-bottom: function.px-to-unit(6);
+    cursor: pointer;
+    outline: none;
+    color: var(--color-light-100);
+    text-align: left;
+
+    &[data-highlighted] {
+      background-color: var(--color-dark-500);
+    }
+
+    &[data-state='checked'] {
+      background-color: var(--color-dark-500);
+      font-weight: 400;
+    }
+  }
+
+  &ScrollButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: function.px-to-unit(25);
+    background-color: var(--color-dark-900);
+    color: var(--color-light-100);
+    cursor: default;
+  }
+}
+
+.paginationSelectTrigger {
+  [data-slot='icon'] {
+    width: function.px-to-unit(15) !important;
+    height: function.px-to-unit(15) !important;
+  }
+
+  [data-slot='value'] {
+    text-align: left;
+  }
+}
+
+.paginationSelectContent {
+  [data-slot='item-text'] {
+    justify-content: flex-start !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .paginationNav {
+    flex-direction: column;
+    gap: function.px-to-unit(12);
+    width: 100%;
+  }
+
+  .itemsPerPageWrapper {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .paginationSelect {
+    &Trigger {
+      width: function.px-to-unit(50) !important;
+      min-width: function.px-to-unit(50) !important;
+      max-width: function.px-to-unit(50) !important;
+    }
+
+    &Content {
+      width: function.px-to-unit(50);
+    }
+  }
+}

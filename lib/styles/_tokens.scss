@@ -1,8 +1,6 @@
-@use 'mixins' as *;
-
 :root {
   /* outlines */
-  --color-outline-focus: var(--color-info-900);
+  --color-outline-focus: var(--color-primary-700);
   --outline-focus: 2px solid var(--color-outline-focus);
 
   /* transitions */
@@ -18,7 +16,23 @@
   --horizontal-padding: 16px;
   --max-width: calc(1005px + var(--horizontal-padding) * 2);
 
-  @include md-up {
+  /* select */
+  --select-value-padding-right: 0.5rem;
+  --select-icon-margin-right: 0.25rem;
+  --select-trigger-padding-top: 0.375rem;
+  --select-trigger-padding-right: 0.75rem;
+  --select-trigger-padding-bottom: 0.375rem;
+  --select-trigger-padding-left: 0.75rem;
+  --select-trigger-small-padding-left: 0.375rem;
+  --select-trigger-small-padding-right: 0.125rem;
+  --select-item-padding-top: 0.375rem;
+  --select-item-padding-right: 0.75rem;
+  --select-item-padding-bottom: 0.375rem;
+  --select-item-padding-left: 0.75rem;
+  --select-item-gap: 0.5rem;
+  --select-item-font-size: 16px;
+
+  @media (min-width: 768px) {
     --horizontal-padding: 24px;
   }
 }

@@ -1,0 +1,15 @@
+{
+  "name": "next-ssr-smoke-fixture",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@ictroot/ui-kit": "file:./vendor/ui-kit-smoke.tgz",
+    "next": "^14.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

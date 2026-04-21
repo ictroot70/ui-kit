@@ -32,7 +32,9 @@ export const Typography = forwardRef<HTMLParagraphElement, TypographyProps>(
   ({ asChild = false, className, variant = 'regular_14', children, ...props }, ref) => {
     if (asChild) {
       if (React.Children.count(children) !== 1 || !React.isValidElement(children)) {
-        console.error('Typography with `asChild` expects a single React element as a child.')
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('Typography with `asChild` expects a single React element as a child.')
+        }
 
         return (
           <p {...props} ref={ref} className={clsx(s[variant], className)}>

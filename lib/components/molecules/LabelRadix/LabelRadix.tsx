@@ -8,6 +8,7 @@ import styles from './LabelRadix.module.scss'
 
 export interface LabelRadixProps extends ComponentPropsWithoutRef<typeof Label> {
   disabled?: boolean
+  invalid?: boolean
   children?: ReactNode
   label?: ReactNode
   required?: boolean
@@ -48,6 +49,7 @@ export interface LabelRadixProps extends ComponentPropsWithoutRef<typeof Label> 
  * @param props.children - Optional child nodes, typically form inputs; not used for the label text
  * @param props.required - Whether the associated field is required (adds `aria-required` and `*`)
  * @param props.disabled - Whether the label is for a disabled input (adds `aria-disabled`)
+ * @param props.invalid - Whether the label should be styled as invalid/error
  * @param props.typographyVariant - Typography variant for the label text (e.g. `'regular_14'`); defaults to `'regular_14'`
  * @param props.htmlFor - Associates the label with a form element via its `id`
  * @param props.className - Additional CSS class names
@@ -61,6 +63,7 @@ export const LabelRadix = (props: LabelRadixProps): ReactElement => {
     typographyVariant = 'regular_14',
     htmlFor,
     disabled,
+    invalid,
     required,
     children,
     label,
@@ -80,7 +83,7 @@ export const LabelRadix = (props: LabelRadixProps): ReactElement => {
       aria-required={required}
       id={id}
       aria-disabled={disabled}
-      className={clsx(styles.label, className)}
+      className={clsx(styles.label, invalid && styles.invalid, disabled && styles.disabled, className)}
       htmlFor={htmlFor}
       {...rest}
     >

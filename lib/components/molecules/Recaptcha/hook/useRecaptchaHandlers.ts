@@ -1,12 +1,15 @@
 type RecaptchaHandlers = {
   handleOnChange: (token: string | null) => void
   handleOnExpired: () => void
+  handleOnErrored: () => void
 }
 type Props = {
   setSuccess: () => void
   setExpired: () => void
+  setError: () => void
   onChange?: (token: string | null) => void
   onExpired?: () => void
+  onErrored?: () => void
 }
 /**
  * The `useRecaptchaHandlers` hook returns standardized event handlers for Google reCAPTCHA.
@@ -33,9 +36,12 @@ type Props = {
  */
 
 export const useRecaptchaHandlers = (props: Props): RecaptchaHandlers => {
-  const { setSuccess, setExpired, onChange, onExpired } = props
+  const { setSuccess, setExpired, setError, onChange, onExpired, onErrored } = props
   const handleOnChange = (token: string | null) => {
-    setSuccess()
+    if (token) {
+      setSuccess()
+    }
+
     onChange?.(token)
   }
 
@@ -44,5 +50,10 @@ export const useRecaptchaHandlers = (props: Props): RecaptchaHandlers => {
     onExpired?.()
   }
 
-  return { handleOnChange, handleOnExpired }
+  const handleOnErrored = () => {
+    setError()
+    onErrored?.()
+  }
+
+  return { handleOnChange, handleOnExpired, handleOnErrored }
 }

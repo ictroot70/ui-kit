@@ -11,8 +11,8 @@
   min-width: function.px-to-unit(240);
   max-width: function.px-to-unit(445);
   height: auto;
-  min-height: function.px-to-unit(36);
-  max-height: function.px-to-unit(60);
+  min-height: var(--ui-kit-alert-min-height, #{function.px-to-unit(36)});
+  max-height: var(--ui-kit-alert-max-height, #{function.px-to-unit(60)});
   margin-bottom: function.px-to-unit(8);
   padding-inline: function.px-to-unit(24);
   border: none;

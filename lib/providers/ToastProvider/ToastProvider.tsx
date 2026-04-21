@@ -63,9 +63,10 @@ export const ToastProvider = (props: ToastProviderProps): React.ReactElement => 
   } = props
 
   const { toasts, showToast, removeToast, pauseToast, resumeToast } = useToastManager({ maxToasts })
+  const contextValue = React.useMemo(() => ({ showToast }), [showToast])
 
   return (
-    <ToastContext.Provider value={{ showToast }}>
+    <ToastContext.Provider value={contextValue}>
       {children}
       <ToastContainer
         toasts={toasts}

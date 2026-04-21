@@ -2,7 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { useState } from 'react'
 
+import { expect, within } from '@storybook/test'
 import { CheckboxRadix } from 'components/molecules/CheckboxRadix/CheckboxRadix'
+
+import labelRadixStyles from '../LabelRadix/LabelRadix.module.scss'
 
 const meta = {
   component: CheckboxRadix,
@@ -60,6 +63,13 @@ export const Controlled: Story = {
     return (
       <CheckboxRadix {...args} checked={checked} onCheckedChange={() => setChecked(!checked)} />
     )
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const label = canvas.getByText('Terms of Service').closest('label')
+
+    await expect(label).not.toBeNull()
+    await expect(label).toHaveClass(labelRadixStyles.invalid)
   },
 }
 

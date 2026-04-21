@@ -1,0 +1,27 @@
+{
+  "measuredAt": "2026-03-07T13:17:42.095Z",
+  "scenarios": {
+    "input": {
+      "commits": 119,
+      "totalActualDuration": 52.4,
+      "avgActualDuration": 0.44,
+      "maxActualDuration": 5.4
+    },
+    "toast": {
+      "commits": 207,
+      "totalActualDuration": 152.4,
+      "avgActualDuration": 0.736,
+      "maxActualDuration": 10
+    },
+    "datepicker": {
+      "commits": 123,
+      "totalActualDuration": 108,
+      "avgActualDuration": 0.878,
+      "maxActualDuration": 17.2
+    }
+  },
+  "totals": {
+    "commits": 449,
+    "totalActualDuration": 312.8
+  }
+}

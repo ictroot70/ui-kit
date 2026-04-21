@@ -1,0 +1,38 @@
+name: 📏 Size CI Regression Guard
+
+on:
+  pull_request:
+    branches:
+      - 'ui-kit-v2/dev'
+  push:
+    branches:
+      - 'ui-kit-v2/dev'
+  workflow_dispatch:
+
+jobs:
+  size-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      - name: 🧩 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 📦 Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: 🧱 Build package
+        run: pnpm run build
+
+      - name: 📏 Check package size budget
+        run: pnpm run size:ci

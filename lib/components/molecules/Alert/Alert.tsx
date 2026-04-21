@@ -72,12 +72,14 @@ export const Alert = (props: AlertProps): ReactElement => {
     className,
     duration = 4000,
     progressBar = false,
+    progress: externalProgress,
   } = props
-  const progress = useProgressBar(duration, progressBar)
+  const internalProgress = useProgressBar(duration, progressBar && externalProgress === undefined)
+  const progress = externalProgress ?? internalProgress
 
   return (
-    <div className={clsx(styles.alert, styles[type], className)}>
-      <div className={styles.content}>
+    <div className={clsx(styles.alert, styles[type], className)} data-ui-kit-alert>
+      <div className={styles.content} data-ui-kit-alert-content>
         <AlertContent message={message} variant={typographyVariant} title={title} />
         {progressBar && duration !== 0 && <AlertProgressBar progress={progress} />}
       </div>
