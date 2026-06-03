@@ -1,4 +1,5 @@
-import React, { HTMLAttributes, ReactElement, ReactNode, useId } from 'react'
+import React from 'react'
+import { HTMLAttributes, ReactElement, ReactNode, useId } from 'react'
 
 import 'react-day-picker/style.css'
 

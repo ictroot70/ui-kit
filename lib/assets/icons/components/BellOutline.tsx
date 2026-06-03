@@ -11,15 +11,12 @@ type BellOutlineProps = IconProps & {
 const BellOutline = forwardRef<HTMLSpanElement, BellOutlineProps>((allProps, ref) => {
   const { svgProps: props, notificationCount, ...restProps } = allProps
 
-  const getBadgeLabel = (count: number | undefined): string | null => {
-    if (count === undefined || count <= 0) {
-      return null
-    }
+  let badgeLabel: string | null = null
 
-    return count > 99 ? '99+' : String(count)
+  if (notificationCount !== undefined && notificationCount > 0) {
+    badgeLabel = notificationCount > 99 ? '99+' : String(notificationCount)
   }
 
-  const badgeLabel = getBadgeLabel(notificationCount)
 
   return (
     <IconWrapper

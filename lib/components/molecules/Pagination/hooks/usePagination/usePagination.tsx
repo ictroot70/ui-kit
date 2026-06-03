@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 
 import { PageItem } from '../../Pagination.types'
 import { PAGE_SIZE_OPTIONS } from '../../constants/constants'

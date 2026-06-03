@@ -1,4 +1,5 @@
 /* eslint-disable storybook/no-redundant-story-name */
+
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { useState } from 'react'
@@ -117,7 +118,7 @@ export const CurrentSizeNotInOptions: Story = {
     pageSizeOptions: [10, 20, 30],
     itemsPerPage: 15,
   },
-  name: 'Current Size Not In Options',
+  // name: 'Current Size Not In Options',
 }
 
 export const InsideComponent: Story = {
@@ -126,7 +127,7 @@ export const InsideComponent: Story = {
     ...Template.args,
     className: 'insideComponent',
   },
-  name: 'Inside Component',
+  // name: 'Inside Component',
 }
 
 export const MobileView: Story = {
@@ -136,12 +137,11 @@ export const MobileView: Story = {
       defaultViewport: 'mobile1',
     },
   },
-  name: 'Mobile View',
+  // name: 'Mobile View',
 }
 
 export const BottomEdgeSelectOpensUp: Story = {
   ...Template,
-  tags: ['!test'],
   parameters: {
     layout: 'fullscreen',
   },
