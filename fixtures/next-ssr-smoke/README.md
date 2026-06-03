@@ -3,6 +3,7 @@
 This fixture validates that `@ictroot/ui-kit` heavy-module subpaths do not break SSR/hydration in Next.js.
 
 Checked modules:
+
 - `@ictroot/ui-kit/datepicker`
 - `@ictroot/ui-kit/toast`
 - `@ictroot/ui-kit/recaptcha` (with `next/dynamic` and `ssr: false`)

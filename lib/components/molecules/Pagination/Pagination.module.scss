@@ -62,7 +62,10 @@
   border: 1px solid transparent;
   border-radius: function.px-to-unit(4);
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
   background: transparent;
   color: var(--color-light-100);
   width: function.px-to-unit(24);
@@ -95,7 +98,8 @@
   }
 }
 
-.buttonInactive {}
+.buttonInactive {
+}
 
 .buttonDisabled {
   cursor: default;
@@ -124,7 +128,8 @@
   opacity: 0.6;
 }
 
-.pageButton {}
+.pageButton {
+}
 
 .pageInput {
   @extend .textStyle;
@@ -183,7 +188,9 @@
     color: var(--color-light-100);
     cursor: pointer;
     gap: 0 !important;
-    transition: border-color 0.2s, background-color 0.2s;
+    transition:
+      border-color 0.2s,
+      background-color 0.2s;
 
     &:hover {
       background-color: var(--color-dark-500) !important;

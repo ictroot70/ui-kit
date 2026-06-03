@@ -60,6 +60,7 @@ import { Button, DatePickerSingle, ToastProvider } from '@ictroot/ui-kit/client'
 Root import is still supported for DX, but subpath imports are recommended for heavy modules.
 
 Heavy-module subpaths are intentionally limited to:
+
 - `@ictroot/ui-kit/datepicker`
 - `@ictroot/ui-kit/modal`
 - `@ictroot/ui-kit/toast`
@@ -108,6 +109,7 @@ npm run ssr:smoke
 Consumer-visible changes are tracked in [CHANGELOG.md](./CHANGELOG.md).
 
 Before each release:
+
 - add all user-facing updates to `Unreleased` in `CHANGELOG.md`
 - classify entries as `Added`, `Changed`, `Fixed`, or `Breaking`
 - move `Unreleased` notes to a new version section with release date
