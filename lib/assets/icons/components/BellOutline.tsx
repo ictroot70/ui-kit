@@ -17,6 +17,7 @@ const BellOutline = forwardRef<HTMLSpanElement, BellOutlineProps>((allProps, ref
     badgeLabel = notificationCount > 99 ? '99+' : String(notificationCount)
   }
 
+
   return (
     <IconWrapper
       ref={ref}
