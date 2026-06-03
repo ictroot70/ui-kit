@@ -1,3 +1,5 @@
+/* eslint-disable storybook/no-redundant-story-name */
+
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { useState } from 'react'
